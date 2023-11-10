@@ -18,7 +18,7 @@ I Boss di ciascuna taglia saranno tutti diversi quindi ci saranno magari alcuni 
 
 1. clone the repo
 ```bash
-git clone https://github.com/progetto-oop/BountyHunter.git`
+git clone https://github.com/progetto-oop/BountyHunter.git
 ```
 
 2. depends on the system witch run the java applicaton
