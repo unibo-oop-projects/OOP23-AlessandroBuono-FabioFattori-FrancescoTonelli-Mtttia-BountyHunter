@@ -1,4 +1,4 @@
-# BuontyHunter
+# BountyHunter
 
 java 2D game for Objected Oriented Programming final project for University of Bologna
 
@@ -18,7 +18,7 @@ I Boss di ciascuna taglia saranno tutti diversi quindi ci saranno magari alcuni 
 
 1. clone the repo
 ```bash
-git clone https://github.com/progetto-oop/BuontyHunter.git`
+git clone https://github.com/progetto-oop/BountyHunter.git`
 ```
 
 2. depends on the system witch run the java applicaton
