@@ -4,10 +4,80 @@
 package buontyhunter;
 
 import org.junit.jupiter.api.Test;
+
+import buontyhunter.Core.*;
+import buontyhunter.Graphics.PlayerGraphicsComponent;
+import buontyhunter.InputHandlers.KeyBoardController;
+import buontyhunter.InputHandlers.PlayerInputController;
+
 import static org.junit.jupiter.api.Assertions.*;
+import buontyhunter.Models.*;
+import buontyhunter.Common.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
+    @Test void GameConfiguraionHasFPS() {
+        GameConfiguration config = new GameConfiguration();
+        assertFalse(config.getFPS() <= 0);
+    }
 
+    @Test void GameEngineIsProperlyInitialized() {
+        GameEngine engine = new GameEngine();
+        assertNotNull(engine);
+    }
+
+    @Test void GameEngineHasTheProperMethods() {
+        GameEngine engine = new GameEngine();
+        assertDoesNotThrow(()->{
+            engine.inputHandler();
+            engine.update();
+            engine.draw();
+            engine.getGameState().setGameOver(true);
+            engine.gameRun();});
+    }
+
+    @Test void GameFactoryCreateAProperPlayer(){
+        GameObject player = GameFactory.createPlayer();
+        assertEquals(player.getType(),GameObjectType.Player);
+        assertEquals(player.getX(),50);
+        assertEquals(player.getY(),50);
+        assertEquals(player.getSpeed(),6);
+        assertEquals(player.getDamage(), 10);
+        assertEquals(player.getHealt(), 10);
+        assertTrue(player.getGraphicsComponent() instanceof PlayerGraphicsComponent);
+        assertTrue(player.getInputComponent() instanceof PlayerInputController);
+        
+        player = GameFactory.createPlayer(50,50,6,10,10);
+        assertEquals(player.getType(),GameObjectType.Player);
+        assertEquals(player.getX(),50);
+        assertEquals(player.getY(),50);
+        assertEquals(player.getSpeed(),6);
+        assertEquals(player.getDamage(), 10);
+        assertEquals(player.getHealt(), 10);
+        assertTrue(player.getGraphicsComponent() instanceof PlayerGraphicsComponent);
+        assertTrue(player.getInputComponent() instanceof PlayerInputController);
+    }
+
+    @Test void KeyBoardControllerMethods(){
+        KeyBoardController c = new KeyBoardController();
+        assertFalse(c.isMoveDown());
+        assertFalse(c.isMoveLeft());
+        assertFalse(c.isMoveRight());
+        assertFalse(c.isMoveUp());
+        c.notifyMoveDown();
+        c.notifyMoveLeft();
+        c.notifyMoveRight();
+        c.notifyMoveUp();
+        assertTrue(c.isMoveDown());
+        assertTrue(c.isMoveLeft());
+        assertTrue(c.isMoveRight());
+        assertTrue(c.isMoveUp());
+        c.notifyNoMoreMoveDown();
+        c.notifyNoMoreMoveLeft();
+        c.notifyNoMoreMoveRight();
+        c.notifyNoMoreMoveUp();
+        assertFalse(c.isMoveDown());
+        assertFalse(c.isMoveLeft());
+        assertFalse(c.isMoveRight());
+        assertFalse(c.isMoveUp());
     }
 }

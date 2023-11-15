@@ -7,7 +7,11 @@ import buontyhunter.Models.GameObject;
 
 /* this class has methods to create all gameObjects */
 public class GameFactory {
-    public static GameObject createSquare(){
-        return new GameObject(GameObjectType.Bullet,new PlayerGraphicsComponent(),new PlayerInputController(), 10, 10, 50, 50, 6);
+    public static GameObject createPlayer(){
+        return createPlayer(50, 50, 6, 10, 10);
+    }
+
+    public static GameObject createPlayer(int x, int y, int speed,int healt,int damage){
+        return new GameObject(GameObjectType.Player,new PlayerGraphicsComponent(),new PlayerInputController(), healt, damage, x, y, speed);
     }
 }

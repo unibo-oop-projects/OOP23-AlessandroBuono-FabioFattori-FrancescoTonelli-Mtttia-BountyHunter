@@ -58,6 +58,14 @@ public class GameObject{
         return damage;
     }
 
+    public DrawableObject getGraphicsComponent() {
+        return graphicsComponent;
+    }
+
+    public InputComponent getInputComponent() {
+        return inputComponent;
+    }
+
     public int getX() {
         return x;
     }

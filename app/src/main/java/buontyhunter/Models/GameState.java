@@ -14,7 +14,7 @@ public class GameState {
         gameIsOver = false;
 
         gameObjects = new ArrayList<GameObject>();
-        gameObjects.add(GameFactory.createSquare());
+        gameObjects.add(GameFactory.createPlayer());
     }
 
     public boolean isGameOver(){
@@ -27,5 +27,13 @@ public class GameState {
 
     public void addGameObject(GameObject gameObject){
         gameObjects.add(gameObject);
+    }
+
+    public void removeGameObject(GameObject gameObject){
+        gameObjects.remove(gameObject);
+    }
+
+    public void setGameOver(boolean gameIsOver){
+        this.gameIsOver = gameIsOver;
     }
 }

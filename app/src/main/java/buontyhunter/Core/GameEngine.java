@@ -66,4 +66,22 @@ public class GameEngine {
     public void draw() {
         screenHandler.draw();
     }
+
+    /* getter area */
+
+    public ScreenHandlerImpl getScreenHandler() {
+        return screenHandler;
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public GameConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public KeyBoardController getKeyBoardController() {
+        return keyBoardController;
+    }
 }
