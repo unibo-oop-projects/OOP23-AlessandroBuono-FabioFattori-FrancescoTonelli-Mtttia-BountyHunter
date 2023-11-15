@@ -1,4 +1,4 @@
-package buontyhunter.Utils;
+package buontyhunter.Common;
 
 public enum GameObjectType {
     Player, Bullet

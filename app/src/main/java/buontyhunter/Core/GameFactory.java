@@ -1,12 +1,13 @@
 package buontyhunter.Core;
 
+import buontyhunter.Common.GameObjectType;
 import buontyhunter.Graphics.PlayerGraphicsComponent;
+import buontyhunter.InputHandlers.PlayerInputController;
 import buontyhunter.Models.GameObject;
-import buontyhunter.Utils.GameObjectType;
 
 /* this class has methods to create all gameObjects */
-public abstract class GameFactory {
+public class GameFactory {
     public static GameObject createSquare(){
-        return new GameObject(GameObjectType.Bullet,new PlayerGraphicsComponent(), 10, 10, 0, 0, 0);
+        return new GameObject(GameObjectType.Bullet,new PlayerGraphicsComponent(),new PlayerInputController(), 10, 10, 50, 50, 6);
     }
 }

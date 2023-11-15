@@ -1,20 +1,24 @@
 package buontyhunter.Core;
 
-import buontyhunter.Graphics.ScreenHandler;
+import buontyhunter.Graphics.ScreenHandlerImpl;
+import buontyhunter.InputHandlers.KeyBoardController;
+import buontyhunter.Models.GameObject;
+import buontyhunter.Models.GameState;
 
 public class GameEngine {
-    private ScreenHandler screenHandler;
+    private ScreenHandlerImpl screenHandler;
     private GameState gameState;
     private GameConfiguration configuration;
+    private KeyBoardController keyBoardController;
 
-    public GameEngine(){
+    public GameEngine() {
+        this.keyBoardController = new KeyBoardController();
         gameState = new GameState();
-        screenHandler = new ScreenHandler(this.gameState);
+        screenHandler = new ScreenHandlerImpl(this.gameState,this.keyBoardController);
         configuration = new GameConfiguration();
     }
 
-    /* start the game cycle */
-    public void gameRun(){
+    public void gameRun() {
         double drawInterval = (1000000000 / configuration.getFPS());
         double delta = 0;
         long lastTime = System.nanoTime();
@@ -22,7 +26,7 @@ public class GameEngine {
         long timer = 0;
         int drawCount = 0;
 
-        while (gameState.isGameOver()) {
+        while (!gameState.isGameOver()) {
             long currentTime = System.nanoTime();
 
             delta += (currentTime - lastTime) / drawInterval;
@@ -47,18 +51,19 @@ public class GameEngine {
             }
         }
 
-        
     }
 
-    public void inputHandler(){
-        //TODO
+    public void inputHandler() {
+        for (GameObject obj : gameState.getGameObjects()) {
+            obj.inputHadler(keyBoardController);
+        }
     }
 
-    public void update(){
-        //TODO
+    public void update() {
+        // TODO
     }
 
-    public void draw(){
+    public void draw() {
         screenHandler.draw();
     }
 }

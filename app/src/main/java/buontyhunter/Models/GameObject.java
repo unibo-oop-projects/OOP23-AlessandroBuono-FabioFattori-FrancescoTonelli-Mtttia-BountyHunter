@@ -2,12 +2,15 @@ package buontyhunter.Models;
 
 import java.awt.Graphics2D;
 
-import buontyhunter.Graphics.IDrawableObject;
-import buontyhunter.Utils.GameObjectType;
+import buontyhunter.Common.GameObjectType;
+import buontyhunter.Graphics.DrawableObject;
+import buontyhunter.InputHandlers.InputComponent;
+import buontyhunter.InputHandlers.InputController;
 
 /* every thing that appear in the frame is a GameObject */
-public class GameObject implements IGameObject{
-    private final IDrawableObject graphicsComponent;
+public class GameObject{
+    private final DrawableObject graphicsComponent;
+    private final InputComponent inputComponent;
     private GameObjectType type;
     private int healt;
     private int damage;
@@ -15,31 +18,29 @@ public class GameObject implements IGameObject{
     private int y;
     private int speed;
 
-    public GameObject(GameObjectType type,IDrawableObject graphicsHandler, int healt, int damage, int x , int y , int speed){
+    public GameObject(GameObjectType type,DrawableObject graphicsHandler,InputComponent inputComponent, int healt, int damage, int x , int y , int speed){
         this.type = type;
         setHealt(healt);
         setDamage(damage);
         setX(x);
         setY(y);
         setSpeed(speed);
+        this.inputComponent = inputComponent;
         this.graphicsComponent = graphicsHandler;
     }
 
-    @Override
+
     public void update() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
-    @Override
     public void draw(Graphics2D g2d) {
         this.graphicsComponent.draw(this,g2d);
     }
 
-    @Override
-    public void inputHadler() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'inputHadler'");
+    public void inputHadler(InputController c) {
+        this.inputComponent.update(this,c);
     }
 
 
@@ -69,28 +70,28 @@ public class GameObject implements IGameObject{
         return speed;
     }
 
-    private void setHealt(int healt) {
+    public void setHealt(int healt) {
         if (healt <= 0) {
             throw new IllegalArgumentException("Healt must be positive");
         }
         this.healt = healt;
     }
 
-    private void setDamage(int damage) {
+    public void setDamage(int damage) {
         if (damage < 0) {
             throw new IllegalArgumentException("Damage must be positive");
         }
         this.damage = damage;
     }
 
-    private void setX(int x){
+    public void setX(int x){
         if (x < 0) {
             throw new IllegalArgumentException("X must be positive");
         }
         this.x = x;
     }
 
-    private void setY(int y) {
+    public void setY(int y) {
         if (y < 0) {
             throw new IllegalArgumentException("Y must be positive");
         }

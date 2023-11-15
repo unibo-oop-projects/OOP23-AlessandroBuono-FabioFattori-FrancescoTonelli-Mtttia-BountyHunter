@@ -1,8 +1,8 @@
-package buontyhunter.Core;
+package buontyhunter.Models;
 
 import java.util.ArrayList;
 
-import buontyhunter.Models.GameObject;
+import buontyhunter.Core.GameFactory;
 
 /* this class will have all the global variables of the game , like UserMoney ecc.. */
 public class GameState {

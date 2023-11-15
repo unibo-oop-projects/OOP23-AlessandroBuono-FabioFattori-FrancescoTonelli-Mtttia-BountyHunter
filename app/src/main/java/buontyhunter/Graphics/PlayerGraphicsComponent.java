@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 
 import buontyhunter.Models.GameObject;
 
-public class PlayerGraphicsComponent implements IDrawableObject{
+public class PlayerGraphicsComponent implements DrawableObject{
     
 
     public PlayerGraphicsComponent() {
