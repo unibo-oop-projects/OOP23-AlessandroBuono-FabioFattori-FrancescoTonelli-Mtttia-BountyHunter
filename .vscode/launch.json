@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "buontyhunter.App",
+            "projectName": "app"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "bountyhunter.App",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Launch Java App",
             "request": "launch",
             "mainClass": "bountyhunter.App",
