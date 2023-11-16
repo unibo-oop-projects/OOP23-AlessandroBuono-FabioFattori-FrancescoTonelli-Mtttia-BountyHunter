@@ -8,9 +8,11 @@ public class Tile {
     private final BufferedImage image;
     private final boolean isSolid;
     private Point2d point;
+    private int number;
 
-    public Tile(BufferedImage image, boolean isSolid, Point2d point) {
+    public Tile(BufferedImage image, int number, boolean isSolid, Point2d point) {
         this.image = image;
+        this.number = number;
         this.isSolid = isSolid;
         this.point = point;
     }

@@ -3,6 +3,7 @@ package buontyhunter.graphics;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Stroke;
 import buontyhunter.common.Point2d;
@@ -69,12 +70,16 @@ public class SwingGraphics implements Graphics {
 		var firstY = (int) Math.floor(pos.y);
 		var offsetX = pos.x - firstX;
 		var offsetY = pos.y - firstY;
+		var lastX = offsetX > 0 ? GameEngine.WORLD_WIDTH + 1 : GameEngine.WORLD_WIDTH;
+		var lastY = offsetY > 0 ? GameEngine.WORLD_HEIGHT + 1 : GameEngine.WORLD_HEIGHT;
 
 		try {
-			for (int y = firstY; y <= GameEngine.WORLD_HEIGHT; y++) {
-				for (int x = firstX; x <= GameEngine.WORLD_WIDTH; x++) {
-					Point2d tilePos = new Point2d(x - offsetX - screenStartX, y - offsetY - screenStartY);
-					g2.drawImage(tiles.get(x).get(y).getImage(), getXinPixel(tilePos),
+			for (int y = firstY; y < lastY; y++) {
+				for (int x = firstX; x < lastX; x++) {
+				
+					Point2d tilePos = new Point2d(x - offsetX - screenStartX, screenStartY - y + offsetY);
+					var image = tiles.get(y).get(x).getImage().getScaledInstance(getDeltaXinPixel(1), getDeltaYinPixel(1), Image.SCALE_DEFAULT);
+					g2.drawImage(image, getXinPixel(tilePos),
 							getYinPixel(tilePos), null);
 				}
 			}

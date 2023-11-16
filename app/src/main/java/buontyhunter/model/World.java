@@ -30,6 +30,9 @@ public class World {
         if (player != null) {
             player.updatePhysics(dt, null);
         }
+        if (tileManager != null) {
+            tileManager.updatePhysics(dt, null);
+        }
     }
 
     public void notifyWorldEvent(WorldEvent ev) {

@@ -36,6 +36,6 @@ public class GameFactory {
         return new TileManager(GameObjectType.TileManager,
                 new Point2d(-(GameEngine.WORLD_WIDTH / 2), GameEngine.WORLD_HEIGHT / 2), new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
-                new NullInputComponent(), new MapGraphicsComponent(), new NullPhysiscsCompoment());
+                new PlayerInputController(), new MapGraphicsComponent(), new NullPhysiscsCompoment());
     }
 }

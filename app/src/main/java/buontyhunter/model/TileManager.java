@@ -50,7 +50,7 @@ public class TileManager extends GameObject {
             List<Tile> row = new ArrayList<>();
             for (int j = 0; j < tiles.length; j++) {
                 int tileId = Integer.parseInt(tiles[j]);
-                row.add(new Tile(getTileImage(tileId), true, new Point2d(j, i)));
+                row.add(new Tile(getTileImage(tileId), tileId, true, new Point2d(j, i)));
             }
             this.tiles.add(row);
         }
