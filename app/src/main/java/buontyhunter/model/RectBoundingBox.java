@@ -19,7 +19,7 @@ public class RectBoundingBox implements BoundingBox {
 
 	public RectBoundingBox(Point2d point, Point2d point2) {
 		this.point = point;
-		this.height = Math.abs(point.y - point2.y);
+		this.height = Math.abs(point2.y - point.y);
 		this.width = Math.abs(point.x - point2.x);
 	}
 
@@ -28,7 +28,7 @@ public class RectBoundingBox implements BoundingBox {
 	}
 
 	public Point2d getBRCorner() {
-		return new Point2d(point.x + width, point.y - height);
+		return new Point2d(point.x + width, point.y + height);
 	}
 
 	public double getHeight() {

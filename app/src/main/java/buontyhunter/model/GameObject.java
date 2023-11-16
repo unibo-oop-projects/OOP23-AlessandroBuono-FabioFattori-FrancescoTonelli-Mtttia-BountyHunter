@@ -70,7 +70,11 @@ public class GameObject {
         phys.update(dt, this, w);
     }
 
-    public void updateGraphics(Graphics g) {
-        graph.update(this, g);
+    public void updateGraphics(Graphics g, World w) {
+        graph.update(this, g, w);
+    }
+
+    protected void setBBox(BoundingBox box) {
+        this.bbox = box;
     }
 }

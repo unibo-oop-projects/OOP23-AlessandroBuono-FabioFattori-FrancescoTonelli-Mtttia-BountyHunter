@@ -2,6 +2,11 @@ package buontyhunter.model;
 
 import java.util.List;
 
+import java.util.Optional;
+
+import buontyhunter.common.Point2d;
+import buontyhunter.physics.BoundaryCollision;
+
 import java.util.ArrayList;
 
 public class World {
@@ -20,6 +25,7 @@ public class World {
 
     public void setTileManager(TileManager tileManager) {
         this.tileManager = tileManager;
+        laodMap(0);
     }
 
     public void setPlayer(GameObject player) {
@@ -28,10 +34,10 @@ public class World {
 
     public void updateState(long dt) {
         if (player != null) {
-            player.updatePhysics(dt, null);
+            player.updatePhysics(dt, this);
         }
         if (tileManager != null) {
-            tileManager.updatePhysics(dt, null);
+            tileManager.updatePhysics(dt, this);
         }
     }
 
@@ -58,5 +64,29 @@ public class World {
         if (player != null)
             entities.add(player);
         return entities;
+    }
+
+    private void laodMap(int map) {
+        if (tileManager == null)
+            return;
+        var box = tileManager.loadMap(map);
+        mainBBox = box;
+    }
+
+    public Optional<BoundaryCollision> checkCollisionWithBoundaries(Point2d pos, RectBoundingBox box) {
+        Point2d ul = mainBBox.getULCorner();
+        Point2d br = mainBBox.getBRCorner();
+        RectBoundingBox rect = new RectBoundingBox(pos, box.getWidth(), box.getHeight());
+        if (rect.getULCorner().y < ul.y) {
+            return Optional.of(new BoundaryCollision(BoundaryCollision.CollisionEdge.TOP, new Point2d(pos.x, ul.y)));
+        } else if (rect.getBRCorner().y > br.y) {
+            return Optional.of(new BoundaryCollision(BoundaryCollision.CollisionEdge.BOTTOM, new Point2d(pos.x, br.y)));
+        } else if (rect.getBRCorner().x > br.x) {
+            return Optional.of(new BoundaryCollision(BoundaryCollision.CollisionEdge.RIGHT, new Point2d(br.x, pos.y)));
+        } else if (rect.getULCorner().x < ul.x) {
+            return Optional.of(new BoundaryCollision(BoundaryCollision.CollisionEdge.LEFT, new Point2d(ul.x, pos.y)));
+        } else {
+            return Optional.empty();
+        }
     }
 }

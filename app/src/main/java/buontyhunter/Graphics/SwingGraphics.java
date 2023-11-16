@@ -15,6 +15,7 @@ import buontyhunter.model.CircleBoundingBox;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
+import buontyhunter.model.World;
 
 public class SwingGraphics implements Graphics {
 
@@ -51,13 +52,27 @@ public class SwingGraphics implements Graphics {
 		return (int) Math.round(dy * ratioY);
 	}
 
+	private double getHalfWidth() {
+		return GameEngine.WORLD_WIDTH / 2;
+	}
+
+	private double getHalfHeight() {
+		return GameEngine.WORLD_HEIGHT / 2;
+	}
+
 	@Override
-	public void drawPlayer(GameObject obj) {
-		double halfWidth = (GameEngine.WORLD_WIDTH / 2);
-		double halfHeight = (GameEngine.WORLD_HEIGHT / 2);
+	public void drawPlayer(GameObject obj, World w) {
+		double halfWidth = getHalfWidth();
+		double halfHeight = getHalfHeight();
+
 		var pos = obj.getPos();
-		var x = pos.x > halfWidth ? getDeltaXinPixel(halfWidth) : getXinPixel(obj.getPos());
-		var y = pos.y > halfHeight ? getDeltaYinPixel(halfHeight) : getYinPixel(obj.getPos());
+		var bbox = (RectBoundingBox) w.getTileManager().getBBox();
+
+		boolean playerXInCenter = pos.x > halfWidth && pos.x < (bbox.getWidth() + bbox.getULCorner().x) - halfWidth;
+		boolean playerYInCenter = pos.y > halfHeight && pos.y < (bbox.getHeight() + bbox.getULCorner().y) - halfHeight;
+
+		var x = playerXInCenter ? getDeltaXinPixel(halfWidth) : getXinPixel(obj.getPos());
+		var y = playerYInCenter ? getDeltaYinPixel(halfHeight) : getYinPixel(obj.getPos());
 		var height = getDeltaYinPixel(((RectBoundingBox) obj.getBBox()).getHeight());
 		var width = getDeltaXinPixel(((RectBoundingBox) obj.getBBox()).getWidth());
 
@@ -66,17 +81,22 @@ public class SwingGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawMap(TileManager tileManager) {
-		double halfWidth = (GameEngine.WORLD_WIDTH / 2);
-		double halfHeight = (GameEngine.WORLD_HEIGHT / 2);
+	public void drawMap(TileManager tileManager, World w) {
+		double halfWidth = getHalfWidth();
+		double halfHeight = getHalfHeight();
 
-		var pos = tileManager.getPlayer().getPos();
+		var pos = w.getPlayer().getPos();
+		var bbox = (RectBoundingBox) tileManager.getBBox();
 
 		var tiles = tileManager.getTiles();
-		var firstX = pos.x > halfWidth ? (int) Math.floor(pos.x - halfWidth) : 0;
-		var firstY = pos.y > halfHeight ? (int) Math.floor(pos.y - halfHeight) : 0;
-		var offsetX = pos.x > halfWidth ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
-		var offsetY = pos.y > halfHeight ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;
+
+		boolean playerXInCenter = pos.x > halfWidth && pos.x < (bbox.getWidth() + bbox.getULCorner().x) - halfWidth;
+		boolean playerYInCenter = pos.y > halfHeight && pos.y < (bbox.getHeight() + bbox.getULCorner().y) - halfHeight;
+
+		var firstX = playerXInCenter ? (int) Math.floor(pos.x - halfWidth) : 0;
+		var firstY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight) : 0;
+		var offsetX = playerXInCenter ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
+		var offsetY = playerYInCenter ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;
 		var lastX = offsetX > 0 ? firstX + GameEngine.WORLD_WIDTH + 1 : firstX + GameEngine.WORLD_WIDTH;
 		var lastY = offsetY > 0 ? firstY + GameEngine.WORLD_HEIGHT + 1 : firstY + GameEngine.WORLD_HEIGHT;
 
@@ -99,6 +119,5 @@ public class SwingGraphics implements Graphics {
 			}
 			j++;
 		}
-
 	}
 }

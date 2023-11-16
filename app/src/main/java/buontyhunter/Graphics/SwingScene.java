@@ -134,17 +134,17 @@ public class SwingScene implements Scene {
 
 				SwingGraphics gr = new SwingGraphics(g2, centerX, centerY, ratioX, ratioY);
 				gameState.getWorld().getSceneEntities().forEach(e -> {
-					e.updateGraphics(gr);
+					e.updateGraphics(gr, scene);
 				});
 			}
 		}
 
 		private int getXinPixel(Point2d p) {
-			return (int) Math.round(centerX + p.x * ratioX);
+			return (int) Math.round(p.x * ratioX);
 		}
 
 		private int getYinPixel(Point2d p) {
-			return (int) Math.round(centerY - p.y * ratioY);
+			return (int) Math.round(p.y * ratioY);
 		}
 
 		@Override

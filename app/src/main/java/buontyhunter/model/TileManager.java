@@ -21,17 +21,15 @@ public class TileManager extends GameObject {
     private List<List<Tile>> tiles;
     private final Map<Integer, String> maps;
     private AssetProvider assetManager;
-    private GameObject player;
 
     public TileManager(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
-            GraphicsComponent graph, PhysicsComponent phys, GameObject player) {
+            GraphicsComponent graph, PhysicsComponent phys) {
         super(type, pos, vel, box, input, graph, phys);
 
         this.tiles = new ArrayList<>();
         assetManager = new AssetProvider();
 
         this.maps = new HashMap<>();
-        this.player = player;
         setDefaultValueForMaps();
     }
 
@@ -40,22 +38,27 @@ public class TileManager extends GameObject {
         this.maps.put(0, assetManager.getText("Assets/Maps/map.txt"));
 
         this.maps.put(1, assetManager.getText("Assets/Maps/hubMap.txt"));
-
-        loadMap(0);
     }
 
-    public void loadMap(int mapId) {
+    public RectBoundingBox loadMap(int mapId) {
+        double height = 0, width = 0;
         String map = maps.get(mapId);
         String[] lines = map.split("\n");
+        height = lines.length;
         for (int i = 0; i < lines.length; i++) {
             String[] tiles = lines[i].split(" ");
             List<Tile> row = new ArrayList<>();
+            width = tiles.length;
             for (int j = 0; j < tiles.length; j++) {
                 int tileId = Integer.parseInt(tiles[j]);
                 row.add(new Tile(getTileImage(tileId), tileId, true, new Point2d(j, i)));
             }
             this.tiles.add(row);
         }
+
+        var bbox = new RectBoundingBox(new Point2d(0, 0), height, width);
+        setBBox(bbox);
+        return bbox;
     }
 
     private BufferedImage getTileImage(int num) {
@@ -80,7 +83,4 @@ public class TileManager extends GameObject {
         return tiles;
     }
 
-    public GameObject getPlayer() {
-        return player;
-    }
 }
