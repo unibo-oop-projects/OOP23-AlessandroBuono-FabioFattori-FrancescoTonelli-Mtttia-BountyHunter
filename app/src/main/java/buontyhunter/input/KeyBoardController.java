@@ -1,4 +1,4 @@
-package buontyhunter.InputHandlers;
+package buontyhunter.input;
 
 public class KeyBoardController implements InputController{
 

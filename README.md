@@ -8,7 +8,7 @@ BountyHunter.
 Inizia il gioco , tu sei un cacciatore di taglie e ti trovi in una città (HUB) dove è possibile consultare la bacheca delle taglie(che funziona a step spiego poi), lo shop per migliorare il tuo equipaggiamento oppure giocare a dei minigiochi per guadagnare il vile danaro.
 Le Taglie funzionano a Step => tu completi tot taglie guadagnando dei sordi , sti soldi li usi per copparti potenziamenti , e ogni tot taglie sblocchi il set di taglie successive più difficili (i nemici fanno pù danno ecc.).
 
-Nell’hub ci sarà anche una zona Arcade cioè una zona in cui si potrà giocare a cose tipo le slot (ludopatia porco dio), a pong e a giochi semplici di questo tipo , questa zona permette al giocatore di fare una partita a questi giochi facendogli spendere dei soldi del gioco con la possibilità di vincere soldi e/o skin e/o armature/armi => ad esempio in pong dopo un tot di rimbalzi (50, 100 ) si sblocca un premio .
+Nell’hub ci sarà anche una zona Arcade cioè una zona in cui si potrà giocare a cose tipo le slot (ludopatia porco dio), a bountyhunter e a giochi semplici di questo tipo , questa zona permette al giocatore di fare una partita a questi giochi facendogli spendere dei soldi del gioco con la possibilità di vincere soldi e/o skin e/o armature/armi => ad esempio in bountyhunter dopo un tot di rimbalzi (50, 100 ) si sblocca un premio .
 
 Le caccia alle taglie si svolge in una zona diversa dall’hub raggiungibile da una barchetta (loading zone) , questa zona sarà completamente generata randomicamente (se non riusciamo facciamo statiche e fanculo) dove ci sarà una stradina da fare per raggiungere il boss della taglia .
 

@@ -1,24 +1,41 @@
-package buontyhunter.Core;
+package buontyhunter.core;
 
-import buontyhunter.Common.GameObjectType;
-import buontyhunter.Graphics.MapGraphicsComponent;
-import buontyhunter.Graphics.PlayerGraphicsComponent;
-import buontyhunter.InputHandlers.NullInputComponent;
-import buontyhunter.InputHandlers.PlayerInputController;
-import buontyhunter.Models.FighterEntity;
-import buontyhunter.Models.TileManager;
+import buontyhunter.input.NullInputComponent;
+import buontyhunter.model.FighterEntity;
+import buontyhunter.model.GameObject;
+import buontyhunter.model.GameObjectType;
+import buontyhunter.model.RectBoundingBox;
+import buontyhunter.model.TileManager;
+import buontyhunter.physics.NullPhysiscsCompoment;
+import buontyhunter.common.Point2d;
+import buontyhunter.common.Vector2d;
+import buontyhunter.graphics.MapGraphicsComponent;
+import buontyhunter.graphics.PlayerGraphicsComponent;
+import buontyhunter.input.PlayerInputController;
 
 /* this class has methods to create all gameObjects */
 public class GameFactory {
-    public static FighterEntity createPlayer(){
-        return createPlayer(50, 50, 6, 10, 10);
+
+    static private GameFactory instance;
+
+    static public GameFactory getInstance() {
+        if (instance == null) {
+            instance = new GameFactory();
+        }
+        return instance;
     }
 
-    public static FighterEntity createPlayer(int x, int y, int speed,int healt,int damage){
-        return new FighterEntity(GameObjectType.Player,new PlayerGraphicsComponent(),new NullInputComponent(), healt, damage, x, y, speed);
+    public FighterEntity createPlayer(Point2d point, Vector2d vector, int health) {
+        return new FighterEntity(GameObjectType.Player, point, vector,
+                new RectBoundingBox(new Point2d(0, 0), new Point2d(1, 1)),
+                new NullInputComponent(), new PlayerGraphicsComponent(), new NullPhysiscsCompoment(),
+                health);
     }
 
-    public static TileManager creaTileManager(final int tileSize){
-        return new TileManager(GameObjectType.TileManager, new MapGraphicsComponent(),new PlayerInputController(), 0, 0, 4, tileSize);
+    public TileManager createTileManager() {
+        return new TileManager(GameObjectType.TileManager,
+                new Point2d(-(GameEngine.WORLD_WIDTH / 2), GameEngine.WORLD_HEIGHT / 2), new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
+                new NullInputComponent(), new MapGraphicsComponent(), new NullPhysiscsCompoment());
     }
 }

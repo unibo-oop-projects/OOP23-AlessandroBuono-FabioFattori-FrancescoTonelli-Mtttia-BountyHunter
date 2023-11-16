@@ -1,88 +1,83 @@
-package buontyhunter.Core;
+package buontyhunter.core;
 
-import buontyhunter.Graphics.ScreenHandlerImpl;
-import buontyhunter.InputHandlers.KeyBoardController;
-import buontyhunter.Models.GameObject;
-import buontyhunter.Models.GameState;
+import java.util.LinkedList;
 
-public class GameEngine {
-    private ScreenHandlerImpl screenHandler;
+import buontyhunter.graphics.*;
+import buontyhunter.input.*;
+import buontyhunter.model.*;
+
+public class GameEngine implements WorldEventListener {
+
+    public static double WORLD_WIDTH = 20;
+    public static double WORLD_HEIGHT = 20;
+
+    private long FPS = 30;
+    private Scene view;
+    private LinkedList<WorldEvent> eventQueue;
     private GameState gameState;
-    private GameConfiguration configuration;
-    private KeyBoardController keyBoardController;
+    private KeyboardInputController controller;
 
     public GameEngine() {
-        configuration = new GameConfiguration();
-        this.keyBoardController = new KeyBoardController();
-        gameState = new GameState(configuration.getTileSize());
-        screenHandler = new ScreenHandlerImpl(this.gameState,this.keyBoardController);
+        eventQueue = new LinkedList<WorldEvent>();
     }
 
-    public void gameRun() {
-        double drawInterval = (1000000000 / configuration.getFPS());
-        double delta = 0;
-        long lastTime = System.nanoTime();
+    public void initGame() {
+        gameState = new GameState(this);
+        controller = new KeyboardInputController();
+        view = new SwingScene(gameState, controller, 600, 600, WORLD_WIDTH, WORLD_HEIGHT);
+    }
 
-        long timer = 0;
-        int drawCount = 0;
-
+    public void mainLoop() {
+        long previousCycleStartTime = System.currentTimeMillis();
         while (!gameState.isGameOver()) {
-            long currentTime = System.nanoTime();
+            long currentCycleStartTime = System.currentTimeMillis();
+            long elapsed = currentCycleStartTime - previousCycleStartTime;
+            processInput();
+            updateGame(elapsed);
+            render();
+            waitForNextFrame(currentCycleStartTime);
+            previousCycleStartTime = currentCycleStartTime;
+        }
+        renderGameOver();
+    }
 
-            delta += (currentTime - lastTime) / drawInterval;
-            timer += currentTime - lastTime;
-            lastTime = currentTime;
-
-            if (delta >= 1) {
-                inputHandler();
-                update();
-                draw();
-
-                delta--;
-                drawCount++;
-            }
-
-            if (timer >= 1000000000) {
-
-                System.out.println(drawCount + " FPS");
-
-                drawCount = 0;
-                timer = 0;
+    protected void waitForNextFrame(long cycleStartTime) {
+        long dt = System.currentTimeMillis() - cycleStartTime;
+        if (dt < FPS) {
+            try {
+                Thread.sleep(FPS - dt);
+            } catch (Exception ex) {
             }
         }
-
     }
 
-    public void inputHandler() {
-        gameState.getTileManager().inputHadler(keyBoardController);
-        for (GameObject obj : gameState.getGameObjects()) {
-            obj.inputHadler(keyBoardController);
-        }
+    protected void processInput() {
+        gameState.getWorld().getPlayer().updateInput(controller);
     }
 
-    public void update() {
-        // TODO
+    protected void updateGame(long elapsed) {
+        gameState.getWorld().updateState(elapsed);
+        checkEvents();
     }
 
-    public void draw() {
-        screenHandler.draw();
+    protected void checkEvents() {
+        World scene = gameState.getWorld();
+        eventQueue.stream().forEach(ev -> {
+            // EVENT HANDLING GO HERE
+        });
+        eventQueue.clear();
     }
 
-    /* getter area */
-
-    public ScreenHandlerImpl getScreenHandler() {
-        return screenHandler;
+    protected void render() {
+        view.render();
     }
 
-    public GameState getGameState() {
-        return gameState;
+    protected void renderGameOver() {
+        view.renderGameOver();
     }
 
-    public GameConfiguration getConfiguration() {
-        return configuration;
-    }
-
-    public KeyBoardController getKeyBoardController() {
-        return keyBoardController;
+    @Override
+    public void notifyEvent(WorldEvent ev) {
+        eventQueue.add(ev);
     }
 }

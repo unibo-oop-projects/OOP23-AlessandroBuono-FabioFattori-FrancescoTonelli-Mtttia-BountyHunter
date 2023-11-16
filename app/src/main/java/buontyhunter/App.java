@@ -3,12 +3,13 @@
  */
 package buontyhunter;
 
-import buontyhunter.Core.GameEngine;
+import buontyhunter.core.GameEngine;
 
 public class App {
 
     public static void main(String[] args) {
         GameEngine engine = new GameEngine();
-        engine.gameRun();
+        engine.initGame();
+        engine.mainLoop();
     }
 }

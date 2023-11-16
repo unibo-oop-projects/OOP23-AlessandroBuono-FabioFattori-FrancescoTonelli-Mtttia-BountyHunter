@@ -1,18 +1,18 @@
-package buontyhunter.Models;
+package buontyhunter.model;
 
 import java.awt.image.BufferedImage;
+
+import buontyhunter.common.Point2d;
 
 public class Tile {
     private final BufferedImage image;
     private final boolean isSolid;
-    private final int x;
-    private final int y;
+    private Point2d point;
 
-    public Tile(BufferedImage image, boolean isSolid, int x, int y) {
+    public Tile(BufferedImage image, boolean isSolid, Point2d point) {
         this.image = image;
         this.isSolid = isSolid;
-        this.x = x;
-        this.y = y;
+        this.point = point;
     }
 
     /* getter area */
@@ -25,11 +25,7 @@ public class Tile {
         return isSolid;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    public Point2d getPoint() {
+        return point;
     }
 }
