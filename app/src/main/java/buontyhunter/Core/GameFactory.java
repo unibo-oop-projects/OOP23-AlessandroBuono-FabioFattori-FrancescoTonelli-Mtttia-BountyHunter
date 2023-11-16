@@ -27,15 +27,15 @@ public class GameFactory {
 
     public FighterEntity createPlayer(Point2d point, Vector2d vector, int health) {
         return new FighterEntity(GameObjectType.Player, point, vector,
-                new RectBoundingBox(new Point2d(0, 0), new Point2d(1, 1)),
-                new NullInputComponent(), new PlayerGraphicsComponent(), new NullPhysiscsCompoment(),
+                new RectBoundingBox(new Point2d(0, 0), 1, 1),
+                new PlayerInputController(), new PlayerGraphicsComponent(), new NullPhysiscsCompoment(),
                 health);
     }
 
-    public TileManager createTileManager() {
+    public TileManager createTileManager(GameObject player) {
         return new TileManager(GameObjectType.TileManager,
                 new Point2d(-(GameEngine.WORLD_WIDTH / 2), GameEngine.WORLD_HEIGHT / 2), new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
-                new PlayerInputController(), new MapGraphicsComponent(), new NullPhysiscsCompoment());
+                new NullInputComponent(), new MapGraphicsComponent(), new NullPhysiscsCompoment(), player);
     }
 }

@@ -21,15 +21,17 @@ public class TileManager extends GameObject {
     private List<List<Tile>> tiles;
     private final Map<Integer, String> maps;
     private AssetProvider assetManager;
+    private GameObject player;
 
     public TileManager(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
-            GraphicsComponent graph, PhysicsComponent phys) {
+            GraphicsComponent graph, PhysicsComponent phys, GameObject player) {
         super(type, pos, vel, box, input, graph, phys);
 
         this.tiles = new ArrayList<>();
         assetManager = new AssetProvider();
 
         this.maps = new HashMap<>();
+        this.player = player;
         setDefaultValueForMaps();
     }
 
@@ -76,5 +78,9 @@ public class TileManager extends GameObject {
 
     public List<List<Tile>> getTiles() {
         return tiles;
+    }
+
+    public GameObject getPlayer() {
+        return player;
     }
 }

@@ -52,7 +52,7 @@ public class GameEngine implements WorldEventListener {
     }
 
     protected void processInput() {
-        gameState.getWorld().getTileManager().updateInput(controller);
+        gameState.getWorld().getPlayer().updateInput(controller);
     }
 
     protected void updateGame(long elapsed) {

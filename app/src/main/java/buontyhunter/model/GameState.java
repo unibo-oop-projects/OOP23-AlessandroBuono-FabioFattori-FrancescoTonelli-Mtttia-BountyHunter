@@ -15,8 +15,8 @@ public class GameState {
 
         score = 0;
         world = new World(new RectBoundingBox(new Point2d(-9, 10), 20, 18));
-        world.setTileManager(f.createTileManager());
-        world.setPlayer(f.createPlayer(new Point2d(0, 0), new Vector2d(0, 0), 100));
+        world.setPlayer(f.createPlayer(new Point2d(0, 0), Vector2d.symmetrical(0), 100));
+        world.setTileManager(f.createTileManager(world.getPlayer()));
         world.setEventListener(l);
     }
 
