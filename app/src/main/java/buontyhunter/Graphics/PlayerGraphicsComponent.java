@@ -14,7 +14,7 @@ public class PlayerGraphicsComponent implements DrawableObject{
     @Override
     public void draw(GameObject gameObject, Graphics2D g2d) {
         g2d.setColor(Color.RED);
-        g2d.fillRect(gameObject.getX(), gameObject.getY(), 50, 50);
+        g2d.fillRect(gameObject.getX(), gameObject.getY(), 32, 32);
     }
     
 }

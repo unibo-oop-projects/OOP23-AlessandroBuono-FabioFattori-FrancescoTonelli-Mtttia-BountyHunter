@@ -12,10 +12,10 @@ public class GameEngine {
     private KeyBoardController keyBoardController;
 
     public GameEngine() {
-        this.keyBoardController = new KeyBoardController();
-        gameState = new GameState();
-        screenHandler = new ScreenHandlerImpl(this.gameState,this.keyBoardController);
         configuration = new GameConfiguration();
+        this.keyBoardController = new KeyBoardController();
+        gameState = new GameState(configuration.getTileSize());
+        screenHandler = new ScreenHandlerImpl(this.gameState,this.keyBoardController);
     }
 
     public void gameRun() {
@@ -54,6 +54,7 @@ public class GameEngine {
     }
 
     public void inputHandler() {
+        gameState.getTileManager().inputHadler(keyBoardController);
         for (GameObject obj : gameState.getGameObjects()) {
             obj.inputHadler(keyBoardController);
         }

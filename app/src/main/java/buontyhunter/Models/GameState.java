@@ -9,12 +9,16 @@ public class GameState {
     
     private boolean gameIsOver;
     private ArrayList<GameObject> gameObjects;
+    private TileManager tileManager;
 
-    public GameState(){
+    public GameState(int tileSize){
         gameIsOver = false;
 
         gameObjects = new ArrayList<GameObject>();
         gameObjects.add(GameFactory.createPlayer());
+        tileManager = GameFactory.creaTileManager(tileSize);
+        //load the first map
+        tileManager.loadMap(0);
     }
 
     public boolean isGameOver(){
@@ -23,6 +27,10 @@ public class GameState {
 
     public ArrayList<GameObject> getGameObjects(){
         return gameObjects;
+    }
+
+    public TileManager getTileManager(){
+        return tileManager;
     }
 
     public void addGameObject(GameObject gameObject){

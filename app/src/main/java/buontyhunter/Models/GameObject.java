@@ -12,16 +12,12 @@ public class GameObject{
     private final DrawableObject graphicsComponent;
     private final InputComponent inputComponent;
     private GameObjectType type;
-    private int healt;
-    private int damage;
     private int x;
     private int y;
     private int speed;
 
-    public GameObject(GameObjectType type,DrawableObject graphicsHandler,InputComponent inputComponent, int healt, int damage, int x , int y , int speed){
+    public GameObject(GameObjectType type,DrawableObject graphicsHandler,InputComponent inputComponent, int x , int y , int speed){
         this.type = type;
-        setHealt(healt);
-        setDamage(damage);
         setX(x);
         setY(y);
         setSpeed(speed);
@@ -50,14 +46,6 @@ public class GameObject{
         return type;
     }
 
-    public int getHealt() {
-        return healt;
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-
     public DrawableObject getGraphicsComponent() {
         return graphicsComponent;
     }
@@ -76,20 +64,6 @@ public class GameObject{
 
     public int getSpeed(){
         return speed;
-    }
-
-    public void setHealt(int healt) {
-        if (healt <= 0) {
-            throw new IllegalArgumentException("Healt must be positive");
-        }
-        this.healt = healt;
-    }
-
-    public void setDamage(int damage) {
-        if (damage < 0) {
-            throw new IllegalArgumentException("Damage must be positive");
-        }
-        this.damage = damage;
     }
 
     public void setX(int x){

@@ -36,7 +36,7 @@ class AppTest {
     }
 
     @Test void GameFactoryCreateAProperPlayer(){
-        GameObject player = GameFactory.createPlayer();
+        FighterEntity player = GameFactory.createPlayer();
         assertEquals(player.getType(),GameObjectType.Player);
         assertEquals(player.getX(),50);
         assertEquals(player.getY(),50);

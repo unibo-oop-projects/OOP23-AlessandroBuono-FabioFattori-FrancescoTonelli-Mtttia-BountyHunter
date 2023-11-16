@@ -23,8 +23,8 @@ import java.awt.event.KeyListener;
  */
 public class ScreenHandlerImpl implements ScreenHandler{
     private static final String APPLICATION_TITLE = "Buonty Hunter v1.0";
-    private static final int screenWidth = 600;
-    private static final int screenHeight = 400;
+    public static final int screenWidth = 600;
+    public static final int screenHeight = 400;
     private final JFrame frame;
     private final GameState gameState;
     private final ScenePanel panel;
@@ -62,13 +62,21 @@ public class ScreenHandlerImpl implements ScreenHandler{
 	/* ScenePanel is an innested class that contain all the graphic rappresentation of the gameObjects */
     public class ScenePanel extends JPanel implements KeyListener {
 
-    	
+    	private int centerX;
+		private int centerY;
+		private double ratioX;
+		private double ratioY;
         private Font gameOverFont;
 		private Stroke strokeBorder = new BasicStroke(2f);
 
     	public ScenePanel(int w, int h, double width, double height){
             
-            
+            setSize(w, h);
+			centerX = w / 2;
+			centerY = h / 2;
+			ratioX = w / width;
+			ratioY = h / height;
+
             gameOverFont = new Font("Verdana", Font.PLAIN, 88);
             
             this.addKeyListener(this);
@@ -96,6 +104,7 @@ public class ScreenHandlerImpl implements ScreenHandler{
 				
        			
     		} else {
+				gameState.getTileManager().draw(g2);
     			/* drawing the border */
     			g2.setStroke(strokeBorder);
     			g2.setColor(Color.BLACK);
@@ -110,7 +119,13 @@ public class ScreenHandlerImpl implements ScreenHandler{
     		}
         }
 
-    	
+    	// private int getXinPixel(Point2d p) {
+		// 	return (int) Math.round(centerX + p.x * ratioX);
+		// }
+
+		// private int getYinPixel(Point2d p) {
+		// 	return (int) Math.round(centerY - p.y * ratioY);
+		// }
     	
     	@Override
 		public void keyPressed(KeyEvent e) {
