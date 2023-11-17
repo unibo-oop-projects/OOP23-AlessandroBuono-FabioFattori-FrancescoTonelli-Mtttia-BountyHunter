@@ -80,9 +80,11 @@ public class World {
         if (rect.getULCorner().y < ul.y) {
             return Optional.of(new BoundaryCollision(BoundaryCollision.CollisionEdge.TOP, new Point2d(pos.x, ul.y)));
         } else if (rect.getBRCorner().y > br.y) {
-            return Optional.of(new BoundaryCollision(BoundaryCollision.CollisionEdge.BOTTOM, new Point2d(pos.x, br.y)));
+            return Optional.of(new BoundaryCollision(BoundaryCollision.CollisionEdge.BOTTOM,
+                    new Point2d(pos.x, br.y - rect.getHeight())));
         } else if (rect.getBRCorner().x > br.x) {
-            return Optional.of(new BoundaryCollision(BoundaryCollision.CollisionEdge.RIGHT, new Point2d(br.x, pos.y)));
+            return Optional.of(new BoundaryCollision(BoundaryCollision.CollisionEdge.RIGHT,
+                    new Point2d(br.x - rect.getWidth(), pos.y)));
         } else if (rect.getULCorner().x < ul.x) {
             return Optional.of(new BoundaryCollision(BoundaryCollision.CollisionEdge.LEFT, new Point2d(ul.x, pos.y)));
         } else {

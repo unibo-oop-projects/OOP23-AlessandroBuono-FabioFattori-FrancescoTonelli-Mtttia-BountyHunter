@@ -71,8 +71,13 @@ public class SwingGraphics implements Graphics {
 		boolean playerXInCenter = pos.x > halfWidth && pos.x < (bbox.getWidth() + bbox.getULCorner().x) - halfWidth;
 		boolean playerYInCenter = pos.y > halfHeight && pos.y < (bbox.getHeight() + bbox.getULCorner().y) - halfHeight;
 
-		var x = playerXInCenter ? getDeltaXinPixel(halfWidth) : getXinPixel(obj.getPos());
-		var y = playerYInCenter ? getDeltaYinPixel(halfHeight) : getYinPixel(obj.getPos());
+		var tmpX = (bbox.getWidth() + bbox.getULCorner().x) - halfWidth;
+		var tmpY = (bbox.getHeight() + bbox.getULCorner().y) - halfHeight;
+
+		var x = playerXInCenter ? getDeltaXinPixel(halfWidth)
+				: (pos.x < halfHeight ? getXinPixel(obj.getPos()) : getDeltaXinPixel((pos.x - tmpX) + halfWidth));
+		var y = playerYInCenter ? getDeltaYinPixel(halfHeight)
+				: (pos.y < halfHeight ? getYinPixel(obj.getPos()) : getDeltaYinPixel((pos.y - tmpY) + halfHeight));
 		var height = getDeltaYinPixel(((RectBoundingBox) obj.getBBox()).getHeight());
 		var width = getDeltaXinPixel(((RectBoundingBox) obj.getBBox()).getWidth());
 
@@ -93,7 +98,8 @@ public class SwingGraphics implements Graphics {
 		boolean playerXInCenter = pos.x > halfWidth && pos.x < (bbox.getWidth() + bbox.getULCorner().x) - halfWidth;
 		boolean playerYInCenter = pos.y > halfHeight && pos.y < (bbox.getHeight() + bbox.getULCorner().y) - halfHeight;
 
-		var firstX = playerXInCenter ? (int) Math.floor(pos.x - halfWidth) : 0;
+		var firstX = playerXInCenter ? (int) Math.floor(pos.x - halfWidth)
+				: (int) (pos.x < halfWidth ? 0 : Math.floor(bbox.getWidth() - 2 * halfWidth));
 		var firstY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight) : 0;
 		var offsetX = playerXInCenter ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
 		var offsetY = playerYInCenter ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;

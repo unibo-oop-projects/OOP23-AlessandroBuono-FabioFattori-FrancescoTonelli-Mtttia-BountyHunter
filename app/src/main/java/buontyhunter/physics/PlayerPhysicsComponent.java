@@ -10,14 +10,19 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
 
     public void update(long dt, GameObject obj, World w) {
         // cannot go out of bounds
-        var collisionWidthWorld = w.checkCollisionWithBoundaries(obj.getPos(), ((RectBoundingBox) obj.getBBox()));
+        boolean collisionPresent = true;
+        do {
+            var collisionWidthWorld = w.checkCollisionWithBoundaries(obj.getPos(), ((RectBoundingBox) obj.getBBox()));
+            collisionPresent = false;
 
-        if (collisionWidthWorld.isPresent()) {
-            var collision = collisionWidthWorld.get();
-            // var pos = obj.getPos();
+            if (collisionWidthWorld.isPresent()) {
+                collisionPresent = true;
+                var collision = collisionWidthWorld.get();
+                // var pos = obj.getPos();
 
-            obj.setPos(collision.getWhere());
-        }
+                obj.setPos(collision.getWhere());
+            }
+        } while (collisionPresent);
     }
 
 }
