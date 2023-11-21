@@ -132,7 +132,9 @@ public class SwingScene implements Scene {
 
 				/* drawing the game objects */
 
-				SwingGraphics gr = new SwingGraphics(g2, centerX, centerY, ratioX, ratioY);
+				var camera = new Camera(scene);
+				camera.update(scene.getPlayer(), scene.getTileManager());
+				SwingGraphics gr = new SwingGraphics(g2, centerX, centerY, ratioX, ratioY, camera);
 				gameState.getWorld().getSceneEntities().forEach(e -> {
 					e.updateGraphics(gr, scene);
 				});
