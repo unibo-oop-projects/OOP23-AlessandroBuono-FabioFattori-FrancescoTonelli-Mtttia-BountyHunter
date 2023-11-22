@@ -4,7 +4,50 @@
 - francesco.tonelli9@studio.unibo.it
 - alessandro.buono4@studio.unibo.it
 
-## Development
+# Development Rules
+
+- clone the repo locally
+  ```bash
+  git clone https://github.com/progetto-oop/BountyHunter.git
+  ```
+- switch to branch nightly *IMPORTANT: while develop the software use nightly branch, not master*
+  ```bash
+  git checkout nightly
+  ```
+- create a branch from nightly (the branch name should rapresent what you are implementing), you should create a branch for each task you are doing
+  ```bash
+  git branch <name-of-the-branch>
+  ```
+- open this branch
+  ```bash
+  git checkout <name-of-the-branch>
+  ```
+- in this branch you can do whatever you want
+- when you have finish the task, and you have pushed everything, then merge the branch into nightly
+  ```bash
+  git checkout nightly
+  ```
+  ```bash
+  git merge <name-of-the-branch>
+  ```
+- you can now delete the branch you was working on
+  ```bash
+  git branch -d <name-of-the-branch>
+    ```
+
+## Pull Request
+insetad of merging your branch into nightly, you can ask for a pull request:
+- goto github project page: https://github.com/progetto-oop/BountyHunter
+- click on "Pull Requests"
+- click on "New pull request"
+- select as first branch "nightly"
+- select as second branch "<name-of-the-branch>"
+- it should appear like this nightly <- name-of-the-branch
+- click on "Create pull request"
+
+  
+
+# Run locally
 
 1. clone the repo
 ```bash
@@ -24,7 +67,7 @@ git clone https://github.com/progetto-oop/BountyHunter.git
     
 3. if using vscode the configured launch for running or debugging the application is already configured
 
-## Rules
+# Rules
 
 development rules:
 
@@ -35,27 +78,9 @@ development rules:
 5. Follow MVC pattern placing the file in the right folder based on what the file do
 6. Do not place graphical code in the same class or file of a logical code
 
-## Contributing
-
-To contribute to BountyHunter, follow these steps:
-
-1. Fork this repository
-2. Create a new branch (`git checkout -b feature/[FEATURE_NAME]`)
-3. Make changes and commit them (`git commit -am '[COMMIT_MESSAGE]'`)
-4. Push to the branch (`git push origin feature/[FEATURE_NAME]`)
-5. Create a new Pull Request on nightly branch
-
-## License
+# License
 
 The project is released under GPL v2.0 License
-
-## Owner
-
--   [@FabioFattori](https://github.com/FabioFattori)
--   [@MattiaSenni](https://github.com/mtttia)
--   [@FrancescoTonelli](https://github.com/FrancescoTonelli)
--   [@AlessandroBuono](https://github.com/AlessandroCrazy)
-
 
 # idea del gruppo
 il gruppo si impegna a realizare un gioco in grafica 2D che simula le avventure di un cacciatore di taglie.
