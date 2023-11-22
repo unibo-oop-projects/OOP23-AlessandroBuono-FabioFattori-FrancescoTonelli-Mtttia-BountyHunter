@@ -29,14 +29,22 @@ public class GameEngine implements WorldEventListener {
 
     public void mainLoop() {
         long previousCycleStartTime = System.currentTimeMillis();
+        var drawCount = 0;
+        long lastFPSPrint = 0;
         while (!gameState.isGameOver()) {
             long currentCycleStartTime = System.currentTimeMillis();
             long elapsed = currentCycleStartTime - previousCycleStartTime;
             processInput();
             updateGame(elapsed);
             render();
+            drawCount++;
             waitForNextFrame(currentCycleStartTime);
             previousCycleStartTime = currentCycleStartTime;
+            if (System.currentTimeMillis() - lastFPSPrint > 1000) {
+                lastFPSPrint = System.currentTimeMillis();
+                System.out.println("FPS: " + drawCount);
+                drawCount = 0;
+            }
         }
         renderGameOver();
     }
