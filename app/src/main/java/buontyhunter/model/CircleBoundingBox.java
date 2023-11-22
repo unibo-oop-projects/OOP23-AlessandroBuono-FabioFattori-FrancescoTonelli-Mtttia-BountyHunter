@@ -1,7 +1,7 @@
 package buontyhunter.model;
 
-import buontyhunter.common.Point2d;
-import buontyhunter.common.Vector2d;
+import buontyhunter.Common.Point2d;
+import buontyhunter.Common.Vector2d;
 
 public class CircleBoundingBox implements BoundingBox {
 

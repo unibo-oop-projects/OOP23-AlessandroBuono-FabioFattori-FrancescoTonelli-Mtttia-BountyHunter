@@ -1,4 +1,4 @@
-package buontyhunter.graphics;
+package buontyhunter.Graphics;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -15,7 +15,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 
-import buontyhunter.common.Point2d;
+import buontyhunter.Common.Point2d;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 

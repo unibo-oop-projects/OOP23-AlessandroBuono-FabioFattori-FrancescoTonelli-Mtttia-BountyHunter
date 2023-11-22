@@ -2,7 +2,7 @@ package buontyhunter.model;
 
 import java.awt.image.BufferedImage;
 
-import buontyhunter.common.Point2d;
+import buontyhunter.Common.Point2d;
 
 public class Tile {
     private final BufferedImage image;

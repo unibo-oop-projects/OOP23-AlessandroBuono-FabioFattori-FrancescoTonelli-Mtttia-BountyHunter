@@ -1,4 +1,4 @@
-package buontyhunter.graphics;
+package buontyhunter.Graphics;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Stroke;
 import buontyhunter.Core.GameEngine;
-import buontyhunter.common.Point2d;
+import buontyhunter.Common.Point2d;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;

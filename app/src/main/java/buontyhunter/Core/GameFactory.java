@@ -7,10 +7,10 @@ import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
 import buontyhunter.physics.NullPhysiscsCompoment;
 import buontyhunter.physics.PlayerPhysicsComponent;
-import buontyhunter.common.Point2d;
-import buontyhunter.common.Vector2d;
-import buontyhunter.graphics.MapGraphicsComponent;
-import buontyhunter.graphics.PlayerGraphicsComponent;
+import buontyhunter.Common.Point2d;
+import buontyhunter.Common.Vector2d;
+import buontyhunter.Graphics.MapGraphicsComponent;
+import buontyhunter.Graphics.PlayerGraphicsComponent;
 import buontyhunter.input.PlayerInputController;
 
 /* this class has methods to create all gameObjects */

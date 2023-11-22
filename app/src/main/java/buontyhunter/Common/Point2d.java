@@ -1,4 +1,4 @@
-package buontyhunter.common;
+package buontyhunter.Common;
 
 public class Point2d implements java.io.Serializable {
 

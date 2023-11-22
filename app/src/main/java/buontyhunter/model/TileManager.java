@@ -9,10 +9,10 @@ import java.util.Optional;
 
 import java.util.List;
 
-import buontyhunter.common.AssetProvider;
-import buontyhunter.common.Point2d;
-import buontyhunter.common.Vector2d;
-import buontyhunter.graphics.GraphicsComponent;
+import buontyhunter.Common.AssetProvider;
+import buontyhunter.Common.Point2d;
+import buontyhunter.Common.Vector2d;
+import buontyhunter.Graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
 

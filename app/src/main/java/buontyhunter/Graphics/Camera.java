@@ -1,9 +1,9 @@
-package buontyhunter.graphics;
+package buontyhunter.Graphics;
 
 import java.util.Optional;
 
 import buontyhunter.Core.GameEngine;
-import buontyhunter.common.Point2d;
+import buontyhunter.Common.Point2d;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
