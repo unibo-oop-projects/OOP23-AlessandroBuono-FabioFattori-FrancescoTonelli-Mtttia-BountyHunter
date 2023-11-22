@@ -25,11 +25,11 @@ public class GameFactory {
         return instance;
     }
 
-    public FighterEntity createPlayer(Point2d point, Vector2d vector, int health) {
+    public FighterEntity createPlayer(Point2d point, Vector2d vector, int health , int maxHealth) {
         return new FighterEntity(GameObjectType.Player, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                 new PlayerInputController(), new PlayerGraphicsComponent(), new PlayerPhysicsComponent(),
-                health);
+                health, maxHealth);
     }
 
     public TileManager createTileManager() {
@@ -38,4 +38,5 @@ public class GameFactory {
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
                 new NullInputComponent(), new MapGraphicsComponent(), new NullPhysiscsCompoment());
     }
+    
 }

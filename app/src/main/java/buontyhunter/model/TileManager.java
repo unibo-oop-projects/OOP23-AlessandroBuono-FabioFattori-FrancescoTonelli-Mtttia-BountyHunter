@@ -51,7 +51,12 @@ public class TileManager extends GameObject {
             width = tiles.length;
             for (int j = 0; j < tiles.length; j++) {
                 int tileId = Integer.parseInt(tiles[j]);
-                row.add(new Tile(getTileImage(tileId), tileId, true, new Point2d(j, i)));
+                
+                if(tileId == 5) {
+                    row.add(new Tile(getTileImage(tileId), true, true, new Point2d(j, i)));
+                }else{
+                    row.add(new Tile(getTileImage(tileId), false, true, new Point2d(j, i)));
+                }
             }
             this.tiles.add(row);
         }
