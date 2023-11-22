@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
@@ -52,13 +53,15 @@ public class AssetProvider {
         }
     }
 
-    public String getText(String path) {
+    public Optional<String> getText(String path) {
         try (InputStream is = getClass().getResourceAsStream(fullPath(path));
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
-            return reader.lines().collect(Collectors.joining("\n"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            return Optional.of(reader.lines().collect(Collectors.joining("\n")));
+        } catch (Exception e) {
+
+            System.out.println("Failed to load text: " + path + " error Message => " + e);
+            // e.printStackTrace();
+            return Optional.empty();
         }
     }
 }
