@@ -1,8 +1,7 @@
-package buontyhunter.core;
+package buontyhunter.Core;
 
 import buontyhunter.input.NullInputComponent;
 import buontyhunter.model.FighterEntity;
-import buontyhunter.model.GameObject;
 import buontyhunter.model.GameObjectType;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;

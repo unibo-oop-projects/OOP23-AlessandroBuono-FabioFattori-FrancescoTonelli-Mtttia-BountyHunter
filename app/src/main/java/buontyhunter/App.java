@@ -3,7 +3,7 @@
  */
 package buontyhunter;
 
-import buontyhunter.core.GameEngine;
+import buontyhunter.Core.GameEngine;
 
 public class App {
 

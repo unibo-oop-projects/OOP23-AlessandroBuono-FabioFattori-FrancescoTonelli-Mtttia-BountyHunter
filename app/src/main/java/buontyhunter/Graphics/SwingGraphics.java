@@ -4,14 +4,9 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Stroke;
-
-import com.google.common.util.concurrent.ExecutionError;
-
+import buontyhunter.Core.GameEngine;
 import buontyhunter.common.Point2d;
-import buontyhunter.core.GameEngine;
-import buontyhunter.model.CircleBoundingBox;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
@@ -96,7 +91,7 @@ public class SwingGraphics implements Graphics {
 							getYinPixel(tilePos), null);
 				} catch (Exception ex) {
 					System.out.println(ex.getMessage());
-					System.out.println("we're fucked up");
+					System.out.println("Error");
 				}
 
 				i++;

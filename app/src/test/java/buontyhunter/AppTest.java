@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import buontyhunter.Core.*;
 import buontyhunter.common.*;
-import buontyhunter.core.*;
 import buontyhunter.graphics.PlayerGraphicsComponent;
 import buontyhunter.input.KeyBoardController;
 import buontyhunter.input.PlayerInputController;

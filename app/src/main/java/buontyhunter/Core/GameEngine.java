@@ -1,4 +1,4 @@
-package buontyhunter.core;
+package buontyhunter.Core;
 
 import java.util.LinkedList;
 

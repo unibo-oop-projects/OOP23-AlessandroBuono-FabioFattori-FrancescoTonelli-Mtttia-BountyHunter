@@ -2,8 +2,8 @@ package buontyhunter.graphics;
 
 import java.util.Optional;
 
+import buontyhunter.Core.GameEngine;
 import buontyhunter.common.Point2d;
-import buontyhunter.core.GameEngine;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
@@ -73,7 +73,8 @@ public class Camera implements SceneCamera {
 
         firstTileX = playerXInCenter ? (int) Math.floor(pos.x - halfWidth)
                 : (int) (pos.x < halfWidth ? 0 : Math.floor(bbox.getWidth() - 2 * halfWidth));
-        firstTileY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight) : 0;
+        firstTileY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight)
+                : (pos.y < halfHeight ? 0 : (int) Math.floor(bbox.getHeight() - GameEngine.WORLD_HEIGHT));
         tileOffsetX = playerXInCenter ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
         tileOffsetY = playerYInCenter ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;
         lastTileX = tileOffsetX > 0 ? firstTileX + (int) Math.round(GameEngine.WORLD_WIDTH) + 1
