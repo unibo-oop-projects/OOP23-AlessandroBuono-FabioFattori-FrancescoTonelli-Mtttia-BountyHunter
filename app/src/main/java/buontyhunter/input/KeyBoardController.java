@@ -1,12 +1,14 @@
 package buontyhunter.input;
 
-public class KeyBoardController implements InputController{
+public class KeyBoardController implements InputController {
 
-    private boolean isMoveUp;
+	private boolean isMoveUp;
 	private boolean isMoveDown;
 	private boolean isMoveLeft;
 	private boolean isMoveRight;
-	
+
+	private boolean isMPressed;
+
 	@Override
 	public boolean isMoveUp() {
 		return isMoveUp;
@@ -34,7 +36,7 @@ public class KeyBoardController implements InputController{
 	public void notifyNoMoreMoveUp() {
 		isMoveUp = false;
 	}
-	
+
 	public void notifyMoveDown() {
 		isMoveDown = true;
 	}
@@ -42,7 +44,7 @@ public class KeyBoardController implements InputController{
 	public void notifyNoMoreMoveDown() {
 		isMoveDown = false;
 	}
-	
+
 	public void notifyMoveLeft() {
 		isMoveLeft = true;
 	}
@@ -59,5 +61,17 @@ public class KeyBoardController implements InputController{
 		isMoveRight = false;
 	}
 
-    
+	@Override
+	public boolean isMPressed() {
+		return isMPressed;
+	}
+
+	public void notifyMPressed() {
+		isMPressed = true;
+	}
+
+	public void notifyNoMoreMPressed() {
+		isMPressed = false;
+	}
+
 }

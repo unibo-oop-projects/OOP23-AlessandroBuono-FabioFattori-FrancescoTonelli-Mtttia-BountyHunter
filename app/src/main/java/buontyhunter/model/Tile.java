@@ -30,4 +30,8 @@ public class Tile {
     public Point2d getPoint() {
         return point;
     }
+
+    public int getNumber() {
+        return number;
+    }
 }

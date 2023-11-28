@@ -13,6 +13,7 @@ import buontyhunter.common.Point2d;
 import buontyhunter.core.GameEngine;
 import buontyhunter.model.CircleBoundingBox;
 import buontyhunter.model.GameObject;
+import buontyhunter.model.HidableObject;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
 import buontyhunter.model.World;
@@ -102,6 +103,65 @@ public class SwingGraphics implements Graphics {
 				i++;
 			}
 			j++;
+		}
+	}
+
+	public void drawMiniMap(HidableObject miniMap, World w) {
+		if (!miniMap.isShow())
+			return;
+		var tileManager = w.getTileManager();
+		var tiles = tileManager.getTiles();
+
+		var firstX = 0;
+		var firstY = 0;
+		var offsetX = 0;
+		var offsetY = 0;
+		var lastX = tiles.size();
+		var lastY = tiles.get(0).size();
+
+		int i = 0, j = 0;
+		for (int y = firstY; y < lastY; y++) {
+			i = 0;
+			for (int x = firstX; x < lastX; x++) {
+				Point2d tilePos = new Point2d(1, 1);
+				try {
+					g2.setColor(getTileColor(tiles.get(y).get(x).getNumber()));
+					g2.fillRect(getXinPixel(tilePos) + x,
+							getYinPixel(tilePos) + y, 1, 1);
+				} catch (Exception ex) {
+					System.out.println(ex.getMessage());
+					System.out.println("we're fucked up");
+				}
+
+				i++;
+			}
+			j++;
+		}
+
+		var p = w.getPlayer();
+		Point2d tilePos = new Point2d(1, 1);
+		g2.setColor(Color.RED);
+		g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(p.getPos().x),
+				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y), 2, 2);
+	}
+
+	private Color getTileColor(int number) {
+		switch (number) {
+			case 0:
+				return Color.MAGENTA;
+			case 1:
+				return Color.GREEN;
+			case 2:
+				return Color.YELLOW;
+			case 3:
+				return Color.GRAY;
+			case 4:
+				return Color.DARK_GRAY;
+			case 5:
+				return Color.BLUE;
+			default:
+				return Color.RED;
+
 		}
 	}
 }

@@ -8,4 +8,6 @@ public interface InputController {
 	boolean isMoveLeft();
 
 	boolean isMoveRight();
+
+	boolean isMPressed();
 }

@@ -14,6 +14,7 @@ public class World {
     private TileManager tileManager;
     private RectBoundingBox mainBBox;
     private WorldEventListener evListener;
+    private HidableObject miniMap;
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
@@ -32,12 +33,19 @@ public class World {
         this.player = player;
     }
 
+    public void setMiniMap(HidableObject miniMap) {
+        this.miniMap = miniMap;
+    }
+
     public void updateState(long dt) {
         if (player != null) {
             player.updatePhysics(dt, this);
         }
         if (tileManager != null) {
             tileManager.updatePhysics(dt, this);
+        }
+        if (miniMap != null) {
+            miniMap.updatePhysics(dt, this);
         }
     }
 
@@ -57,12 +65,18 @@ public class World {
         return tileManager;
     }
 
+    public HidableObject getMiniMap() {
+        return miniMap;
+    }
+
     public List<GameObject> getSceneEntities() {
         List<GameObject> entities = new ArrayList<GameObject>();
         if (tileManager != null)
             entities.add(tileManager);
         if (player != null)
             entities.add(player);
+        if (miniMap != null)
+            entities.add(miniMap);
         return entities;
     }
 

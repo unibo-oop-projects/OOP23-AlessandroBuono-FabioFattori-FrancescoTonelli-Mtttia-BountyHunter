@@ -159,6 +159,8 @@ public class SwingScene implements Scene {
 				controller.notifyMoveRight();
 			} else if (e.getKeyCode() == 37) {
 				controller.notifyMoveLeft();
+			} else if (e.getKeyCode() == 77) {
+				controller.notifyMPressed();
 			}
 		}
 
@@ -176,6 +178,8 @@ public class SwingScene implements Scene {
 				controller.notifyNoMoreMoveRight();
 			} else if (e.getKeyCode() == 37) {
 				controller.notifyNoMoreMoveLeft();
+			} else if (e.getKeyCode() == 77) {
+				controller.notifyNoMoreMPressed();
 			}
 		}
 

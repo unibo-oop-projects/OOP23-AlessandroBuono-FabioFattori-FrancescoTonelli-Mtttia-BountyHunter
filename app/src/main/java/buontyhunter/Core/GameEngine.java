@@ -61,6 +61,7 @@ public class GameEngine implements WorldEventListener {
 
     protected void processInput() {
         gameState.getWorld().getPlayer().updateInput(controller);
+        gameState.getWorld().getMiniMap().updateInput(controller);
     }
 
     protected void updateGame(long elapsed) {

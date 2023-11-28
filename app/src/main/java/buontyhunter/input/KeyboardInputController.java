@@ -7,6 +7,8 @@ public class KeyboardInputController implements InputController {
 	private boolean isMoveLeft;
 	private boolean isMoveRight;
 
+	private boolean isMPressed;
+
 	@Override
 	public boolean isMoveUp() {
 		return isMoveUp;
@@ -25,6 +27,11 @@ public class KeyboardInputController implements InputController {
 	@Override
 	public boolean isMoveRight() {
 		return isMoveRight;
+	}
+
+	@Override
+	public boolean isMPressed() {
+		return isMPressed;
 	}
 
 	public void notifyMoveUp() {
@@ -57,5 +64,13 @@ public class KeyboardInputController implements InputController {
 
 	public void notifyNoMoreMoveRight() {
 		isMoveRight = false;
+	}
+
+	public void notifyMPressed() {
+		isMPressed = true;
+	}
+
+	public void notifyNoMoreMPressed() {
+		isMPressed = false;
 	}
 }

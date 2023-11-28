@@ -1,9 +1,11 @@
 package buontyhunter.core;
 
+import buontyhunter.input.MiniMapInputController;
 import buontyhunter.input.NullInputComponent;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.GameObjectType;
+import buontyhunter.model.HidableObject;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
 import buontyhunter.physics.NullPhysiscsCompoment;
@@ -11,6 +13,7 @@ import buontyhunter.physics.PlayerPhysicsComponent;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
 import buontyhunter.graphics.MapGraphicsComponent;
+import buontyhunter.graphics.MiniMapGraphicsComponent;
 import buontyhunter.graphics.PlayerGraphicsComponent;
 import buontyhunter.input.PlayerInputController;
 
@@ -38,5 +41,12 @@ public class GameFactory {
                 new Point2d(-(GameEngine.WORLD_WIDTH / 2), GameEngine.WORLD_HEIGHT / 2), new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
                 new NullInputComponent(), new MapGraphicsComponent(), new NullPhysiscsCompoment());
+    }
+
+    public HidableObject createMinimap() {
+        return new HidableObject(GameObjectType.MiniMap,
+                new Point2d(0, 0), new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
+                new MiniMapInputController(), new MiniMapGraphicsComponent(), new NullPhysiscsCompoment(), false);
     }
 }
