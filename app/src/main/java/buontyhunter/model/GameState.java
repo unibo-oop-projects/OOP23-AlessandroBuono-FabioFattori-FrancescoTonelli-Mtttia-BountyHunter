@@ -1,8 +1,8 @@
 package buontyhunter.model;
 
-import buontyhunter.common.Point2d;
-import buontyhunter.common.Vector2d;
-import buontyhunter.core.GameFactory;
+import buontyhunter.Core.GameFactory;
+import buontyhunter.Common.Point2d;
+import buontyhunter.Common.Vector2d;
 
 public class GameState {
 
@@ -15,7 +15,7 @@ public class GameState {
 
         score = 0;
         world = new World(new RectBoundingBox(new Point2d(0, 0), 20, 18));
-        world.setPlayer(f.createPlayer(new Point2d(0, 0), Vector2d.symmetrical(0), 100));
+        world.setPlayer(f.createPlayer(new Point2d(0, 0), Vector2d.symmetrical(0), 100 , 100));
         world.setTileManager(f.createTileManager());
         world.setMiniMap(f.createMinimap());
         world.setEventListener(l);

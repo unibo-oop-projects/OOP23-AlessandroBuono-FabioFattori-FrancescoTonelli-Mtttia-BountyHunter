@@ -3,7 +3,6 @@ package buontyhunter.core;
 import buontyhunter.input.MiniMapInputController;
 import buontyhunter.input.NullInputComponent;
 import buontyhunter.model.FighterEntity;
-import buontyhunter.model.GameObject;
 import buontyhunter.model.GameObjectType;
 import buontyhunter.model.HidableObject;
 import buontyhunter.model.RectBoundingBox;
@@ -29,11 +28,11 @@ public class GameFactory {
         return instance;
     }
 
-    public FighterEntity createPlayer(Point2d point, Vector2d vector, int health) {
+    public FighterEntity createPlayer(Point2d point, Vector2d vector, int health , int maxHealth) {
         return new FighterEntity(GameObjectType.Player, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                 new PlayerInputController(), new PlayerGraphicsComponent(), new PlayerPhysicsComponent(),
-                health);
+                health, maxHealth);
     }
 
     public TileManager createTileManager() {

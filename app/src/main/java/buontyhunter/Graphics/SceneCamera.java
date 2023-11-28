@@ -1,8 +1,8 @@
-package buontyhunter.graphics;
+package buontyhunter.Graphics;
 
 import java.util.Optional;
 
-import buontyhunter.common.Point2d;
+import buontyhunter.Common.Point2d;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.TileManager;
 import buontyhunter.model.World;

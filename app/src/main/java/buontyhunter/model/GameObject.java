@@ -1,8 +1,8 @@
 package buontyhunter.model;
 
-import buontyhunter.graphics.Graphics;
-import buontyhunter.common.*;
-import buontyhunter.graphics.GraphicsComponent;
+import buontyhunter.Graphics.Graphics;
+import buontyhunter.Common.*;
+import buontyhunter.Graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.input.InputController;
 import buontyhunter.physics.PhysicsComponent;

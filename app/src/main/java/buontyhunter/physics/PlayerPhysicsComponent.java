@@ -1,7 +1,5 @@
 package buontyhunter.physics;
 
-import buontyhunter.common.Point2d;
-import buontyhunter.common.Vector2d;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.World;

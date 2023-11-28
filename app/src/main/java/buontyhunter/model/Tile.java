@@ -8,13 +8,15 @@ public class Tile {
     private final BufferedImage image;
     private final boolean isSolid;
     private Point2d point;
-    private int number;
+    private final boolean isObstacle;
+    private final int id;
 
-    public Tile(BufferedImage image, int number, boolean isSolid, Point2d point) {
+    public Tile(final BufferedImage image,final boolean isObstacle,final boolean isSolid,final Point2d point,int id) {
+        this.isObstacle = isObstacle;
         this.image = image;
-        this.number = number;
         this.isSolid = isSolid;
         this.point = point;
+        this.id = id;
     }
 
     /* getter area */
@@ -32,6 +34,10 @@ public class Tile {
     }
 
     public int getNumber() {
-        return number;
+        return id;
+    }
+    public boolean isObstacle() {
+        return isObstacle;
+
     }
 }

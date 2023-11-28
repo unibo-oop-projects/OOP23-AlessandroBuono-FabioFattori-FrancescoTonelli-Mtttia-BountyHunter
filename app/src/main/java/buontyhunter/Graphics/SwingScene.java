@@ -1,4 +1,4 @@
-package buontyhunter.graphics;
+package buontyhunter.Graphics;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -6,20 +6,16 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.KeyEventDispatcher;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.swing.*;
 
-import buontyhunter.common.Point2d;
+import buontyhunter.Common.Point2d;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 

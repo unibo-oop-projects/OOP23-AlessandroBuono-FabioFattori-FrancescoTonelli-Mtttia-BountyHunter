@@ -7,13 +7,94 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import buontyhunter.common.*;
-import buontyhunter.core.*;
-import buontyhunter.graphics.PlayerGraphicsComponent;
-import buontyhunter.input.KeyBoardController;
-import buontyhunter.input.PlayerInputController;
+import buontyhunter.Core.*;
+import buontyhunter.Common.*;
+import buontyhunter.Graphics.*;
+import buontyhunter.input.*;
 import buontyhunter.model.*;
+import buontyhunter.physics.*;
 
 class AppTest {
+    @Test
+    void GameEngineCanBeCreated(){
+        GameEngine engine = new GameEngine();
+        assertNotNull(engine);
+    }
 
+    @Test
+    void GameFactoryHasCorrectMethodsAndTheyAreRigh(){
+        GameFactory factory = GameFactory.getInstance();
+        assertNotNull(factory);
+        assertEquals(factory.createPlayer(new Point2d(0, 0), Vector2d.symmetrical(0), 100,100).getClass(), FighterEntity.class);
+        assertEquals(factory.createTileManager().getClass(), TileManager.class);
+        FighterEntity player = factory.createPlayer(new Point2d(0, 0), Vector2d.symmetrical(0), 100,150);
+        assertEquals(player.getHealth(), 100);
+        assertEquals(player.getMaxHealth(), 150);
+        assertThrows(IllegalArgumentException.class, () -> factory.createPlayer(new Point2d(0, 0), Vector2d.symmetrical(0), 100,50));
+    }
+
+    @Test
+    void AssetProvider(){
+        AssetProvider provider = new AssetProvider();
+        assertNotNull(provider);
+        assertEquals(provider.fullPath("test"), "/test");
+        assertFalse(provider.imageLoaded("test"));
+        assertNull(provider.getImage("test"));
+        assertFalse(provider.getText("test").isPresent());
+        assertDoesNotThrow(() -> provider.loadImage("test"));
+    }
+
+    @Test
+    void Point2d(){
+        Point2d p = new Point2d(0, 0);
+        assertNotNull(p);
+        assertEquals(p.x, 0);
+        assertEquals(p.y, 0);
+        assertEquals(p.sum(new Vector2d(1, 1)).x, 1);
+        assertEquals(p.sum(new Vector2d(1, 1)).y, 1);
+        assertEquals(p.sub(new Point2d(1, 1)).x, -1);
+        assertEquals(p.sub(new Point2d(1, 1)).y, -1);
+        assertEquals(p.toString(), "Point2d(0.0,0.0)");
+        assertEquals(p.duplicate().x, 0);
+        assertEquals(p.duplicate().y, 0);
+        assertEquals(p.setX(1).x, 1);
+        assertEquals(p.setY(1).y, 1);
+    }
+
+    @Test
+    void Vector2d(){
+        Vector2d v = new Vector2d(0, 0);
+        assertNotNull(v);
+        assertEquals(v.x, 0);
+        assertEquals(v.y, 0);
+        assertEquals(v.sum(new Vector2d(1, 1)).x, 1);
+        assertEquals(v.sum(new Vector2d(1, 1)).y, 1);
+        assertEquals(v.mul(2).x, 0);
+        assertEquals(v.mul(2).y, 0);
+        assertEquals(v.module(), 0);
+        assertEquals(v.toString(), "Vector2d(0.0,0.0)");
+        assertEquals(v.duplicate().x, 0);
+        assertEquals(v.duplicate().y, 0);
+        double module = (double) Math.sqrt(v.x * v.x + v.y * v.y);
+        assertEquals(v.getNormalized().x, v.x / module);
+        assertEquals(v.getNormalized().y, v.y / module);
+        v.x = 5;
+        v.y = 5;
+        v.negativeX();
+        v.negativeY();
+        assertEquals(v.x, -5);
+        assertEquals(v.y, -5);
+        Vector2d symmetrical = Vector2d.symmetrical(5);
+        assertEquals(symmetrical.x, 5);
+        assertEquals(symmetrical.y, 5);
+        
+    }
+
+    @Test 
+    void TileManager(){
+        TileManager tm = GameFactory.getInstance().createTileManager();
+        assertNotNull(tm);
+        assertDoesNotThrow(() -> tm.loadMap(0));
+        assertDoesNotThrow(() -> tm.loadMap(1));
+    }
 }

@@ -1,4 +1,4 @@
-package buontyhunter.graphics;
+package buontyhunter.Graphics;
 
 import buontyhunter.model.GameObject;
 import buontyhunter.model.World;
