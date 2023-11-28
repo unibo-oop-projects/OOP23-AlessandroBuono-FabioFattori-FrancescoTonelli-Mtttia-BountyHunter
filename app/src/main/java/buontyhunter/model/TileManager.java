@@ -35,9 +35,9 @@ public class TileManager extends GameObject {
 
     private void setDefaultValueForMaps() {
 
-        this.maps.put(0, assetManager.getText("Assets/Maps/map.txt"));
+        this.maps.put(0, assetManager.getText("Assets/maps/map.txt").orElse(""));
 
-        this.maps.put(1, assetManager.getText("Assets/Maps/hubMap.txt"));
+        this.maps.put(1, assetManager.getText("Assets/maps/hubMap.txt").orElse(""));
     }
 
     public RectBoundingBox loadMap(int mapId) {
@@ -69,10 +69,16 @@ public class TileManager extends GameObject {
     private Optional<String> resolveAssetName(int num) {
         switch (num) {
             case 0:
-                return Optional.of("ground.png");
+                return Optional.of("earth.png");
             case 1:
-                return Optional.of("border.png");
+                return Optional.of("grass.png");
             case 2:
+                return Optional.of("sand.png");
+            case 3:
+                return Optional.of("tree.png");
+            case 4:
+                return Optional.of("wall.png");
+            case 5:
                 return Optional.of("water.png");
         }
 
