@@ -1,8 +1,8 @@
 package buontyhunter.model;
 
-import buontyhunter.Core.GameFactory;
-import buontyhunter.Common.Point2d;
-import buontyhunter.Common.Vector2d;
+import buontyhunter.core.GameFactory;
+import buontyhunter.common.Point2d;
+import buontyhunter.common.Vector2d;
 
 public class GameState {
 

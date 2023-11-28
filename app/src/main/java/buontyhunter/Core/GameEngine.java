@@ -1,8 +1,8 @@
-package buontyhunter.Core;
+package buontyhunter.core;
 
 import java.util.LinkedList;
 
-import buontyhunter.Graphics.*;
+import buontyhunter.graphics.*;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 

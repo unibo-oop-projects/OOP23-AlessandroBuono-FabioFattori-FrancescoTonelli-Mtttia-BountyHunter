@@ -4,7 +4,7 @@ import java.util.List;
 
 import java.util.Optional;
 
-import buontyhunter.Common.Point2d;
+import buontyhunter.common.Point2d;
 import buontyhunter.physics.BoundaryCollision;
 
 import java.util.ArrayList;

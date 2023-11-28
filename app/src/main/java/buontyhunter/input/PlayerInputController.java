@@ -1,6 +1,6 @@
 package buontyhunter.input;
 
-import buontyhunter.Common.Vector2d;
+import buontyhunter.common.Vector2d;
 import buontyhunter.model.GameObject;
 
 /**

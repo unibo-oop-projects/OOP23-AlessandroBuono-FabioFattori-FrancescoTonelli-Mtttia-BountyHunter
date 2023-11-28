@@ -1,12 +1,12 @@
-package buontyhunter.Graphics;
+package buontyhunter.graphics;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Stroke;
-import buontyhunter.Core.GameEngine;
-import buontyhunter.Common.Point2d;
+import buontyhunter.core.GameEngine;
+import buontyhunter.common.Point2d;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.HidableObject;
 import buontyhunter.model.RectBoundingBox;
@@ -113,7 +113,7 @@ public class SwingGraphics implements Graphics {
 		var offsetY = 0;
 		var lastX = tiles.size();
 		var lastY = tiles.get(0).size();
-
+		
 		int i = 0, j = 0;
 		for (int y = firstY; y < lastY; y++) {
 			i = 0;
@@ -143,17 +143,17 @@ public class SwingGraphics implements Graphics {
 	private Color getTileColor(int number) {
 		switch (number) {
 			case 0:
-				return Color.MAGENTA;
+				return new Color(160,82,45); // brown
 			case 1:
 				return Color.GREEN;
 			case 2:
 				return Color.YELLOW;
 			case 3:
-				return Color.GRAY;
+				return new Color(1, 50, 32);
 			case 4:
 				return Color.DARK_GRAY;
 			case 5:
-				return Color.BLUE;
+				return Color.cyan;
 			default:
 				return Color.RED;
 

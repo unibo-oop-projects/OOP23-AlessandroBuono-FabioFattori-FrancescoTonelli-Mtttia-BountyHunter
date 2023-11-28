@@ -1,6 +1,6 @@
 package buontyhunter.model;
 
-import buontyhunter.Common.Point2d;
+import buontyhunter.common.Point2d;
 
 public class RectBoundingBox implements BoundingBox {
 

@@ -1,6 +1,6 @@
 package buontyhunter.physics;
 
-import buontyhunter.Common.*;
+import buontyhunter.common.*;
 import buontyhunter.model.*;
 
 public abstract class PhysicsComponent {

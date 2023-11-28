@@ -1,6 +1,6 @@
 package buontyhunter.physics;
 
-import buontyhunter.Common.Point2d;
+import buontyhunter.common.Point2d;
 
 public class BoundaryCollision {
 

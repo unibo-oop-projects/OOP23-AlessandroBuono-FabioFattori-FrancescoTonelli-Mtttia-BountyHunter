@@ -1,4 +1,4 @@
-package buontyhunter.Graphics;
+package buontyhunter.graphics;
 
 public interface Scene {
 

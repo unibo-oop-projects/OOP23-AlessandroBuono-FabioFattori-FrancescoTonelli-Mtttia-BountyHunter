@@ -1,4 +1,4 @@
-package buontyhunter.Common;
+package buontyhunter.common;
 
 public class Vector2d implements java.io.Serializable {
 

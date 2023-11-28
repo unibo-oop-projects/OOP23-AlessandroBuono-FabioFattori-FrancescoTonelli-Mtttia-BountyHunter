@@ -1,8 +1,8 @@
 package buontyhunter.model;
 
-import buontyhunter.Common.Point2d;
-import buontyhunter.Common.Vector2d;
-import buontyhunter.Graphics.GraphicsComponent;
+import buontyhunter.common.Point2d;
+import buontyhunter.common.Vector2d;
+import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
 

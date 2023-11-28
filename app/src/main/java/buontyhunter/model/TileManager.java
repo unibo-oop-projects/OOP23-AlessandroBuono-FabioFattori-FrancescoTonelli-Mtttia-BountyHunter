@@ -9,10 +9,10 @@ import java.util.Optional;
 
 import java.util.List;
 
-import buontyhunter.Common.AssetProvider;
-import buontyhunter.Common.Point2d;
-import buontyhunter.Common.Vector2d;
-import buontyhunter.Graphics.GraphicsComponent;
+import buontyhunter.common.AssetProvider;
+import buontyhunter.common.Point2d;
+import buontyhunter.common.Vector2d;
+import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
 
@@ -53,9 +53,9 @@ public class TileManager extends GameObject {
                 int tileId = Integer.parseInt(tiles[j]);
                 
                 if(tileId == 5) {
-                    row.add(new Tile(getTileImage(tileId), true, true, new Point2d(j, i)));
+                    row.add(new Tile(getTileImage(tileId), true, true, new Point2d(j, i),tileId));
                 }else{
-                    row.add(new Tile(getTileImage(tileId), false, true, new Point2d(j, i)));
+                    row.add(new Tile(getTileImage(tileId), false, true, new Point2d(j, i),tileId));
                 }
             }
             this.tiles.add(row);

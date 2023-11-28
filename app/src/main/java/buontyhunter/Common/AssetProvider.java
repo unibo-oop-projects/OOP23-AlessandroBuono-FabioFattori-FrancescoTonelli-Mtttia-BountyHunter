@@ -1,4 +1,4 @@
-package buontyhunter.Common;
+package buontyhunter.common;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;

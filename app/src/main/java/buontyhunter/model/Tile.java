@@ -36,6 +36,7 @@ public class Tile {
     public int getNumber() {
         return id;
     }
+    
     public boolean isObstacle() {
         return isObstacle;
 

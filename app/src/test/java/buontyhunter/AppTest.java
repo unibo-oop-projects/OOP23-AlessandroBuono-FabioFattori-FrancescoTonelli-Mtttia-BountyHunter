@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import buontyhunter.Core.*;
-import buontyhunter.Common.*;
-import buontyhunter.Graphics.*;
+import buontyhunter.core.*;
+import buontyhunter.common.*;
+import buontyhunter.graphics.*;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 import buontyhunter.physics.*;
