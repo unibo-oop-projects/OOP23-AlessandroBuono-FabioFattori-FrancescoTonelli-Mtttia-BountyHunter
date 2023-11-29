@@ -11,4 +11,6 @@ public interface Graphics {
 	void drawMiniMap(HidableObject tileManager, World w);
 
 	void drawNavigatorLine(NavigatorLine navigatorLine, World w);
+
+	void drawHealthBar(HealthBar healthBar, World w);
 }

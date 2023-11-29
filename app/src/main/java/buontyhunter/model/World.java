@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import buontyhunter.common.Point2d;
+import buontyhunter.core.GameFactory;
 import buontyhunter.physics.BoundaryCollision;
 
 import java.util.ArrayList;
@@ -16,9 +17,11 @@ public class World {
     private WorldEventListener evListener;
     private HidableObject miniMap;
     private NavigatorLine navigatorLine;
+    private HealthBar healthBar;
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
+        this.healthBar = GameFactory.getInstance().createHealthBar();
     }
 
     public void setEventListener(WorldEventListener l) {
@@ -88,6 +91,8 @@ public class World {
             entities.add(navigatorLine);
         if (miniMap != null)
             entities.add(miniMap);
+        if (healthBar != null)
+            entities.add(healthBar);
         return entities;
     }
 

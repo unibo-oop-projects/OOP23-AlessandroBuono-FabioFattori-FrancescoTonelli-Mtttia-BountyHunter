@@ -4,6 +4,7 @@ import buontyhunter.input.MiniMapInputController;
 import buontyhunter.input.NullInputComponent;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObjectType;
+import buontyhunter.model.HealthBar;
 import buontyhunter.model.HidableObject;
 import buontyhunter.model.NavigatorLine;
 import buontyhunter.model.RectBoundingBox;
@@ -13,6 +14,7 @@ import buontyhunter.physics.NullPhysiscsCompoment;
 import buontyhunter.physics.PlayerPhysicsComponent;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
+import buontyhunter.graphics.HealthBarGraphicsComponent;
 import buontyhunter.graphics.MapGraphicsComponent;
 import buontyhunter.graphics.MiniMapGraphicsComponent;
 import buontyhunter.graphics.NavigatorLineGraphicsComponent;
@@ -57,5 +59,12 @@ public class GameFactory {
                 new Point2d(0, 0), new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
                 new NullInputComponent(), new NavigatorLineGraphicsComponent(), new NullPhysiscsCompoment(), world);
+    }
+
+    public HealthBar createHealthBar() {
+        return new HealthBar(GameObjectType.HealthBar,
+                new Point2d((GameEngine.WORLD_WIDTH/2)*(GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH)-100, GameEngine.WORLD_HEIGHT*(GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH)-100), new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
+                new NullInputComponent(), new HealthBarGraphicsComponent(), new NullPhysiscsCompoment());
     }
 }

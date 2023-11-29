@@ -1,13 +1,12 @@
 package buontyhunter.graphics;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Stroke;
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.Point2d;
+import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObject;
+import buontyhunter.model.HealthBar;
 import buontyhunter.model.HidableObject;
 import buontyhunter.model.NavigatorLine;
 import buontyhunter.model.RectBoundingBox;
@@ -18,8 +17,6 @@ import buontyhunter.model.World;
 public class SwingGraphics implements Graphics {
 
 	private Graphics2D g2;
-	private static final Stroke strokeBall = new BasicStroke(4f);
-	private static final Stroke strokePick = new BasicStroke(8f);
 
 	private int centerX;
 	private int centerY;
@@ -50,14 +47,6 @@ public class SwingGraphics implements Graphics {
 
 	private int getDeltaYinPixel(double dy) {
 		return (int) Math.round(dy * ratioY);
-	}
-
-	private double getHalfWidth() {
-		return GameEngine.WORLD_WIDTH / 2;
-	}
-
-	private double getHalfHeight() {
-		return GameEngine.WORLD_HEIGHT / 2;
 	}
 
 	@Override
@@ -110,8 +99,6 @@ public class SwingGraphics implements Graphics {
 
 		var firstX = 0;
 		var firstY = 0;
-		var offsetX = 0;
-		var offsetY = 0;
 		var lastX = tiles.size();
 		var lastY = tiles.get(0).size();
 
@@ -168,5 +155,17 @@ public class SwingGraphics implements Graphics {
 		g2.setColor(Color.RED);
 		pathStream.forEach((Point2d p) -> g2.fillOval(getDeltaXinPixel(p.x), getDeltaYinPixel(p.y), getDeltaXinPixel(1),
 				getDeltaYinPixel(1)));
+	}
+
+	@Override
+	public void drawHealthBar(HealthBar healthBar, World w) {
+
+		g2.setColor(Color.BLACK);
+		g2.fillRect((int) healthBar.getPos().x, (int) healthBar.getPos().y,
+				((FighterEntity) w.getPlayer()).getMaxHealth() * HealthBar.zoom + HealthBar.margin, 30);
+		g2.setColor(Color.RED);
+		g2.fillRect((int) healthBar.getPos().x + HealthBar.margin / 2,
+				(int) healthBar.getPos().y + HealthBar.margin / 2,
+				((FighterEntity) w.getPlayer()).getHealth() * HealthBar.zoom, 20);
 	}
 }
