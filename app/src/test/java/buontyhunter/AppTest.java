@@ -9,10 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import buontyhunter.core.*;
 import buontyhunter.common.*;
-import buontyhunter.graphics.*;
-import buontyhunter.input.*;
 import buontyhunter.model.*;
-import buontyhunter.physics.*;
 
 class AppTest {
     @Test

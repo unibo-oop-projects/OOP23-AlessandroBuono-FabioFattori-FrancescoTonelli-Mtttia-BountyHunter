@@ -2,7 +2,6 @@ package buontyhunter.graphics;
 
 import buontyhunter.model.GameObject;
 import buontyhunter.model.HidableObject;
-import buontyhunter.model.TileManager;
 import buontyhunter.model.World;
 
 public class MiniMapGraphicsComponent implements GraphicsComponent {

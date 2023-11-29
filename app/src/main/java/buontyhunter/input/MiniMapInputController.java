@@ -1,6 +1,5 @@
 package buontyhunter.input;
 
-import buontyhunter.common.Vector2d;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.HidableObject;
 
