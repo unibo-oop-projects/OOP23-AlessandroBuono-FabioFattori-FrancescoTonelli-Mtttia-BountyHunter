@@ -8,8 +8,12 @@ import buontyhunter.model.*;
 
 public class GameEngine implements WorldEventListener {
 
-    public static double WORLD_WIDTH = 20;
-    public static double WORLD_HEIGHT = 20;
+    public static final int WORLD_WIDTH = 20;
+    public static final int WORLD_HEIGHT = 20;
+    public static final int WINDOW_WIDTH = 600;
+    public static final int WINDOW_HEIGHT = 600;
+    public static final int RATIO_WIDTH = (int) Math.floor(WINDOW_WIDTH / WORLD_WIDTH);
+    public static final int RATIO_HEIGHT = (int) Math.floor(WINDOW_HEIGHT / WORLD_HEIGHT);
 
     private long FPS = 30;
     private Scene view;
@@ -24,7 +28,7 @@ public class GameEngine implements WorldEventListener {
     public void initGame() {
         gameState = new GameState(this);
         controller = new KeyboardInputController();
-        view = new SwingScene(gameState, controller, 600, 600, WORLD_WIDTH, WORLD_HEIGHT);
+        view = new SwingScene(gameState, controller, WINDOW_WIDTH, WINDOW_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
     }
 
     public void mainLoop() {

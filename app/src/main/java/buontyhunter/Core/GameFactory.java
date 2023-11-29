@@ -5,14 +5,17 @@ import buontyhunter.input.NullInputComponent;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObjectType;
 import buontyhunter.model.HidableObject;
+import buontyhunter.model.NavigatorLine;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
+import buontyhunter.model.World;
 import buontyhunter.physics.NullPhysiscsCompoment;
 import buontyhunter.physics.PlayerPhysicsComponent;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
 import buontyhunter.graphics.MapGraphicsComponent;
 import buontyhunter.graphics.MiniMapGraphicsComponent;
+import buontyhunter.graphics.NavigatorLineGraphicsComponent;
 import buontyhunter.graphics.PlayerGraphicsComponent;
 import buontyhunter.input.PlayerInputController;
 
@@ -28,7 +31,7 @@ public class GameFactory {
         return instance;
     }
 
-    public FighterEntity createPlayer(Point2d point, Vector2d vector, int health , int maxHealth) {
+    public FighterEntity createPlayer(Point2d point, Vector2d vector, int health, int maxHealth) {
         return new FighterEntity(GameObjectType.Player, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                 new PlayerInputController(), new PlayerGraphicsComponent(), new PlayerPhysicsComponent(),
@@ -47,5 +50,12 @@ public class GameFactory {
                 new Point2d(0, 0), new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
                 new MiniMapInputController(), new MiniMapGraphicsComponent(), new NullPhysiscsCompoment(), false);
+    }
+
+    public NavigatorLine createNavigatorLine(World world) {
+        return new NavigatorLine(GameObjectType.NavigatorLine,
+                new Point2d(0, 0), new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
+                new NullInputComponent(), new NavigatorLineGraphicsComponent(), new NullPhysiscsCompoment(), world);
     }
 }

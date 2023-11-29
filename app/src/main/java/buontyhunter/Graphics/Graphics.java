@@ -9,4 +9,6 @@ public interface Graphics {
 	void drawMap(TileManager tileManager, World w);
 
 	void drawMiniMap(HidableObject tileManager, World w);
+
+	void drawNavigatorLine(NavigatorLine navigatorLine, World w);
 }

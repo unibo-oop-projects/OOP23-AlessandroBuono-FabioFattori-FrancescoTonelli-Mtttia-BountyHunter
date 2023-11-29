@@ -15,9 +15,10 @@ public class GameState {
 
         score = 0;
         world = new World(new RectBoundingBox(new Point2d(0, 0), 20, 18));
-        world.setPlayer(f.createPlayer(new Point2d(0, 0), Vector2d.symmetrical(0), 100 , 100));
+        world.setPlayer(f.createPlayer(new Point2d(0, 0), Vector2d.symmetrical(0), 100, 100));
         world.setTileManager(f.createTileManager());
         world.setMiniMap(f.createMinimap());
+        world.setNavigatorLine(f.createNavigatorLine(world));
         world.setEventListener(l);
     }
 

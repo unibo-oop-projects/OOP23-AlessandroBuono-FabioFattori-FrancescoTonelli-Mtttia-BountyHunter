@@ -15,6 +15,7 @@ public class World {
     private RectBoundingBox mainBBox;
     private WorldEventListener evListener;
     private HidableObject miniMap;
+    private NavigatorLine navigatorLine;
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
@@ -35,6 +36,10 @@ public class World {
 
     public void setMiniMap(HidableObject miniMap) {
         this.miniMap = miniMap;
+    }
+
+    public void setNavigatorLine(NavigatorLine navigatorLine) {
+        this.navigatorLine = navigatorLine;
     }
 
     public void updateState(long dt) {
@@ -69,12 +74,18 @@ public class World {
         return miniMap;
     }
 
+    public NavigatorLine getNavigatorLine() {
+        return navigatorLine;
+    }
+
     public List<GameObject> getSceneEntities() {
         List<GameObject> entities = new ArrayList<GameObject>();
         if (tileManager != null)
             entities.add(tileManager);
         if (player != null)
             entities.add(player);
+        if (navigatorLine != null)
+            entities.add(navigatorLine);
         if (miniMap != null)
             entities.add(miniMap);
         return entities;

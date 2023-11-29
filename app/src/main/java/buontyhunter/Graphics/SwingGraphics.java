@@ -9,8 +9,10 @@ import buontyhunter.core.GameEngine;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.HidableObject;
+import buontyhunter.model.NavigatorLine;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
+import buontyhunter.model.TileType;
 import buontyhunter.model.World;
 
 public class SwingGraphics implements Graphics {
@@ -86,8 +88,7 @@ public class SwingGraphics implements Graphics {
 			for (int x = firstX; x < lastX; x++) {
 				Point2d tilePos = new Point2d(i - offsetX, j - offsetY);
 				try {
-					var image = tiles.get(y).get(x).getImage().getScaledInstance(getDeltaXinPixel(1),
-							getDeltaYinPixel(1), Image.SCALE_DEFAULT);
+					var image = tiles.get(y).get(x).getImage();
 					g2.drawImage(image, getXinPixel(tilePos),
 							getYinPixel(tilePos), null);
 				} catch (Exception ex) {
@@ -113,14 +114,14 @@ public class SwingGraphics implements Graphics {
 		var offsetY = 0;
 		var lastX = tiles.size();
 		var lastY = tiles.get(0).size();
-		
+
 		int i = 0, j = 0;
 		for (int y = firstY; y < lastY; y++) {
 			i = 0;
 			for (int x = firstX; x < lastX; x++) {
 				Point2d tilePos = new Point2d(1, 1);
 				try {
-					g2.setColor(getTileColor(tiles.get(y).get(x).getNumber()));
+					g2.setColor(getTileColor(tiles.get(y).get(x).getType()));
 					g2.fillRect(getXinPixel(tilePos) + x,
 							getYinPixel(tilePos) + y, 1, 1);
 				} catch (Exception ex) {
@@ -140,23 +141,32 @@ public class SwingGraphics implements Graphics {
 				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y), 2, 2);
 	}
 
-	private Color getTileColor(int number) {
-		switch (number) {
-			case 0:
-				return new Color(160,82,45); // brown
-			case 1:
+	private Color getTileColor(TileType type) {
+		switch (type) {
+			case earth:
+				return new Color(160, 82, 45); // brown
+			case grass:
 				return Color.GREEN;
-			case 2:
+			case sand:
 				return Color.YELLOW;
-			case 3:
+			case tree:
 				return new Color(1, 50, 32);
-			case 4:
+			case wall:
 				return Color.DARK_GRAY;
-			case 5:
+			case water:
 				return Color.cyan;
 			default:
 				return Color.RED;
 
 		}
+	}
+
+	@Override
+	public void drawNavigatorLine(NavigatorLine navigatorLine, World w) {
+		var pathStream = navigatorLine.getPath().stream();
+
+		g2.setColor(Color.RED);
+		pathStream.forEach((Point2d p) -> g2.fillOval(getDeltaXinPixel(p.x), getDeltaYinPixel(p.y), getDeltaXinPixel(1),
+				getDeltaYinPixel(1)));
 	}
 }
