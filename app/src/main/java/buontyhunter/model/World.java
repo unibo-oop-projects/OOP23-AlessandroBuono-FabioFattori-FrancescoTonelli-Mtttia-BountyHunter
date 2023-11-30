@@ -30,7 +30,7 @@ public class World {
 
     public void setTileManager(TileManager tileManager) {
         this.tileManager = tileManager;
-        laodMap(0);
+        laodMap(1);
     }
 
     public void setPlayer(GameObject player) {
@@ -89,10 +89,11 @@ public class World {
             entities.add(player);
         if (navigatorLine != null)
             entities.add(navigatorLine);
-        if (miniMap != null)
-            entities.add(miniMap);
         if (healthBar != null)
             entities.add(healthBar);
+        if (miniMap != null)
+            entities.add(miniMap);
+
         return entities;
     }
 

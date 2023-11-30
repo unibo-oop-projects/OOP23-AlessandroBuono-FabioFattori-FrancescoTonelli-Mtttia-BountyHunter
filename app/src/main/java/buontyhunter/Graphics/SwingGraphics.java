@@ -1,7 +1,14 @@
 package buontyhunter.graphics;
 
+import java.util.function.Predicate; 
+import java.util.function.Function;
+
+
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.List;
+
+
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.FighterEntity;
@@ -13,21 +20,18 @@ import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
 import buontyhunter.model.TileType;
 import buontyhunter.model.World;
+import buontyhunter.model.Tile;
 
 public class SwingGraphics implements Graphics {
 
 	private Graphics2D g2;
 
-	private int centerX;
-	private int centerY;
 	private double ratioX;
 	private double ratioY;
 	private SceneCamera camera;
 
-	public SwingGraphics(Graphics2D g2, int centerX, int centerY, double ratioX, double ratioY, SceneCamera camera) {
+	public SwingGraphics(Graphics2D g2, double ratioX, double ratioY, SceneCamera camera) {
 		this.g2 = g2;
-		this.centerX = centerX;
-		this.centerY = centerY;
 		this.ratioX = ratioX;
 		this.ratioY = ratioY;
 		this.camera = camera;
@@ -91,6 +95,15 @@ public class SwingGraphics implements Graphics {
 		}
 	}
 
+	private int validateCoordinateMiniMap(int computedProps, Predicate<Integer> acceptor,
+			Function<Integer,Integer> getCorrectValue) {
+		return (acceptor.test(computedProps)) ? computedProps : getCorrectValue.apply(computedProps);
+	}
+
+	private int getMaxY(List<List<Tile>> tiles) {
+		return tiles.stream().mapToInt((list) -> list.size()).max().getAsInt();
+	}
+
 	public void drawMiniMap(HidableObject miniMap, World w) {
 		if (!miniMap.isShow())
 			return;
@@ -99,33 +112,51 @@ public class SwingGraphics implements Graphics {
 
 		var firstX = 0;
 		var firstY = 0;
-		var lastX = tiles.size();
-		var lastY = tiles.get(0).size();
+		final var lastX = tiles.size();
+		final var lastY = getMaxY(tiles);
 
-		int i = 0, j = 0;
-		for (int y = firstY; y < lastY; y++) {
-			i = 0;
-			for (int x = firstX; x < lastX; x++) {
-				Point2d tilePos = new Point2d(1, 1);
+		Point2d tilePos = new Point2d(1, 1);
+
+		var propsX = validateCoordinateMiniMap(GameEngine.WINDOW_WIDTH / (lastX),
+				(computedValue) -> !(getXinPixel(tilePos) + (lastY - 1) * computedValue >= GameEngine.WINDOW_WIDTH),
+				(computedProps) -> {
+					
+					while (getXinPixel(tilePos) + (lastY - 1) * computedProps >= GameEngine.WINDOW_WIDTH) {
+						computedProps--;
+					}
+					computedProps--;
+					return (computedProps<=0)?1:computedProps;
+				});
+		var propsY = validateCoordinateMiniMap(GameEngine.WINDOW_HEIGHT / (lastY),
+				(computedValue) -> !(getYinPixel(tilePos) + (lastX - 1) * computedValue >= GameEngine.WINDOW_HEIGHT),
+				(computedProps) -> {
+					while (getYinPixel(tilePos) + (lastX - 1) * computedProps >= GameEngine.WINDOW_HEIGHT) {
+						computedProps--;
+					}
+					computedProps--;
+					return (computedProps<=0)?1:computedProps;
+				});
+
+		for (int x = firstX; x < lastX; x++) {
+			for (int y = firstY; y < lastY; y++) {
+
 				try {
-					g2.setColor(getTileColor(tiles.get(y).get(x).getType()));
-					g2.fillRect(getXinPixel(tilePos) + x,
-							getYinPixel(tilePos) + y, 1, 1);
+					g2.setColor(getTileColor(tiles.get(x).get(y).getType()));
+					g2.fillRect(getXinPixel(tilePos) + y * propsX,
+							getYinPixel(tilePos) + x * propsY, propsX, propsY);
 				} catch (Exception ex) {
 					System.out.println(ex.getMessage());
 					System.out.println("we're fucked up");
 				}
 
-				i++;
 			}
-			j++;
 		}
 
 		var p = w.getPlayer();
-		Point2d tilePos = new Point2d(1, 1);
+
 		g2.setColor(Color.RED);
-		g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(p.getPos().x),
-				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y), 2, 2);
+		g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(p.getPos().x) * propsX,
+				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y) * propsY, propsX, propsY);
 	}
 
 	private Color getTileColor(TileType type) {

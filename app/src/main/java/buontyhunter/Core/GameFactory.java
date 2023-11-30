@@ -33,6 +33,14 @@ public class GameFactory {
         return instance;
     }
 
+    /**
+     * Create a new player 
+     * @param point start position for the player
+     * @param vector current player velocity
+     * @param health current health that the player will have 
+     * @param maxHealth maximum health that the player can have
+     * @return the player entity created
+     */
     public FighterEntity createPlayer(Point2d point, Vector2d vector, int health, int maxHealth) {
         return new FighterEntity(GameObjectType.Player, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
@@ -40,6 +48,10 @@ public class GameFactory {
                 health, maxHealth);
     }
 
+    /**
+     * Create a new tile manager; this object will be used to manage the tiles in the game 
+     * @return the tile manager created
+     */
     public TileManager createTileManager() {
         return new TileManager(GameObjectType.TileManager,
                 new Point2d(-(GameEngine.WORLD_WIDTH / 2), GameEngine.WORLD_HEIGHT / 2), new Vector2d(0, 0),
@@ -47,6 +59,10 @@ public class GameFactory {
                 new NullInputComponent(), new MapGraphicsComponent(), new NullPhysiscsCompoment());
     }
 
+    /**
+     * Create a new minimap; this object will be used to show the minimap in the game when pressing the M key
+     * @return the minimap created
+     */
     public HidableObject createMinimap() {
         return new HidableObject(GameObjectType.MiniMap,
                 new Point2d(0, 0), new Vector2d(0, 0),
@@ -54,6 +70,11 @@ public class GameFactory {
                 new MiniMapInputController(), new MiniMapGraphicsComponent(), new NullPhysiscsCompoment(), false);
     }
 
+    /**
+     * Create a new navigator line; this object will be used to show the navigator line in the game when pressing the N key
+     * @param world the world where the navigator line will be used
+     * @return the navigator line created
+     */
     public NavigatorLine createNavigatorLine(World world) {
         return new NavigatorLine(GameObjectType.NavigatorLine,
                 new Point2d(0, 0), new Vector2d(0, 0),
@@ -61,6 +82,10 @@ public class GameFactory {
                 new NullInputComponent(), new NavigatorLineGraphicsComponent(), new NullPhysiscsCompoment(), world);
     }
 
+    /**
+     * Create a new health bar; this object will be used to show the health bar in the game
+     * @return the health bar created
+     */
     public HealthBar createHealthBar() {
         return new HealthBar(GameObjectType.HealthBar,
                 new Point2d((GameEngine.WORLD_WIDTH/2)*(GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH)-100, GameEngine.WORLD_HEIGHT*(GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH)-100), new Vector2d(0, 0),
