@@ -40,14 +40,15 @@ public class Camera implements SceneCamera {
 
     @Override
     public boolean inScene(Point2d p) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'inScene'");
+        return p.x >= firstTileX && p.x <= lastTileX && p.y >= firstTileY && p.y <= lastTileY;
     }
 
     @Override
     public Optional<Point2d> getObjectPointInScene(Point2d obj) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getObjectPointInScene'");
+        if (inScene(obj)) {
+            return Optional.of(new Point2d(obj.x - firstTileX - tileOffsetX, obj.y - firstTileY - tileOffsetY));
+        }
+        return Optional.empty();
     }
 
     @Override

@@ -1,0 +1,102 @@
+package buontyhunter.model.pathFinding;
+
+import java.util.*;
+
+import buontyhunter.common.Point2d;
+import buontyhunter.model.Tile;
+
+import java.util.*;
+
+public class BFSPathFinder implements PathFinder {
+
+    private boolean useCache = false;
+    Map<Point2d, Point2d> parentMap;
+
+    public BFSPathFinder(boolean useCache) {
+        this.useCache = useCache;
+        parentMap = new HashMap<>();
+    }
+
+    @Override
+    public List<Point2d> findPath(Point2d initialPoint, Point2d finalPoint, List<List<Tile>> map) {
+        // Initialize visited set and queue for BFS
+        Set<Point2d> visited = new HashSet<>();
+        Queue<Point2d> queue = new LinkedList<>();
+        if (!useCache)
+            parentMap.clear();
+
+        if (isSolid(initialPoint, map) || isSolid(finalPoint, map)) {
+            // No path found
+            return Collections.emptyList();
+        }
+
+        queue.offer(finalPoint);
+        visited.add(finalPoint);
+        parentMap.put(finalPoint, null);
+
+        while (!queue.isEmpty()) {
+            Point2d current = queue.poll();
+
+            if (current.equals(initialPoint) || isPointAlreadySolved(initialPoint)) {
+                // Path found, reconstruct the path and return it
+                return reconstructPath(parentMap, initialPoint);
+            }
+
+            for (Point2d neighbor : getNeighbors(current, map)) {
+                if (!visited.contains(neighbor) && !isSolid(neighbor, map)) {
+                    visited.add(neighbor);
+                    queue.offer(neighbor);
+                    parentMap.put(neighbor, current);
+                }
+            }
+        }
+
+        // No path found
+        return Collections.emptyList();
+    }
+
+    private boolean isPointAlreadySolved(Point2d point) {
+        if (!useCache)
+            return false;
+
+        return parentMap.containsKey(point);
+    }
+
+    private boolean isSolid(Point2d point, List<List<Tile>> map) {
+        return map.get((int) point.y).get((int) point.x).isSolid();
+    }
+
+    // Helper method to get neighboring points
+    private List<Point2d> getNeighbors(Point2d point, List<List<Tile>> map) {
+        List<Point2d> neighbors = new ArrayList<>();
+        int rows = map.size();
+        int cols = map.get(0).size();
+
+        int[] dx = { -1, 1, 0, 0 }; // Changes in x for left, right, up, down
+        int[] dy = { 0, 0, -1, 1 }; // Changes in y for left, right, up, down
+
+        for (int i = 0; i < 4; i++) {
+            int newX = (int) point.x + dx[i];
+            int newY = (int) point.y + dy[i];
+
+            if (newX >= 0 && newX < rows && newY >= 0 && newY < cols) {
+                neighbors.add(new Point2d(newX, newY));
+            }
+        }
+
+        return neighbors;
+    }
+
+    // Helper method to reconstruct the path from final point to initial point
+    private List<Point2d> reconstructPath(Map<Point2d, Point2d> parentMap, Point2d finalPoint) {
+        List<Point2d> path = new ArrayList<>();
+        Point2d current = finalPoint;
+
+        while (current != null) {
+            path.add(0, current);
+            current = parentMap.get(current);
+        }
+
+        return path;
+    }
+}

@@ -7,7 +7,7 @@ import buontyhunter.model.World;
 
 public class PlayerPhysicsComponent extends PhysicsComponent {
 
-    static Point2d FINAL_POINT = new Point2d(3, 3);
+    static Point2d FINAL_POINT = new Point2d(2, 0);
 
     public void update(long dt, GameObject obj, World w) {
         // cannot go out of bounds

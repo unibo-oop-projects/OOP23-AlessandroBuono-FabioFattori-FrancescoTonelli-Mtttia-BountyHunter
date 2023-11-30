@@ -7,7 +7,7 @@ import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
 
 import java.util.*;
-import buontyhunter.model.pathFinding.AStarPathFinding;
+import buontyhunter.model.pathFinding.*;
 import buontyhunter.model.pathFinding.PathFinder;
 
 public class NavigatorLine extends GameObject {
@@ -21,11 +21,12 @@ public class NavigatorLine extends GameObject {
         super(type, pos, vel, box, input, graph, phys);
         this.world = world;
         path = new ArrayList<>();
-        pathFinder = new AStarPathFinding();
+        pathFinder = new BFSPathFinder(true);
     }
 
     public void setPath(Point2d initialPoint, Point2d finalPoint) {
-        path = pathFinder.findPath(initialPoint, finalPoint, world.getTileManager().getTiles());
+        path = pathFinder.findPath(initialPoint.duplicate().floorCoordinates(),
+                finalPoint.duplicate().floorCoordinates(), world.getTileManager().getTiles());
     }
 
     public List<Point2d> getPath() {

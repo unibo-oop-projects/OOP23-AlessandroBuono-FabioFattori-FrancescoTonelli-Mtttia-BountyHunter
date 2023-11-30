@@ -139,6 +139,14 @@ public class SwingGraphics implements Graphics {
 		g2.setColor(Color.RED);
 		g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(p.getPos().x),
 				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y), 2, 2);
+
+		var navigatorLine = w.getNavigatorLine();
+		var pathStream = navigatorLine.getPath().stream();
+
+		g2.setColor(Color.ORANGE);
+		pathStream.forEach((Point2d np) -> g2.fillOval(getXinPixel(tilePos) + (int) np.x - 1,
+				getYinPixel(tilePos) + (int) np.y - 1, 3, 3));
+
 	}
 
 	private Color getTileColor(TileType type) {
@@ -165,8 +173,10 @@ public class SwingGraphics implements Graphics {
 	public void drawNavigatorLine(NavigatorLine navigatorLine, World w) {
 		var pathStream = navigatorLine.getPath().stream();
 
-		g2.setColor(Color.RED);
-		pathStream.forEach((Point2d p) -> g2.fillOval(getDeltaXinPixel(p.x), getDeltaYinPixel(p.y), getDeltaXinPixel(1),
-				getDeltaYinPixel(1)));
+		g2.setColor(Color.YELLOW);
+		pathStream.filter((Point2d p) -> camera.inScene(p))
+				.forEach((Point2d p) -> g2.fillOval(getXinPixel(camera.getObjectPointInScene(p).get()),
+						getYinPixel(camera.getObjectPointInScene(p).get()), getDeltaXinPixel(1),
+						getDeltaYinPixel(1)));
 	}
 }
