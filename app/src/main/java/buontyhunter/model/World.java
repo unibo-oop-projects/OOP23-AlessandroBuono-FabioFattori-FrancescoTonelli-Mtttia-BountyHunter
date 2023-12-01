@@ -30,7 +30,7 @@ public class World {
 
     public void setTileManager(TileManager tileManager) {
         this.tileManager = tileManager;
-        laodMap(1);
+        laodMap(0);
     }
 
     public void setPlayer(GameObject player) {

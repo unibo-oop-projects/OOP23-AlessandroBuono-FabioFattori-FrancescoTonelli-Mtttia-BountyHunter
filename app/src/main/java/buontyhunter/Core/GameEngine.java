@@ -81,7 +81,11 @@ public class GameEngine implements WorldEventListener {
      * Process the input foreach game object that needs it
      */
     protected void processInput() {
-        gameState.getWorld().getPlayer().updateInput(controller);
+        //if the map is not showing, the player can move
+        if(!gameState.getWorld().getMiniMap().isShow()){
+            gameState.getWorld().getPlayer().updateInput(controller);
+        }
+
         gameState.getWorld().getMiniMap().updateInput(controller);
     }
 
