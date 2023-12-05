@@ -1,13 +1,11 @@
 package buontyhunter.graphics;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -16,6 +14,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.*;
 
 import buontyhunter.common.Point2d;
+import buontyhunter.core.GameEngine;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 
@@ -29,9 +28,16 @@ public class SwingScene implements Scene {
 	public SwingScene(GameState gameState, KeyboardInputController controller, int w, int h, double width,
 			double height) {
 		frame = new JFrame("Bounty Hunter - the official game");
-		frame.setSize(w, h);
+		// make the frame appear in the middle of the screen
+		// Calculates the position where the CenteredJFrame
+		// should be paced on the screen.
+		int x = (GameEngine.WINDOW_WIDTH - frame.getWidth()) / 2;
+		int y = (GameEngine.WINDOW_HEIGHT - frame.getHeight()) / 2;
+		frame.setLocation(x, y);
+		// frame.setLocationRelativeTo(null);
 		frame.setMinimumSize(new Dimension(w, h));
-		frame.setResizable(true);
+		frame.setSize(frame.getMinimumSize());
+		frame.setResizable(false);
 		// frame.setUndecorated(true); // Remove title bar
 		this.gameState = gameState;
 		this.controller = controller;
@@ -75,7 +81,6 @@ public class SwingScene implements Scene {
 		private double ratioX;
 		private double ratioY;
 		private Font scoreFont, gameOverFont;
-		private Stroke strokeBorder = new BasicStroke(2f);
 
 		public ScenePanel(int w, int h, double width, double height) {
 			setSize(w, h);
@@ -113,24 +118,14 @@ public class SwingScene implements Scene {
 				g2.drawString("Final score " + gameState.getScore(), 180, centerY + 50);
 
 			} else {
-				/* drawing the borders */
 
 				World scene = gameState.getWorld();
-				RectBoundingBox bbox = scene.getBBox();
-				int x0 = getXinPixel(bbox.getULCorner());
-				int y0 = getYinPixel(bbox.getULCorner());
-				int x1 = getXinPixel(bbox.getBRCorner());
-				int y1 = getYinPixel(bbox.getBRCorner());
-
-				g2.setColor(Color.BLACK);
-				g2.setStroke(strokeBorder);
-				g2.drawRect(x0, y0, x1 - x0, y1 - y0);
 
 				/* drawing the game objects */
 
 				var camera = new Camera(scene);
 				camera.update(scene.getPlayer(), scene.getTileManager());
-				SwingGraphics gr = new SwingGraphics(g2, centerX, centerY, ratioX, ratioY, camera);
+				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera);
 				gameState.getWorld().getSceneEntities().forEach(e -> {
 					e.updateGraphics(gr, scene);
 				});
@@ -147,13 +142,14 @@ public class SwingScene implements Scene {
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == 38) {
+
+			if (e.getKeyCode() == 87) {
 				controller.notifyMoveUp();
-			} else if (e.getKeyCode() == 40) {
+			} else if (e.getKeyCode() == 83) {
 				controller.notifyMoveDown();
-			} else if (e.getKeyCode() == 39) {
+			} else if (e.getKeyCode() == 68) {
 				controller.notifyMoveRight();
-			} else if (e.getKeyCode() == 37) {
+			} else if (e.getKeyCode() == 65) {
 				controller.notifyMoveLeft();
 			} else if (e.getKeyCode() == 77) {
 				controller.notifyMPressed();
@@ -166,13 +162,13 @@ public class SwingScene implements Scene {
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			if (e.getKeyCode() == 38) {
+			if (e.getKeyCode() == 87) {
 				controller.notifyNoMoreMoveUp();
-			} else if (e.getKeyCode() == 40) {
+			} else if (e.getKeyCode() == 83) {
 				controller.notifyNoMoreMoveDown();
-			} else if (e.getKeyCode() == 39) {
+			} else if (e.getKeyCode() == 68) {
 				controller.notifyNoMoreMoveRight();
-			} else if (e.getKeyCode() == 37) {
+			} else if (e.getKeyCode() == 65) {
 				controller.notifyNoMoreMoveLeft();
 			} else if (e.getKeyCode() == 77) {
 				controller.notifyNoMoreMPressed();
