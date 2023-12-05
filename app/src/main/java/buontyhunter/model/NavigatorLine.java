@@ -21,7 +21,8 @@ public class NavigatorLine extends GameObject {
         super(type, pos, vel, box, input, graph, phys);
         this.world = world;
         path = new ArrayList<>();
-        pathFinder = new BFSPathFinder(true);
+        // pathFinder = new BFSPathFinder(true);
+        pathFinder = new AStarPathFinder(true);
     }
 
     public void setPath(Point2d initialPoint, Point2d finalPoint) {

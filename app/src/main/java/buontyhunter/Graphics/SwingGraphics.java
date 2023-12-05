@@ -137,15 +137,15 @@ public class SwingGraphics implements Graphics {
 		var p = w.getPlayer();
 		Point2d tilePos = new Point2d(1, 1);
 		g2.setColor(Color.RED);
-		g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(p.getPos().x),
-				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y), 2, 2);
+		g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(p.getPos().x) - 2,
+				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y) - 2, 5, 5);
 
 		var navigatorLine = w.getNavigatorLine();
 		var pathStream = navigatorLine.getPath().stream();
 
 		g2.setColor(Color.ORANGE);
-		pathStream.forEach((Point2d np) -> g2.fillOval(getXinPixel(tilePos) + (int) np.x - 1,
-				getYinPixel(tilePos) + (int) np.y - 1, 3, 3));
+		pathStream.forEach((Point2d np) -> g2.fillOval(getXinPixel(tilePos) + (int) np.x - 2,
+				getYinPixel(tilePos) + (int) np.y - 2, 5, 5));
 
 	}
 
@@ -175,8 +175,8 @@ public class SwingGraphics implements Graphics {
 
 		g2.setColor(Color.YELLOW);
 		pathStream.filter((Point2d p) -> camera.inScene(p))
-				.forEach((Point2d p) -> g2.fillOval(getXinPixel(camera.getObjectPointInScene(p).get()),
-						getYinPixel(camera.getObjectPointInScene(p).get()), getDeltaXinPixel(1),
-						getDeltaYinPixel(1)));
+				.forEach((Point2d p) -> g2.fillRect(getXinPixel(camera.getObjectPointInScene(p).get()),
+						getYinPixel(camera.getObjectPointInScene(p).get()), getDeltaXinPixel(0.5),
+						getDeltaYinPixel(0.5)));
 	}
 }

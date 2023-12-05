@@ -9,7 +9,7 @@ import buontyhunter.model.NavigatorLine;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
 import buontyhunter.model.World;
-import buontyhunter.physics.NullPhysiscsCompoment;
+import buontyhunter.physics.NullPhysicsComponent;
 import buontyhunter.physics.PlayerPhysicsComponent;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
@@ -42,20 +42,27 @@ public class GameFactory {
         return new TileManager(GameObjectType.TileManager,
                 new Point2d(-(GameEngine.WORLD_WIDTH / 2), GameEngine.WORLD_HEIGHT / 2), new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
-                new NullInputComponent(), new MapGraphicsComponent(), new NullPhysiscsCompoment());
+                new NullInputComponent(), new MapGraphicsComponent(), new NullPhysicsComponent());
     }
 
     public HidableObject createMinimap() {
         return new HidableObject(GameObjectType.MiniMap,
                 new Point2d(0, 0), new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
-                new MiniMapInputController(), new MiniMapGraphicsComponent(), new NullPhysiscsCompoment(), false);
+                new MiniMapInputController(), new MiniMapGraphicsComponent(), new NullPhysicsComponent(), false);
     }
 
     public NavigatorLine createNavigatorLine(World world) {
         return new NavigatorLine(GameObjectType.NavigatorLine,
                 new Point2d(0, 0), new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
-                new NullInputComponent(), new NavigatorLineGraphicsComponent(), new NullPhysiscsCompoment(), world);
+                new NullInputComponent(), new NavigatorLineGraphicsComponent(), new NullPhysicsComponent(), world);
+    }
+
+    public FighterEntity createEnemy(Point2d point, Vector2d vector, int health, int maxHealth) {
+        return new FighterEntity(GameObjectType.Enemy, point, vector,
+                new RectBoundingBox(new Point2d(0, 0), 1, 1),
+                new NullInputComponent(), new PlayerGraphicsComponent(), new NullPhysicsComponent(),
+                health, maxHealth);
     }
 }

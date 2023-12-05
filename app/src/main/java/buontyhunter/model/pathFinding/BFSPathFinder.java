@@ -17,6 +17,14 @@ public class BFSPathFinder implements PathFinder {
         parentMap = new HashMap<>();
     }
 
+    public void clearCache() {
+        parentMap.clear();
+    }
+
+    public void setUseCache(boolean useCache) {
+        this.useCache = useCache;
+    }
+
     @Override
     public List<Point2d> findPath(Point2d initialPoint, Point2d finalPoint, List<List<Tile>> map) {
         // Initialize visited set and queue for BFS
@@ -37,7 +45,7 @@ public class BFSPathFinder implements PathFinder {
         while (!queue.isEmpty()) {
             Point2d current = queue.poll();
 
-            if (current.equals(initialPoint) || isPointAlreadySolved(initialPoint)) {
+            if (current.equals(initialPoint) || isPointAlreadySolved(current)) {
                 // Path found, reconstruct the path and return it
                 return reconstructPath(parentMap, initialPoint);
             }
@@ -72,15 +80,17 @@ public class BFSPathFinder implements PathFinder {
         int rows = map.size();
         int cols = map.get(0).size();
 
-        int[] dx = { -1, 1, 0, 0 }; // Changes in x for left, right, up, down
-        int[] dy = { 0, 0, -1, 1 }; // Changes in y for left, right, up, down
+        int[] dx = { -1, 1, 0 }; // Changes in x for left, right, up, down
+        int[] dy = { -1, 1, 0 }; // Changes in y for left, right, up, down
 
-        for (int i = 0; i < 4; i++) {
-            int newX = (int) point.x + dx[i];
-            int newY = (int) point.y + dy[i];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                int newX = (int) point.x + dx[i];
+                int newY = (int) point.y + dy[j];
 
-            if (newX >= 0 && newX < rows && newY >= 0 && newY < cols) {
-                neighbors.add(new Point2d(newX, newY));
+                if (newX >= 0 && newX < rows && newY >= 0 && newY < cols) {
+                    neighbors.add(new Point2d(newX, newY));
+                }
             }
         }
 

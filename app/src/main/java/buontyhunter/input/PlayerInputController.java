@@ -8,7 +8,7 @@ import buontyhunter.model.GameObject;
  */
 public class PlayerInputController implements InputComponent {
 
-	private final double speed = 0.2;
+	private final double speed = 0.3;
 
 	@Override
 	public void update(GameObject player, InputController c) {
