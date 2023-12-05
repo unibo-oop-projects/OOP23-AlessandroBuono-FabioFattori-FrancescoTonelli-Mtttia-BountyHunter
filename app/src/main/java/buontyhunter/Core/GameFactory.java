@@ -34,10 +34,11 @@ public class GameFactory {
     }
 
     /**
-     * Create a new player 
-     * @param point start position for the player
-     * @param vector current player velocity
-     * @param health current health that the player will have 
+     * Create a new player
+     * 
+     * @param point     start position for the player
+     * @param vector    current player velocity
+     * @param health    current health that the player will have
      * @param maxHealth maximum health that the player can have
      * @return the player entity created
      */
@@ -49,7 +50,9 @@ public class GameFactory {
     }
 
     /**
-     * Create a new tile manager; this object will be used to manage the tiles in the game 
+     * Create a new tile manager; this object will be used to manage the tiles in
+     * the game
+     * 
      * @return the tile manager created
      */
     public TileManager createTileManager() {
@@ -60,7 +63,9 @@ public class GameFactory {
     }
 
     /**
-     * Create a new minimap; this object will be used to show the minimap in the game when pressing the M key
+     * Create a new minimap; this object will be used to show the minimap in the
+     * game when pressing the M key
+     * 
      * @return the minimap created
      */
     public HidableObject createMinimap() {
@@ -71,7 +76,9 @@ public class GameFactory {
     }
 
     /**
-     * Create a new navigator line; this object will be used to show the navigator line in the game when pressing the N key
+     * Create a new navigator line; this object will be used to show the navigator
+     * line in the game when pressing the N key
+     * 
      * @param world the world where the navigator line will be used
      * @return the navigator line created
      */
@@ -90,13 +97,17 @@ public class GameFactory {
     }
 
     /**
-     * Create a new health bar; this object will be used to show the health bar in the game
+     * Create a new health bar; this object will be used to show the health bar in
+     * the game
+     * 
      * @return the health bar created
      */
     public HealthBar createHealthBar() {
         return new HealthBar(GameObjectType.HealthBar,
-                new Point2d((GameEngine.WORLD_WIDTH/2)*(GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH)-100, GameEngine.WORLD_HEIGHT*(GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH)-100), new Vector2d(0, 0),
+                new Point2d((GameEngine.WORLD_WIDTH / 2) * (GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH) - 100,
+                        GameEngine.WORLD_HEIGHT * (GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH) - 100),
+                new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
-                new NullInputComponent(), new HealthBarGraphicsComponent(), new NullPhysiscsCompoment());
+                new NullInputComponent(), new HealthBarGraphicsComponent(), new NullPhysicsComponent());
     }
 }
