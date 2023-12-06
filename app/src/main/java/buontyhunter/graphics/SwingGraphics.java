@@ -27,12 +27,15 @@ public class SwingGraphics implements Graphics {
 	private double ratioX;
 	private double ratioY;
 	private SceneCamera camera;
+	private SwingAssetProvider assetManager;
 
-	public SwingGraphics(Graphics2D g2, double ratioX, double ratioY, SceneCamera camera) {
+	public SwingGraphics(Graphics2D g2, double ratioX, double ratioY, SceneCamera camera,
+			SwingAssetProvider assetManager) {
 		this.g2 = g2;
 		this.ratioX = ratioX;
 		this.ratioY = ratioY;
 		this.camera = camera;
+		this.assetManager = assetManager;
 	}
 
 	private int getXinPixel(Point2d p) {
@@ -80,7 +83,7 @@ public class SwingGraphics implements Graphics {
 				Point2d tilePos = new Point2d(i - offsetX, j - offsetY);
 				try {
 					var image = tiles.get(y).get(x).getImage();
-					g2.drawImage(image, getXinPixel(tilePos),
+					g2.drawImage(assetManager.getImage(image), getXinPixel(tilePos),
 							getYinPixel(tilePos), null);
 				} catch (Exception ex) {
 					System.out.println(ex.getMessage());
@@ -92,8 +95,6 @@ public class SwingGraphics implements Graphics {
 			j++;
 		}
 	}
-
-	
 
 	private int validateCoordinateMiniMap(int computedProps, Predicate<Integer> acceptor,
 			Function<Integer, Integer> getCorrectValue) {

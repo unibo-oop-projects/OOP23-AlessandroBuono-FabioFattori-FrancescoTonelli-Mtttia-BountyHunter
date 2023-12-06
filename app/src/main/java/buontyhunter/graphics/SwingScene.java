@@ -10,9 +10,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Map;
 
 import javax.swing.*;
 
+import buontyhunter.common.AssetImage;
+import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.core.GameEngine;
 import buontyhunter.input.*;
@@ -40,7 +43,8 @@ public class SwingScene implements Scene {
 		// frame.setUndecorated(true); // Remove title bar
 		this.gameState = gameState;
 		this.controller = controller;
-		panel = new ScenePanel( GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT,GameEngine.WORLD_WIDTH, GameEngine.WORLD_HEIGHT);
+		panel = new ScenePanel(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT, GameEngine.WORLD_WIDTH,
+				GameEngine.WORLD_HEIGHT);
 		frame.getContentPane().add(panel);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent ev) {
@@ -80,6 +84,7 @@ public class SwingScene implements Scene {
 		private double ratioX;
 		private double ratioY;
 		private Font scoreFont, gameOverFont;
+		private final SwingAssetProvider assetManager;
 
 		public ScenePanel(int w, int h, double width, double height) {
 			setSize(w, h);
@@ -95,6 +100,7 @@ public class SwingScene implements Scene {
 			setFocusable(true);
 			setFocusTraversalKeysEnabled(false);
 			requestFocusInWindow();
+			this.assetManager = new SwingAssetProvider();
 		}
 
 		public void paint(Graphics g) {
@@ -124,7 +130,7 @@ public class SwingScene implements Scene {
 
 				var camera = new Camera(scene);
 				camera.update(scene.getPlayer(), scene.getTileManager());
-				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera);
+				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera, assetManager);
 				gameState.getWorld().getSceneEntities().forEach(e -> {
 					e.updateGraphics(gr, scene);
 				});

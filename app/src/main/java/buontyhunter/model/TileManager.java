@@ -9,10 +9,12 @@ import java.util.Optional;
 
 import java.util.List;
 
-import buontyhunter.common.AssetProvider;
+import buontyhunter.common.FileProvider;
+import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
 import buontyhunter.core.GameEngine;
+import buontyhunter.graphics.SwingAssetProvider;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
@@ -21,14 +23,14 @@ public class TileManager extends GameObject {
 
     private List<List<Tile>> tiles;
     private final Map<Integer, String> maps;
-    private AssetProvider assetManager;
+    private FileProvider fileProvider;
 
     public TileManager(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
             GraphicsComponent graph, PhysicsComponent phys) {
         super(type, pos, vel, box, input, graph, phys);
 
         this.tiles = new ArrayList<>();
-        assetManager = new AssetProvider();
+        fileProvider = new FileProvider();
 
         this.maps = new HashMap<>();
         setDefaultValueForMaps();
@@ -36,9 +38,9 @@ public class TileManager extends GameObject {
 
     private void setDefaultValueForMaps() {
 
-        this.maps.put(0, assetManager.getText("Assets/maps/map.txt").orElse(""));
+        this.maps.put(0, fileProvider.getText("/maps/map.txt").orElse(""));
 
-        this.maps.put(1, assetManager.getText("Assets/maps/hubMap.txt").orElse(""));
+        this.maps.put(1, fileProvider.getText("/maps/hubMap.txt").orElse(""));
     }
 
     public RectBoundingBox loadMap(int mapId) {
@@ -54,11 +56,11 @@ public class TileManager extends GameObject {
                 var tileId = getTileType(Integer.parseInt(tiles[j]));
 
                 if (tileId == TileType.tree || tileId == TileType.wall) {
-                    row.add(new Tile(getTileImage(tileId), true, true, new Point2d(j, i), tileId));
+                    row.add(new Tile(resolveTyleToImageType(tileId), true, true, new Point2d(j, i), tileId));
                 } else if (tileId == TileType.water) {
-                    row.add(new Tile(getTileImage(tileId), false, true, new Point2d(j, i), tileId));
+                    row.add(new Tile(resolveTyleToImageType(tileId), false, true, new Point2d(j, i), tileId));
                 } else {
-                    row.add(new Tile(getTileImage(tileId), false, false, new Point2d(j, i), tileId));
+                    row.add(new Tile(resolveTyleToImageType(tileId), false, false, new Point2d(j, i), tileId));
                 }
             }
             this.tiles.add(row);
@@ -69,31 +71,23 @@ public class TileManager extends GameObject {
         return bbox;
     }
 
-    private Image getTileImage(TileType tileType) {
-        String tileName = resolveAssetName(tileType).orElse("ground.png");
-        return assetManager.getImage("Assets/" + tileName).getScaledInstance(
-                (int) Math.floor(GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH),
-                (int) Math.floor(GameEngine.WINDOW_HEIGHT / GameEngine.WORLD_HEIGHT),
-                Image.SCALE_DEFAULT);
-    }
-
-    private Optional<String> resolveAssetName(TileType tileType) {
+    private ImageType resolveTyleToImageType(TileType tileType) {
         switch (tileType) {
             case earth:
-                return Optional.of("earth.png");
+                return ImageType.EARTH;
             case grass:
-                return Optional.of("grass.png");
+                return ImageType.GRASS;
             case sand:
-                return Optional.of("sand.png");
+                return ImageType.SAND;
             case tree:
-                return Optional.of("tree.png");
+                return ImageType.TREE;
             case wall:
-                return Optional.of("wall.png");
+                return ImageType.WALL;
             case water:
-                return Optional.of("water.png");
+                return ImageType.WATER;
             case empty:
             default:
-                return Optional.empty();
+                return ImageType.FALLBACK;
         }
     }
 

@@ -5,17 +5,18 @@ import java.util.LinkedList;
 import buontyhunter.graphics.*;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
-import java.awt.Toolkit;
 
+import java.util.List;
+import java.awt.Toolkit;
 
 public class GameEngine implements WorldEventListener {
 
     public static final int WORLD_WIDTH = 20;
     public static final int WORLD_HEIGHT = 20;
     public static final int WINDOW_WIDTH = calculateTheWindowWidthAndHeight();
-    public static final int WINDOW_HEIGHT = calculateTheWindowWidthAndHeight();
-    public static final int RATIO_WIDTH = (int) Math.floor(WINDOW_WIDTH / WORLD_WIDTH);
-    public static final int RATIO_HEIGHT = (int) Math.floor(WINDOW_HEIGHT / WORLD_HEIGHT);
+    public static final int WINDOW_HEIGHT = WINDOW_WIDTH;
+    public static final double RATIO_WIDTH = WINDOW_WIDTH / WORLD_WIDTH;
+    public static final double RATIO_HEIGHT = RATIO_WIDTH;
 
     private long FPS = 30;
     private Scene view;
@@ -23,7 +24,6 @@ public class GameEngine implements WorldEventListener {
     private GameState gameState;
     private KeyboardInputController controller;
 
-    
     public GameEngine() {
         eventQueue = new LinkedList<WorldEvent>();
     }
@@ -65,6 +65,7 @@ public class GameEngine implements WorldEventListener {
 
     /**
      * Wait until the next frame should be drawn
+     * 
      * @param cycleStartTime time when the current cycle started
      */
     protected void waitForNextFrame(long cycleStartTime) {
@@ -81,8 +82,8 @@ public class GameEngine implements WorldEventListener {
      * Process the input foreach game object that needs it
      */
     protected void processInput() {
-        //if the map is not showing, the player can move
-        if(!gameState.getWorld().getMiniMap().isShow()){
+        // if the map is not showing, the player can move
+        if (!gameState.getWorld().getMiniMap().isShow()) {
             gameState.getWorld().getPlayer().updateInput(controller);
         }
 
@@ -91,6 +92,7 @@ public class GameEngine implements WorldEventListener {
 
     /**
      * Update the game state
+     * 
      * @param elapsed time elapsed since last update
      */
     protected void updateGame(long elapsed) {
@@ -117,7 +119,8 @@ public class GameEngine implements WorldEventListener {
     }
 
     /**
-     * call the renderGameOver method of the view which will draw the game over screen
+     * call the renderGameOver method of the view which will draw the game over
+     * screen
      */
     protected void renderGameOver() {
         view.renderGameOver();
@@ -128,15 +131,16 @@ public class GameEngine implements WorldEventListener {
         eventQueue.add(ev);
     }
 
-    private static int calculateTheWindowWidthAndHeight(){
+    private static int calculateTheWindowWidthAndHeight() {
         var dim = Toolkit.getDefaultToolkit().getScreenSize();
-        int halfScreenWidth = (int)Math.round(dim.getWidth()/1.5);
-        int halfScreenHeight = (int)Math.round(dim.getHeight()/1.5);
-        
-        if(halfScreenHeight >= halfScreenWidth){
-            return halfScreenWidth;
-        }else{
-            return halfScreenHeight;
-        }
+        int halfScreenWidth = (int) Math.round(dim.getWidth() / 1.5);
+        int halfScreenHeight = (int) Math.round(dim.getHeight() / 1.5);
+        var minValue = List.of(Integer.valueOf(halfScreenHeight), Integer.valueOf(halfScreenWidth)).stream()
+                .min((Integer a, Integer b) -> {
+                    return a.compareTo(b);
+                }).get();
+
+        return minValue.intValue() - minValue.intValue() % WORLD_WIDTH;
+
     }
 }

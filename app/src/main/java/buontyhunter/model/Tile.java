@@ -1,17 +1,16 @@
 package buontyhunter.model;
 
-import java.awt.Image;
-
+import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 
 public class Tile {
-    private final Image image;
+    private final ImageType image;
     private final boolean isSolid;
     private Point2d point;
     private final boolean isObstacle;
     private final TileType type;
 
-    public Tile(final Image image, final boolean isObstacle, final boolean isSolid, final Point2d point,
+    public Tile(final ImageType image, final boolean isObstacle, final boolean isSolid, final Point2d point,
             TileType type) {
         this.isObstacle = isObstacle;
         this.image = image;
@@ -22,7 +21,7 @@ public class Tile {
 
     /* getter area */
 
-    public Image getImage() {
+    public ImageType getImage() {
         return image;
     }
 
