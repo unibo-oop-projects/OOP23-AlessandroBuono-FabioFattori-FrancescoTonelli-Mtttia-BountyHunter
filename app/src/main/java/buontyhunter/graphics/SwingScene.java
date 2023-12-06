@@ -143,18 +143,6 @@ public class SwingScene implements Scene {
 		@Override
 		public void keyPressed(KeyEvent e) {
 
-			/*if (e.getKeyCode() == 87) {
-				controller.notifyMoveUp();
-			} else if (e.getKeyCode() == 83) {
-				controller.notifyMoveDown();
-			} else if (e.getKeyCode() == 68) {
-				controller.notifyMoveRight();
-			} else if (e.getKeyCode() == 65) {
-				controller.notifyMoveLeft();
-			} else if (e.getKeyCode() == 77) {
-				controller.notifyMPressed();
-			}*/
-
 			switch (e.getKeyCode()) {
 				case 87:
 					controller.notifyMoveUp();
@@ -167,6 +155,18 @@ public class SwingScene implements Scene {
 					break;
 				case 65:
 					controller.notifyMoveLeft();
+					break;
+				case 38:
+					controller.notifyAttackUp();
+					break;
+				case 40:
+					controller.notifyAttackDown();
+					break;
+				case 37:
+					controller.notifyAttackLeft();
+					break;
+				case 39:
+					controller.notifyAttackRight();
 					break;
 				case 77:
 					controller.notifyMPressed();
@@ -182,17 +182,6 @@ public class SwingScene implements Scene {
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			/*if (e.getKeyCode() == 87) {
-				controller.notifyNoMoreMoveUp();
-			} else if (e.getKeyCode() == 83) {
-				controller.notifyNoMoreMoveDown();
-			} else if (e.getKeyCode() == 68) {
-				controller.notifyNoMoreMoveRight();
-			} else if (e.getKeyCode() == 65) {
-				controller.notifyNoMoreMoveLeft();
-			} else if (e.getKeyCode() == 77) {
-				controller.notifyNoMoreMPressed();
-			}*/
 
 			switch (e.getKeyCode()) {
 				case 87:
@@ -206,6 +195,18 @@ public class SwingScene implements Scene {
 					break;
 				case 65:
 					controller.notifyNoMoreMoveLeft();
+					break;
+				case 38:
+					controller.notifyNoMoreAttackUp();
+					break;
+				case 40:
+					controller.notifyNoMoreAttackDown();
+					break;
+				case 37:
+					controller.notifyNoMoreAttackLeft();
+					break;
+				case 39:
+					controller.notifyNoMoreAttackRight();
 					break;
 				case 77:
 					controller.notifyNoMoreMPressed();

@@ -27,6 +27,8 @@ public class PlayerInputController implements InputComponent {
 			vel.x += speed;
 		}
 
+		
+
 		player.setVel(vel);
 		var pos = player.getPos();
 
