@@ -212,6 +212,8 @@ public class SwingScene implements Scene {
 					break;
 				default:
 					break;
+
+			}
 		}
 
 	}
