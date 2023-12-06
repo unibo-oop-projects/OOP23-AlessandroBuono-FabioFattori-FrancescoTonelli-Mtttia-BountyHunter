@@ -93,6 +93,8 @@ public class SwingGraphics implements Graphics {
 		}
 	}
 
+	
+
 	private int validateCoordinateMiniMap(int computedProps, Predicate<Integer> acceptor,
 			Function<Integer, Integer> getCorrectValue) {
 		return (acceptor.test(computedProps)) ? computedProps : getCorrectValue.apply(computedProps);

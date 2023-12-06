@@ -25,8 +25,7 @@ public class SwingScene implements Scene {
 	private KeyboardInputController controller;
 	private GameState gameState;
 
-	public SwingScene(GameState gameState, KeyboardInputController controller, int w, int h, double width,
-			double height) {
+	public SwingScene(GameState gameState, KeyboardInputController controller) {
 		frame = new JFrame("Bounty Hunter - the official game");
 		// make the frame appear in the middle of the screen
 		// Calculates the position where the CenteredJFrame
@@ -35,13 +34,13 @@ public class SwingScene implements Scene {
 		int y = (GameEngine.WINDOW_HEIGHT - frame.getHeight()) / 2;
 		frame.setLocation(x, y);
 		// frame.setLocationRelativeTo(null);
-		frame.setMinimumSize(new Dimension(w, h));
+		frame.setMinimumSize(new Dimension(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT));
 		frame.setSize(frame.getMinimumSize());
-		frame.setResizable(false);
+		frame.setResizable(true);
 		// frame.setUndecorated(true); // Remove title bar
 		this.gameState = gameState;
 		this.controller = controller;
-		panel = new ScenePanel(w, h, width, height);
+		panel = new ScenePanel( GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT,GameEngine.WORLD_WIDTH, GameEngine.WORLD_HEIGHT);
 		frame.getContentPane().add(panel);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent ev) {

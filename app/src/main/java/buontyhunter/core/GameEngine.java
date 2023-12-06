@@ -12,8 +12,8 @@ public class GameEngine implements WorldEventListener {
 
     public static final int WORLD_WIDTH = 20;
     public static final int WORLD_HEIGHT = 20;
-    public static final int WINDOW_WIDTH = ((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth())/2;
-    public static final int WINDOW_HEIGHT = 700;
+    public static final int WINDOW_WIDTH = calculateTheWindowWidthAndHeight();
+    public static final int WINDOW_HEIGHT = calculateTheWindowWidthAndHeight();
     public static final int RATIO_WIDTH = (int) Math.floor(WINDOW_WIDTH / WORLD_WIDTH);
     public static final int RATIO_HEIGHT = (int) Math.floor(WINDOW_HEIGHT / WORLD_HEIGHT);
 
@@ -34,7 +34,7 @@ public class GameEngine implements WorldEventListener {
     public void initGame() {
         gameState = new GameState(this);
         controller = new KeyboardInputController();
-        view = new SwingScene(gameState, controller, WINDOW_WIDTH, WINDOW_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
+        view = new SwingScene(gameState, controller);
         this.mainLoop();
     }
 
@@ -126,5 +126,17 @@ public class GameEngine implements WorldEventListener {
     @Override
     public void notifyEvent(WorldEvent ev) {
         eventQueue.add(ev);
+    }
+
+    private static int calculateTheWindowWidthAndHeight(){
+        var dim = Toolkit.getDefaultToolkit().getScreenSize();
+        int halfScreenWidth = (int)Math.round(dim.getWidth()/1.5);
+        int halfScreenHeight = (int)Math.round(dim.getHeight()/1.5);
+        
+        if(halfScreenHeight >= halfScreenWidth){
+            return halfScreenWidth;
+        }else{
+            return halfScreenHeight;
+        }
     }
 }
