@@ -143,7 +143,7 @@ public class SwingScene implements Scene {
 		@Override
 		public void keyPressed(KeyEvent e) {
 
-			if (e.getKeyCode() == 87) {
+			/*if (e.getKeyCode() == 87) {
 				controller.notifyMoveUp();
 			} else if (e.getKeyCode() == 83) {
 				controller.notifyMoveDown();
@@ -153,6 +153,26 @@ public class SwingScene implements Scene {
 				controller.notifyMoveLeft();
 			} else if (e.getKeyCode() == 77) {
 				controller.notifyMPressed();
+			}*/
+
+			switch (e.getKeyCode()) {
+				case 87:
+					controller.notifyMoveUp();
+					break;
+				case 83:
+					controller.notifyMoveDown();
+					break;
+				case 68:
+					controller.notifyMoveRight();
+					break;
+				case 65:
+					controller.notifyMoveLeft();
+					break;
+				case 77:
+					controller.notifyMPressed();
+					break;
+				default:
+					break;
 			}
 		}
 
@@ -162,7 +182,7 @@ public class SwingScene implements Scene {
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			if (e.getKeyCode() == 87) {
+			/*if (e.getKeyCode() == 87) {
 				controller.notifyNoMoreMoveUp();
 			} else if (e.getKeyCode() == 83) {
 				controller.notifyNoMoreMoveDown();
@@ -172,7 +192,26 @@ public class SwingScene implements Scene {
 				controller.notifyNoMoreMoveLeft();
 			} else if (e.getKeyCode() == 77) {
 				controller.notifyNoMoreMPressed();
-			}
+			}*/
+
+			switch (e.getKeyCode()) {
+				case 87:
+					controller.notifyNoMoreMoveUp();
+					break;
+				case 83:
+					controller.notifyNoMoreMoveDown();
+					break;
+				case 68:
+					controller.notifyNoMoreMoveRight();
+					break;
+				case 65:
+					controller.notifyNoMoreMoveLeft();
+					break;
+				case 77:
+					controller.notifyNoMoreMPressed();
+					break;
+				default:
+					break;
 		}
 
 	}
