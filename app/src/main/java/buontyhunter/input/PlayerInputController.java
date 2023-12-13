@@ -2,16 +2,18 @@ package buontyhunter.input;
 
 import buontyhunter.common.Vector2d;
 import buontyhunter.model.GameObject;
+import buontyhunter.model.GameState;
+import buontyhunter.model.World;
 
 /**
  * PlayerInputController
  */
 public class PlayerInputController implements InputComponent {
 
-	private final double speed = 0.3;
+	private final double speed = 0.5;
 
 	@Override
-	public void update(GameObject player, InputController c) {
+	public void update(GameObject player, InputController c, World w) {
 		Vector2d vel = new Vector2d(0, 0);
 
 		if (c.isMoveUp()) {

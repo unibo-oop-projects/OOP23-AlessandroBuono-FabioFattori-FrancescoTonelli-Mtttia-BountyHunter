@@ -19,6 +19,7 @@ public class GameState {
         world.setTileManager(f.createTileManager());
         world.setMiniMap(f.createMinimap());
         world.setNavigatorLine(f.createNavigatorLine(world));
+        world.addEnemy(f.createEnemy(new Point2d(60, 50), new Vector2d(0.3, 0.3), 100));
         world.setEventListener(l);
     }
 

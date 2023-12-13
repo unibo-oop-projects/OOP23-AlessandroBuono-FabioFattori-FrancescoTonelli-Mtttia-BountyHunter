@@ -35,6 +35,10 @@ public class Vector2d implements java.io.Serializable {
         return new Vector2d(x * fact, y * fact);
     }
 
+    public Vector2d multiplicate(Vector2d v) {
+        return new Vector2d(x * v.x, y * v.y);
+    }
+
     public void negativeY() {
         if (y < 0)
             return;
@@ -65,6 +69,10 @@ public class Vector2d implements java.io.Serializable {
 
     public void setY0() {
         y = 0;
+    }
+
+    public boolean isNull() {
+        return x == 0 && y == 0;
     }
 
     public Vector2d duplicate() {

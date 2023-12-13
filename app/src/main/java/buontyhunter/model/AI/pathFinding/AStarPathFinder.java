@@ -1,4 +1,4 @@
-package buontyhunter.model.pathFinding;
+package buontyhunter.model.AI.pathFinding;
 
 import java.util.*;
 
@@ -10,6 +10,7 @@ public class AStarPathFinder implements PathFinder {
     private final double DIAGONAL_COST = Math.sqrt(2); // Cost of diagonal movement
     private final Map<Pair<Point2d, Point2d>, List<Point2d>> pathCache = new HashMap<>();
     private boolean useCache = true;
+    private boolean passNearObstacle = false;
 
     public AStarPathFinder(boolean useCache) {
         this.useCache = useCache;
@@ -22,10 +23,33 @@ public class AStarPathFinder implements PathFinder {
         }
     }
 
+    public Point2d ensurePoint(Point2d point, List<List<Tile>> map) {
+        Point2d outPoint = new Point2d(Math.ceil(point.x), Math.ceil(point.y));
+
+        if (isObstacle(outPoint, map)) {
+            outPoint = new Point2d(Math.ceil(point.x), Math.floor(point.y));
+        }
+        if (isObstacle(outPoint, map)) {
+            outPoint = new Point2d(Math.floor(point.x), Math.ceil(point.y));
+        }
+        if (isObstacle(outPoint, map)) {
+            outPoint = new Point2d(Math.floor(point.x), Math.floor(point.y));
+        }
+
+        return outPoint;
+    }
+
     @Override
     public List<Point2d> findPath(Point2d initialPoint, Point2d finalPoint, List<List<Tile>> map) {
         if (useCache && pathCache.containsKey(new Pair<>(initialPoint, finalPoint))) {
             return pathCache.get(new Pair<>(initialPoint, finalPoint));
+        }
+
+        initialPoint = ensurePoint(initialPoint, map);
+        finalPoint = ensurePoint(finalPoint, map);
+
+        if (isObstacle(initialPoint, map) || isObstacle(finalPoint, map)) {
+            return Collections.emptyList();
         }
 
         Set<Point2d> closedSet = new HashSet<>();
@@ -84,6 +108,27 @@ public class AStarPathFinder implements PathFinder {
 
     private boolean isObstacle(Point2d point, List<List<Tile>> map) {
         return map.get((int) point.y).get((int) point.x).isSolid();
+    }
+
+    private boolean isNearObstacle(Point2d point, List<List<Tile>> map) {
+        int rows = map.size();
+        int cols = map.get(0).size();
+
+        int[] dx = { -1, 1, 0 }; // Changes in x for left, right, up, down
+        int[] dy = { -1, 1, 0 }; // Changes in y for left, right, up, down
+
+        for (int i = 0; i < 3; i++) {
+            int newX = (int) point.x + dx[i];
+            int newY = (int) point.y + dy[i];
+
+            if (newX >= 0 && newX < rows && newY >= 0 && newY < cols) {
+                if (map.get(newY).get(newX).isSolid()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private List<Point2d> getNeighbors(Point2d point, List<List<Tile>> map) {

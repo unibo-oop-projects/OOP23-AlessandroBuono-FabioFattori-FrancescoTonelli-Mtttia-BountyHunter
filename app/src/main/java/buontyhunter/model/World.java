@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import buontyhunter.common.Point2d;
 import buontyhunter.core.GameFactory;
+import buontyhunter.input.KeyboardInputController;
 import buontyhunter.physics.BoundaryCollision;
 
 import java.util.ArrayList;
@@ -18,10 +19,12 @@ public class World {
     private HidableObject miniMap;
     private NavigatorLine navigatorLine;
     private HealthBar healthBar;
+    private List<EnemyEntity> enemies;
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
         this.healthBar = GameFactory.getInstance().createHealthBar();
+        enemies = new ArrayList<>();
     }
 
     public void setEventListener(WorldEventListener l) {
@@ -45,6 +48,14 @@ public class World {
         this.navigatorLine = navigatorLine;
     }
 
+    public void addEnemy(EnemyEntity enemy) {
+        enemies.add(enemy);
+    }
+
+    public List<EnemyEntity> getEnemies() {
+        return enemies;
+    }
+
     public void updateState(long dt) {
         if (player != null) {
             player.updatePhysics(dt, this);
@@ -54,6 +65,15 @@ public class World {
         }
         if (miniMap != null) {
             miniMap.updatePhysics(dt, this);
+        }
+        for (var enemy : enemies) {
+            enemy.updatePhysics(dt, this);
+        }
+    }
+
+    public void processAiInput(KeyboardInputController controller) {
+        for (var enemy : enemies) {
+            enemy.updateInput(controller, this);
         }
     }
 
@@ -93,6 +113,9 @@ public class World {
             entities.add(healthBar);
         if (miniMap != null)
             entities.add(miniMap);
+        for (var enemy : enemies) {
+            entities.add(enemy);
+        }
 
         return entities;
     }

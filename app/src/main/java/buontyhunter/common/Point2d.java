@@ -12,7 +12,9 @@ public class Point2d implements java.io.Serializable, Comparable<Point2d> {
     }
 
     /**
-     * sum to this point the passed vector ; this method is used to simulate the movement of the game object
+     * sum to this point the passed vector ; this method is used to simulate the
+     * movement of the game object
+     * 
      * @param v the vector to sum to this point
      * @return the new point after the sum
      */
@@ -21,7 +23,9 @@ public class Point2d implements java.io.Serializable, Comparable<Point2d> {
     }
 
     /**
-     * sub to this point the passed vector ; this method is used to simulate the movement of the game object
+     * sub to this point the passed vector ; this method is used to simulate the
+     * movement of the game object
+     * 
      * @param v the vector to sub to this point
      * @return the new point after the sub
      */
@@ -45,6 +49,7 @@ public class Point2d implements java.io.Serializable, Comparable<Point2d> {
 
     /**
      * set the x coordinate of this point to the passed value
+     * 
      * @param x the new x coordinate
      * @return this point after the change
      */
@@ -55,6 +60,7 @@ public class Point2d implements java.io.Serializable, Comparable<Point2d> {
 
     /**
      * set the y coordinate of this point to the passed value
+     * 
      * @param y the new y coordinate
      * @return this point after the change
      */
@@ -66,6 +72,12 @@ public class Point2d implements java.io.Serializable, Comparable<Point2d> {
     public Point2d floorCoordinates() {
         x = Math.floor(x);
         y = Math.floor(y);
+        return this;
+    }
+
+    public Point2d ceilCoordinates() {
+        x = Math.ceil(x);
+        y = Math.ceil(y);
         return this;
     }
 

@@ -1,7 +1,9 @@
 package buontyhunter.core;
 
+import buontyhunter.input.EnemyInputController;
 import buontyhunter.input.MiniMapInputController;
 import buontyhunter.input.NullInputComponent;
+import buontyhunter.model.EnemyEntity;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObjectType;
 import buontyhunter.model.HealthBar;
@@ -10,10 +12,12 @@ import buontyhunter.model.NavigatorLine;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
 import buontyhunter.model.World;
+import buontyhunter.physics.EnemyPhysicsComponent;
 import buontyhunter.physics.NullPhysicsComponent;
 import buontyhunter.physics.PlayerPhysicsComponent;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
+import buontyhunter.graphics.EnemyGraphicsComponent;
 import buontyhunter.graphics.HealthBarGraphicsComponent;
 import buontyhunter.graphics.MapGraphicsComponent;
 import buontyhunter.graphics.MiniMapGraphicsComponent;
@@ -89,11 +93,11 @@ public class GameFactory {
                 new NullInputComponent(), new NavigatorLineGraphicsComponent(), new NullPhysicsComponent(), world);
     }
 
-    public FighterEntity createEnemy(Point2d point, Vector2d vector, int health, int maxHealth) {
-        return new FighterEntity(GameObjectType.Enemy, point, vector,
+    public EnemyEntity createEnemy(Point2d point, Vector2d vector, int health) {
+        return new EnemyEntity(GameObjectType.Enemy, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
-                new NullInputComponent(), new PlayerGraphicsComponent(), new NullPhysicsComponent(),
-                health, maxHealth);
+                new EnemyInputController(), new EnemyGraphicsComponent(), new EnemyPhysicsComponent(),
+                health, health);
     }
 
     /**

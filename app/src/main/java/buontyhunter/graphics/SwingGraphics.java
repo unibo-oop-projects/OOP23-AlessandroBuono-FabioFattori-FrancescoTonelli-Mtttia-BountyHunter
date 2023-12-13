@@ -159,6 +159,13 @@ public class SwingGraphics implements Graphics {
 		g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(p.getPos().x) * propsX,
 				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y) * propsY, propsX, propsY);
 
+		for (var enemy : w.getEnemies()) {
+
+			g2.setColor(Color.YELLOW);
+			g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(enemy.getPos().x) * propsX,
+					getYinPixel(tilePos) + (int) Math.floor(enemy.getPos().y) * propsY, propsX * 3, propsY * 3);
+		}
+
 		var navigatorLine = w.getNavigatorLine();
 		var pathStream = navigatorLine.getPath().stream();
 
@@ -189,13 +196,14 @@ public class SwingGraphics implements Graphics {
 
 	@Override
 	public void drawNavigatorLine(NavigatorLine navigatorLine, World w) {
-		var pathStream = navigatorLine.getPath().stream();
+		// var pathStream = navigatorLine.getPath().stream();
 
-		g2.setColor(Color.YELLOW);
-		pathStream.filter((Point2d p) -> camera.inScene(p))
-				.forEach((Point2d p) -> g2.fillRect(getXinPixel(camera.getObjectPointInScene(p).get()),
-						getYinPixel(camera.getObjectPointInScene(p).get()), getDeltaXinPixel(0.5),
-						getDeltaYinPixel(0.5)));
+		// g2.setColor(Color.YELLOW);
+		// pathStream.filter((Point2d p) -> camera.inScene(p))
+		// .forEach((Point2d p) ->
+		// g2.fillRect(getXinPixel(camera.getObjectPointInScene(p).get()),
+		// getYinPixel(camera.getObjectPointInScene(p).get()), getDeltaXinPixel(0.5),
+		// getDeltaYinPixel(0.5)));
 	}
 
 	@Override
@@ -208,5 +216,16 @@ public class SwingGraphics implements Graphics {
 		g2.fillRect((int) healthBar.getPos().x + HealthBar.margin / 2,
 				(int) healthBar.getPos().y + HealthBar.margin / 2,
 				((FighterEntity) w.getPlayer()).getHealth() * HealthBar.zoom, 20);
+	}
+
+	@Override
+	public void drawEnemy(GameObject obj, World w) {
+		var point = camera.getObjectPointInScene(obj.getPos());
+		if (point.isPresent()) {
+			g2.setColor(Color.YELLOW);
+			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()),
+					getDeltaXinPixel(((RectBoundingBox) obj.getBBox()).getWidth()),
+					getDeltaYinPixel(((RectBoundingBox) obj.getBBox()).getHeight()));
+		}
 	}
 }

@@ -13,4 +13,6 @@ public interface Graphics {
 	void drawNavigatorLine(NavigatorLine navigatorLine, World w);
 
 	void drawHealthBar(HealthBar healthBar, World w);
+
+	void drawEnemy(GameObject obj, World w);
 }
