@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 
 import buontyhunter.core.GameEngine;
+import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObject;
@@ -111,9 +112,13 @@ public class SwingGraphics implements Graphics {
 		var tileManager = w.getTileManager();
 		var tiles = tileManager.getTiles();
 
+		int mapShowOffSetX = 18;
+		int mapShowOffSetY = 15;
+		
+
 		var firstX = 0;
 		var firstY = 0;
-		final var lastX = tiles.size();
+		final var lastX = tiles.size() ;
 		final var lastY = getMaxY(tiles);
 
 		Point2d tilePos = new Point2d(1, 1);
@@ -138,13 +143,14 @@ public class SwingGraphics implements Graphics {
 					return (computedProps <= 0) ? 1 : computedProps;
 				});
 
+		g2.drawImage(assetManager.getImage(ImageType.MAPBG), firstX , firstY , null);
 		for (int x = firstX; x < lastX; x++) {
 			for (int y = firstY; y < lastY; y++) {
 
 				try {
-					g2.setColor(getTileColor(tiles.get(x).get(y).getType()));
-					g2.fillRect(getXinPixel(tilePos) + y * propsX,
-							getYinPixel(tilePos) + x * propsY, propsX, propsY);
+					g2.setColor(getTileColor(tiles.get(x ).get(y ).getType()));
+					g2.fillRect(getXinPixel(tilePos) + mapShowOffSetY + y * propsX,
+							getYinPixel(tilePos) + mapShowOffSetX + x * propsY, propsX, propsY);
 				} catch (Exception ex) {
 					System.out.println(ex.getMessage());
 					System.out.println("we're fucked up");
@@ -156,8 +162,8 @@ public class SwingGraphics implements Graphics {
 		var p = w.getPlayer();
 
 		g2.setColor(Color.RED);
-		g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(p.getPos().x) * propsX,
-				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y) * propsY, propsX, propsY);
+		g2.fillRect(getXinPixel(tilePos) + mapShowOffSetX + (int) Math.floor(p.getPos().x) * propsX,
+				getYinPixel(tilePos) + mapShowOffSetY +  (int) Math.floor(p.getPos().y) * propsY, propsX, propsY);
 
 		var navigatorLine = w.getNavigatorLine();
 		var pathStream = navigatorLine.getPath().stream();

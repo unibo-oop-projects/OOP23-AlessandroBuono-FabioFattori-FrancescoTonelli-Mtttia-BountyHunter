@@ -56,6 +56,14 @@ public class ImagePathProvider {
                     setWidth(GameEngine.RATIO_WIDTH);
                 }
             });
+            put(ImageType.MAPBG, new AssetImage() {
+                {
+                    setPath("mapBG.png");
+                    setType(ImageType.MAPBG);
+                    setHeight(GameEngine.WINDOW_HEIGHT);
+                    setWidth(GameEngine.WINDOW_HEIGHT);
+                }
+            });
         }
     };
 }
