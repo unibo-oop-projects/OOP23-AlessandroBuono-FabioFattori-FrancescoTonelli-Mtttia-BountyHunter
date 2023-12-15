@@ -20,6 +20,7 @@ public class SwingAssetProvider {
 
     public String assetPath;
     private Map<ImageType, Image> imageAssetMap;
+    private Map<ImageType, AssetImage> imageAssetClassMap;
 
     /**
      * Create a new AssetProvider with the default asset path "/"
@@ -27,6 +28,7 @@ public class SwingAssetProvider {
     public SwingAssetProvider() {
         this.assetPath = "/";
         this.imageAssetMap = new HashMap<>();
+        this.imageAssetClassMap = new HashMap<>();
         loadAllAssets();
     }
 
@@ -59,6 +61,7 @@ public class SwingAssetProvider {
             Image awtImage = buffImage.getScaledInstance((int) image.getWidth(), (int) image.getHeight(),
                     Image.SCALE_DEFAULT);
             imageAssetMap.put(type, awtImage);
+            imageAssetClassMap.put(type, image);
             return true;
         } catch (Exception e) {
             System.out.println("Failed to load image: " + image.getPath() + " error Message => " + e.getMessage() + " "
@@ -92,4 +95,13 @@ public class SwingAssetProvider {
             return null;
         }
     }
+    
+    public AssetImage getImageClass(ImageType type) {
+        if (imageAssetClassMap.containsKey(type)) {
+            return imageAssetClassMap.get(type);
+        } else {
+            return null;
+        }
+    }
+    
 }

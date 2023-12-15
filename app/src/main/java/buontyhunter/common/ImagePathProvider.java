@@ -64,6 +64,14 @@ public class ImagePathProvider {
                     setWidth(GameEngine.WINDOW_HEIGHT);
                 }
             });
+            put(ImageType.GAME_ICON, new AssetImage() {
+                {
+                    setPath("GameIcon.jpeg");
+                    setType(ImageType.GAME_ICON);
+                    setHeight(GameEngine.WINDOW_HEIGHT);
+                    setWidth(GameEngine.WINDOW_HEIGHT);
+                }
+            });
         }
     };
 }

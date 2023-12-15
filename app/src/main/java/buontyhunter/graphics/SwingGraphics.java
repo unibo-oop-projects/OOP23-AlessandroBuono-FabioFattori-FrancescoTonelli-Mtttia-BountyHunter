@@ -20,6 +20,7 @@ import buontyhunter.model.TileManager;
 import buontyhunter.model.TileType;
 import buontyhunter.model.World;
 import buontyhunter.model.Tile;
+import java.awt.*;
 
 public class SwingGraphics implements Graphics {
 
@@ -114,11 +115,10 @@ public class SwingGraphics implements Graphics {
 
 		int mapShowOffSetX = 18;
 		int mapShowOffSetY = 15;
-		
 
 		var firstX = 0;
 		var firstY = 0;
-		final var lastX = tiles.size() ;
+		final var lastX = tiles.size();
 		final var lastY = getMaxY(tiles);
 
 		Point2d tilePos = new Point2d(1, 1);
@@ -143,12 +143,12 @@ public class SwingGraphics implements Graphics {
 					return (computedProps <= 0) ? 1 : computedProps;
 				});
 
-		g2.drawImage(assetManager.getImage(ImageType.MAPBG), firstX , firstY , null);
+		g2.drawImage(assetManager.getImage(ImageType.MAPBG), firstX, firstY, null);
 		for (int x = firstX; x < lastX; x++) {
 			for (int y = firstY; y < lastY; y++) {
 
 				try {
-					g2.setColor(getTileColor(tiles.get(x ).get(y ).getType()));
+					g2.setColor(getTileColor(tiles.get(x).get(y).getType()));
 					g2.fillRect(getXinPixel(tilePos) + mapShowOffSetY + y * propsX,
 							getYinPixel(tilePos) + mapShowOffSetX + x * propsY, propsX, propsY);
 				} catch (Exception ex) {
@@ -163,7 +163,7 @@ public class SwingGraphics implements Graphics {
 
 		g2.setColor(Color.RED);
 		g2.fillRect(getXinPixel(tilePos) + mapShowOffSetX + (int) Math.floor(p.getPos().x) * propsX,
-				getYinPixel(tilePos) + mapShowOffSetY +  (int) Math.floor(p.getPos().y) * propsY, propsX, propsY);
+				getYinPixel(tilePos) + mapShowOffSetY + (int) Math.floor(p.getPos().y) * propsY, propsX, propsY);
 
 		var navigatorLine = w.getNavigatorLine();
 		var pathStream = navigatorLine.getPath().stream();
@@ -214,5 +214,24 @@ public class SwingGraphics implements Graphics {
 		g2.fillRect((int) healthBar.getPos().x + HealthBar.margin / 2,
 				(int) healthBar.getPos().y + HealthBar.margin / 2,
 				((FighterEntity) w.getPlayer()).getHealth() * HealthBar.zoom, 20);
+	}
+
+	@Override
+	public void drawTitleScreen(HidableObject titleScreen, World w) {
+		Font sbTitleFont = new Font("Verdana", Font.ITALIC, 33);
+			Font titleFont = new Font("Verdana", Font.PLAIN, 84);
+
+		String title = "BountyHunter";
+		String subTitle = "press any key to start ...";
+
+		
+
+		g2.drawImage(assetManager.getImage(ImageType.GAME_ICON), 0, 0, null);
+
+		g2.setColor(Color.BLACK);
+		g2.setFont(titleFont);
+		g2.drawString(title, 0, 90);
+		g2.setFont(sbTitleFont);
+		g2.drawString(subTitle, 0, 150);
 	}
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class World {
     private GameObject player;
     private TileManager tileManager;
+    private HidableObject titleScreen;
     private RectBoundingBox mainBBox;
     private WorldEventListener evListener;
     private HidableObject miniMap;
@@ -22,6 +23,7 @@ public class World {
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
         this.healthBar = GameFactory.getInstance().createHealthBar();
+        this.titleScreen = GameFactory.getInstance().createTitleScreen();
     }
 
     public void setEventListener(WorldEventListener l) {
@@ -73,6 +75,10 @@ public class World {
         return tileManager;
     }
 
+    public HidableObject getTitleScreen(){
+        return this.titleScreen;
+    }
+
     public HidableObject getMiniMap() {
         return miniMap;
     }
@@ -83,16 +89,20 @@ public class World {
 
     public List<GameObject> getSceneEntities() {
         List<GameObject> entities = new ArrayList<GameObject>();
-        if (tileManager != null)
-            entities.add(tileManager);
-        if (player != null)
-            entities.add(player);
-        if (navigatorLine != null)
-            entities.add(navigatorLine);
-        if (healthBar != null)
-            entities.add(healthBar);
-        if (miniMap != null)
-            entities.add(miniMap);
+        if (this.titleScreen.isShow()) {
+            entities.add(titleScreen);
+        } else {
+            if (tileManager != null)
+                entities.add(tileManager);
+            if (player != null)
+                entities.add(player);
+            if (navigatorLine != null)
+                entities.add(navigatorLine);
+            if (healthBar != null)
+                entities.add(healthBar);
+            if (miniMap != null)
+                entities.add(miniMap);
+        }
 
         return entities;
     }

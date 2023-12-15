@@ -6,12 +6,26 @@ public class KeyboardInputController implements InputController {
 	private boolean isMoveDown;
 	private boolean isMoveLeft;
 	private boolean isMoveRight;
+	private boolean aKeyIsPressed = false;
 
 	private boolean isMPressed;
 
 	@Override
 	public boolean isMoveUp() {
 		return isMoveUp;
+	}
+
+	@Override
+	public boolean getAKeyIsPressed() {
+		return this.aKeyIsPressed;
+	}
+
+	public void AKeyIsPressed() {
+		this.aKeyIsPressed = true;
+	}
+
+	public void AKeyIsPressedIsNotPressed() {
+		this.aKeyIsPressed = false;
 	}
 
 	@Override

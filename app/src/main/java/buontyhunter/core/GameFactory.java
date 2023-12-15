@@ -19,7 +19,9 @@ import buontyhunter.graphics.MapGraphicsComponent;
 import buontyhunter.graphics.MiniMapGraphicsComponent;
 import buontyhunter.graphics.NavigatorLineGraphicsComponent;
 import buontyhunter.graphics.PlayerGraphicsComponent;
+import buontyhunter.graphics.TitleScreenGraphics;
 import buontyhunter.input.PlayerInputController;
+import buontyhunter.input.TitleScreenInputController;
 
 /* this class has methods to create all gameObjects */
 public class GameFactory {
@@ -109,5 +111,11 @@ public class GameFactory {
                 new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
                 new NullInputComponent(), new HealthBarGraphicsComponent(), new NullPhysicsComponent());
+    }
+
+    public HidableObject createTitleScreen(){
+        return new HidableObject(GameObjectType.TitleScreen, new Point2d(0, 0), new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
+                new TitleScreenInputController(), new TitleScreenGraphics(), new NullPhysicsComponent(), true);
     }
 }

@@ -10,11 +10,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Map;
 
 import javax.swing.*;
 
-import buontyhunter.common.AssetImage;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.core.GameEngine;
@@ -27,6 +25,7 @@ public class SwingScene implements Scene {
 	private ScenePanel panel;
 	private KeyboardInputController controller;
 	private GameState gameState;
+	private final SwingAssetProvider assetManager;
 
 	public SwingScene(GameState gameState, KeyboardInputController controller) {
 		frame = new JFrame("Bounty Hunter - the official game");
@@ -43,8 +42,13 @@ public class SwingScene implements Scene {
 		// frame.setUndecorated(true); // Remove title bar
 		this.gameState = gameState;
 		this.controller = controller;
+
+		this.assetManager = new SwingAssetProvider();
+		ImageIcon img = new ImageIcon(this.assetManager.getImageClass(ImageType.GAME_ICON).getPath());
+		frame.setIconImage(img.getImage());
+
 		panel = new ScenePanel(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT, GameEngine.WORLD_WIDTH,
-				GameEngine.WORLD_HEIGHT);
+				GameEngine.WORLD_HEIGHT, this.assetManager);
 		frame.getContentPane().add(panel);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent ev) {
@@ -86,7 +90,7 @@ public class SwingScene implements Scene {
 		private Font scoreFont, gameOverFont;
 		private final SwingAssetProvider assetManager;
 
-		public ScenePanel(int w, int h, double width, double height) {
+		public ScenePanel(int w, int h, double width, double height, SwingAssetProvider assetManager) {
 			setSize(w, h);
 			centerX = w / 2;
 			centerY = h / 2;
@@ -95,12 +99,12 @@ public class SwingScene implements Scene {
 
 			scoreFont = new Font("Verdana", Font.PLAIN, 36);
 			gameOverFont = new Font("Verdana", Font.PLAIN, 88);
-
+			this.assetManager = assetManager;
 			this.addKeyListener(this);
 			setFocusable(true);
 			setFocusTraversalKeysEnabled(false);
 			requestFocusInWindow();
-			this.assetManager = new SwingAssetProvider();
+
 		}
 
 		public void paint(Graphics g) {
@@ -148,16 +152,19 @@ public class SwingScene implements Scene {
 		@Override
 		public void keyPressed(KeyEvent e) {
 
-			if (e.getKeyCode() == 87) {
-				controller.notifyMoveUp();
-			} else if (e.getKeyCode() == 83) {
-				controller.notifyMoveDown();
-			} else if (e.getKeyCode() == 68) {
-				controller.notifyMoveRight();
-			} else if (e.getKeyCode() == 65) {
-				controller.notifyMoveLeft();
-			} else if (e.getKeyCode() == 77) {
-				controller.notifyMPressed();
+			if (e.getKeyCode() > 0) {
+				controller.AKeyIsPressed();
+				if (e.getKeyCode() == 87) {
+					controller.notifyMoveUp();
+				} else if (e.getKeyCode() == 83) {
+					controller.notifyMoveDown();
+				} else if (e.getKeyCode() == 68) {
+					controller.notifyMoveRight();
+				} else if (e.getKeyCode() == 65) {
+					controller.notifyMoveLeft();
+				} else if (e.getKeyCode() == 77) {
+					controller.notifyMPressed();
+				}
 			}
 		}
 
@@ -167,16 +174,19 @@ public class SwingScene implements Scene {
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			if (e.getKeyCode() == 87) {
-				controller.notifyNoMoreMoveUp();
-			} else if (e.getKeyCode() == 83) {
-				controller.notifyNoMoreMoveDown();
-			} else if (e.getKeyCode() == 68) {
-				controller.notifyNoMoreMoveRight();
-			} else if (e.getKeyCode() == 65) {
-				controller.notifyNoMoreMoveLeft();
-			} else if (e.getKeyCode() == 77) {
-				controller.notifyNoMoreMPressed();
+			if (e.getKeyCode() >= 0) {
+				controller.AKeyIsPressedIsNotPressed();
+				if (e.getKeyCode() == 87) {
+					controller.notifyNoMoreMoveUp();
+				} else if (e.getKeyCode() == 83) {
+					controller.notifyNoMoreMoveDown();
+				} else if (e.getKeyCode() == 68) {
+					controller.notifyNoMoreMoveRight();
+				} else if (e.getKeyCode() == 65) {
+					controller.notifyNoMoreMoveLeft();
+				} else if (e.getKeyCode() == 77) {
+					controller.notifyNoMoreMPressed();
+				}
 			}
 		}
 
