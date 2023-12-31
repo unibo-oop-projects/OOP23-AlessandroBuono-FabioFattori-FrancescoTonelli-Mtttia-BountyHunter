@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import buontyhunter.common.Point2d;
+import buontyhunter.common.Vector2d;
 import buontyhunter.core.GameFactory;
 import buontyhunter.input.KeyboardInputController;
+import buontyhunter.model.AI.enemySpawner.EnemyRegistry;
+import buontyhunter.model.AI.enemySpawner.EnemyRegistryImpl;
 import buontyhunter.physics.BoundaryCollision;
 
 import java.util.ArrayList;
@@ -19,12 +22,12 @@ public class World {
     private HidableObject miniMap;
     private NavigatorLine navigatorLine;
     private HealthBar healthBar;
-    private List<EnemyEntity> enemies;
+    private EnemyRegistry enemyRegistry;
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
         this.healthBar = GameFactory.getInstance().createHealthBar();
-        enemies = new ArrayList<>();
+        enemyRegistry = new EnemyRegistryImpl();
     }
 
     public void setEventListener(WorldEventListener l) {
@@ -48,12 +51,8 @@ public class World {
         this.navigatorLine = navigatorLine;
     }
 
-    public void addEnemy(EnemyEntity enemy) {
-        enemies.add(enemy);
-    }
-
     public List<EnemyEntity> getEnemies() {
-        return enemies;
+        return enemyRegistry.getEnemies();
     }
 
     public void updateState(long dt) {
@@ -66,15 +65,16 @@ public class World {
         if (miniMap != null) {
             miniMap.updatePhysics(dt, this);
         }
-        for (var enemy : enemies) {
+        for (var enemy : getEnemies()) {
             enemy.updatePhysics(dt, this);
         }
     }
 
     public void processAiInput(KeyboardInputController controller) {
-        for (var enemy : enemies) {
+        for (var enemy : getEnemies()) {
             enemy.updateInput(controller, this);
         }
+        generateEnemy();
     }
 
     public void notifyWorldEvent(WorldEvent ev) {
@@ -113,7 +113,7 @@ public class World {
             entities.add(healthBar);
         if (miniMap != null)
             entities.add(miniMap);
-        for (var enemy : enemies) {
+        for (var enemy : getEnemies()) {
             entities.add(enemy);
         }
 
@@ -144,5 +144,17 @@ public class World {
         } else {
             return Optional.empty();
         }
+    }
+
+    public void addEnemy(Point2d pos, Vector2d speed, int health) {
+        enemyRegistry.addEnemy(pos, speed, health);
+    }
+
+    public void removeEnemy(int enemyIdentifier) {
+        enemyRegistry.removeEnemy(enemyIdentifier);
+    }
+
+    public void generateEnemy() {
+        enemyRegistry.generateEnemy(this);
     }
 }

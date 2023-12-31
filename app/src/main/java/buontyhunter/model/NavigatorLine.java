@@ -4,7 +4,7 @@ import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
-import buontyhunter.model.AI.AIFactory;
+import buontyhunter.model.AI.AIFactoryImpl;
 import buontyhunter.model.AI.AIFactory.PathFinderType;
 import buontyhunter.model.AI.pathFinding.*;
 import buontyhunter.physics.PhysicsComponent;
@@ -23,7 +23,8 @@ public class NavigatorLine extends GameObject {
         this.world = world;
         path = new ArrayList<>();
         // pathFinder = new BFSPathFinder(true);
-        pathFinder = AIFactory.CreatePathFinder(PathFinderType.AStar, true);
+        var aiFactory = new AIFactoryImpl();
+        pathFinder = aiFactory.CreatePathFinder(PathFinderType.AStar, true);
     }
 
     public void setPath(Point2d initialPoint, Point2d finalPoint) {

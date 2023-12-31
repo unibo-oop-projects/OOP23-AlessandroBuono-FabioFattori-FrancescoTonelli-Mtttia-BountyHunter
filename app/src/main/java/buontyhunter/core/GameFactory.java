@@ -93,11 +93,11 @@ public class GameFactory {
                 new NullInputComponent(), new NavigatorLineGraphicsComponent(), new NullPhysicsComponent(), world);
     }
 
-    public EnemyEntity createEnemy(Point2d point, Vector2d vector, int health) {
+    public EnemyEntity createEnemy(Point2d point, Vector2d vector, int health, int enemyIdentifier) {
         return new EnemyEntity(GameObjectType.Enemy, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                 new EnemyInputController(), new EnemyGraphicsComponent(), new EnemyPhysicsComponent(),
-                health, health);
+                health, health, enemyIdentifier);
     }
 
     /**

@@ -114,4 +114,15 @@ public class TileManager extends GameObject {
         return tiles;
     }
 
+    public Optional<Tile> getTileFromPosition(Point2d point) {
+        int xTopLeft = (int) point.x;
+        int yTopLeft = (int) point.y;
+        var tiles = getTiles();
+        if (tiles.size() > yTopLeft
+                && tiles.get(0).size() > xTopLeft) {
+            return Optional.of(tiles.get(yTopLeft).get(xTopLeft));
+        }
+        return Optional.empty();
+    }
+
 }
