@@ -59,8 +59,8 @@ public class Camera implements SceneCamera {
         var pos = player.getPos();
         var bbox = (RectBoundingBox) tm.getBBox();
 
-        boolean playerXInCenter = pos.x > halfWidth && pos.x < (bbox.getWidth() + bbox.getULCorner().x) - halfWidth;
-        boolean playerYInCenter = pos.y > halfHeight && pos.y < (bbox.getHeight() + bbox.getULCorner().y) - halfHeight;
+        boolean playerXInCenter = pos.x >= halfWidth && pos.x < (bbox.getWidth() + bbox.getULCorner().x) - halfWidth;
+        boolean playerYInCenter = pos.y >= halfHeight && pos.y < (bbox.getHeight() + bbox.getULCorner().y) - halfHeight;
 
         // TODO: rename variable
         // delta larghezza del mondo senza l'ultima meta

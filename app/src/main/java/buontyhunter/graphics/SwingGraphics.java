@@ -108,6 +108,7 @@ public class SwingGraphics implements Graphics {
 	public void drawMiniMap(HidableObject miniMap, World w) {
 		if (!miniMap.isShow())
 			return;
+		var playerSize = 3;
 		var tileManager = w.getTileManager();
 		var tiles = tileManager.getTiles();
 
@@ -157,13 +158,15 @@ public class SwingGraphics implements Graphics {
 
 		g2.setColor(Color.RED);
 		g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(p.getPos().x) * propsX,
-				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y) * propsY, propsX, propsY);
+				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y) * propsY, propsX * playerSize,
+				propsY * playerSize);
 
 		for (var enemy : w.getEnemies()) {
 
 			g2.setColor(Color.YELLOW);
 			g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(enemy.getPos().x) * propsX,
-					getYinPixel(tilePos) + (int) Math.floor(enemy.getPos().y) * propsY, propsX * 3, propsY * 3);
+					getYinPixel(tilePos) + (int) Math.floor(enemy.getPos().y) * propsY, propsX * playerSize,
+					propsY * playerSize);
 		}
 
 		var navigatorLine = w.getNavigatorLine();
