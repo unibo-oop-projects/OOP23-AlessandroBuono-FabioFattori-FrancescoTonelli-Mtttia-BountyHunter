@@ -14,6 +14,7 @@ public class AIFollowPathHelper {
     Point2d destination;
     Iterator<Point2d> pathIterator;
     Point2d nextPoint = null;
+    List<Point2d> actualPath = new ArrayList<>();
 
     public AIFollowPathHelper(PathFinder pathFinder) {
         this.pathFinder = pathFinder;
@@ -35,9 +36,9 @@ public class AIFollowPathHelper {
     }
 
     private void generateIterator(Point2d current, Point2d destination, List<List<Tile>> map) {
-        var path = pathFinder.findPath(current, destination, map);
-        if (path.size() > 1) {
-            pathIterator = path.iterator();
+        actualPath = pathFinder.findPath(current, destination, map);
+        if (actualPath.size() > 1) {
+            pathIterator = actualPath.iterator();
             pathIterator.next();
             nextPoint = pathIterator.next();
         } else {
@@ -53,11 +54,11 @@ public class AIFollowPathHelper {
 
     public Point2d moveItem(Point2d current, Point2d destination, Vector2d speed, List<List<Tile>> map) {
         var movement = current.duplicate();
-        this.current = current;
-        this.destination = destination;
         if (!canUsePreviousIterator(current, destination)) {
             generateIterator(current, destination, map);
         }
+        this.current = current;
+        this.destination = destination;
 
         Vector2d speedLeft = speed.duplicate();
         // go forward with speed since you can
@@ -97,6 +98,10 @@ public class AIFollowPathHelper {
         }
 
         return movement;
+    }
+
+    public int getLastPathDistance() {
+        return actualPath.size();
     }
 
     public boolean isTileWater(List<List<Tile>> map, Point2d pos) {

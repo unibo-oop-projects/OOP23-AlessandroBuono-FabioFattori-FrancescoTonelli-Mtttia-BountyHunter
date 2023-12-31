@@ -7,7 +7,7 @@ import buontyhunter.model.Tile;
 
 public class AStarPathFinder implements PathFinder {
 
-    private final double DIAGONAL_COST = Math.sqrt(2); // Cost of diagonal movement
+    private final double DIAGONAL_COST = 1; // Cost of diagonal movement
     private final Map<Pair<Point2d, Point2d>, List<Point2d>> pathCache = new HashMap<>();
     private boolean useCache = true;
     private boolean passNearObstacle = false;
