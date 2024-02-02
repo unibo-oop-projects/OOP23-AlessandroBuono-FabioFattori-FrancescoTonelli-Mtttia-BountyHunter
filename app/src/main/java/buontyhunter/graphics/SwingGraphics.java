@@ -10,12 +10,14 @@ import java.util.List;
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
+import buontyhunter.model.CircleBoundingBox;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.HealthBar;
 import buontyhunter.model.HidableObject;
 import buontyhunter.model.NavigatorLine;
 import buontyhunter.model.RectBoundingBox;
+import buontyhunter.model.Teleporter;
 import buontyhunter.model.TileManager;
 import buontyhunter.model.TileType;
 import buontyhunter.model.World;
@@ -214,5 +216,14 @@ public class SwingGraphics implements Graphics {
 		g2.fillRect((int) healthBar.getPos().x + HealthBar.margin / 2,
 				(int) healthBar.getPos().y + HealthBar.margin / 2,
 				((FighterEntity) w.getPlayer()).getHealth() * HealthBar.zoom, 20);
+	}
+
+	@Override
+	public void drawTeleporter(Teleporter tp,World w) {
+		
+		//TODO => replace this code with an image loader for the Teleporter
+
+		g2.setColor(Color.WHITE);
+		g2.fillRect((int)tp.getPos().x, (int)tp.getPos().y, getDeltaXinPixel(((RectBoundingBox)tp.getBBox()).getWidth()), getDeltaYinPixel(((RectBoundingBox)tp.getBBox()).getHeight()));
 	}
 }

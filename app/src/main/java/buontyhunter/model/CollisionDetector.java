@@ -28,8 +28,8 @@ public class CollisionDetector {
     public boolean isColliding(RectBoundingBox rect, Point2d point) {
         double rectLeft = rect.getULCorner().x;
         double rectRight = rect.getULCorner().x + rect.getWidth();
-        double rectTop = rect.getULCorner().y;
-        double rectBottom = rect.getULCorner().y - rect.getHeight();
+        double rectBottom = rect.getULCorner().y;
+        double rectTop = rect.getULCorner().y + rect.getHeight();
 
         if (point.x > rectLeft && point.x < rectRight &&
                 point.y < rectTop && point.y > rectBottom) {

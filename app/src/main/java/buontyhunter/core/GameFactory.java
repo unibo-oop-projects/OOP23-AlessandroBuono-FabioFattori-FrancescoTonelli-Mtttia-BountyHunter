@@ -2,16 +2,21 @@ package buontyhunter.core;
 
 import buontyhunter.input.MiniMapInputController;
 import buontyhunter.input.NullInputComponent;
+import buontyhunter.model.CircleBoundingBox;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObjectType;
 import buontyhunter.model.HealthBar;
 import buontyhunter.model.HidableObject;
 import buontyhunter.model.NavigatorLine;
 import buontyhunter.model.RectBoundingBox;
+import buontyhunter.model.Teleporter;
 import buontyhunter.model.TileManager;
 import buontyhunter.model.World;
 import buontyhunter.physics.NullPhysicsComponent;
+import buontyhunter.physics.PhysicsComponent;
 import buontyhunter.physics.PlayerPhysicsComponent;
+import buontyhunter.physics.TeleporterPhysicsComponent;
+import buontyhunter.common.DestinationOfTeleporterType;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
 import buontyhunter.graphics.HealthBarGraphicsComponent;
@@ -19,6 +24,7 @@ import buontyhunter.graphics.MapGraphicsComponent;
 import buontyhunter.graphics.MiniMapGraphicsComponent;
 import buontyhunter.graphics.NavigatorLineGraphicsComponent;
 import buontyhunter.graphics.PlayerGraphicsComponent;
+import buontyhunter.graphics.TeleporterGraphicComponent;
 import buontyhunter.input.PlayerInputController;
 
 /* this class has methods to create all gameObjects */
@@ -109,5 +115,23 @@ public class GameFactory {
                 new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
                 new NullInputComponent(), new HealthBarGraphicsComponent(), new NullPhysicsComponent());
+    }
+
+    public Teleporter createTeleporterToHub(Point2d locationOfTeleporter) {
+        return new Teleporter(GameObjectType.Teleporter,
+                locationOfTeleporter,
+                new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d( 1 ,1), 1,1),
+                new NullInputComponent(), new TeleporterGraphicComponent(), new TeleporterPhysicsComponent(),
+                DestinationOfTeleporterType.HUB);
+    }
+
+    public Teleporter createTeleporterToOpenWorld(Point2d locationOfTeleporter) {
+        return new Teleporter(GameObjectType.Teleporter,
+                locationOfTeleporter,
+                new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d( 2 ,2), 1,1),
+                new NullInputComponent(), new TeleporterGraphicComponent(), new TeleporterPhysicsComponent(),
+                DestinationOfTeleporterType.OpenWorld);
     }
 }

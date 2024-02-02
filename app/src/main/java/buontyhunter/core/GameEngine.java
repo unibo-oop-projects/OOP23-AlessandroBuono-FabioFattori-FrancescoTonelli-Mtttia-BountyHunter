@@ -106,7 +106,10 @@ public class GameEngine implements WorldEventListener {
     protected void checkEvents() {
         World scene = gameState.getWorld();
         eventQueue.stream().forEach(ev -> {
-            // EVENT HANDLING GO HERE
+            if(ev instanceof ChangeWorldEvent){
+                gameState.setWorld(((ChangeWorldEvent)ev).getNewWorld());
+                gameState.getWorld().setEventListener(this);
+            }
         });
         eventQueue.clear();
     }
