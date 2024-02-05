@@ -10,12 +10,14 @@ import java.util.List;
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
+import buontyhunter.model.CircleBoundingBox;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.HealthBar;
 import buontyhunter.model.HidableObject;
 import buontyhunter.model.NavigatorLine;
 import buontyhunter.model.RectBoundingBox;
+import buontyhunter.model.Teleporter;
 import buontyhunter.model.TileManager;
 import buontyhunter.model.TileType;
 import buontyhunter.model.World;
@@ -53,6 +55,10 @@ public class SwingGraphics implements Graphics {
 
 	private int getDeltaYinPixel(double dy) {
 		return (int) Math.round(dy * ratioY);
+	}
+
+	private Point2d getTilePosInPixel(Point2d p) {
+		return new Point2d(getXinPixel(p), getYinPixel(p));
 	}
 
 	@Override
@@ -215,5 +221,17 @@ public class SwingGraphics implements Graphics {
 		g2.fillRect((int) healthBar.getPos().x + HealthBar.margin / 2,
 				(int) healthBar.getPos().y + HealthBar.margin / 2,
 				((FighterEntity) w.getPlayer()).getHealth() * HealthBar.zoom, 20);
+	}
+
+	@Override
+	public void drawTeleporter(Teleporter tp,World w) {
+		
+		//TODO => replace this code with an image loader for the Teleporter
+		var tpPosInPixel = getTilePosInPixel(camera.getObjectPointInScene(tp.getPos()).get());
+		var height = getDeltaYinPixel(((RectBoundingBox) tp.getBBox()).getHeight());
+		var width = getDeltaXinPixel(((RectBoundingBox) tp.getBBox()).getWidth());
+
+		g2.setColor(Color.WHITE);
+		g2.fillRect((int)tpPosInPixel.x , (int)tpPosInPixel.y , width, height);
 	}
 }

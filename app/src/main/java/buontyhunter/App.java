@@ -4,11 +4,14 @@
 package buontyhunter;
 
 import buontyhunter.core.GameEngine;
+import buontyhunter.graphics.TitleSwingScene;
 
 public class App {
 
     public static void main(String[] args) {
         GameEngine engine = new GameEngine();
+        TitleSwingScene titleScreen = new TitleSwingScene(GameEngine.WINDOW_WIDTH,GameEngine.WINDOW_HEIGHT);
+        titleScreen.startTitleLoop();
         engine.initGame();
     }
 }

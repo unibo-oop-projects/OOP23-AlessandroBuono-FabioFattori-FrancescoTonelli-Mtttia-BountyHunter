@@ -10,12 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Map;
-
 import javax.swing.*;
-
-import buontyhunter.common.AssetImage;
-import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.core.GameEngine;
 import buontyhunter.input.*;
@@ -23,12 +18,16 @@ import buontyhunter.model.*;
 
 public class SwingScene implements Scene {
 
-	private JFrame frame;
-	private ScenePanel panel;
-	private KeyboardInputController controller;
-	private GameState gameState;
+	protected JFrame frame;
+	protected ScenePanel panel;
+	protected KeyboardInputController controller;
+	protected GameState gameState;
+	private boolean switchScene = false;
+	private final boolean IsHub;
 
-	public SwingScene(GameState gameState, KeyboardInputController controller) {
+	public SwingScene(GameState gameState, KeyboardInputController controller, boolean IsHub) {
+
+		this.IsHub = IsHub;
 		frame = new JFrame("Bounty Hunter - the official game");
 		// make the frame appear in the middle of the screen
 		// Calculates the position where the CenteredJFrame
@@ -37,24 +36,26 @@ public class SwingScene implements Scene {
 		int y = (GameEngine.WINDOW_HEIGHT - frame.getHeight()) / 2;
 		frame.setLocation(x, y);
 		// frame.setLocationRelativeTo(null);
-		frame.setMinimumSize(new Dimension(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT));
+		if (IsHub) {
+			frame.setMinimumSize(new Dimension(340, 360));
+		} else {
+			frame.setMinimumSize(new Dimension(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT));
+		}
 		frame.setSize(frame.getMinimumSize());
 		frame.setResizable(true);
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				if (!switchScene) {
+					System.exit(0);
+				}
+			}
+		});
 		// frame.setUndecorated(true); // Remove title bar
 		this.gameState = gameState;
 		this.controller = controller;
 		panel = new ScenePanel(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT, GameEngine.WORLD_WIDTH,
 				GameEngine.WORLD_HEIGHT);
 		frame.getContentPane().add(panel);
-		frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent ev) {
-				System.exit(-1);
-			}
-
-			public void windowClosed(WindowEvent ev) {
-				System.exit(-1);
-			}
-		});
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -80,11 +81,11 @@ public class SwingScene implements Scene {
 	public class ScenePanel extends JPanel implements KeyListener {
 
 		private int centerX;
-		private int centerY;
-		private double ratioX;
-		private double ratioY;
-		private Font scoreFont, gameOverFont;
-		private final SwingAssetProvider assetManager;
+		protected int centerY;
+		protected double ratioX;
+		protected double ratioY;
+		protected Font scoreFont, gameOverFont;
+		protected final SwingAssetProvider assetManager;
 
 		public ScenePanel(int w, int h, double width, double height) {
 			setSize(w, h);
@@ -103,7 +104,7 @@ public class SwingScene implements Scene {
 			this.assetManager = new SwingAssetProvider();
 		}
 
-		public void paint(Graphics g) {
+		public void paintComponent(Graphics g) {
 			Graphics2D g2 = (Graphics2D) g;
 
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -128,20 +129,26 @@ public class SwingScene implements Scene {
 
 				/* drawing the game objects */
 
-				var camera = new Camera(scene);
+				var camera = new Camera(scene, IsHub);
 				camera.update(scene.getPlayer(), scene.getTileManager());
 				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera, assetManager);
 				gameState.getWorld().getSceneEntities().forEach(e -> {
-					e.updateGraphics(gr, scene);
+					if(!(e instanceof Teleporter)){
+						e.updateGraphics(gr, scene);
+					}
+
+					if((camera.inScene(e.getPos()) && e instanceof Teleporter)){
+						e.updateGraphics(gr, scene);
+					}
 				});
 			}
 		}
 
-		private int getXinPixel(Point2d p) {
+		protected int getXinPixel(Point2d p) {
 			return (int) Math.round(p.x * ratioX);
 		}
 
-		private int getYinPixel(Point2d p) {
+		protected int getYinPixel(Point2d p) {
 			return (int) Math.round(p.y * ratioY);
 		}
 
@@ -180,5 +187,11 @@ public class SwingScene implements Scene {
 			}
 		}
 
+	}
+
+	@Override
+	public void dispose() {
+		this.switchScene = true;
+		this.frame.dispose();
 	}
 }

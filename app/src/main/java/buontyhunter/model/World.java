@@ -18,6 +18,7 @@ public class World {
     private HidableObject miniMap;
     private NavigatorLine navigatorLine;
     private HealthBar healthBar;
+    private Teleporter tp;
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
@@ -28,9 +29,13 @@ public class World {
         evListener = l;
     }
 
-    public void setTileManager(TileManager tileManager) {
+    public void setTileManager(TileManager tileManager,int settedMap) {
         this.tileManager = tileManager;
-        laodMap(0);
+        laodMap(settedMap);
+    }
+
+    public void setTeleporter(Teleporter tp){
+        this.tp = tp;
     }
 
     public void setPlayer(GameObject player) {
@@ -54,6 +59,9 @@ public class World {
         }
         if (miniMap != null) {
             miniMap.updatePhysics(dt, this);
+        }
+        if(tp != null){
+            tp.updatePhysics(dt,this);
         }
     }
 
@@ -81,6 +89,10 @@ public class World {
         return navigatorLine;
     }
 
+    public Teleporter getTeleporter(){
+        return tp;
+    }
+
     public List<GameObject> getSceneEntities() {
         List<GameObject> entities = new ArrayList<GameObject>();
         if (tileManager != null)
@@ -93,11 +105,13 @@ public class World {
             entities.add(healthBar);
         if (miniMap != null)
             entities.add(miniMap);
+        if(tp != null)
+            entities.add(tp);
 
         return entities;
     }
 
-    private void laodMap(int map) {
+    public void laodMap(int map) {
         if (tileManager == null)
             return;
         var box = tileManager.loadMap(map);
