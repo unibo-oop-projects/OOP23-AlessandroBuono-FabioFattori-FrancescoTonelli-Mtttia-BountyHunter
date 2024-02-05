@@ -37,7 +37,7 @@ public class GameEngine implements WorldEventListener {
     public void initGame() {
         gameState = new GameState(this);
         controller = new KeyboardInputController();
-        view = new SwingScene(gameState, controller,false);
+        view = new SwingScene(gameState, controller, false);
         this.mainLoop();
     }
 
@@ -85,12 +85,17 @@ public class GameEngine implements WorldEventListener {
      * Process the input foreach game object that needs it
      */
     protected void processInput() {
-        // if the map is not showing, the player can move
-        if (!gameState.getWorld().getMiniMap().isShow()) {
+        //check if the world has a minimap (the hub doesn't have a minimap)
+        if (gameState.getWorld().getMiniMap() != null) {
+            // if the map is not showing, the player can move
+            if (!gameState.getWorld().getMiniMap().isShow()) {
+                gameState.getWorld().getPlayer().updateInput(controller);
+            }
+
+            gameState.getWorld().getMiniMap().updateInput(controller);
+        }else{
             gameState.getWorld().getPlayer().updateInput(controller);
         }
-
-        gameState.getWorld().getMiniMap().updateInput(controller);
     }
 
     /**
@@ -109,8 +114,8 @@ public class GameEngine implements WorldEventListener {
     protected void checkEvents() {
         World scene = gameState.getWorld();
         eventQueue.stream().forEach(ev -> {
-            if(ev instanceof ChangeWorldEvent){
-                gameState.setWorld(((ChangeWorldEvent)ev).getNewWorld());
+            if (ev instanceof ChangeWorldEvent) {
+                gameState.setWorld(((ChangeWorldEvent) ev).getNewWorld());
                 gameState.getWorld().setEventListener(this);
                 this.view.dispose();
                 controller.notifyNoMoreMPressed();
@@ -118,12 +123,12 @@ public class GameEngine implements WorldEventListener {
                 controller.notifyNoMoreMoveLeft();
                 controller.notifyNoMoreMoveRight();
                 controller.notifyNoMoreMoveUp();
-                if(((ChangeWorldEvent)ev).getNewWorld().getTeleporter().getMapIdOfDestination() == 0){ // hub
-                    this.view = new SwingScene(gameState, controller,true);
-                }else{
-                    this.view = new SwingScene(gameState, controller,false);
+                if (((ChangeWorldEvent) ev).getNewWorld().getTeleporter().getMapIdOfDestination() == 0) { // hub
+                    this.view = new SwingScene(gameState, controller, true);
+                } else {
+                    this.view = new SwingScene(gameState, controller, false);
                 }
-                
+
             }
         });
         eventQueue.clear();

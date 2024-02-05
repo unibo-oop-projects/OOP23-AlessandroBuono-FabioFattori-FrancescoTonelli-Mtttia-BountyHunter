@@ -11,7 +11,6 @@ public class ChangeWorldEvent implements WorldEvent {
 
         if (oldWorld.getTeleporter().destination == DestinationOfTeleporterType.HUB) {
             this.newWorldToSet = new World(new RectBoundingBox(new Point2d(0, 0), 16, 16));
-            this.newWorldToSet.setMiniMap(GameFactory.getInstance().createMinimap());
             this.newWorldToSet.setNavigatorLine(GameFactory.getInstance().createNavigatorLine(this.newWorldToSet));
             // creo il word dell'hub
             this.newWorldToSet.setTileManager(GameFactory.getInstance().creaTileManagerForHub(), newMapId);

@@ -121,7 +121,6 @@ public class SwingScene implements Scene {
 				g2.drawString("GAME OVER ", 30, centerY - 50);
 				g2.setFont(scoreFont);
 				g2.setColor(Color.GREEN);
-				g2.drawString("Final score " + gameState.getScore(), 180, centerY + 50);
 
 			} else {
 
