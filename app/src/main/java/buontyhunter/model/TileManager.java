@@ -1,20 +1,13 @@
 package buontyhunter.model;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import java.util.Optional;
-
 import java.util.List;
-
 import buontyhunter.common.FileProvider;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
-import buontyhunter.core.GameEngine;
-import buontyhunter.graphics.SwingAssetProvider;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
@@ -85,6 +78,102 @@ public class TileManager extends GameObject {
                 return ImageType.WALL;
             case water:
                 return ImageType.WATER;
+            case HubAllPath:
+                return ImageType.HUBAllPath;
+            case HubEarth:
+                return ImageType.HUBEarth;
+            case HubMiddleTopRoof:
+                return ImageType.HubMiddleTopRoof;
+            case HubLeftSideTopRoof:
+                return ImageType.HubLeftSideTopRoof;
+            case HubRightSideTopRoof:
+                return ImageType.HubRightSideTopRoof;
+            case LeftSideRoof:
+                return ImageType.LeftSideRoof;
+            case MidleRoof:
+                return ImageType.MidleRoof;
+            case RightSideRoof:
+                return ImageType.RightSideRoof;
+            case pathParticles:
+                return ImageType.pathParticles;
+            case pathPattern1:
+                return ImageType.pathPattern1;
+            case houseFace1:
+                return ImageType.houseFace1;
+            case houseFace2:
+                return ImageType.houseFace2;
+            case houseFace3:
+                return ImageType.houseFace3;
+            case houseFace4:
+                return ImageType.houseFace4;
+            case houseFace5:
+                return ImageType.houseFace5;
+            case Cespuglio:
+                return ImageType.Cespuglio;
+            case middleQuestTable:
+                return ImageType.middleQuestTable;
+            case middleQuestTable2:
+                return ImageType.middleQuestTable2;
+            case middleQuestTable3:
+                return ImageType.middleQuestTable3;
+            case middleQuestTable4:
+                return ImageType.middleQuestTable4;
+            case staccionata:
+                return ImageType.staccionata;
+            case topQuestTable1:
+                return ImageType.topQuestTable1;
+            case topQuestTable2:
+                return ImageType.topQuestTable2;
+            case topQuestTable3:
+                return ImageType.topQuestTable3;
+            case topQuestTable4:
+                return ImageType.topQuestTable4;
+            case houseFace6:
+                return ImageType.houseFace6;
+            case houseFace7:
+                return ImageType.houseFace7;
+            case houseFace8:
+                return ImageType.houseFace8;
+            case houseFace9:
+                return ImageType.houseFace9;
+            case houseFace10:
+                return ImageType.houseFace10;
+            case houseFace11:
+                return ImageType.houseFace11;
+            case cespuglio2:
+                return ImageType.cespuglio2;
+            case pathPattern2:
+                return ImageType.pathPattern2;
+            case pathPattern3:
+                return ImageType.pathPattern3;
+            case pathPattern4:
+                return ImageType.pathPattern4;
+            case pathPattern5:
+                return ImageType.pathPattern5;
+            case pathPattern6:
+                return ImageType.pathPattern6;
+            case BottomQuestTable1:
+                return ImageType.BottomQuestTable1;
+            case BottomQuestTable2:
+                return ImageType.BottomQuestTable2;
+            case BottomQuestTable3:
+                return ImageType.BottomQuestTable3;
+            case BottomQuestTable4:
+                return ImageType.BottomQuestTable4;
+            case BottomStaccionata:
+                return ImageType.BottomStaccionata;
+            case cespuglio3:
+                return ImageType.cespuglio3;
+            case topCespuglio1:
+                return ImageType.topCespuglio1;
+            case pathPattern7:
+                return ImageType.pathPattern7;
+            case pathPattern8:
+                return ImageType.pathPattern8;
+            case pathPattern9:
+                return ImageType.pathPattern9;
+            case pathPattern10:
+                return ImageType.pathPattern10;
             case empty:
             default:
                 return ImageType.FALLBACK;
@@ -105,6 +194,102 @@ public class TileManager extends GameObject {
                 return TileType.wall;
             case 5:
                 return TileType.water;
+            case 6:
+                return TileType.HubEarth;
+            case 7:
+                return TileType.HubAllPath;
+            case 8:
+                return TileType.HubMiddleTopRoof;
+            case 9:
+                return TileType.HubLeftSideTopRoof;
+            case 10:
+                return TileType.HubRightSideTopRoof;
+            case 11:
+                return TileType.LeftSideRoof;
+            case 12:
+                return TileType.MidleRoof;
+            case 13:
+                return TileType.RightSideRoof;
+            case 14:
+                return TileType.pathParticles;
+            case 15:
+                return TileType.pathPattern1;
+            case 16:
+                return TileType.houseFace1;
+            case 17:
+                return TileType.houseFace2;
+            case 18:
+                return TileType.houseFace3;
+            case 19:
+                return TileType.houseFace4;
+            case 20:
+                return TileType.houseFace5;
+            case 21:
+                return TileType.Cespuglio;
+            case 22:
+                return TileType.middleQuestTable;
+            case 23:
+                return TileType.middleQuestTable2;
+            case 24:
+                return TileType.middleQuestTable3;
+            case 25:
+                return TileType.middleQuestTable4;
+            case 26:
+                return TileType.staccionata;
+            case 27:
+                return TileType.topQuestTable1;
+            case 28:
+                return TileType.topQuestTable2;
+            case 29:
+                return TileType.topQuestTable3;
+            case 30:
+                return TileType.topQuestTable4;
+            case 31:
+                return TileType.houseFace6;
+            case 32:
+                return TileType.houseFace7;
+            case 33:
+                return TileType.houseFace8;
+            case 34:
+                return TileType.houseFace9;
+            case 35:
+                return TileType.houseFace10;
+            case 36:
+                return TileType.houseFace11;
+            case 37:
+                return TileType.cespuglio2;
+            case 38:
+                return TileType.pathPattern2;
+            case 39:
+                return TileType.pathPattern3;
+            case 40:
+                return TileType.pathPattern4;
+            case 41:
+                return TileType.pathPattern5;
+            case 42:
+                return TileType.pathPattern6;
+            case 43:
+                return TileType.BottomQuestTable1;
+            case 44:
+                return TileType.BottomQuestTable2;
+            case 45:
+                return TileType.BottomQuestTable3;
+            case 46:
+                return TileType.BottomQuestTable4;
+            case 47:
+                return TileType.BottomStaccionata;
+            case 48:
+                return TileType.topCespuglio1;
+            case 49:
+                return TileType.cespuglio3;
+            case 50:
+                return TileType.pathPattern7;
+            case 51:
+                return TileType.pathPattern8;
+            case 52:
+                return TileType.pathPattern9;
+            case 53:
+                return TileType.pathPattern10;
         }
 
         return TileType.empty;

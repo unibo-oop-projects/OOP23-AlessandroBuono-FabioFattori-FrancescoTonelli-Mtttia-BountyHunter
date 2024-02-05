@@ -20,17 +20,19 @@ public class Camera implements SceneCamera {
     private int lastTileY;
     private double tileOffsetX;
     private double tileOffsetY;
+    private boolean isHub;
 
-    public Camera(World world) {
+    public Camera(World world, boolean isHub) {
         this.world = world;
+        this.isHub = isHub;
     }
 
     private double getHalfWidth() {
-        return GameEngine.WORLD_WIDTH / 2;
+        return isHub ? (double)GameEngine.HUB_WIDTH / 2 : GameEngine.WORLD_WIDTH / 2;
     }
 
     private double getHalfHeight() {
-        return GameEngine.WORLD_HEIGHT / 2;
+        return isHub ? (double)GameEngine.HUB_HEIGHT / 2 : GameEngine.WORLD_HEIGHT / 2;
     }
 
     @Override
@@ -72,16 +74,27 @@ public class Camera implements SceneCamera {
         double playerY = playerYInCenter ? halfHeight : (pos.y < halfHeight ? pos.y : (pos.y - tmpY) + halfHeight);
         playerPoint = new Point2d(playerX, playerY);
 
-        firstTileX = playerXInCenter ? (int) Math.floor(pos.x - halfWidth)
-                : (int) (pos.x < halfWidth ? 0 : Math.floor(bbox.getWidth() - 2 * halfWidth));
-        firstTileY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight)
-                : (pos.y < halfHeight ? 0 : (int) Math.floor(bbox.getHeight() - GameEngine.WORLD_HEIGHT));
-        tileOffsetX = playerXInCenter ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
-        tileOffsetY = playerYInCenter ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;
-        lastTileX = tileOffsetX > 0 ? firstTileX + (int) Math.round(GameEngine.WORLD_WIDTH) + 1
-                : firstTileX + (int) (Math.round(GameEngine.WORLD_WIDTH));
-        lastTileY = tileOffsetY > 0 ? firstTileY + (int) Math.round(GameEngine.WORLD_HEIGHT) + 1
-                : firstTileY + (int) Math.round(GameEngine.WORLD_HEIGHT);
+        if (isHub) {
+            firstTileX = playerXInCenter ? (int) Math.floor(pos.x - halfWidth)
+                    : (int) (pos.x < halfWidth ? 0 : Math.floor(bbox.getWidth() - 2 * halfWidth));
+            firstTileY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight)
+                    : (pos.y < halfHeight ? 0 : (int) Math.floor(bbox.getHeight() - GameEngine.HUB_HEIGHT));
+            tileOffsetX = playerXInCenter ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
+            tileOffsetY = playerYInCenter ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;
+            lastTileX = world.getTileManager().getTiles().size();
+            lastTileY = world.getTileManager().getTiles().size();
+        } else {
+            firstTileX = playerXInCenter ? (int) Math.floor(pos.x - halfWidth)
+                    : (int) (pos.x < halfWidth ? 0 : Math.floor(bbox.getWidth() - 2 * halfWidth));
+            firstTileY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight)
+                    : (pos.y < halfHeight ? 0 : (int) Math.floor(bbox.getHeight() - GameEngine.WORLD_HEIGHT));
+            tileOffsetX = playerXInCenter ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
+            tileOffsetY = playerYInCenter ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;
+            lastTileX = tileOffsetX > 0 ? firstTileX + (int) Math.round(GameEngine.WORLD_WIDTH) + 1
+                    : firstTileX + (int) (Math.round(GameEngine.WORLD_WIDTH));
+            lastTileY = tileOffsetY > 0 ? firstTileY + (int) Math.round(GameEngine.WORLD_HEIGHT) + 1
+                    : firstTileY + (int) Math.round(GameEngine.WORLD_HEIGHT);
+        }
     }
 
     @Override

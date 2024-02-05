@@ -6,4 +6,5 @@ public interface Scene {
 
 	void renderGameOver();
 
+	void dispose();
 }

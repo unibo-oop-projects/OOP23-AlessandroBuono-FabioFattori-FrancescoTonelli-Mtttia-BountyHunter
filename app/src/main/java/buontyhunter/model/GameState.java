@@ -15,19 +15,19 @@ public class GameState {
 
         score = 0;
         world = new World(new RectBoundingBox(new Point2d(0, 0), 20, 18));
-        world.setPlayer(f.createPlayer(new Point2d(0, 0), Vector2d.symmetrical(0), 10, 100));
+        world.setPlayer(f.createPlayer(new Point2d(5, 106), Vector2d.symmetrical(0), 10, 100));
         world.setTileManager(f.createTileManager(),0);
         world.setMiniMap(f.createMinimap());
         world.setNavigatorLine(f.createNavigatorLine(world));
         world.setEventListener(l);
-        world.setTeleporter(f.createTeleporterToHub(new Point2d(50,50)));
+        world.setTeleporter(f.createTeleporterToHub());
     }
 
     public World getWorld() {
         return world;
     }
 
-    public void setWorld(World newWorld){
+    public void setWorld(World newWorld) {
         this.world = newWorld;
     }
 

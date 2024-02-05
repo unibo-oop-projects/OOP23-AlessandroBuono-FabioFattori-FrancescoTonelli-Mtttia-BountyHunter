@@ -2,6 +2,7 @@ package buontyhunter.core;
 
 import java.util.LinkedList;
 
+import buontyhunter.common.Point2d;
 import buontyhunter.graphics.*;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
@@ -17,6 +18,8 @@ public class GameEngine implements WorldEventListener {
     public static final int WINDOW_HEIGHT = WINDOW_WIDTH;
     public static final double RATIO_WIDTH = WINDOW_WIDTH / WORLD_WIDTH;
     public static final double RATIO_HEIGHT = RATIO_WIDTH;
+    public static final int HUB_WIDTH = 9;
+    public static final int HUB_HEIGHT = 9;
 
     private long FPS = 30;
     private Scene view;
@@ -34,7 +37,7 @@ public class GameEngine implements WorldEventListener {
     public void initGame() {
         gameState = new GameState(this);
         controller = new KeyboardInputController();
-        view = new SwingScene(gameState, controller);
+        view = new SwingScene(gameState, controller,false);
         this.mainLoop();
     }
 
@@ -109,6 +112,18 @@ public class GameEngine implements WorldEventListener {
             if(ev instanceof ChangeWorldEvent){
                 gameState.setWorld(((ChangeWorldEvent)ev).getNewWorld());
                 gameState.getWorld().setEventListener(this);
+                this.view.dispose();
+                controller.notifyNoMoreMPressed();
+                controller.notifyNoMoreMoveDown();
+                controller.notifyNoMoreMoveLeft();
+                controller.notifyNoMoreMoveRight();
+                controller.notifyNoMoreMoveUp();
+                if(((ChangeWorldEvent)ev).getNewWorld().getTeleporter().getMapIdOfDestination() == 0){ // hub
+                    this.view = new SwingScene(gameState, controller,true);
+                }else{
+                    this.view = new SwingScene(gameState, controller,false);
+                }
+                
             }
         });
         eventQueue.clear();

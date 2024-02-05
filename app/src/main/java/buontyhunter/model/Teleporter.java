@@ -8,7 +8,10 @@ import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
 
 public class Teleporter extends GameObject {
-    final DestinationOfTeleporterType destination;
+    
+    public static final Point2d HUB_TELEPORT_POS = new Point2d(1,1);
+    public static final Point2d OPEN_WORLD_TELEPORT_POS = new Point2d(5,100);
+    public final DestinationOfTeleporterType destination;
 
     public Teleporter(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
             GraphicsComponent graph, PhysicsComponent phys , final DestinationOfTeleporterType destination) {

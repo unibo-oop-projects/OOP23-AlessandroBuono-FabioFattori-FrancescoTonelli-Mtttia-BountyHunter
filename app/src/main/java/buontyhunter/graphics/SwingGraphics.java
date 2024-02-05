@@ -57,6 +57,10 @@ public class SwingGraphics implements Graphics {
 		return (int) Math.round(dy * ratioY);
 	}
 
+	private Point2d getTilePosInPixel(Point2d p) {
+		return new Point2d(getXinPixel(p), getYinPixel(p));
+	}
+
 	@Override
 	public void drawPlayer(GameObject obj, World w) {
 		var x = getXinPixel(camera.getPlayerPoint());
@@ -222,8 +226,11 @@ public class SwingGraphics implements Graphics {
 	public void drawTeleporter(Teleporter tp,World w) {
 		
 		//TODO => replace this code with an image loader for the Teleporter
+		var tpPosInPixel = getTilePosInPixel(camera.getObjectPointInScene(tp.getPos()).get());
+		var height = getDeltaYinPixel(((RectBoundingBox) tp.getBBox()).getHeight());
+		var width = getDeltaXinPixel(((RectBoundingBox) tp.getBBox()).getWidth());
 
 		g2.setColor(Color.WHITE);
-		g2.fillRect((int)tp.getPos().x, (int)tp.getPos().y, getDeltaXinPixel(((RectBoundingBox)tp.getBBox()).getWidth()), getDeltaYinPixel(((RectBoundingBox)tp.getBBox()).getHeight()));
+		g2.fillRect((int)tpPosInPixel.x , (int)tpPosInPixel.y , width, height);
 	}
 }
