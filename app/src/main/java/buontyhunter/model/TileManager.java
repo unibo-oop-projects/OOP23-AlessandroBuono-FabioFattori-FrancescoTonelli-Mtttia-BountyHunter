@@ -48,7 +48,26 @@ public class TileManager extends GameObject {
             for (int j = 0; j < tiles.length; j++) {
                 var tileId = getTileType(Integer.parseInt(tiles[j]));
 
-                if (tileId == TileType.tree || tileId == TileType.wall) {
+                if (tileId == TileType.tree || tileId == TileType.wall || tileId == TileType.HubMiddleTopRoof
+                        || tileId == TileType.HubLeftSideTopRoof || tileId == TileType.HubRightSideTopRoof
+                        || tileId == TileType.LeftSideRoof || tileId == TileType.MidleRoof
+                        || tileId == TileType.RightSideRoof
+                        || tileId == TileType.houseFace1
+                        || tileId == TileType.houseFace2 || tileId == TileType.houseFace3
+                        || tileId == TileType.houseFace4
+                        || tileId == TileType.houseFace5 || tileId == TileType.middleQuestTable
+                        || tileId == TileType.middleQuestTable2 || tileId == TileType.middleQuestTable3
+                        || tileId == TileType.middleQuestTable4
+                        || tileId == TileType.staccionata || tileId == TileType.topQuestTable1
+                        || tileId == TileType.topQuestTable2
+                        || tileId == TileType.topQuestTable3 || tileId == TileType.topQuestTable4
+                        || tileId == TileType.houseFace6
+                        || tileId == TileType.houseFace7 || tileId == TileType.houseFace8
+                        || tileId == TileType.houseFace9
+                        || tileId == TileType.houseFace10 || tileId == TileType.houseFace11
+                        || tileId == TileType.BottomQuestTable1
+                        || tileId == TileType.BottomQuestTable2 || tileId == TileType.BottomQuestTable3
+                        || tileId == TileType.BottomQuestTable4) {
                     row.add(new Tile(resolveTyleToImageType(tileId), true, true, new Point2d(j, i), tileId));
                 } else if (tileId == TileType.water) {
                     row.add(new Tile(resolveTyleToImageType(tileId), false, true, new Point2d(j, i), tileId));
