@@ -27,7 +27,6 @@ public class GameState {
         return world;
     }
 
-
     /** add doblons(in game money) to the player account
      * @param doblons the doblons to deposit
      */

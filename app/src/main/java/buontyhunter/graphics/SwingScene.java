@@ -37,7 +37,9 @@ public class SwingScene implements Scene {
 		frame.setLocation(x, y);
 		// frame.setLocationRelativeTo(null);
 		if (IsHub) {
-			frame.setMinimumSize(new Dimension(340, 360));
+			int width = GameEngine.WINDOW_WIDTH >= 700 ? 550: 250;
+			int height = GameEngine.WINDOW_HEIGHT >= 700 ? 575: 275;
+			frame.setMinimumSize(new Dimension(width, height));
 		} else {
 			frame.setMinimumSize(new Dimension(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT));
 		}
@@ -132,11 +134,11 @@ public class SwingScene implements Scene {
 				camera.update(scene.getPlayer(), scene.getTileManager());
 				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera, assetManager);
 				gameState.getWorld().getSceneEntities().forEach(e -> {
-					if(!(e instanceof Teleporter)){
+					if (!(e instanceof Teleporter)) {
 						e.updateGraphics(gr, scene);
 					}
 
-					if((camera.inScene(e.getPos()) && e instanceof Teleporter)){
+					if ((camera.inScene(e.getPos()) && e instanceof Teleporter)) {
 						e.updateGraphics(gr, scene);
 					}
 				});
