@@ -19,10 +19,12 @@ public class World {
     private NavigatorLine navigatorLine;
     private HealthBar healthBar;
     private Teleporter tp;
+    private List<InterractableArea> interractableAreas;
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
         this.healthBar = GameFactory.getInstance().createHealthBar();
+        this.interractableAreas = new ArrayList<InterractableArea>();
     }
 
     public void setEventListener(WorldEventListener l) {
@@ -50,6 +52,14 @@ public class World {
         this.navigatorLine = navigatorLine;
     }
 
+    public void addInterractableArea(InterractableArea area) {
+        interractableAreas.add(area);
+    }
+
+    public List<InterractableArea> getInterractableAreas() {
+        return interractableAreas;
+    }
+
     public void updateState(long dt) {
         if (player != null) {
             player.updatePhysics(dt, this);
@@ -63,6 +73,8 @@ public class World {
         if(tp != null){
             tp.updatePhysics(dt,this);
         }
+
+        this.interractableAreas.forEach(area -> area.updatePhysics(dt, this));
     }
 
     public void notifyWorldEvent(WorldEvent ev) {
@@ -107,7 +119,7 @@ public class World {
             entities.add(miniMap);
         if(tp != null)
             entities.add(tp);
-
+        this.interractableAreas.forEach(area -> entities.add(area));
         return entities;
     }
 

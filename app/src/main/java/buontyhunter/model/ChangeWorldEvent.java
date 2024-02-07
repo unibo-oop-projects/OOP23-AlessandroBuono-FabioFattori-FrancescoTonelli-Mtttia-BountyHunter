@@ -20,6 +20,7 @@ public class ChangeWorldEvent implements WorldEvent {
                     ((FighterEntity) oldWorld.getPlayer()).getMaxHealth()));
             this.newWorldToSet
                     .setTeleporter(GameFactory.getInstance().createTeleporterToOpenWorld());
+            this.newWorldToSet.addInterractableArea(GameFactory.getInstance().createQuestPannelForHub(new Point2d(7, 5)));
             return;
         } else if (oldWorld.getTeleporter().destination == DestinationOfTeleporterType.OpenWorld) {
             this.newWorldToSet = new World(new RectBoundingBox(new Point2d(0, 0), 20, 18));

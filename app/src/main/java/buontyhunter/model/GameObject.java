@@ -132,4 +132,16 @@ public class GameObject {
     protected void setBBox(BoundingBox box) {
         this.bbox = box;
     }
+
+    protected GraphicsComponent getGraphicsComponent() {
+        return graph;
+    }
+
+    protected PhysicsComponent getPhysicsComponent() {
+        return phys;
+    }
+
+    protected InputComponent getInputComponent() {
+        return input;
+    }
 }

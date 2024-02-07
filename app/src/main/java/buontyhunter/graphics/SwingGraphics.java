@@ -1,6 +1,9 @@
 package buontyhunter.graphics;
 
 import java.util.function.Predicate;
+
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.function.Function;
 
 import java.awt.Color;
@@ -149,8 +152,8 @@ public class SwingGraphics implements Graphics {
 				});
 
 		g2.drawImage(assetManager.getImage(ImageType.MAPBG), firstX + mapShowOffSetY, firstY + mapShowOffSetX,
-				getXinPixel(tilePos) + mapShowOffSetY*2 + lastX * propsX,
-				getYinPixel(tilePos) + mapShowOffSetX*2 + lastY * propsY, null);
+				getXinPixel(tilePos) + mapShowOffSetY * 2 + lastX * propsX,
+				getYinPixel(tilePos) + mapShowOffSetX * 2 + lastY * propsY, null);
 		for (int x = firstX; x < lastX; x++) {
 			for (int y = firstY; y < lastY; y++) {
 
@@ -224,14 +227,41 @@ public class SwingGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawTeleporter(Teleporter tp,World w) {
-		
-		//TODO => replace this code with an image loader for the Teleporter
+	public void drawTeleporter(Teleporter tp, World w) {
+
+		// TODO => replace this code with an image loader for the Teleporter
 		var tpPosInPixel = getTilePosInPixel(camera.getObjectPointInScene(tp.getPos()).get());
 		var height = getDeltaYinPixel(((RectBoundingBox) tp.getBBox()).getHeight());
 		var width = getDeltaXinPixel(((RectBoundingBox) tp.getBBox()).getWidth());
 
 		g2.setColor(Color.WHITE);
-		g2.fillRect((int)tpPosInPixel.x , (int)tpPosInPixel.y , width, height);
+		g2.fillRect((int) tpPosInPixel.x, (int) tpPosInPixel.y, width, height);
 	}
+
+	@Override
+	public void drawQuestPannel(HidableObject questPannel, World w) {
+		if (!questPannel.isShow())
+			return;
+		var panelPosInPixel = questPannel.getPos();
+		var height = getDeltaYinPixel(((RectBoundingBox) questPannel.getBBox()).getHeight());
+		var width = getDeltaXinPixel(((RectBoundingBox) questPannel.getBBox()).getWidth());
+
+		g2.setColor(Color.WHITE);
+		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, width, height);
+		g2.setColor(Color.BLACK);
+		g2.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 36));
+		g2.drawString("Quest panel", GameEngine.WINDOW_WIDTH/2 -100,GameEngine.WINDOW_HEIGHT/2-100);
+	}
+
+	public void drawStringUnderPlayer(String s) {
+		var playerPosition = camera.getPlayerPoint();
+		playerPosition.setY(playerPosition.y + 1.5);
+		playerPosition.setX(playerPosition.x - 2);
+		var x = getXinPixel(playerPosition);
+		var y = getYinPixel(playerPosition);
+		g2.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 20));
+		g2.setColor(Color.BLACK);
+		g2.drawString(s, x, y);
+	}
+
 }

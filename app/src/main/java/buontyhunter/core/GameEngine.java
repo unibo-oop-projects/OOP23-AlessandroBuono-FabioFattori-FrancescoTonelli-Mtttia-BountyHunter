@@ -96,6 +96,7 @@ public class GameEngine implements WorldEventListener {
         }else{
             gameState.getWorld().getPlayer().updateInput(controller);
         }
+        gameState.getWorld().getInterractableAreas().forEach(area -> area.updateInput(controller));
     }
 
     /**

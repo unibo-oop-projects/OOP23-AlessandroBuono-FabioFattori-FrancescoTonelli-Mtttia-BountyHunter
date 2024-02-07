@@ -155,7 +155,6 @@ public class SwingScene implements Scene {
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-
 			if (e.getKeyCode() == 87) {
 				controller.notifyMoveUp();
 			} else if (e.getKeyCode() == 83) {
@@ -166,6 +165,8 @@ public class SwingScene implements Scene {
 				controller.notifyMoveLeft();
 			} else if (e.getKeyCode() == 77) {
 				controller.notifyMPressed();
+			}else if (e.getKeyCode() == 69) {
+				controller.notifyEPressed();
 			}
 		}
 
@@ -185,6 +186,8 @@ public class SwingScene implements Scene {
 				controller.notifyNoMoreMoveLeft();
 			} else if (e.getKeyCode() == 77) {
 				controller.notifyNoMoreMPressed();
+			}else if (e.getKeyCode() == 69) {
+				controller.notifyNoMoreEPressed();
 			}
 		}
 
