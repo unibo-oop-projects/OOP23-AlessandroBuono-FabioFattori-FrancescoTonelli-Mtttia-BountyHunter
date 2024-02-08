@@ -240,16 +240,17 @@ public class SwingGraphics implements Graphics {
 		g2.fillRoundRect(unit, unit, 4 * unit, 4 * unit, 36, 36);
 		int x = unit + unit / 6;
 		int y = x;
-		
-		var filteredQuests = questPannel.getQuests().stream()
-				.filter(q -> ((PlayerEntity) w.getPlayer()).getQuests().contains(q));
-		filteredQuests.forEach(q -> {
 
-			var offsetX = (unit + (unit * 2) / 6) * filteredQuests.collect(Collectors.toList()).indexOf(q);
+		questPannel.getQuests().stream()
+				.filter(q -> !((PlayerEntity) w.getPlayer()).getQuests().contains(q)).forEach(q -> {
 
-			drawQuest((QuestEntity) q, x + offsetX, y, unit);
+					var offsetX = (unit + (unit * 2) / 6) * questPannel.getQuests().stream()
+							.filter(quest -> !((PlayerEntity) w.getPlayer()).getQuests().contains(quest))
+							.collect(Collectors.toList()).indexOf(q);
 
-		});
+					drawQuest((QuestEntity) q, x + offsetX, y, unit);
+
+				});
 	}
 
 	private void drawQuest(QuestEntity quest, int x, int y, int unit) {
