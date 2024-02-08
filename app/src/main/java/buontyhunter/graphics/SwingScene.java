@@ -182,9 +182,6 @@ public class SwingScene implements Scene {
 												.contains(quest))
 										.collect(Collectors.toList()).indexOf(q);
 								var button = buttons.get(getQuestPannel().getQuests().indexOf(q));
-
-								button.setForeground(Color.red);
-								button.setText(q.getName());
 								button.setVisible(getQuestPannel().isShow());
 								gr.drawQuest((QuestEntity) q, x + offsetX, y, unit, button);
 								this.add(button, BorderLayout.CENTER);

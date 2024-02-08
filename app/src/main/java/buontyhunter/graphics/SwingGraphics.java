@@ -11,6 +11,8 @@ import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.*;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
 
 public class SwingGraphics implements Graphics {
 
@@ -246,6 +248,16 @@ public class SwingGraphics implements Graphics {
 
 	public void drawQuest(QuestEntity quest, int x, int y, int unit,JButton btn) {
 		btn.setBounds(x, y, unit, unit);
+		btn.setLayout(new BorderLayout());
+		JLabel nameLabel = new JLabel(quest.getName());
+		JLabel descriptionLabel = new JLabel(quest.getDescription());
+		JLabel rewardLabel = new JLabel(quest.getDoblonsReward()+" dobloni");
+		nameLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+		descriptionLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
+		rewardLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+		btn.add(nameLabel, BorderLayout.NORTH);
+		btn.add(descriptionLabel, BorderLayout.CENTER);
+		btn.add(rewardLabel, BorderLayout.SOUTH);
 	}
 
 	public void drawStringUnderPlayer(String s) {
