@@ -13,6 +13,9 @@ import buontyhunter.common.Point2d;
 import buontyhunter.model.*;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.Border;
 
 public class SwingGraphics implements Graphics {
 
@@ -234,24 +237,24 @@ public class SwingGraphics implements Graphics {
 		var height = (int) ((RectBoundingBox) questPannel.getBBox()).getHeight();
 
 		// questa unità di misura mi permette di disegnare le varie parti della bacheca
-		
+
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
-		g2.setColor(Color.blue);
+		g2.setColor(new Color(239,208,144,255));
 		int unit = height / 6;
 		g2.fillRoundRect(unit, unit, 4 * unit, 4 * unit, 36, 36);
-		int x = unit + unit / 6;
-		int y = x;
 
-		
 	}
 
-	public void drawQuest(QuestEntity quest, int x, int y, int unit,JButton btn) {
+	public void drawQuest(QuestEntity quest, int x, int y, int unit, JButton btn) {
+		btn.setBackground(Color.red);
+		btn.setOpaque(true);
+		btn.setBorderPainted(false);
 		btn.setBounds(x, y, unit, unit);
 		btn.setLayout(new BorderLayout());
 		JLabel nameLabel = new JLabel(quest.getName());
 		JLabel descriptionLabel = new JLabel(quest.getDescription());
-		JLabel rewardLabel = new JLabel(quest.getDoblonsReward()+" dobloni");
+		JLabel rewardLabel = new JLabel(quest.getDoblonsReward() + " dobloni");
 		nameLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
 		descriptionLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
 		rewardLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
