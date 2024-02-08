@@ -37,9 +37,7 @@ public class SwingScene implements Scene {
 		frame.setLocation(x, y);
 		// frame.setLocationRelativeTo(null);
 		if (IsHub) {
-			int width = GameEngine.WINDOW_WIDTH >= 700 ? 550: 250;
-			int height = GameEngine.WINDOW_HEIGHT >= 700 ? 575: 275;
-			frame.setMinimumSize(new Dimension(width, height));
+			frame.setMinimumSize(new Dimension(GameEngine.HUB_WINDOW_WIDTH, GameEngine.HUB_WINDOW_HEIGHT));
 		} else {
 			frame.setMinimumSize(new Dimension(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT));
 		}

@@ -3,6 +3,7 @@ package buontyhunter.physics;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObject;
+import buontyhunter.model.PlayerEntity;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.World;
 
@@ -18,19 +19,19 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
     public void update(long dt, GameObject obj, World w) {
 
         // health regen algorithm
-        int health = ((FighterEntity) obj).getHealth();
+        int health = ((PlayerEntity) obj).getHealth();
         if (oldHealth == -1) {
             oldHealth = health;
         } else if (oldHealth > health) { // if health is decreasing, reset waiting time beacuse player is damaged
             waitingTime = WAITING_TIME_AFTER_HIT;
         }
 
-        if (health < ((FighterEntity) obj).getMaxHealth()) {
+        if (health < ((PlayerEntity) obj).getMaxHealth()) {
             if (waitingTime <= 0) {
 
                 health += 3;
                 waitingTime = MAX_WAITING_TIME;
-                ((FighterEntity) obj).setHealth(health);
+                ((PlayerEntity) obj).setHealth(health);
             } else {
                 waitingTime--;
 

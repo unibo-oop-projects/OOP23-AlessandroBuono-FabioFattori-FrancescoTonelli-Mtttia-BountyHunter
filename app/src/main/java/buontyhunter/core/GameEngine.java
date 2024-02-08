@@ -20,6 +20,8 @@ public class GameEngine implements WorldEventListener {
     public static final double RATIO_HEIGHT = RATIO_WIDTH;
     public static final int HUB_WIDTH = 15;
     public static final int HUB_HEIGHT = 15;
+    public static final int HUB_WINDOW_WIDTH = 550;
+    public static final int HUB_WINDOW_HEIGHT = 575;
 
     private long FPS = 30;
     private Scene view;

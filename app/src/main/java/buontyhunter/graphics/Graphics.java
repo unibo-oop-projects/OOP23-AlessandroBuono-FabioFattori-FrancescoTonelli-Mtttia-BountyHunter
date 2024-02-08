@@ -1,6 +1,5 @@
 package buontyhunter.graphics;
 
-import buontyhunter.common.Point2d;
 import buontyhunter.model.*;
 
 public interface Graphics {
@@ -17,7 +16,7 @@ public interface Graphics {
 
 	void drawTeleporter(Teleporter tp,World w);
 
-	void drawQuestPannel(HidableObject questPannel, World w);
+	void drawQuestPannel(QuestPannel questPannel, World w);
 
 	 void drawStringUnderPlayer(String s);
 }

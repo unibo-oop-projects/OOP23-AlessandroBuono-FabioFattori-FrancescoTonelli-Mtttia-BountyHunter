@@ -115,10 +115,10 @@ public class World {
             entities.add(navigatorLine);
         if (healthBar != null)
             entities.add(healthBar);
-        if (miniMap != null)
-            entities.add(miniMap);
         if(tp != null)
             entities.add(tp);
+        if (miniMap != null)
+            entities.add(miniMap);
         this.interractableAreas.forEach(area -> entities.add(area));
         return entities;
     }

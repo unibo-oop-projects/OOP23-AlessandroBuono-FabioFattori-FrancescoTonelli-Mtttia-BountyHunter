@@ -1,30 +1,16 @@
 package buontyhunter.graphics;
 
 import java.util.function.Predicate;
-
-import org.checkerframework.checker.units.qual.C;
-
 import java.util.function.Function;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
-import buontyhunter.model.CircleBoundingBox;
-import buontyhunter.model.FighterEntity;
-import buontyhunter.model.GameObject;
-import buontyhunter.model.HealthBar;
-import buontyhunter.model.HidableObject;
-import buontyhunter.model.NavigatorLine;
-import buontyhunter.model.RectBoundingBox;
-import buontyhunter.model.Teleporter;
-import buontyhunter.model.TileManager;
-import buontyhunter.model.TileType;
-import buontyhunter.model.World;
-import buontyhunter.model.Tile;
+import buontyhunter.model.*;
 
 public class SwingGraphics implements Graphics {
 
@@ -239,18 +225,40 @@ public class SwingGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawQuestPannel(HidableObject questPannel, World w) {
+	public void drawQuestPannel(QuestPannel questPannel, World w) {
 		if (!questPannel.isShow())
 			return;
 		var panelPosInPixel = questPannel.getPos();
-		var height = getDeltaYinPixel(((RectBoundingBox) questPannel.getBBox()).getHeight());
-		var width = getDeltaXinPixel(((RectBoundingBox) questPannel.getBBox()).getWidth());
+		var height = (int) ((RectBoundingBox) questPannel.getBBox()).getHeight();
 
+		// questa unità di misura mi permette di disegnare le varie parti della bacheca
+		int unit = height / 6;
+
+		g2.setColor(new Color(0, 0, 0, 0.6f));
+		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
+		g2.setColor(Color.blue);
+		g2.fillRoundRect(unit, unit, 4 * unit, 4 * unit, 36, 36);
+		int x = unit + unit / 6;
+		int y = x;
+		
+		var filteredQuests = questPannel.getQuests().stream()
+				.filter(q -> ((PlayerEntity) w.getPlayer()).getQuests().contains(q));
+		filteredQuests.forEach(q -> {
+
+			var offsetX = (unit + (unit * 2) / 6) * filteredQuests.collect(Collectors.toList()).indexOf(q);
+
+			drawQuest((QuestEntity) q, x + offsetX, y, unit);
+
+		});
+	}
+
+	private void drawQuest(QuestEntity quest, int x, int y, int unit) {
 		g2.setColor(Color.WHITE);
-		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, width, height);
+		g2.fillRect(x, y, unit, unit);
 		g2.setColor(Color.BLACK);
-		g2.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 36));
-		g2.drawString("Quest panel", GameEngine.WINDOW_WIDTH/2 -100,GameEngine.WINDOW_HEIGHT/2-100);
+		g2.drawString(quest.getName(), x, y + 10);
+		g2.drawString(quest.getDescription(), x, y + 30);
+		g2.drawString("Dobloni: " + quest.getDoblonsReward(), x, y + 70);
 	}
 
 	public void drawStringUnderPlayer(String s) {

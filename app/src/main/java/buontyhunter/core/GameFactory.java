@@ -1,31 +1,11 @@
 package buontyhunter.core;
 
-import buontyhunter.input.MiniMapInputController;
-import buontyhunter.input.NullInputComponent;
-import buontyhunter.model.FighterEntity;
-import buontyhunter.model.GameObjectType;
-import buontyhunter.model.HealthBar;
-import buontyhunter.model.HidableObject;
-import buontyhunter.model.InterractableArea;
-import buontyhunter.model.NavigatorLine;
-import buontyhunter.model.RectBoundingBox;
-import buontyhunter.model.Teleporter;
-import buontyhunter.model.TileManager;
-import buontyhunter.model.World;
-import buontyhunter.physics.NullPhysicsComponent;
-import buontyhunter.physics.PlayerPhysicsComponent;
-import buontyhunter.physics.TeleporterPhysicsComponent;
-import buontyhunter.common.DestinationOfTeleporterType;
-import buontyhunter.common.Point2d;
-import buontyhunter.common.Vector2d;
-import buontyhunter.graphics.HealthBarGraphicsComponent;
-import buontyhunter.graphics.MapGraphicsComponent;
-import buontyhunter.graphics.MiniMapGraphicsComponent;
-import buontyhunter.graphics.NavigatorLineGraphicsComponent;
-import buontyhunter.graphics.PlayerGraphicsComponent;
-import buontyhunter.graphics.QuestPanelGraphicsComponent;
-import buontyhunter.graphics.TeleporterGraphicComponent;
-import buontyhunter.input.PlayerInputController;
+import buontyhunter.input.*;
+import buontyhunter.model.*;
+import buontyhunter.physics.*;
+import buontyhunter.common.*;
+import buontyhunter.graphics.*;
+import java.util.*;
 
 /* this class has methods to create all gameObjects */
 public class GameFactory {
@@ -48,8 +28,8 @@ public class GameFactory {
      * @param maxHealth maximum health that the player can have
      * @return the player entity created
      */
-    public FighterEntity createPlayer(Point2d point, Vector2d vector, int health, int maxHealth) {
-        return new FighterEntity(GameObjectType.Player, point, vector,
+    public PlayerEntity createPlayer(Point2d point, Vector2d vector, int health, int maxHealth) {
+        return new PlayerEntity(GameObjectType.Player, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                 new PlayerInputController(), new PlayerGraphicsComponent(), new PlayerPhysicsComponent(),
                 health, maxHealth);
@@ -145,14 +125,22 @@ public class GameFactory {
     }
 
     public InterractableArea createQuestPannelForHub(Point2d pos) {
-        HidableObject panel = new HidableObject(GameObjectType.HidableObject,
+        QuestPannel panel = new QuestPannel(GameObjectType.HidableObject,
                 new Point2d(0, 0), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.HUB_WINDOW_WIDTH, GameEngine.HUB_WINDOW_HEIGHT),
                 new NullInputComponent(), new QuestPanelGraphicsComponent(), new NullPhysicsComponent(), false);
 
         return new InterractableArea(GameObjectType.InterractableArea,
                 pos, new Vector2d(0, 0),
                 new RectBoundingBox(pos, 3,4),
                 panel);
+    }
+
+    public List<Quest> createQuests() {
+        List<Quest> quests = new ArrayList<Quest>();
+        quests.add(new QuestEntity("prova","descrizione", 10));
+        quests.add(new QuestEntity("prova","descrizione", 10));
+        quests.add(new QuestEntity("prova","descrizione", 10));
+        return quests;
     }
 }
