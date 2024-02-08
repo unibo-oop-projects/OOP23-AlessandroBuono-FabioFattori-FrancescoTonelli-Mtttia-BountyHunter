@@ -20,8 +20,8 @@ public class GameEngine implements WorldEventListener {
     public static final double RATIO_HEIGHT = RATIO_WIDTH;
     public static final int HUB_WIDTH = 15;
     public static final int HUB_HEIGHT = 15;
-    public static final int HUB_WINDOW_WIDTH = 550;
-    public static final int HUB_WINDOW_HEIGHT = 575;
+    public static final int HUB_WINDOW_WIDTH = calculateTheWindowWidthAndHeightForHub();
+    public static final int HUB_WINDOW_HEIGHT = HUB_WINDOW_WIDTH + 27; // summed offset of Y
 
     private long FPS = 30;
     private Scene view;
@@ -167,6 +167,19 @@ public class GameEngine implements WorldEventListener {
                 }).get();
 
         return minValue.intValue() - minValue.intValue() % WORLD_WIDTH;
+
+    }
+
+    private static int calculateTheWindowWidthAndHeightForHub() {
+        var dim = Toolkit.getDefaultToolkit().getScreenSize();
+        int halfScreenWidth = (int) Math.round(dim.getWidth() / 2);
+        int halfScreenHeight = (int) Math.round(dim.getHeight() / 2);
+        var minValue = List.of(Integer.valueOf(halfScreenHeight), Integer.valueOf(halfScreenWidth)).stream()
+                .min((Integer a, Integer b) -> {
+                    return a.compareTo(b);
+                }).get();
+
+        return minValue.intValue() - minValue.intValue() % HUB_WIDTH;
 
     }
 }
