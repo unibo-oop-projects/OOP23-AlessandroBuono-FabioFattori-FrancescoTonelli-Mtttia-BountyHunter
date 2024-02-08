@@ -132,4 +132,9 @@ public class Camera implements SceneCamera {
         return tileOffsetY;
     }
 
+    @Override
+    public boolean isHub() {
+        return isHub;
+    }
+
 }

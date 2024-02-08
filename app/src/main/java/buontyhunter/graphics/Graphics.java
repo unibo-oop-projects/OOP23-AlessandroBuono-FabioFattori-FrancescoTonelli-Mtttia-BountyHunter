@@ -18,5 +18,7 @@ public interface Graphics {
 
 	void drawQuestPannel(QuestPannel questPannel, World w);
 
-	 void drawStringUnderPlayer(String s);
+	void drawStringUnderPlayer(String s);
+
+	void drawQuestJournal(World w);
 }

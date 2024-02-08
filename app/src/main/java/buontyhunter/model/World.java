@@ -19,6 +19,7 @@ public class World {
     private NavigatorLine navigatorLine;
     private HealthBar healthBar;
     private Teleporter tp;
+    private HidableObject questJournal;
     private List<InterractableArea> interractableAreas;
 
     public World(RectBoundingBox bbox) {
@@ -97,6 +98,14 @@ public class World {
         return miniMap;
     }
 
+    public HidableObject getQuestJournal() {
+        return questJournal;
+    }
+
+    public void setQuestJournal(HidableObject questJournal) {
+        this.questJournal = questJournal;
+    }
+
     public NavigatorLine getNavigatorLine() {
         return navigatorLine;
     }
@@ -119,6 +128,9 @@ public class World {
             entities.add(tp);
         if (miniMap != null)
             entities.add(miniMap);
+        if(questJournal != null)
+            entities.add(questJournal);
+
         this.interractableAreas.forEach(area -> entities.add(area));
         return entities;
     }

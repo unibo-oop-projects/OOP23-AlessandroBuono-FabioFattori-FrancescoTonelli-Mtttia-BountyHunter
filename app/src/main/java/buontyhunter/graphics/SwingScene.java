@@ -213,6 +213,8 @@ public class SwingScene implements Scene {
 				controller.notifyMPressed();
 			} else if (e.getKeyCode() == 69) {
 				controller.notifyEPressed();
+			} else if (e.getKeyCode() == 74) {
+				controller.notifyJPressed();
 			}
 		}
 
@@ -234,6 +236,8 @@ public class SwingScene implements Scene {
 				controller.notifyNoMoreMPressed();
 			} else if (e.getKeyCode() == 69) {
 				controller.notifyNoMoreEPressed();
+			} else if (e.getKeyCode() == 74) {
+				controller.notifyNoMoreJPressed();
 			}
 		}
 

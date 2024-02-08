@@ -37,4 +37,15 @@ public class QuestEntity implements Quest{
     public void end(PlayerEntity player) {
         player.removeQuest(this);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        QuestEntity that = (QuestEntity) o;
+
+        if (doblonsReward != that.doblonsReward) return false;
+        if (!name.equals(that.name)) return false;
+        return description.equals(that.description);
+    }
 }

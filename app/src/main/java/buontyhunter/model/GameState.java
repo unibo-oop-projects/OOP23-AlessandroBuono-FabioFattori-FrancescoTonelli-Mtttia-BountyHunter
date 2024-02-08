@@ -1,5 +1,6 @@
 package buontyhunter.model;
 
+import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
@@ -15,12 +16,13 @@ public class GameState {
 
         dobloni = 0;
         world = new World(new RectBoundingBox(new Point2d(0, 0), 20, 18));
-        world.setPlayer(f.createPlayer(new Point2d(5, 106), Vector2d.symmetrical(0), 10, 100));
+        world.setPlayer(f.createPlayer(GameEngine.OPEN_WORLD_PLAYER_START, Vector2d.symmetrical(0), 10, 100));
         world.setTileManager(f.createTileManager(),0);
         world.setMiniMap(f.createMinimap());
         world.setNavigatorLine(f.createNavigatorLine(world));
         world.setEventListener(l);
         world.setTeleporter(f.createTeleporterToHub());
+        world.setQuestJournal(f.createQuestJournal());
     }
 
     public World getWorld() {

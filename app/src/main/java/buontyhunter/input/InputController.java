@@ -12,4 +12,8 @@ public interface InputController {
 	boolean isMPressed();
 
 	boolean isEPressed();
+
+	boolean isIPressed();
+
+	boolean isJPressed();
 }

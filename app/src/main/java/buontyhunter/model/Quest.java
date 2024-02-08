@@ -1,6 +1,6 @@
 package buontyhunter.model;
 
-public interface Quest {
+public interface Quest{
     
     public void start(PlayerEntity player);
     public void end(PlayerEntity player);
@@ -8,4 +8,7 @@ public interface Quest {
     public String getName();
     public String getDescription();
     public int getDoblonsReward();
+
+    @Override
+    public boolean equals(Object o);
 }

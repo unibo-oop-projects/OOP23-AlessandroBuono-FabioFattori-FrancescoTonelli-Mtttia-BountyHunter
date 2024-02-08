@@ -3,9 +3,9 @@ package buontyhunter.graphics;
 import java.util.function.Predicate;
 import java.util.function.Function;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.swing.JButton;
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
@@ -13,9 +13,6 @@ import buontyhunter.common.Point2d;
 import buontyhunter.model.*;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.Border;
 
 public class SwingGraphics implements Graphics {
 
@@ -25,6 +22,9 @@ public class SwingGraphics implements Graphics {
 	private double ratioY;
 	private SceneCamera camera;
 	private SwingAssetProvider assetManager;
+	
+	private Font titleFont = new Font("Arial", Font.BOLD, 20);
+	private Font paragraphFont = new Font("Arial", Font.PLAIN, 15);
 
 	public SwingGraphics(Graphics2D g2, double ratioX, double ratioY, SceneCamera camera,
 			SwingAssetProvider assetManager) {
@@ -236,14 +236,18 @@ public class SwingGraphics implements Graphics {
 		var panelPosInPixel = questPannel.getPos();
 		var height = (int) ((RectBoundingBox) questPannel.getBBox()).getHeight();
 
-		// questa unità di misura mi permette di disegnare le varie parti della bacheca
-
+		
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
-		g2.setColor(new Color(239,208,144,255));
+		
+		// questa unità di misura mi permette di disegnare le varie parti della bacheca
 		int unit = height / 6;
+		g2.setColor(new Color(239,208,144,255));
 		g2.fillRoundRect(unit, unit, 4 * unit, 4 * unit, 36, 36);
-
+		g2.setColor(Color.BLACK);
+		g2.setFont(paragraphFont);
+		g2.drawString("Missioni Disponibili",unit+11, unit + 13);
+		
 	}
 
 	public void drawQuest(QuestEntity quest, int x, int y, int unit, JButton btn) {
@@ -255,9 +259,9 @@ public class SwingGraphics implements Graphics {
 		JLabel nameLabel = new JLabel(quest.getName());
 		JLabel descriptionLabel = new JLabel(quest.getDescription());
 		JLabel rewardLabel = new JLabel(quest.getDoblonsReward() + " dobloni");
-		nameLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
-		descriptionLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
-		rewardLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+		nameLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
+		descriptionLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 10));
+		rewardLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
 		btn.add(nameLabel, BorderLayout.NORTH);
 		btn.add(descriptionLabel, BorderLayout.CENTER);
 		btn.add(rewardLabel, BorderLayout.SOUTH);
@@ -272,6 +276,40 @@ public class SwingGraphics implements Graphics {
 		g2.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 20));
 		g2.setColor(Color.BLACK);
 		g2.drawString(s, x, y);
+	}
+
+	@Override
+	public void drawQuestJournal(World w) {
+		int width;
+		int height;
+		if(camera.isHub()){
+			width = GameEngine.HUB_WINDOW_WIDTH;
+			height = GameEngine.HUB_WINDOW_HEIGHT;
+		}else{
+			width = GameEngine.WINDOW_WIDTH;
+			height = GameEngine.WINDOW_HEIGHT;
+		}
+		g2.setColor(new Color(0, 0, 0, 0.6f));
+		g2.fillRect(0,0,width,height);
+		g2.setColor(Color.WHITE);
+		g2.drawRoundRect(width/12, height/12, 5*width/6, 5*height/6, 36, 36);
+
+		var quests = ((PlayerEntity)w.getPlayer()).getQuests();
+
+		int singleQuestHeight = 170;
+
+		g2.setFont(titleFont);
+		g2.drawString("Registro Missioni", width/2 - 75, height/24);
+
+		quests.forEach((Quest q) -> {
+			int indexOfQuest = quests.indexOf(q);
+			g2.setFont(titleFont);
+			g2.drawString(q.getName(), width/12 + 10 , height/12 + 20 + singleQuestHeight* indexOfQuest);
+			g2.setFont(paragraphFont);
+			g2.drawString(q.getDescription(), width/12 + 10 , height/12 + 50 + singleQuestHeight* indexOfQuest);
+			g2.setFont(titleFont);
+			g2.drawString(q.getDoblonsReward() + " dobloni", width/12 + 10 , height/12 + 80 +singleQuestHeight* indexOfQuest);
+		});
 	}
 
 }

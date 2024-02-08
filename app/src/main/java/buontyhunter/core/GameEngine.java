@@ -22,6 +22,8 @@ public class GameEngine implements WorldEventListener {
     public static final int HUB_HEIGHT = 15;
     public static final int HUB_WINDOW_WIDTH = calculateTheWindowWidthAndHeightForHub();
     public static final int HUB_WINDOW_HEIGHT = HUB_WINDOW_WIDTH + 27; // summed offset of Y
+    public static final Point2d HUB_PLAYER_START = new Point2d(8, 8);
+    public static final Point2d OPEN_WORLD_PLAYER_START = new Point2d(5, 106);
 
     private long FPS = 30;
     private Scene view;
@@ -98,6 +100,7 @@ public class GameEngine implements WorldEventListener {
         }else{
             gameState.getWorld().getPlayer().updateInput(controller);
         }
+        gameState.getWorld().getQuestJournal().updateInput(controller);
         gameState.getWorld().getInterractableAreas().forEach(area -> area.updateInput(controller));
     }
 
@@ -121,11 +124,7 @@ public class GameEngine implements WorldEventListener {
                 gameState.setWorld(((ChangeWorldEvent) ev).getNewWorld());
                 gameState.getWorld().setEventListener(this);
                 this.view.dispose();
-                controller.notifyNoMoreMPressed();
-                controller.notifyNoMoreMoveDown();
-                controller.notifyNoMoreMoveLeft();
-                controller.notifyNoMoreMoveRight();
-                controller.notifyNoMoreMoveUp();
+                controller.reset();
                 if (((ChangeWorldEvent) ev).getNewWorld().getTeleporter().getMapIdOfDestination() == 0) { // hub
                     this.view = new SwingScene(gameState, controller, true);
                 } else {

@@ -29,4 +29,6 @@ public interface SceneCamera {
     public double getTileOffsetY();
 
     public Point2d getPlayerPoint();
+
+    public boolean isHub();
 }

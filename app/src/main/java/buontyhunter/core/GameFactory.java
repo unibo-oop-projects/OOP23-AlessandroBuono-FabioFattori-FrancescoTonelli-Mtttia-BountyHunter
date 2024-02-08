@@ -143,4 +143,11 @@ public class GameFactory {
         quests.add(new QuestEntity("prova3","descrizione", 10));
         return quests;
     }
+
+    public HidableObject createQuestJournal() {
+        return new HidableObject(GameObjectType.HidableObject,
+                new Point2d(0, 0), new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
+                new QuestJournalInputComponent(), new QuestJournalGraphicsComponent(), new NullPhysicsComponent(), false);
+    }
 }
