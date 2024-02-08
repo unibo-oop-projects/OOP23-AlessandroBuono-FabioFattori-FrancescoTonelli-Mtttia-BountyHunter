@@ -6,7 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import javax.swing.JButton;
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
@@ -232,34 +232,20 @@ public class SwingGraphics implements Graphics {
 		var height = (int) ((RectBoundingBox) questPannel.getBBox()).getHeight();
 
 		// questa unità di misura mi permette di disegnare le varie parti della bacheca
-		int unit = height / 6;
-
+		
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
 		g2.setColor(Color.blue);
+		int unit = height / 6;
 		g2.fillRoundRect(unit, unit, 4 * unit, 4 * unit, 36, 36);
 		int x = unit + unit / 6;
 		int y = x;
 
-		questPannel.getQuests().stream()
-				.filter(q -> !((PlayerEntity) w.getPlayer()).getQuests().contains(q)).forEach(q -> {
-
-					var offsetX = (unit + (unit * 2) / 6) * questPannel.getQuests().stream()
-							.filter(quest -> !((PlayerEntity) w.getPlayer()).getQuests().contains(quest))
-							.collect(Collectors.toList()).indexOf(q);
-
-					drawQuest((QuestEntity) q, x + offsetX, y, unit);
-
-				});
+		
 	}
 
-	private void drawQuest(QuestEntity quest, int x, int y, int unit) {
-		g2.setColor(Color.WHITE);
-		g2.fillRect(x, y, unit, unit);
-		g2.setColor(Color.BLACK);
-		g2.drawString(quest.getName(), x, y + 10);
-		g2.drawString(quest.getDescription(), x, y + 30);
-		g2.drawString("Dobloni: " + quest.getDoblonsReward(), x, y + 70);
+	public void drawQuest(QuestEntity quest, int x, int y, int unit,JButton btn) {
+		btn.setBounds(x, y, unit, unit);
 	}
 
 	public void drawStringUnderPlayer(String s) {

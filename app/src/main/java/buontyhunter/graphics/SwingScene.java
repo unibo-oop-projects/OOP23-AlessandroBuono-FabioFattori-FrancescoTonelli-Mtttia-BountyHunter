@@ -15,6 +15,10 @@ import buontyhunter.common.Point2d;
 import buontyhunter.core.GameEngine;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.awt.BorderLayout;
 
 public class SwingScene implements Scene {
 
@@ -24,9 +28,11 @@ public class SwingScene implements Scene {
 	protected GameState gameState;
 	private boolean switchScene = false;
 	private final boolean IsHub;
+	private final List<JButton> buttons = new ArrayList<>();
 
 	public SwingScene(GameState gameState, KeyboardInputController controller, boolean IsHub) {
 
+		this.gameState = gameState;
 		this.IsHub = IsHub;
 		frame = new JFrame("Bounty Hunter - the official game");
 		// make the frame appear in the middle of the screen
@@ -38,8 +44,22 @@ public class SwingScene implements Scene {
 		// frame.setLocationRelativeTo(null);
 		if (IsHub) {
 			frame.setMinimumSize(new Dimension(GameEngine.HUB_WINDOW_WIDTH, GameEngine.HUB_WINDOW_HEIGHT));
+			getQuestPannel().getQuests().forEach(q -> {
+				JButton button = new JButton();
+				button.addActionListener(e1 -> {
+					q.start((PlayerEntity) gameState.getWorld().getPlayer());
+					frame.repaint();
+				});
+				buttons.add(button);
+			});
+
+			panel = new ScenePanel(GameEngine.HUB_WINDOW_WIDTH, GameEngine.HUB_WINDOW_WIDTH, GameEngine.HUB_WIDTH,
+					GameEngine.HUB_HEIGHT);
 		} else {
 			frame.setMinimumSize(new Dimension(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT));
+
+			panel = new ScenePanel(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT, GameEngine.WORLD_WIDTH,
+					GameEngine.WORLD_HEIGHT);
 		}
 		frame.setSize(frame.getMinimumSize());
 		frame.setResizable(true);
@@ -51,11 +71,9 @@ public class SwingScene implements Scene {
 			}
 		});
 		// frame.setUndecorated(true); // Remove title bar
-		this.gameState = gameState;
 		this.controller = controller;
-		panel = new ScenePanel(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT, GameEngine.WORLD_WIDTH,
-				GameEngine.WORLD_HEIGHT);
-		frame.getContentPane().add(panel);
+		frame.setLayout(null);
+		frame.add(panel, BorderLayout.CENTER);
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -78,6 +96,11 @@ public class SwingScene implements Scene {
 		}
 	}
 
+	private QuestPannel getQuestPannel() {
+		return (QuestPannel) gameState.getWorld().getInterractableAreas().stream()
+				.filter(e -> e.getPanel() instanceof QuestPannel).findFirst().get().getPanel();
+	}
+
 	public class ScenePanel extends JPanel implements KeyListener {
 
 		private int centerX;
@@ -96,7 +119,7 @@ public class SwingScene implements Scene {
 
 			scoreFont = new Font("Verdana", Font.PLAIN, 36);
 			gameOverFont = new Font("Verdana", Font.PLAIN, 88);
-
+			setLayout(null);
 			this.addKeyListener(this);
 			setFocusable(true);
 			setFocusTraversalKeysEnabled(false);
@@ -140,6 +163,34 @@ public class SwingScene implements Scene {
 						e.updateGraphics(gr, scene);
 					}
 				});
+
+				// render the buttons if it is the hub
+				if (IsHub) {
+					int height = (int) ((RectBoundingBox) getQuestPannel().getBBox()).getHeight();
+					int unit = height / 6;
+					int x = unit + unit / 6;
+					int y = x;
+					buttons.forEach(btn -> {
+						frame.remove(btn);
+						btn.setVisible(false);
+					});
+					getQuestPannel().getQuests().stream()
+							.filter(q -> !((PlayerEntity) gameState.getWorld().getPlayer()).getQuests().contains(q))
+							.forEach(q -> {
+								var offsetX = (unit + (unit * 2) / 6) * getQuestPannel().getQuests().stream()
+										.filter(quest -> !((PlayerEntity) gameState.getWorld().getPlayer()).getQuests()
+												.contains(quest))
+										.collect(Collectors.toList()).indexOf(q);
+								var button = buttons.get(getQuestPannel().getQuests().indexOf(q));
+
+								button.setForeground(Color.red);
+								button.setText(q.getName());
+								button.setVisible(getQuestPannel().isShow());
+								gr.drawQuest((QuestEntity) q, x + offsetX, y, unit, button);
+								this.add(button, BorderLayout.CENTER);
+							});
+					frame.pack();
+				}
 			}
 		}
 
@@ -163,7 +214,7 @@ public class SwingScene implements Scene {
 				controller.notifyMoveLeft();
 			} else if (e.getKeyCode() == 77) {
 				controller.notifyMPressed();
-			}else if (e.getKeyCode() == 69) {
+			} else if (e.getKeyCode() == 69) {
 				controller.notifyEPressed();
 			}
 		}
@@ -184,7 +235,7 @@ public class SwingScene implements Scene {
 				controller.notifyNoMoreMoveLeft();
 			} else if (e.getKeyCode() == 77) {
 				controller.notifyNoMoreMPressed();
-			}else if (e.getKeyCode() == 69) {
+			} else if (e.getKeyCode() == 69) {
 				controller.notifyNoMoreEPressed();
 			}
 		}

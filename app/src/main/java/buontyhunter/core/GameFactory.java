@@ -138,9 +138,9 @@ public class GameFactory {
 
     public List<Quest> createQuests() {
         List<Quest> quests = new ArrayList<Quest>();
-        quests.add(new QuestEntity("prova","descrizione", 10));
-        quests.add(new QuestEntity("prova","descrizione", 10));
-        quests.add(new QuestEntity("prova","descrizione", 10));
+        quests.add(new QuestEntity("prova1","descrizione", 10));
+        quests.add(new QuestEntity("prova2","descrizione", 10));
+        quests.add(new QuestEntity("prova3","descrizione", 10));
         return quests;
     }
 }
