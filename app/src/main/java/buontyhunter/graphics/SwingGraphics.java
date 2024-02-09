@@ -296,7 +296,7 @@ public class SwingGraphics implements Graphics {
 
 		var quests = ((PlayerEntity)w.getPlayer()).getQuests();
 
-		int singleQuestHeight = 170;
+		int singleQuestHeight = 150;
 
 		g2.setFont(titleFont);
 		g2.drawString("Registro Missioni", width/2 - 75, height/24);
