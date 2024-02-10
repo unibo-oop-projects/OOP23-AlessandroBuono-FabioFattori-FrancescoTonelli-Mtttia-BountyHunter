@@ -159,6 +159,10 @@ public class SwingScene implements Scene {
 						e.updateGraphics(gr, scene);
 					}
 
+					if(e instanceof PlayerEntity){
+						((PlayerEntity)e).getWeapon().getDamagingArea().updateGraphics(gr, scene);
+					}
+
 					if ((camera.inScene(e.getPos()) && e instanceof Teleporter)) {
 						e.updateGraphics(gr, scene);
 					}
