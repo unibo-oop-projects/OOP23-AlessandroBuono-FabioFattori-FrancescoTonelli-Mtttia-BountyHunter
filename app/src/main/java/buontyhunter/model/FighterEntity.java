@@ -44,6 +44,7 @@ public class FighterEntity extends GameObject {
             throw new IllegalArgumentException("Max health must be greater than health");
         }
         weapon = w;
+       
     }
 
     /**

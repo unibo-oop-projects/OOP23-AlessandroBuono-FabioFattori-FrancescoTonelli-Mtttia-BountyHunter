@@ -13,6 +13,7 @@ import buontyhunter.common.ImagePathProvider;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Resizator;
 import buontyhunter.core.GameEngine;
+import buontyhunter.core.GameFactory;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 import java.util.ArrayList;
@@ -184,7 +185,8 @@ public class SwingScene implements Scene , ComponentListener {
 					}
 
 					if(e instanceof PlayerEntity){
-						((PlayerEntity)e).getWeapon().getDamagingArea().updateGraphics(gr, scene);
+						
+						((PlayerEntity)e).getDamagingArea().updateGraphics(gr, scene);
 					}
 
 					if ((camera.inScene(e.getPos()) && e instanceof Teleporter)) {
@@ -257,12 +259,12 @@ public class SwingScene implements Scene , ComponentListener {
 				case 77:
 					controller.notifyMPressed();
 					break;
-					case 74:
-						controller.notifyJPressed();
-						break;
-						case 69:
-							controller.notifyEPressed();
-							break;
+				case 74:
+					controller.notifyJPressed();
+					break;
+				case 69:
+					controller.notifyEPressed();
+					break;
 				default:
 					break;
 				}
@@ -302,12 +304,12 @@ public class SwingScene implements Scene , ComponentListener {
 				case 77:
 					controller.notifyNoMoreMPressed();
 					break;
-					case 74:
-						controller.notifyNoMoreJPressed();
-						break;
-						case 69:
-							controller.notifyNoMoreEPressed();
-							break;
+				case 74:
+					controller.notifyNoMoreJPressed();
+					break;
+				case 69:
+					controller.notifyNoMoreEPressed();
+					break;
 
 				default:
 					break;
