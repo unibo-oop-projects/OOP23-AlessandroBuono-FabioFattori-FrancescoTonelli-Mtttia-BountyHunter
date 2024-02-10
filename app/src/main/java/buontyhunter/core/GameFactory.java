@@ -33,15 +33,10 @@ public class GameFactory {
      */
 
     public PlayerEntity createPlayer(Point2d point, Vector2d vector, int health, int maxHealth) {
-        
-        PlayerEntity p= new PlayerEntity(GameObjectType.Player, point, vector,
-                            new RectBoundingBox(new Point2d(0, 0), 1, 1),
-                            new PlayerInputController(), new PlayerGraphicsComponent(), new PlayerPhysicsComponent(),
-                            health, maxHealth,null);
-                            
-        p.setWeapon(new DefaultWeapon(p, vector));
-
-        return p;
+        return new PlayerEntity(GameObjectType.Player, point, vector,
+                new RectBoundingBox(new Point2d(0, 0), 1, 1),
+                new PlayerInputController(), new PlayerGraphicsComponent(), new PlayerPhysicsComponent(),
+                health, maxHealth,new DefaultWeapon());
     }
 
     /**

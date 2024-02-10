@@ -11,7 +11,6 @@ import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.*;
-import buontyhunter.weaponClasses.Weapon;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
@@ -314,16 +313,67 @@ public class SwingGraphics implements Graphics {
 		});
 	}
 
+	private void outWeapon (int x, int y, int width, int height){
+		g2.setColor(Color.blue);
+		g2.fillRect(x, y, width, height);
+	}
+
 	@Override
-	public void drawWeapon(Weapon we) {
-		if(we.getSprite()==null){
-			g2.setColor(Color.WHITE);
-			g2.fillRect((int)camera.getPlayerPoint().x, (int)camera.getPlayerPoint().y, 30, 30);
+	public void drawWeapon(FighterEntity fe) {
+		if(((FighterEntity)fe).getWeapon().getSprite()==null){
+			int vectX =((int)fe.getDamagingArea().getVel().x);
+			int vectY =((int)fe.getDamagingArea().getVel().y);
+			int height =50;
+			int width =20;
+			int offsetPP=width/2;
+			int offsetPL=18;
+
+			int x= getXinPixel(camera.getPlayerPoint())+18;
+			int y= getYinPixel(camera.getPlayerPoint())+18;
+
+			if(vectY==-1){
+				outWeapon(x-offsetPP, y-(height+offsetPL), width, height);
+			}
+			if(vectY==1){
+				outWeapon(x-offsetPP, y+offsetPL, width, height);
+			}
+			if(vectX==-1){
+				outWeapon(x-(height+offsetPL), y-offsetPP, height, width);
+			}
+			if(vectX==1){
+				outWeapon(x+offsetPL, y-offsetPP, height, width);
+			}
 		}
 		else{
-			g2.setColor(Color.RED);
-			g2.fillRect((int)camera.getPlayerPoint().x, (int)camera.getPlayerPoint().y, 30, 30);
+			/* da fare con sprite
+			int vectX =((int)fe.getDamagingArea().getVel().x);
+			int vectY =((int)fe.getDamagingArea().getVel().y);
+			int height = fe.getWeapon().getSprite().;
+			int width =20;
+			int offsetPP=width/2;
+			int offsetPL=18;
+
+			int x= getXinPixel(camera.getPlayerPoint())+18;
+			int y= getYinPixel(camera.getPlayerPoint())+18;
+
+			if(vectY==-1){
+				outWeapon(x-offsetPP, y-(height+offsetPL), width, height);
+			}
+			if(vectY==1){
+				outWeapon(x-offsetPP, y+offsetPL, width, height);
+			}
+			if(vectX==-1){
+				outWeapon(x-(height+offsetPL), y-offsetPP, height, width);
+			}
+			if(vectX==1){
+				outWeapon(x+offsetPL, y-offsetPP, height, width);
+			}
+			*/
+
 		}
+		
+		
+		
 	}
 
 	

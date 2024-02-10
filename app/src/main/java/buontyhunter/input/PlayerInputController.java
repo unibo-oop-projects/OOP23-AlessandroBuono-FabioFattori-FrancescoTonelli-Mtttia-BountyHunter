@@ -11,7 +11,7 @@ import buontyhunter.model.*;
 public class PlayerInputController implements InputComponent {
 
 	private final double speed = 0.3;
-
+	
 
 	@Override
 	public void update(GameObject player, InputController c) {
@@ -35,10 +35,10 @@ public class PlayerInputController implements InputComponent {
 			
 			
 		if(c.isAttackUp()){
-			instanceAttack((PlayerEntity)player, 0, 1);
+			instanceAttack((PlayerEntity)player, 0, -1);
 		}
 		else if(c.isAttackDown()){
-			instanceAttack((PlayerEntity)player, 0, -1);
+			instanceAttack((PlayerEntity)player, 0, 1);
 		}
 		else if(c.isAttackLeft()){
 			instanceAttack((PlayerEntity)player, -1, 0);
@@ -47,7 +47,8 @@ public class PlayerInputController implements InputComponent {
 			instanceAttack((PlayerEntity)player, 1, 0);
 		}
 		else{
-			((PlayerEntity)player).getWeapon().getDamagingArea().setShow(false);
+			instanceAttack((PlayerEntity)player, 0, 0);
+			((PlayerEntity)player).getDamagingArea().setShow(false);
 		}
 
 
@@ -59,9 +60,9 @@ public class PlayerInputController implements InputComponent {
 
 	private void instanceAttack(PlayerEntity player, int x, int y){
 
-		((PlayerEntity)player).getWeapon().setDamagingArea(GameFactory.getInstance().WeaponDamagingArea((PlayerEntity)player, new Vector2d(x,y)));
+		((PlayerEntity)player).setDamagingArea(GameFactory.getInstance().WeaponDamagingArea((PlayerEntity)player, new Vector2d(x,y)));
 
-		((PlayerEntity)player).getWeapon().getDamagingArea().setShow(true);
+		((PlayerEntity)player).getDamagingArea().setShow(true);
 	}
 
 }

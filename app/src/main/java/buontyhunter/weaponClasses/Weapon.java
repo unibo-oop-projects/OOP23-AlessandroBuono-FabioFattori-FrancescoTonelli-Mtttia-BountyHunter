@@ -13,7 +13,6 @@ public abstract class Weapon {
     //da implementare
     private RectBoundingBox hitbox;
     private ImageType sprite;
-    private HidableObject damageArea;
 
     public Weapon(int damage, int attackSpeed, int range, int speed, ImageType sprite) {
         this.damage = damage;
@@ -49,9 +48,6 @@ public abstract class Weapon {
         return sprite;
     }
 
-    public HidableObject getDamagingArea(){
-        return damageArea;
-    }
 
 
 
@@ -90,13 +86,6 @@ public abstract class Weapon {
             throw new IllegalArgumentException("Hitbox cannot be null");
         }
         this.hitbox = hitbox;
-    }
-
-    public void setDamagingArea(HidableObject damageArea){
-        if(damageArea==null){
-            throw new IllegalArgumentException("Damage Area cannot be null");
-        }
-        this.damageArea = damageArea;
     }
 
 

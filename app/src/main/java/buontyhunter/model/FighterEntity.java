@@ -2,6 +2,7 @@ package buontyhunter.model;
 
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
+import buontyhunter.core.GameFactory;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
@@ -12,6 +13,7 @@ public class FighterEntity extends GameObject {
     private int health;
     private final int maxHealth;
     private Weapon weapon;
+    private HidableObject damagingArea;
 
     /**
      * Create a new fighter entity which is a game object with health
@@ -36,6 +38,7 @@ public class FighterEntity extends GameObject {
             throw new IllegalArgumentException("Max health must be greater than health");
         }
         weapon = w;
+        damagingArea = GameFactory.getInstance().WeaponDamagingArea((FighterEntity)this, new Vector2d(0,0));
     }
 
     /**
@@ -62,6 +65,10 @@ public class FighterEntity extends GameObject {
         return weapon;
     }
 
+    public HidableObject getDamagingArea(){
+        return damagingArea;
+    }
+
     /**
      * Set the health of the entity
      * @param healt the new health of the entity (must be positive & > 0)
@@ -71,5 +78,9 @@ public class FighterEntity extends GameObject {
             throw new IllegalArgumentException("Healt must be positive");
         }
         this.health = healt;
+    }
+
+    public void setDamagingArea(HidableObject da){
+        this.damagingArea=da;
     }
 }

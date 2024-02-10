@@ -165,6 +165,10 @@ public class KeyboardInputController implements InputController {
 		isMPressed = false;
 		isIPressed = false;
 		isJPressed = false;
+		isAttackUp = false;
+		isAttackDown = false;
+		isAttackLeft = false;
+		isAttackRight = false;
 	}
 
 	@Override
