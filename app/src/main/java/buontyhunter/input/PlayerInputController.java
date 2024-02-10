@@ -3,6 +3,7 @@ package buontyhunter.input;
 import buontyhunter.common.Direction;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
+import buontyhunter.core.GameFactory;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.PlayerEntity;
 import buontyhunter.model.World;

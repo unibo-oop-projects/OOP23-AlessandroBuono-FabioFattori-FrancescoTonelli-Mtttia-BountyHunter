@@ -353,8 +353,14 @@ public class SwingGraphics implements Graphics {
 
 	@Override
 	public void drawWeapon(Weapon we) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'drawWeapon'");
+		if(we.getSprite()==null){
+			g2.setColor(Color.WHITE);
+			g2.fillRect((int)camera.getPlayerPoint().x, (int)camera.getPlayerPoint().y, 30, 30);
+		}
+		else{
+			g2.setColor(Color.RED);
+			g2.fillRect((int)camera.getPlayerPoint().x, (int)camera.getPlayerPoint().y, 30, 30);
+		}
 	}
 
 	public void drawEnemy(GameObject obj, World w) {

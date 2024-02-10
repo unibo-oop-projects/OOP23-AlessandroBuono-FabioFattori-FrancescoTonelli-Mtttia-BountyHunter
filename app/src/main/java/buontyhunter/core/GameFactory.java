@@ -4,6 +4,8 @@ import buontyhunter.input.*;
 import buontyhunter.model.*;
 import buontyhunter.model.AI.enemySpawner.EnemyType;
 import buontyhunter.physics.*;
+import buontyhunter.weaponClasses.DefaultWeapon;
+import buontyhunter.weaponClasses.MeleeWeapon;
 import buontyhunter.weaponClasses.Weapon;
 import buontyhunter.common.*;
 import buontyhunter.graphics.*;
@@ -37,12 +39,16 @@ public class GameFactory {
      * @return the player entity created
      */
 
-    // TODO weapon input
     public PlayerEntity createPlayer(Point2d point, Vector2d vector, int health, int maxHealth) {
-        return new PlayerEntity(GameObjectType.Player, point, vector,
-                new RectBoundingBox(new Point2d(0, 0), 1, 1),
-                new PlayerInputController(), new PlayerGraphicsComponent(), new PlayerPhysicsComponent(),
-                health, maxHealth, null);
+        
+        PlayerEntity p= new PlayerEntity(GameObjectType.Player, point, vector,
+                            new RectBoundingBox(new Point2d(0, 0), 1, 1),
+                            new PlayerInputController(), new PlayerGraphicsComponent(), new PlayerPhysicsComponent(),
+                            health, maxHealth,null);
+                            
+        p.setWeapon(new DefaultWeapon(p, vector));
+
+        return p;
     }
 
     /**
@@ -74,7 +80,7 @@ public class GameFactory {
     // TODO tutte le classi qui dentro @Buono
     public HidableObject WeaponDamagingArea(FighterEntity entity, Vector2d direction) {
         return new HidableObject(GameObjectType.Weapon, entity.getPos(), direction, entity.getWeapon().getHitbox(),
-                new PlayerAttackingController(), new WeaponGraphicsComponent(), new WeaponPhysicsComponent(), false);
+                new NullInputComponent(), new WeaponGraphicsComponent(), new WeaponPhysicsComponent(), false);
     }
 
     /**

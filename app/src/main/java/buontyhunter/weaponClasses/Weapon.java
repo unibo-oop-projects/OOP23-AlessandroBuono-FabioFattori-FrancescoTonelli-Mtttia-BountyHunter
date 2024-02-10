@@ -1,6 +1,8 @@
 package buontyhunter.weaponClasses;
 
 import buontyhunter.common.ImageType;
+import buontyhunter.core.GameFactory;
+import buontyhunter.model.HidableObject;
 import buontyhunter.model.RectBoundingBox;
 
 public abstract class Weapon {
@@ -11,6 +13,7 @@ public abstract class Weapon {
     //da implementare
     private RectBoundingBox hitbox;
     private ImageType sprite;
+    private HidableObject damageArea;
 
     public Weapon(int damage, int attackSpeed, int range, int speed, ImageType sprite) {
         this.damage = damage;
@@ -41,6 +44,17 @@ public abstract class Weapon {
     public RectBoundingBox getHitbox(){
         return hitbox;
     }
+
+    public ImageType getSprite(){
+        return sprite;
+    }
+
+    public HidableObject getDamagingArea(){
+        return damageArea;
+    }
+
+
+
     /* Setters */
 
     public void setDamage(int damage){
@@ -73,9 +87,16 @@ public abstract class Weapon {
 
     public void setHitbox(RectBoundingBox hitbox){
         if(hitbox==null){
-            throw new IllegalArgumentException("Hitbox is null");
+            throw new IllegalArgumentException("Hitbox cannot be null");
         }
         this.hitbox = hitbox;
+    }
+
+    public void setDamagingArea(HidableObject damageArea){
+        if(damageArea==null){
+            throw new IllegalArgumentException("Damage Area cannot be null");
+        }
+        this.damageArea = damageArea;
     }
 
 
