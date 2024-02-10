@@ -17,6 +17,7 @@ public abstract class Weapon {
     private RectBoundingBox hitbox;
     private ImageType sprite;
     private FighterEntity owner;
+    private HidableObject damageArea;
 
     public Weapon(int damage, int attackSpeed, int range, int speed, ImageType sprite, FighterEntity owner) {
         this.damage = damage;
@@ -76,8 +77,12 @@ public abstract class Weapon {
         return hitbox;
     }
 
-    public ImageType getSprite() {
+    public ImageType getSprite(){
         return sprite;
+    }
+
+    public HidableObject getDamagingArea(){
+        return damageArea;
     }
 
     /* Setters */
@@ -116,5 +121,13 @@ public abstract class Weapon {
         }
         this.hitbox = hitbox;
     }
+
+    public void setDamagingArea(HidableObject damageArea){
+        if(damageArea==null){
+            throw new IllegalArgumentException("Damage Area cannot be null");
+        }
+        this.damageArea = damageArea;
+    }
+
 
 }
