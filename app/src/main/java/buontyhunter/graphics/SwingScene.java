@@ -201,21 +201,44 @@ public class SwingScene implements Scene {
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == 87) {
-				controller.notifyMoveUp();
-			} else if (e.getKeyCode() == 83) {
-				controller.notifyMoveDown();
-			} else if (e.getKeyCode() == 68) {
-				controller.notifyMoveRight();
-			} else if (e.getKeyCode() == 65) {
-				controller.notifyMoveLeft();
-			} else if (e.getKeyCode() == 77) {
-				controller.notifyMPressed();
-			} else if (e.getKeyCode() == 69) {
-				controller.notifyEPressed();
-			} else if (e.getKeyCode() == 74) {
-				controller.notifyJPressed();
-			}
+
+			switch (e.getKeyCode()) {
+				case 87:
+					controller.notifyMoveUp();
+					break;
+				case 83:
+					controller.notifyMoveDown();
+					break;
+				case 68:
+					controller.notifyMoveRight();
+					break;
+				case 65:
+					controller.notifyMoveLeft();
+					break;
+				case 38:
+					controller.notifyAttackUp();
+					break;
+				case 40:
+					controller.notifyAttackDown();
+					break;
+				case 37:
+					controller.notifyAttackLeft();
+					break;
+				case 39:
+					controller.notifyAttackRight();
+					break;
+				case 77:
+					controller.notifyMPressed();
+					break;
+					case 74:
+						controller.notifyJPressed();
+						break;
+						case 69:
+							controller.notifyEPressed();
+							break;
+				default:
+					break;
+				}
 		}
 
 		@Override
@@ -224,20 +247,44 @@ public class SwingScene implements Scene {
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			if (e.getKeyCode() == 87) {
-				controller.notifyNoMoreMoveUp();
-			} else if (e.getKeyCode() == 83) {
-				controller.notifyNoMoreMoveDown();
-			} else if (e.getKeyCode() == 68) {
-				controller.notifyNoMoreMoveRight();
-			} else if (e.getKeyCode() == 65) {
-				controller.notifyNoMoreMoveLeft();
-			} else if (e.getKeyCode() == 77) {
-				controller.notifyNoMoreMPressed();
-			} else if (e.getKeyCode() == 69) {
-				controller.notifyNoMoreEPressed();
-			} else if (e.getKeyCode() == 74) {
-				controller.notifyNoMoreJPressed();
+			switch (e.getKeyCode()) {
+				case 87:
+					controller.notifyNoMoreMoveUp();
+					break;
+				case 83:
+					controller.notifyNoMoreMoveDown();
+					break;
+				case 68:
+					controller.notifyNoMoreMoveRight();
+					break;
+				case 65:
+					controller.notifyNoMoreMoveLeft();
+					break;
+				case 38:
+					controller.notifyNoMoreAttackUp();
+					break;
+				case 40:
+					controller.notifyNoMoreAttackDown();
+					break;
+				case 37:
+					controller.notifyNoMoreAttackLeft();
+					break;
+				case 39:
+					controller.notifyNoMoreAttackRight();
+					break;
+				case 77:
+					controller.notifyNoMoreMPressed();
+					break;
+					case 74:
+						controller.notifyNoMoreJPressed();
+						break;
+						case 69:
+							controller.notifyNoMoreEPressed();
+							break;
+
+				default:
+					break;
+
 			}
 		}
 

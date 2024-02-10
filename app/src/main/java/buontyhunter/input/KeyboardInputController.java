@@ -2,6 +2,7 @@ package buontyhunter.input;
 
 public class KeyboardInputController implements InputController {
 
+	//Movement variables
 	private boolean isMoveUp;
 	private boolean isMoveDown;
 	private boolean isMoveLeft;
@@ -10,6 +11,12 @@ public class KeyboardInputController implements InputController {
 	private boolean isMPressed;
 	private boolean isIPressed;
 	private boolean isJPressed;
+	
+	//Attack variables
+	private boolean isAttackUp;
+	private boolean isAttackDown;
+	private boolean isAttackLeft;
+	private boolean isAttackRight;
 
 	@Override
 	public boolean isMoveUp() {
@@ -36,6 +43,28 @@ public class KeyboardInputController implements InputController {
 		return isMPressed;
 	}
 
+	@Override
+	public boolean isAttackUp(){
+		return isAttackUp;
+	}
+
+	@Override
+	public boolean isAttackDown(){
+		return isAttackDown;
+	}
+
+	@Override
+	public boolean isAttackLeft(){
+		return isAttackLeft;
+	}
+	
+	@Override
+	public boolean isAttackRight(){
+		return isAttackRight;
+	}
+
+
+	//Movement keys state update functions
 	public void notifyMoveUp() {
 		isMoveUp = true;
 	}
@@ -68,6 +97,41 @@ public class KeyboardInputController implements InputController {
 		isMoveRight = false;
 	}
 
+	//Attack keys state update functions
+
+	public void notifyAttackUp(){
+		isAttackUp=true;
+	}
+
+	public void notifyNoMoreAttackUp(){
+		isAttackUp=false;
+	}
+
+	public void notifyAttackDown(){
+		isAttackDown=true;
+	}
+
+	public void notifyNoMoreAttackDown(){
+		isAttackDown=false;
+	}
+
+	public void notifyAttackLeft(){
+		isAttackLeft=true;
+	}
+
+	public void notifyNoMoreAttackLeft(){
+		isAttackLeft=false;
+	}
+
+	public void notifyAttackRight(){
+		isAttackRight=true;
+	}
+
+	public void notifyNoMoreAttackRight(){
+		isAttackRight=false;
+	}
+
+	//Map pressed state update functions
 	public void notifyMPressed() {
 		isMPressed = true;
 	}

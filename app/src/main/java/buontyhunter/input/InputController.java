@@ -9,6 +9,14 @@ public interface InputController {
 
 	boolean isMoveRight();
 
+	boolean isAttackUp();
+
+	boolean isAttackDown();
+
+	boolean isAttackLeft();
+	
+	boolean isAttackRight();
+
 	boolean isMPressed();
 
 	boolean isEPressed();
