@@ -47,8 +47,6 @@ public class PlayerInputController implements InputComponent {
 
 		}
 
-		
-
 
 		player.setVel(vel);
 		var pos = player.getPos();
