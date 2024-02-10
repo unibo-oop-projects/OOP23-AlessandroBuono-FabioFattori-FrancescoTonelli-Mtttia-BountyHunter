@@ -1,6 +1,7 @@
 package buontyhunter.graphics;
 
 import buontyhunter.model.*;
+import buontyhunter.weaponClasses.Weapon;
 
 public interface Graphics {
 
@@ -21,4 +22,6 @@ public interface Graphics {
 	void drawStringUnderPlayer(String s);
 
 	void drawQuestJournal(World w);
+	
+	void drawWeapon(Weapon we);
 }

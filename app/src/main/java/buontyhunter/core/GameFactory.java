@@ -3,6 +3,7 @@ package buontyhunter.core;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 import buontyhunter.physics.*;
+import buontyhunter.weaponClasses.Weapon;
 import buontyhunter.common.*;
 import buontyhunter.graphics.*;
 import java.util.*;
@@ -28,11 +29,13 @@ public class GameFactory {
      * @param maxHealth maximum health that the player can have
      * @return the player entity created
      */
+
+     //TODO weapon input
     public PlayerEntity createPlayer(Point2d point, Vector2d vector, int health, int maxHealth) {
         return new PlayerEntity(GameObjectType.Player, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                 new PlayerInputController(), new PlayerGraphicsComponent(), new PlayerPhysicsComponent(),
-                health, maxHealth);
+                health, maxHealth, null);
     }
 
     /**
@@ -68,6 +71,12 @@ public class GameFactory {
                 new MiniMapInputController(), new MiniMapGraphicsComponent(), new NullPhysicsComponent(), false);
     }
 
+    //TODO tutte le classi qui dentro @Buono
+    public HidableObject WeaponDamagingArea(FighterEntity entity, Vector2d direction) {
+        return new HidableObject(GameObjectType.Weapon, entity.getPos(), direction, entity.getWeapon().getHitbox(),
+                new PlayerAttackingController(), new WeaponGraphicsComponent(), new WeaponPhysicsComponent(), false);
+    }
+
     /**
      * Create a new navigator line; this object will be used to show the navigator
      * line in the game when pressing the N key
@@ -82,11 +91,11 @@ public class GameFactory {
                 new NullInputComponent(), new NavigatorLineGraphicsComponent(), new NullPhysicsComponent(), world);
     }
 
-    public FighterEntity createEnemy(Point2d point, Vector2d vector, int health, int maxHealth) {
+    public FighterEntity createEnemy(Point2d point, Vector2d vector, int health, int maxHealth, Weapon weapon) {
         return new FighterEntity(GameObjectType.Enemy, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                 new NullInputComponent(), new PlayerGraphicsComponent(), new NullPhysicsComponent(),
-                health, maxHealth);
+                health, maxHealth, weapon);
     }
 
     /**
@@ -132,15 +141,15 @@ public class GameFactory {
 
         return new InterractableArea(GameObjectType.InterractableArea,
                 pos, new Vector2d(0, 0),
-                new RectBoundingBox(pos, 3,4),
+                new RectBoundingBox(pos, 3, 4),
                 panel);
     }
 
     public List<Quest> createQuests() {
         List<Quest> quests = new ArrayList<Quest>();
-        quests.add(new QuestEntity("prova1","descrizione", 10));
-        quests.add(new QuestEntity("prova2","descrizione", 10));
-        quests.add(new QuestEntity("prova3","descrizione", 10));
+        quests.add(new QuestEntity("prova1", "descrizione", 10));
+        quests.add(new QuestEntity("prova2", "descrizione", 10));
+        quests.add(new QuestEntity("prova3", "descrizione", 10));
         return quests;
     }
 
@@ -148,6 +157,7 @@ public class GameFactory {
         return new HidableObject(GameObjectType.HidableObject,
                 new Point2d(0, 0), new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
-                new QuestJournalInputComponent(), new QuestJournalGraphicsComponent(), new NullPhysicsComponent(), false);
+                new QuestJournalInputComponent(), new QuestJournalGraphicsComponent(), new NullPhysicsComponent(),
+                false);
     }
 }

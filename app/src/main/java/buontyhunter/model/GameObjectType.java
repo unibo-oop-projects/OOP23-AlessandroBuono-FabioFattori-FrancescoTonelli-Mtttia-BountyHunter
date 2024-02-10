@@ -1,5 +1,5 @@
 package buontyhunter.model;
 
 public enum GameObjectType {
-    Player, Bullet, TileManager, MiniMap, NavigatorLine, Enemy, HealthBar,Teleporter,InterractableArea , HidableObject
+    Player, Bullet, Weapon, TileManager, MiniMap, NavigatorLine, Enemy, HealthBar,Teleporter,InterractableArea , HidableObject
 }

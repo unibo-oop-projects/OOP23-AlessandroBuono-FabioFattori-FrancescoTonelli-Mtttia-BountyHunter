@@ -11,6 +11,8 @@ import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.*;
+import buontyhunter.weaponClasses.Weapon;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 
@@ -311,5 +313,13 @@ public class SwingGraphics implements Graphics {
 			g2.drawString(q.getDoblonsReward() + " dobloni", width/12 + 10 , height/12 + 80 +singleQuestHeight* indexOfQuest);
 		});
 	}
+
+	@Override
+	public void drawWeapon(Weapon we) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'drawWeapon'");
+	}
+
+	
 
 }

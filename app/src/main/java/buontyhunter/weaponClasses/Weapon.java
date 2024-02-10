@@ -1,16 +1,23 @@
 package buontyhunter.weaponClasses;
 
+import buontyhunter.common.ImageType;
+import buontyhunter.model.RectBoundingBox;
+
 public abstract class Weapon {
     private int damage;
     private int attackSpeed; // the higher the attack speed, the slower the attack
     private int range;
     private int speed;
+    //da implementare
+    private RectBoundingBox hitbox;
+    private ImageType sprite;
 
-    public Weapon(int damage, int attackSpeed, int range, int speed) {
+    public Weapon(int damage, int attackSpeed, int range, int speed, ImageType sprite) {
         this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.range = range;
         this.speed = speed;
+        this.sprite = sprite;
     }
 
 
@@ -31,6 +38,9 @@ public abstract class Weapon {
         return speed;
     }
 
+    public RectBoundingBox getHitbox(){
+        return hitbox;
+    }
     /* Setters */
 
     public void setDamage(int damage){
@@ -59,6 +69,13 @@ public abstract class Weapon {
             throw new IllegalArgumentException("Speed cannot be negative");
         }
         this.speed = speed;
+    }
+
+    public void setHitbox(RectBoundingBox hitbox){
+        if(hitbox==null){
+            throw new IllegalArgumentException("Hitbox is null");
+        }
+        this.hitbox = hitbox;
     }
 
 

@@ -5,11 +5,13 @@ import buontyhunter.common.Vector2d;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
+import buontyhunter.weaponClasses.Weapon;
 
 public class FighterEntity extends GameObject {
 
     private int health;
     private final int maxHealth;
+    private Weapon weapon;
 
     /**
      * Create a new fighter entity which is a game object with health
@@ -22,9 +24,10 @@ public class FighterEntity extends GameObject {
      * @param phys PhysicsComponent that will be used to calculate the entity physics when an event occurs (Example: collision)
      * @param health initial health of the entity
      * @param maxHealth maximum health that the entity can have
+     * @param w default equipped weapon
      */
     public FighterEntity(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
-            GraphicsComponent graph, PhysicsComponent phys, int health,final int maxHealth) {
+            GraphicsComponent graph, PhysicsComponent phys, int health,final int maxHealth, Weapon w) {
         super(type, pos, vel, box, input, graph, phys);
         setHealth(health);
         if(maxHealth >= health) {
@@ -32,6 +35,7 @@ public class FighterEntity extends GameObject {
         }else {
             throw new IllegalArgumentException("Max health must be greater than health");
         }
+        weapon = w;
     }
 
     /**
@@ -48,6 +52,14 @@ public class FighterEntity extends GameObject {
      */
     public int getMaxHealth() {
         return maxHealth;
+    }
+
+    public void setWeapon(Weapon w){
+        weapon = w;
+    }
+
+    public Weapon getWeapon(){
+        return weapon;
     }
 
     /**
