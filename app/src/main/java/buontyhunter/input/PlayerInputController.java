@@ -31,16 +31,16 @@ public class PlayerInputController implements InputComponent {
 		//Controls if the player is already executing an attack
 		if(!isAttacking){
 			
-			if(c.isAttackUp){
+			if(c.isAttackUp()){
 
 			}
-			if(c.isAttackDown){
+			if(c.isAttackDown()){
 				
 			}
-			if(c.isAttackLeft){
+			if(c.isAttackLeft()){
 				
 			}
-			if(c.isAttackRight){
+			if(c.isAttackRight()){
 				
 			}
 			isAttacking=true;
