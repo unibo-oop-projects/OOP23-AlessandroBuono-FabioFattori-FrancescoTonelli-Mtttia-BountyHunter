@@ -122,12 +122,5 @@ public abstract class Weapon {
         this.hitbox = hitbox;
     }
 
-    public void setDamagingArea(HidableObject damageArea){
-        if(damageArea==null){
-            throw new IllegalArgumentException("Damage Area cannot be null");
-        }
-        this.damageArea = damageArea;
-    }
-
 
 }

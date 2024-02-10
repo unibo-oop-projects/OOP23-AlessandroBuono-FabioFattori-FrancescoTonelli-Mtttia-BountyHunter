@@ -368,6 +368,7 @@ public class SwingGraphics implements Graphics {
 		outWeapon(pos, getValueInPixel(((RectBoundingBox)fe.getWeapon().getHitbox()).getWidth()), getValueInPixel(((RectBoundingBox)fe.getWeapon().getHitbox()).getHeight()));
 	}
 
+
 	@Override
 	public void drawWeapon(FighterEntity fe) {
 		if(((FighterEntity)fe).getWeapon().getSprite()==null){
