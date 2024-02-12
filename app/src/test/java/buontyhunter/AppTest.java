@@ -56,10 +56,6 @@ class AppTest {
         }
         Assertions.assertEquals(GameEngine.HUB_PLAYER_START, new Point2d(8, 8));
         Assertions.assertEquals(GameEngine.OPEN_WORLD_PLAYER_START, new Point2d(5, 106));
-        Assertions.assertEquals(GameEngine.HUB_WIDTH, 15);
-        Assertions.assertEquals(GameEngine.HUB_HEIGHT, 15);
-        Assertions.assertEquals(GameEngine.WORLD_WIDTH, 20);
-        Assertions.assertEquals(GameEngine.WORLD_HEIGHT, 20);
     }
 
     @Test

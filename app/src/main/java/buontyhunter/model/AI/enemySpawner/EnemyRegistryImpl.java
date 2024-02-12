@@ -13,6 +13,7 @@ import buontyhunter.model.EnemyEntity;
 import buontyhunter.model.World;
 import buontyhunter.model.EnemyManager.EnemyIdentifierManager;
 import buontyhunter.model.EnemyManager.EnemyIdentifierManagerImpl;
+import java.util.stream.Collectors;
 
 public class EnemyRegistryImpl implements EnemyRegistry {
     private Map<Integer, EnemyEntity> enemies = new HashMap<>();
@@ -29,7 +30,7 @@ public class EnemyRegistryImpl implements EnemyRegistry {
 
     @Override
     public List<EnemyEntity> getEnemies() {
-        return enemies.values().stream().toList();
+        return enemies.values().stream().collect(Collectors.toList());
     }
 
     @Override

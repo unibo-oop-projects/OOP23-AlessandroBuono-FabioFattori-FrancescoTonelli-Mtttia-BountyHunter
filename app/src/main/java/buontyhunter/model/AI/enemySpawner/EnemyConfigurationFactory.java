@@ -35,8 +35,8 @@ public class EnemyConfigurationFactory {
 
     public Vector2d getSpeed() {
         var random = new Random();
-        var x = DEFAULT_SPEED.x + (random.nextFloat(seepVariance * 2) - seepVariance);
-        var y = DEFAULT_SPEED.y + (random.nextFloat(seepVariance * 2) - seepVariance);
+        var x = DEFAULT_SPEED.x + (random.nextFloat()*(seepVariance * 2f) - seepVariance);
+        var y = DEFAULT_SPEED.y + (random.nextFloat()*(seepVariance * 2f) - seepVariance);
         return new Vector2d(x, y);
     }
 
