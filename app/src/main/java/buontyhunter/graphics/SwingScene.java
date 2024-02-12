@@ -169,7 +169,7 @@ public class SwingScene implements Scene {
 					int height = (int) ((RectBoundingBox) getQuestPannel().getBBox()).getHeight();
 					int unit = height / 6;
 					int x = unit + unit / 6;
-					int y = x;
+					int y = x + unit / 12;
 					buttons.forEach(btn -> {
 						frame.remove(btn);
 						btn.setVisible(false);
