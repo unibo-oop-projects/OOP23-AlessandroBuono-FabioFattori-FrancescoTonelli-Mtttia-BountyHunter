@@ -17,6 +17,7 @@ import buontyhunter.model.AI.AIFactoryImpl;
 import buontyhunter.model.AI.AIFactory.PathFinderType;
 import buontyhunter.model.AI.pathFinding.AIFollowPathHelper;
 import buontyhunter.physics.PhysicsComponent;
+import buontyhunter.weaponClasses.Weapon;
 
 public class EnemyEntity extends FighterEntity {
 
@@ -27,8 +28,8 @@ public class EnemyEntity extends FighterEntity {
     private int enemyIdentifier;
 
     public EnemyEntity(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
-            GraphicsComponent graph, PhysicsComponent phys, int health, int maxHealth, int enemyIdentifier) {
-        super(type, pos, vel, box, input, graph, phys, health, maxHealth);
+            GraphicsComponent graph, PhysicsComponent phys, int health, int maxHealth, Weapon w, int enemyIdentifier) {
+        super(type, pos, vel, box, input, graph, phys, health, maxHealth, w);
 
         var aiFactory = new AIFactoryImpl();
         followPathHelper = aiFactory.CreateFollowPathHelper(PathFinderType.AStar, false);

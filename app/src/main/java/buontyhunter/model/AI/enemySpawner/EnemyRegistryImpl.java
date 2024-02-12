@@ -22,7 +22,7 @@ public class EnemyRegistryImpl implements EnemyRegistry {
     @Override
     public void addEnemy(Point2d pos, Vector2d speed, int health) {
         var gameFactory = new GameFactory();
-        var enemy = gameFactory.createEnemy(pos, speed, health, enemyIdManger.getIdentifier());
+        var enemy = gameFactory.createEnemy(pos, speed, health, enemyIdManger.getIdentifier(), null);
         enemies.put(enemy.getEnemyIdentifier(), enemy);
         AppLogger.getLogger().log("adding enemy" + enemy.getEnemyIdentifier(), LogType.MODEL);
     }
