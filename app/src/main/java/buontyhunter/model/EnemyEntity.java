@@ -23,7 +23,7 @@ public class EnemyEntity extends FighterEntity {
     private AIFollowPathHelper followPathHelper;
 
     private final List<TileType> deathTile = List.of(TileType.water);
-    private final int deathDistance = 60;
+    private final int deathDistance = 40;
     private int enemyIdentifier;
 
     public EnemyEntity(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
@@ -43,15 +43,17 @@ public class EnemyEntity extends FighterEntity {
         this.setPos(followPathHelper.moveItem(currentPos, playerPos, speed, tiles));
     }
 
-    private boolean isDeath(TileManager manager) {
+    private boolean isDeath(World w) {
+        var manager = w.getTileManager();
         var tile = manager.getTileFromPosition(getPos());
         return !tile.isPresent() || deathTile.contains(tile.get().getType())
-                || followPathHelper.getLastPathDistance() > deathDistance;
+                || followPathHelper.getLastPathDistance() > deathDistance
+                || (followPathHelper.getLastPathDistance() == 0 && getPos() != w.getPlayer().getPos());
     }
 
     public boolean moveItemAssertIsDeath(World world) {
         moveItem(world);
-        return isDeath(world.getTileManager());
+        return isDeath(world);
     }
 
     public int getEnemyIdentifier() {

@@ -13,8 +13,8 @@ import java.awt.Toolkit;
 
 public class GameEngine implements WorldEventListener {
 
-    public static final int WORLD_WIDTH = 60;
-    public static final int WORLD_HEIGHT = 60;
+    public static final int WORLD_WIDTH = 40;
+    public static final int WORLD_HEIGHT = 40;
     public static double X_WINDOW_RATIO = 0.8;
     public static double y_WINDOW_RATIO = 0.8;
     public static final int WINDOW_WIDTH = calculateTheWindowWidthAndHeight();

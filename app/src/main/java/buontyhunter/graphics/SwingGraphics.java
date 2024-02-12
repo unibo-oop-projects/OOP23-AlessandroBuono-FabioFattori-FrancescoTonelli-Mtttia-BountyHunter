@@ -9,6 +9,7 @@ import java.util.List;
 
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.Point2d;
+import buontyhunter.model.EnemyEntity;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.HealthBar;
@@ -229,6 +230,11 @@ public class SwingGraphics implements Graphics {
 			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()),
 					getDeltaXinPixel(((RectBoundingBox) obj.getBBox()).getWidth()),
 					getDeltaYinPixel(((RectBoundingBox) obj.getBBox()).getHeight()));
+			if (obj instanceof EnemyEntity) {
+				var enemy = (EnemyEntity) obj;
+				g2.drawString("" + enemy.getEnemyIdentifier(), getXinPixel(point.get()), getYinPixel(point.get()));
+
+			}
 		}
 	}
 }
