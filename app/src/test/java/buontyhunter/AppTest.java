@@ -24,36 +24,7 @@ class AppTest {
     void testGameEngine() {
         GameEngine gameEngine = new GameEngine();
         Assertions.assertNotNull(gameEngine);
-        if (GameEngine.WINDOW_WIDTH >= 500 && GameEngine.WINDOW_WIDTH <= 1000) {
-            System.out.println("WINDOW_WIDTH is within the range of 500 and 1000");
-        } else {
-            System.out.println("WINDOW_WIDTH is not within the range of 500 and 1000");
-        }
-        if (GameEngine.WINDOW_HEIGHT >= 500 && GameEngine.WINDOW_HEIGHT <= 1000) {
-            System.out.println("WINDOW_HEIGHT is within the range of 500 and 1000");
-        } else {
-            System.out.println("WINDOW_HEIGHT is not within the range of 500 and 1000");
-        }
-        if (GameEngine.RATIO_WIDTH == GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH) {
-            System.out.println("RATIO_WIDTH is correct");
-        } else {
-            System.out.println("RATIO_WIDTH is incorrect");
-        }
-        if (GameEngine.RATIO_HEIGHT == GameEngine.WINDOW_HEIGHT / GameEngine.WORLD_HEIGHT) {
-            System.out.println("RATIO_HEIGHT is correct");
-        } else {
-            System.out.println("RATIO_HEIGHT is incorrect");
-        }
-        if (GameEngine.HUB_WINDOW_WIDTH >= 500 && GameEngine.HUB_WINDOW_WIDTH <= 1000) {
-            System.out.println("HUB_WINDOW_WIDTH is within the range of 500 and 1000");
-        } else {
-            System.out.println("HUB_WINDOW_WIDTH is not within the range of 500 and 1000");
-        }
-        if (GameEngine.HUB_WINDOW_HEIGHT >= 500 && GameEngine.HUB_WINDOW_HEIGHT <= 1000) {
-            System.out.println("HUB_WINDOW_HEIGHT is within the range of 500 and 1000");
-        } else {
-            System.out.println("HUB_WINDOW_HEIGHT is not within the range of 500 and 1000");
-        }
+        
         Assertions.assertEquals(GameEngine.HUB_PLAYER_START, new Point2d(8, 8));
         Assertions.assertEquals(GameEngine.OPEN_WORLD_PLAYER_START, new Point2d(5, 106));
     }

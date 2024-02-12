@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
+import buontyhunter.common.Resizator;
 import buontyhunter.model.*;
 import buontyhunter.weaponClasses.Weapon;
 
@@ -35,17 +36,19 @@ public class SwingGraphics implements Graphics {
 	private double ratioY;
 	private SceneCamera camera;
 	private SwingAssetProvider assetManager;
+	private Resizator resizator;
 
 	private Font titleFont = new Font("Arial", Font.BOLD, 20);
 	private Font paragraphFont = new Font("Arial", Font.PLAIN, 15);
 
 	public SwingGraphics(Graphics2D g2, double ratioX, double ratioY, SceneCamera camera,
-			SwingAssetProvider assetManager) {
+			SwingAssetProvider assetManager, Resizator resizator) {
 		this.g2 = g2;
 		this.ratioX = ratioX;
 		this.ratioY = ratioY;
 		this.camera = camera;
 		this.assetManager = assetManager;
+		this.resizator = resizator;
 	}
 
 	private int getXinPixel(Point2d p) {
@@ -136,20 +139,20 @@ public class SwingGraphics implements Graphics {
 
 		Point2d tilePos = new Point2d(1, 1);
 
-		var propsX = validateCoordinateMiniMap(GameEngine.WINDOW_WIDTH / (lastX),
-				(computedValue) -> !(getXinPixel(tilePos) + (lastY - 1) * computedValue >= GameEngine.WINDOW_WIDTH),
+		var propsX = validateCoordinateMiniMap(this.resizator.getWINDOW_WIDTH() / (lastX),
+				(computedValue) -> !(getXinPixel(tilePos) + (lastY - 1) * computedValue >= this.resizator.getWINDOW_WIDTH()),
 				(computedProps) -> {
 
-					while (getXinPixel(tilePos) + (lastY - 1) * computedProps >= GameEngine.WINDOW_WIDTH) {
+					while (getXinPixel(tilePos) + (lastY - 1) * computedProps >= this.resizator.getWINDOW_WIDTH()) {
 						computedProps--;
 					}
 					computedProps--;
 					return (computedProps <= 0) ? 1 : computedProps;
 				});
-		var propsY = validateCoordinateMiniMap(GameEngine.WINDOW_HEIGHT / (lastY),
-				(computedValue) -> !(getYinPixel(tilePos) + (lastX - 1) * computedValue >= GameEngine.WINDOW_HEIGHT),
+		var propsY = validateCoordinateMiniMap(this.resizator.getWINDOW_HEIGHT() / (lastY),
+				(computedValue) -> !(getYinPixel(tilePos) + (lastX - 1) * computedValue >= this.resizator.getWINDOW_HEIGHT()),
 				(computedProps) -> {
-					while (getYinPixel(tilePos) + (lastX - 1) * computedProps >= GameEngine.WINDOW_HEIGHT) {
+					while (getYinPixel(tilePos) + (lastX - 1) * computedProps >= this.resizator.getWINDOW_HEIGHT()) {
 						computedProps--;
 					}
 					computedProps--;
@@ -305,13 +308,9 @@ public class SwingGraphics implements Graphics {
 	public void drawQuestJournal(World w) {
 		int width;
 		int height;
-		if (camera.isHub()) {
-			width = GameEngine.HUB_WINDOW_WIDTH;
-			height = GameEngine.HUB_WINDOW_HEIGHT;
-		} else {
-			width = GameEngine.WINDOW_WIDTH;
-			height = GameEngine.WINDOW_HEIGHT;
-		}
+			width = this.resizator.getWINDOW_WIDTH();
+			height = this.resizator.getWINDOW_HEIGHT();
+		
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect(0, 0, width, height);
 		g2.setColor(Color.WHITE);

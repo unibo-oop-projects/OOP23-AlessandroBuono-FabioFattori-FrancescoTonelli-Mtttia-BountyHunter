@@ -6,21 +6,21 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 import javax.swing.*;
 import buontyhunter.common.Point2d;
+import buontyhunter.common.Resizator;
 import buontyhunter.core.GameEngine;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.*;
 import java.util.stream.Collectors;
 import java.awt.BorderLayout;
+import java.awt.*;
 
-public class SwingScene implements Scene {
+public class SwingScene implements Scene , ComponentListener {
 
 	protected JFrame frame;
 	protected ScenePanel panel;
@@ -38,12 +38,11 @@ public class SwingScene implements Scene {
 		// make the frame appear in the middle of the screen
 		// Calculates the position where the CenteredJFrame
 		// should be paced on the screen.
-		int x = (GameEngine.WINDOW_WIDTH - frame.getWidth()) / 2;
-		int y = (GameEngine.WINDOW_HEIGHT - frame.getHeight()) / 2;
+		int x = (gameState.getResizator().getWINDOW_WIDTH() - frame.getWidth()) / 2;
+		int y = (gameState.getResizator().getWINDOW_HEIGHT() - frame.getHeight()) / 2;
 		frame.setLocation(x, y);
 		// frame.setLocationRelativeTo(null);
 		if (IsHub) {
-			frame.setMinimumSize(new Dimension(GameEngine.HUB_WINDOW_WIDTH, GameEngine.HUB_WINDOW_HEIGHT));
 			getQuestPannel().getQuests().forEach(q -> {
 				JButton button = new JButton();
 				button.addActionListener(e1 -> {
@@ -52,15 +51,10 @@ public class SwingScene implements Scene {
 				});
 				buttons.add(button);
 			});
-
-			panel = new ScenePanel(GameEngine.HUB_WINDOW_WIDTH, GameEngine.HUB_WINDOW_WIDTH, GameEngine.HUB_WIDTH,
-					GameEngine.HUB_HEIGHT);
-		} else {
-			frame.setMinimumSize(new Dimension(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT));
-
-			panel = new ScenePanel(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT, GameEngine.WORLD_WIDTH,
-					GameEngine.WORLD_HEIGHT);
 		}
+		frame.setMinimumSize(new Dimension(gameState.getResizator().getWINDOW_WIDTH(), gameState.getResizator().getWINDOW_HEIGHT()));
+		panel = new ScenePanel(gameState.getResizator().getWINDOW_WIDTH(), gameState.getResizator().getWINDOW_HEIGHT(), Resizator.WORLD_WIDTH,
+		Resizator.WORLD_HEIGHT);
 		frame.setSize(frame.getMinimumSize());
 		frame.setResizable(true);
 		frame.addWindowListener(new WindowAdapter() {
@@ -70,6 +64,7 @@ public class SwingScene implements Scene {
 				}
 			}
 		});
+		frame.addComponentListener(this);
 		// frame.setUndecorated(true); // Remove title bar
 		this.controller = controller;
 		frame.setLayout(null);
@@ -151,9 +146,9 @@ public class SwingScene implements Scene {
 
 				/* drawing the game objects */
 
-				var camera = new Camera(scene, IsHub);
+				var camera = new Camera(scene);
 				camera.update(scene.getPlayer(), scene.getTileManager());
-				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera, assetManager);
+				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera, assetManager,gameState.getResizator());
 				gameState.getWorld().getSceneEntities().forEach(e -> {
 					if (!(e instanceof Teleporter)) {
 						e.updateGraphics(gr, scene);
@@ -294,5 +289,29 @@ public class SwingScene implements Scene {
 	public void dispose() {
 		this.switchScene = true;
 		this.frame.dispose();
+	}
+
+	@Override
+	public void componentResized(ComponentEvent e) {
+		
+		var dim = Toolkit.getDefaultToolkit().getScreenSize();
+		System.out.println("width: " + dim.getWidth() /Resizator.WORLD_WIDTH + " height: " + dim.getHeight() / Resizator.WORLD_HEIGHT);
+		GameEngine.resizator.needToResize( dim.getWidth() /Resizator.WORLD_WIDTH, dim.getHeight() / Resizator.WORLD_HEIGHT);
+		this.gameState.getWorld().getTileManager().loadMap(0);
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {
+		// do nothing
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e) {
+		// do nothing
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e) {
+		// do nothing
 	}
 }

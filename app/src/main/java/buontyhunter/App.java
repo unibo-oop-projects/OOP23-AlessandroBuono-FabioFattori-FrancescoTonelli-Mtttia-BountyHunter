@@ -10,7 +10,7 @@ public class App {
 
     public static void main(String[] args) {
         GameEngine engine = new GameEngine();
-        TitleSwingScene titleScreen = new TitleSwingScene(GameEngine.WINDOW_WIDTH,GameEngine.WINDOW_HEIGHT);
+        TitleSwingScene titleScreen = new TitleSwingScene(GameEngine.resizator.getWINDOW_WIDTH(),GameEngine.resizator.getWINDOW_HEIGHT());
         titleScreen.startTitleLoop();
         engine.initGame();
     }

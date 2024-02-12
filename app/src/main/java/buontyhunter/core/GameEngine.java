@@ -3,6 +3,7 @@ package buontyhunter.core;
 import java.util.LinkedList;
 
 import buontyhunter.common.Point2d;
+import buontyhunter.common.Resizator;
 import buontyhunter.common.Logger.AppLogger;
 import buontyhunter.common.Logger.LogType;
 import buontyhunter.graphics.*;
@@ -14,18 +15,7 @@ import java.awt.Toolkit;
 
 public class GameEngine implements WorldEventListener {
 
-    public static final int WORLD_WIDTH = 40;
-    public static final int WORLD_HEIGHT = 40;
-    public static double X_WINDOW_RATIO = 0.8;
-    public static double y_WINDOW_RATIO = 0.8;
-    public static final int WINDOW_WIDTH = calculateTheWindowWidthAndHeight();
-    public static final int WINDOW_HEIGHT = WINDOW_WIDTH;
-    public static final double RATIO_WIDTH = WINDOW_WIDTH / WORLD_WIDTH;
-    public static final double RATIO_HEIGHT = RATIO_WIDTH;
-    public static final int HUB_WIDTH = 15;
-    public static final int HUB_HEIGHT = 15;
-    public static final int HUB_WINDOW_WIDTH = calculateTheWindowWidthAndHeightForHub();
-    public static final int HUB_WINDOW_HEIGHT = HUB_WINDOW_WIDTH + 27; // summed offset of Y
+    public static final Resizator resizator = new Resizator();
     public static final Point2d HUB_PLAYER_START = new Point2d(8, 8);
     public static final Point2d OPEN_WORLD_PLAYER_START = new Point2d(5, 106);
 
@@ -157,34 +147,11 @@ public class GameEngine implements WorldEventListener {
         view.renderGameOver();
     }
 
+
     @Override
     public void notifyEvent(WorldEvent ev) {
         eventQueue.add(ev);
     }
 
-    private static int calculateTheWindowWidthAndHeight() {
-        var dim = Toolkit.getDefaultToolkit().getScreenSize();
-        int halfScreenWidth = (int) Math.round(dim.getWidth() * X_WINDOW_RATIO);
-        int halfScreenHeight = (int) Math.round(dim.getHeight() * y_WINDOW_RATIO);
-        var minValue = List.of(Integer.valueOf(halfScreenHeight), Integer.valueOf(halfScreenWidth)).stream()
-                .min((Integer a, Integer b) -> {
-                    return a.compareTo(b);
-                }).get();
-
-        return minValue.intValue() - minValue.intValue() % WORLD_WIDTH;
-
-    }
-
-    private static int calculateTheWindowWidthAndHeightForHub() {
-        var dim = Toolkit.getDefaultToolkit().getScreenSize();
-        int halfScreenWidth = (int) Math.round(dim.getWidth() / 2);
-        int halfScreenHeight = (int) Math.round(dim.getHeight() / 2);
-        var minValue = List.of(Integer.valueOf(halfScreenHeight), Integer.valueOf(halfScreenWidth)).stream()
-                .min((Integer a, Integer b) -> {
-                    return a.compareTo(b);
-                }).get();
-
-        return minValue.intValue() - minValue.intValue() % HUB_WIDTH;
-
-    }
+    
 }

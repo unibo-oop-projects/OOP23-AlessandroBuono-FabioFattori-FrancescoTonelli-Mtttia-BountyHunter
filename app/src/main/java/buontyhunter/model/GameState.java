@@ -3,6 +3,7 @@ package buontyhunter.model;
 import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.common.Point2d;
+import buontyhunter.common.Resizator;
 import buontyhunter.common.Vector2d;
 
 public class GameState {
@@ -10,9 +11,11 @@ public class GameState {
     private int dobloni;
     private World world;
     private boolean gameOver;
+    private Resizator resizator;
 
     public GameState(WorldEventListener l) {
-        GameFactory f = GameFactory.getInstance();
+        resizator = new Resizator();
+        GameFactory f = GameFactory.getInstance(resizator);
 
         dobloni = 0;
         world = new World(new RectBoundingBox(new Point2d(0, 0), 20, 18));
@@ -27,6 +30,10 @@ public class GameState {
 
     public World getWorld() {
         return world;
+    }
+
+    public Resizator getResizator() {
+        return resizator;
     }
 
     /** add doblons(in game money) to the player account

@@ -11,11 +11,17 @@ import java.util.*;
 /* this class has methods to create all gameObjects */
 public class GameFactory {
 
+    private Resizator resizator;
+
+    public GameFactory(Resizator resizator) {
+        this.resizator = resizator;
+    }
+
     static private GameFactory instance;
 
-    static public GameFactory getInstance() {
+    static public GameFactory getInstance(Resizator resizator) {
         if (instance == null) {
-            instance = new GameFactory();
+            instance = new GameFactory(resizator);
         }
         return instance;
     }
@@ -46,15 +52,8 @@ public class GameFactory {
      */
     public TileManager createTileManager() {
         return new TileManager(GameObjectType.TileManager,
-                new Point2d(-(GameEngine.WORLD_WIDTH / 2), GameEngine.WORLD_HEIGHT / 2), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
-                new NullInputComponent(), new MapGraphicsComponent(), new NullPhysicsComponent());
-    }
-
-    public TileManager creaTileManagerForHub() {
-        return new TileManager(GameObjectType.TileManager,
-                new Point2d(-(GameEngine.HUB_WIDTH / 2), GameEngine.HUB_HEIGHT / 2), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.HUB_HEIGHT, GameEngine.HUB_WIDTH),
+                new Point2d(-(Resizator.WORLD_WIDTH / 2), Resizator.WORLD_HEIGHT / 2), new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d(0, 0), Resizator.WORLD_HEIGHT, Resizator.WORLD_WIDTH),
                 new NullInputComponent(), new MapGraphicsComponent(), new NullPhysicsComponent());
     }
 
@@ -67,7 +66,7 @@ public class GameFactory {
     public HidableObject createMinimap() {
         return new HidableObject(GameObjectType.MiniMap,
                 new Point2d(0, 0), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
+                new RectBoundingBox(new Point2d(0, 0), Resizator.WORLD_HEIGHT, Resizator.WORLD_WIDTH),
                 new MiniMapInputController(), new MiniMapGraphicsComponent(), new NullPhysicsComponent(), false);
     }
 
@@ -87,7 +86,7 @@ public class GameFactory {
     public NavigatorLine createNavigatorLine(World world) {
         return new NavigatorLine(GameObjectType.NavigatorLine,
                 new Point2d(0, 0), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
+                new RectBoundingBox(new Point2d(0, 0), Resizator.WORLD_HEIGHT, Resizator.WORLD_WIDTH),
                 new NullInputComponent(), new NavigatorLineGraphicsComponent(), new NullPhysicsComponent(), world);
     }
 
@@ -106,10 +105,10 @@ public class GameFactory {
      */
     public HealthBar createHealthBar() {
         return new HealthBar(GameObjectType.HealthBar,
-                new Point2d((GameEngine.WORLD_WIDTH / 2) * (GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH) - 100,
-                        GameEngine.WORLD_HEIGHT * (GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH) - 100),
+                new Point2d((Resizator.WORLD_WIDTH / 2) * (this.resizator.getWINDOW_WIDTH() / Resizator.WORLD_WIDTH) - 100,
+                Resizator.WORLD_HEIGHT * (this.resizator.getWINDOW_HEIGHT() / Resizator.WORLD_WIDTH) - 100),
                 new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
+                new RectBoundingBox(new Point2d(0, 0), Resizator.WORLD_HEIGHT, Resizator.WORLD_WIDTH),
                 new NullInputComponent(), new HealthBarGraphicsComponent(), new NullPhysicsComponent());
     }
 
@@ -136,7 +135,7 @@ public class GameFactory {
     public InterractableArea createQuestPannelForHub(Point2d pos) {
         QuestPannel panel = new QuestPannel(GameObjectType.HidableObject,
                 new Point2d(0, 0), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.HUB_WINDOW_WIDTH, GameEngine.HUB_WINDOW_HEIGHT),
+                new RectBoundingBox(new Point2d(0, 0), this.resizator.getWINDOW_WIDTH(), this.resizator.getWINDOW_HEIGHT ()),
                 new NullInputComponent(), new QuestPanelGraphicsComponent(), new NullPhysicsComponent(), false);
 
         return new InterractableArea(GameObjectType.InterractableArea,
@@ -156,7 +155,7 @@ public class GameFactory {
     public HidableObject createQuestJournal() {
         return new HidableObject(GameObjectType.HidableObject,
                 new Point2d(0, 0), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.WORLD_HEIGHT, GameEngine.WORLD_WIDTH),
+                new RectBoundingBox(new Point2d(0, 0), Resizator.WORLD_HEIGHT, Resizator.WORLD_WIDTH),
                 new QuestJournalInputComponent(), new QuestJournalGraphicsComponent(), new NullPhysicsComponent(),
                 false);
     }
