@@ -5,13 +5,83 @@ package buontyhunter;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Assertions;
 
 import buontyhunter.core.*;
-import buontyhunter.graphics.SwingAssetProvider;
 import buontyhunter.common.*;
 import buontyhunter.model.*;
 
 class AppTest {
+    // write your tests here
+    @Test
+    void testAll() {
+        testGameEngine();
+        testGameState();
+        testWorld();
+    }
 
+    @Test
+    void testGameEngine() {
+        GameEngine gameEngine = new GameEngine();
+        Assertions.assertNotNull(gameEngine);
+        if (GameEngine.WINDOW_WIDTH >= 500 && GameEngine.WINDOW_WIDTH <= 1000) {
+            System.out.println("WINDOW_WIDTH is within the range of 500 and 1000");
+        } else {
+            System.out.println("WINDOW_WIDTH is not within the range of 500 and 1000");
+        }
+        if (GameEngine.WINDOW_HEIGHT >= 500 && GameEngine.WINDOW_HEIGHT <= 1000) {
+            System.out.println("WINDOW_HEIGHT is within the range of 500 and 1000");
+        } else {
+            System.out.println("WINDOW_HEIGHT is not within the range of 500 and 1000");
+        }
+        if (GameEngine.RATIO_WIDTH == GameEngine.WINDOW_WIDTH / GameEngine.WORLD_WIDTH) {
+            System.out.println("RATIO_WIDTH is correct");
+        } else {
+            System.out.println("RATIO_WIDTH is incorrect");
+        }
+        if (GameEngine.RATIO_HEIGHT == GameEngine.WINDOW_HEIGHT / GameEngine.WORLD_HEIGHT) {
+            System.out.println("RATIO_HEIGHT is correct");
+        } else {
+            System.out.println("RATIO_HEIGHT is incorrect");
+        }
+        if (GameEngine.HUB_WINDOW_WIDTH >= 500 && GameEngine.HUB_WINDOW_WIDTH <= 1000) {
+            System.out.println("HUB_WINDOW_WIDTH is within the range of 500 and 1000");
+        } else {
+            System.out.println("HUB_WINDOW_WIDTH is not within the range of 500 and 1000");
+        }
+        if (GameEngine.HUB_WINDOW_HEIGHT >= 500 && GameEngine.HUB_WINDOW_HEIGHT <= 1000) {
+            System.out.println("HUB_WINDOW_HEIGHT is within the range of 500 and 1000");
+        } else {
+            System.out.println("HUB_WINDOW_HEIGHT is not within the range of 500 and 1000");
+        }
+        Assertions.assertEquals(GameEngine.HUB_PLAYER_START, new Point2d(8, 8));
+        Assertions.assertEquals(GameEngine.OPEN_WORLD_PLAYER_START, new Point2d(5, 106));
+        Assertions.assertEquals(GameEngine.HUB_WIDTH, 15);
+        Assertions.assertEquals(GameEngine.HUB_HEIGHT, 15);
+        Assertions.assertEquals(GameEngine.WORLD_WIDTH, 20);
+        Assertions.assertEquals(GameEngine.WORLD_HEIGHT, 20);
+    }
+
+    @Test
+    void testGameState(){
+        GameState gameState = new GameState(new GameEngine());
+        Assertions.assertNotNull(gameState);
+        Assertions.assertFalse(gameState.isGameOver());
+        Assertions.assertEquals(0, gameState.getDoblons());
+        gameState.depositDoblons(10);
+        Assertions.assertEquals(10, gameState.getDoblons());
+        Assertions.assertTrue(gameState.withdrawDoblons(5));
+        Assertions.assertEquals(5, gameState.getDoblons());
+        Assertions.assertFalse(gameState.withdrawDoblons(10));
+        Assertions.assertEquals(5, gameState.getDoblons());
+        gameState.gameOver();
+        Assertions.assertTrue(gameState.isGameOver());
+    }
+
+    @Test
+    void testWorld() {
+        GameState gameState = new GameState(new GameEngine());
+        Assertions.assertNotNull(gameState.getWorld());
+        //TODO implements
+    }
 }

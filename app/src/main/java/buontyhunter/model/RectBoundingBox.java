@@ -65,4 +65,16 @@ public class RectBoundingBox implements BoundingBox {
 	public boolean intersect(CircleBoundingBox circle) {
 		return getCollisionDetector().isColliding(this, circle);
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		RectBoundingBox that = (RectBoundingBox) o;
+		return Double.compare(that.height, height) == 0 && Double.compare(that.width, width) == 0 && point.equals(that.point);
+	}
 }
