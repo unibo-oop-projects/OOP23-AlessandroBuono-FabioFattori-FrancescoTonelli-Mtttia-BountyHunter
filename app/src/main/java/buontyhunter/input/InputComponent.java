@@ -3,5 +3,5 @@ package buontyhunter.input;
 import buontyhunter.model.*;
 
 public interface InputComponent {
-	void update(GameObject ball, InputController c);
+	void update(GameObject ball, InputController c, World w);
 }

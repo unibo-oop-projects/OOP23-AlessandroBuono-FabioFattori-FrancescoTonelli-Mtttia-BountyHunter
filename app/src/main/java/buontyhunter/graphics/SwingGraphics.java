@@ -15,6 +15,17 @@ import buontyhunter.weaponClasses.Weapon;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import buontyhunter.model.EnemyEntity;
+import buontyhunter.model.FighterEntity;
+import buontyhunter.model.GameObject;
+import buontyhunter.model.HealthBar;
+import buontyhunter.model.HidableObject;
+import buontyhunter.model.NavigatorLine;
+import buontyhunter.model.RectBoundingBox;
+import buontyhunter.model.TileManager;
+import buontyhunter.model.TileType;
+import buontyhunter.model.World;
+import buontyhunter.model.Tile;
 
 public class SwingGraphics implements Graphics {
 
@@ -24,7 +35,7 @@ public class SwingGraphics implements Graphics {
 	private double ratioY;
 	private SceneCamera camera;
 	private SwingAssetProvider assetManager;
-	
+
 	private Font titleFont = new Font("Arial", Font.BOLD, 20);
 	private Font paragraphFont = new Font("Arial", Font.PLAIN, 15);
 
@@ -111,6 +122,7 @@ public class SwingGraphics implements Graphics {
 	public void drawMiniMap(HidableObject miniMap, World w) {
 		if (!miniMap.isShow())
 			return;
+		var playerSize = 3;
 		var tileManager = w.getTileManager();
 		var tiles = tileManager.getTiles();
 
@@ -165,8 +177,17 @@ public class SwingGraphics implements Graphics {
 		var p = w.getPlayer();
 
 		g2.setColor(Color.RED);
-		g2.fillRect(getXinPixel(tilePos) + mapShowOffSetY + (int) Math.floor(p.getPos().x) * propsX,
-				getYinPixel(tilePos) + mapShowOffSetX + (int) Math.floor(p.getPos().y) * propsY, propsX, propsY);
+		g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(p.getPos().x) * propsX,
+				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y) * propsY, propsX * playerSize,
+				propsY * playerSize);
+
+		for (var enemy : w.getEnemies()) {
+
+			g2.setColor(Color.YELLOW);
+			g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(enemy.getPos().x) * propsX,
+					getYinPixel(tilePos) + (int) Math.floor(enemy.getPos().y) * propsY, propsX * playerSize,
+					propsY * playerSize);
+		}
 
 		var navigatorLine = w.getNavigatorLine();
 		var pathStream = navigatorLine.getPath().stream();
@@ -198,13 +219,14 @@ public class SwingGraphics implements Graphics {
 
 	@Override
 	public void drawNavigatorLine(NavigatorLine navigatorLine, World w) {
-		var pathStream = navigatorLine.getPath().stream();
+		// var pathStream = navigatorLine.getPath().stream();
 
-		g2.setColor(Color.YELLOW);
-		pathStream.filter((Point2d p) -> camera.inScene(p))
-				.forEach((Point2d p) -> g2.fillRect(getXinPixel(camera.getObjectPointInScene(p).get()),
-						getYinPixel(camera.getObjectPointInScene(p).get()), getDeltaXinPixel(0.5),
-						getDeltaYinPixel(0.5)));
+		// g2.setColor(Color.YELLOW);
+		// pathStream.filter((Point2d p) -> camera.inScene(p))
+		// .forEach((Point2d p) ->
+		// g2.fillRect(getXinPixel(camera.getObjectPointInScene(p).get()),
+		// getYinPixel(camera.getObjectPointInScene(p).get()), getDeltaXinPixel(0.5),
+		// getDeltaYinPixel(0.5)));
 	}
 
 	@Override
@@ -238,18 +260,17 @@ public class SwingGraphics implements Graphics {
 		var panelPosInPixel = questPannel.getPos();
 		var height = (int) ((RectBoundingBox) questPannel.getBBox()).getHeight();
 
-		
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
-		
+
 		// questa unità di misura mi permette di disegnare le varie parti della bacheca
 		int unit = height / 6;
-		g2.setColor(new Color(239,208,144,255));
+		g2.setColor(new Color(239, 208, 144, 255));
 		g2.fillRoundRect(unit, unit, 4 * unit, 4 * unit, 36, 36);
 		g2.setColor(Color.BLACK);
 		g2.setFont(paragraphFont);
-		g2.drawString("Missioni Disponibili",unit+11, unit + 13);
-		
+		g2.drawString("Missioni Disponibili", unit + 11, unit + 13);
+
 	}
 
 	public void drawQuest(QuestEntity quest, int x, int y, int unit, JButton btn) {
@@ -284,33 +305,34 @@ public class SwingGraphics implements Graphics {
 	public void drawQuestJournal(World w) {
 		int width;
 		int height;
-		if(camera.isHub()){
+		if (camera.isHub()) {
 			width = GameEngine.HUB_WINDOW_WIDTH;
 			height = GameEngine.HUB_WINDOW_HEIGHT;
-		}else{
+		} else {
 			width = GameEngine.WINDOW_WIDTH;
 			height = GameEngine.WINDOW_HEIGHT;
 		}
 		g2.setColor(new Color(0, 0, 0, 0.6f));
-		g2.fillRect(0,0,width,height);
+		g2.fillRect(0, 0, width, height);
 		g2.setColor(Color.WHITE);
-		g2.drawRoundRect(width/12, height/12, 5*width/6, 5*height/6, 36, 36);
+		g2.drawRoundRect(width / 12, height / 12, 5 * width / 6, 5 * height / 6, 36, 36);
 
-		var quests = ((PlayerEntity)w.getPlayer()).getQuests();
+		var quests = ((PlayerEntity) w.getPlayer()).getQuests();
 
 		int singleQuestHeight = 150;
 
 		g2.setFont(titleFont);
-		g2.drawString("Registro Missioni", width/2 - 75, height/24);
+		g2.drawString("Registro Missioni", width / 2 - 75, height / 24);
 
 		quests.forEach((Quest q) -> {
 			int indexOfQuest = quests.indexOf(q);
 			g2.setFont(titleFont);
-			g2.drawString(q.getName(), width/12 + 10 , height/12 + 20 + singleQuestHeight* indexOfQuest);
+			g2.drawString(q.getName(), width / 12 + 10, height / 12 + 20 + singleQuestHeight * indexOfQuest);
 			g2.setFont(paragraphFont);
-			g2.drawString(q.getDescription(), width/12 + 10 , height/12 + 50 + singleQuestHeight* indexOfQuest);
+			g2.drawString(q.getDescription(), width / 12 + 10, height / 12 + 50 + singleQuestHeight * indexOfQuest);
 			g2.setFont(titleFont);
-			g2.drawString(q.getDoblonsReward() + " dobloni", width/12 + 10 , height/12 + 80 +singleQuestHeight* indexOfQuest);
+			g2.drawString(q.getDoblonsReward() + " dobloni", width / 12 + 10,
+					height / 12 + 80 + singleQuestHeight * indexOfQuest);
 		});
 	}
 
@@ -320,6 +342,18 @@ public class SwingGraphics implements Graphics {
 		throw new UnsupportedOperationException("Unimplemented method 'drawWeapon'");
 	}
 
-	
+	public void drawEnemy(GameObject obj, World w) {
+		var point = camera.getObjectPointInScene(obj.getPos());
+		if (point.isPresent()) {
+			g2.setColor(Color.YELLOW);
+			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()),
+					getDeltaXinPixel(((RectBoundingBox) obj.getBBox()).getWidth()),
+					getDeltaYinPixel(((RectBoundingBox) obj.getBBox()).getHeight()));
+			if (obj instanceof EnemyEntity) {
+				var enemy = (EnemyEntity) obj;
+				g2.drawString("" + enemy.getEnemyIdentifier(), getXinPixel(point.get()), getYinPixel(point.get()));
 
+			}
+		}
+	}
 }

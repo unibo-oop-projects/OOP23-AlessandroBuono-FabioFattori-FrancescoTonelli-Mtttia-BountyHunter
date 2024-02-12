@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import buontyhunter.common.Point2d;
+import buontyhunter.common.Vector2d;
 import buontyhunter.core.GameFactory;
+import buontyhunter.input.KeyboardInputController;
+import buontyhunter.model.AI.enemySpawner.EnemyRegistry;
+import buontyhunter.model.AI.enemySpawner.EnemyRegistryImpl;
 import buontyhunter.physics.BoundaryCollision;
 
 import java.util.ArrayList;
@@ -21,23 +25,25 @@ public class World {
     private Teleporter tp;
     private HidableObject questJournal;
     private List<InterractableArea> interractableAreas;
+    private EnemyRegistry enemyRegistry;
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
         this.healthBar = GameFactory.getInstance().createHealthBar();
         this.interractableAreas = new ArrayList<InterractableArea>();
+        enemyRegistry = new EnemyRegistryImpl();
     }
 
     public void setEventListener(WorldEventListener l) {
         evListener = l;
     }
 
-    public void setTileManager(TileManager tileManager,int settedMap) {
+    public void setTileManager(TileManager tileManager, int settedMap) {
         this.tileManager = tileManager;
         laodMap(settedMap);
     }
 
-    public void setTeleporter(Teleporter tp){
+    public void setTeleporter(Teleporter tp) {
         this.tp = tp;
     }
 
@@ -61,6 +67,10 @@ public class World {
         return interractableAreas;
     }
 
+    public List<EnemyEntity> getEnemies() {
+        return enemyRegistry.getEnemies();
+    }
+
     public void updateState(long dt) {
         if (player != null) {
             player.updatePhysics(dt, this);
@@ -71,11 +81,21 @@ public class World {
         if (miniMap != null) {
             miniMap.updatePhysics(dt, this);
         }
-        if(tp != null){
-            tp.updatePhysics(dt,this);
+        if (tp != null) {
+            tp.updatePhysics(dt, this);
         }
 
         this.interractableAreas.forEach(area -> area.updatePhysics(dt, this));
+        for (var enemy : getEnemies()) {
+            enemy.updatePhysics(dt, this);
+        }
+    }
+
+    public void processAiInput(KeyboardInputController controller) {
+        for (var enemy : getEnemies()) {
+            enemy.updateInput(controller, this);
+        }
+        generateEnemy();
     }
 
     public void notifyWorldEvent(WorldEvent ev) {
@@ -110,7 +130,7 @@ public class World {
         return navigatorLine;
     }
 
-    public Teleporter getTeleporter(){
+    public Teleporter getTeleporter() {
         return tp;
     }
 
@@ -124,12 +144,15 @@ public class World {
             entities.add(navigatorLine);
         if (healthBar != null)
             entities.add(healthBar);
-        if(tp != null)
+        if (tp != null)
             entities.add(tp);
         if (miniMap != null)
             entities.add(miniMap);
-        if(questJournal != null)
+        if (questJournal != null)
             entities.add(questJournal);
+        for (var enemy : getEnemies()) {
+            entities.add(enemy);
+        }
 
         this.interractableAreas.forEach(area -> entities.add(area));
         return entities;
@@ -159,5 +182,17 @@ public class World {
         } else {
             return Optional.empty();
         }
+    }
+
+    public void addEnemy(Point2d pos, Vector2d speed, int health) {
+        enemyRegistry.addEnemy(pos, speed, health);
+    }
+
+    public void removeEnemy(int enemyIdentifier) {
+        enemyRegistry.removeEnemy(enemyIdentifier);
+    }
+
+    public void generateEnemy() {
+        enemyRegistry.generateEnemy(this);
     }
 }

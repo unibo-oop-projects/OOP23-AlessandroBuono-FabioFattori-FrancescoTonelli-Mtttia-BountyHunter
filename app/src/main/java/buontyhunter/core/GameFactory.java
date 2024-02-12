@@ -30,7 +30,7 @@ public class GameFactory {
      * @return the player entity created
      */
 
-     //TODO weapon input
+    // TODO weapon input
     public PlayerEntity createPlayer(Point2d point, Vector2d vector, int health, int maxHealth) {
         return new PlayerEntity(GameObjectType.Player, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
@@ -71,7 +71,7 @@ public class GameFactory {
                 new MiniMapInputController(), new MiniMapGraphicsComponent(), new NullPhysicsComponent(), false);
     }
 
-    //TODO tutte le classi qui dentro @Buono
+    // TODO tutte le classi qui dentro @Buono
     public HidableObject WeaponDamagingArea(FighterEntity entity, Vector2d direction) {
         return new HidableObject(GameObjectType.Weapon, entity.getPos(), direction, entity.getWeapon().getHitbox(),
                 new PlayerAttackingController(), new WeaponGraphicsComponent(), new WeaponPhysicsComponent(), false);
@@ -91,11 +91,11 @@ public class GameFactory {
                 new NullInputComponent(), new NavigatorLineGraphicsComponent(), new NullPhysicsComponent(), world);
     }
 
-    public FighterEntity createEnemy(Point2d point, Vector2d vector, int health, int maxHealth, Weapon weapon) {
-        return new FighterEntity(GameObjectType.Enemy, point, vector,
+    public EnemyEntity createEnemy(Point2d point, Vector2d vector, int health, int enemyIdentifier, Weapon weapon) {
+        return new EnemyEntity(GameObjectType.Enemy, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
-                new NullInputComponent(), new PlayerGraphicsComponent(), new NullPhysicsComponent(),
-                health, maxHealth, weapon);
+                new EnemyInputController(), new EnemyGraphicsComponent(), new EnemyPhysicsComponent(),
+                health, health, weapon, enemyIdentifier);
     }
 
     /**

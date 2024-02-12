@@ -2,6 +2,8 @@ package buontyhunter.input;
 
 import buontyhunter.common.Vector2d;
 import buontyhunter.model.GameObject;
+import buontyhunter.model.GameState;
+import buontyhunter.model.World;
 
 /**
  * PlayerInputController
@@ -9,10 +11,9 @@ import buontyhunter.model.GameObject;
 public class PlayerInputController implements InputComponent {
 
 	private final double speed = 0.3;
-	
 
 	@Override
-	public void update(GameObject player, InputController c) {
+	public void update(GameObject player, InputController c, World w) {
 		Vector2d vel = new Vector2d(0, 0);
 
 		if (c.isMoveUp()) {
@@ -27,7 +28,6 @@ public class PlayerInputController implements InputComponent {
 		if (c.isMoveRight()) {
 			vel.x += speed;
 		}
-
 
 		player.setVel(vel);
 		var pos = player.getPos();

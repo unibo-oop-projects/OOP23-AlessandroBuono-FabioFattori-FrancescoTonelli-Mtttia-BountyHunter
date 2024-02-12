@@ -15,13 +15,15 @@ public interface Graphics {
 
 	void drawHealthBar(HealthBar healthBar, World w);
 
-	void drawTeleporter(Teleporter tp,World w);
+	void drawTeleporter(Teleporter tp, World w);
 
 	void drawQuestPannel(QuestPannel questPannel, World w);
 
 	void drawStringUnderPlayer(String s);
 
 	void drawQuestJournal(World w);
-	
+
 	void drawWeapon(Weapon we);
+
+	void drawEnemy(GameObject obj, World w);
 }

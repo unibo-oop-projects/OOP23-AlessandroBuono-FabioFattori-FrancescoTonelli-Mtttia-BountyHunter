@@ -39,6 +39,10 @@ public class RectBoundingBox implements BoundingBox {
 		return width;
 	}
 
+	public RectBoundingBox withPoint(Point2d point) {
+		return new RectBoundingBox(point, height, width);
+	}
+
 	@Override
 	public boolean isCollidingWith(Point2d p, double radius) {
 		// TODO Auto-generated method stub
@@ -48,5 +52,17 @@ public class RectBoundingBox implements BoundingBox {
 	@Override
 	public RectBoundingBox duplicateWith(Point2d p) {
 		return new RectBoundingBox(p, height, width);
+	}
+
+	private CollisionDetector getCollisionDetector() {
+		return new CollisionDetector();
+	}
+
+	public boolean intersect(RectBoundingBox rect) {
+		return getCollisionDetector().isColliding(this, rect);
+	}
+
+	public boolean intersect(CircleBoundingBox circle) {
+		return getCollisionDetector().isColliding(this, circle);
 	}
 }

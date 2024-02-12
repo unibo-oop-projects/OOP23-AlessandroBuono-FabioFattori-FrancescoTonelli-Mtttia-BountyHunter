@@ -20,13 +20,17 @@ public class GameObject {
 
     /**
      * Create a new game object
-     * @param type this entity type serve to identify the entity (it can be player, enemy, etc)
-     * @param pos initial position of the entity
-     * @param vel initial velocity of the entity
-     * @param box TODO: what is this?
-     * @param input InputComponent that will be used to control the entity while playing
+     * 
+     * @param type  this entity type serve to identify the entity (it can be player,
+     *              enemy, etc)
+     * @param pos   initial position of the entity
+     * @param vel   initial velocity of the entity
+     * @param box   TODO: what is this?
+     * @param input InputComponent that will be used to control the entity while
+     *              playing
      * @param graph GraphicsComponent that will be used to draw the entity
-     * @param phys PhysicsComponent that will be used to calculate the entity physics when an event occurs (Example: collision)
+     * @param phys  PhysicsComponent that will be used to calculate the entity
+     *              physics when an event occurs (Example: collision)
      */
     public GameObject(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
             GraphicsComponent graph,
@@ -42,6 +46,7 @@ public class GameObject {
 
     /**
      * Get the type of the game object which is used to identify the object
+     * 
      * @return the type of the game object
      */
     public GameObjectType getType() {
@@ -50,6 +55,7 @@ public class GameObject {
 
     /**
      * Set the type of the game object which is used to identify the object
+     * 
      * @param pos the new type of the game object
      */
     public void setPos(Point2d pos) {
@@ -58,6 +64,7 @@ public class GameObject {
 
     /**
      * Set the velocity of the game object
+     * 
      * @param vel the new velocity of the game object
      */
     public void setVel(Vector2d vel) {
@@ -87,6 +94,7 @@ public class GameObject {
 
     /**
      * Get the current position of the game object
+     * 
      * @return the current position of the game object
      */
     public Point2d getPos() {
@@ -95,6 +103,7 @@ public class GameObject {
 
     /**
      * Get the current velocity of the game object
+     * 
      * @return the current velocity of the game object
      */
     public Vector2d getVel() {
@@ -103,14 +112,16 @@ public class GameObject {
 
     /**
      * Get the input component of the game object
+     * 
      * @return the input component of the game object
      */
-    public void updateInput(InputController c) {
-        input.update(this, c);
+    public void updateInput(InputController c, World w) {
+        input.update(this, c, w);
     }
 
     /**
      * Get the physics component of the game object
+     * 
      * @return the physics component of the game object
      */
     public void updatePhysics(long dt, World w) {
@@ -119,6 +130,7 @@ public class GameObject {
 
     /**
      * Get the graphics component of the game object
+     * 
      * @return the graphics component of the game object
      */
     public void updateGraphics(Graphics g, World w) {
@@ -127,6 +139,7 @@ public class GameObject {
 
     /**
      * Set the bounding box of the game object
+     * 
      * @param box the new bounding box of the game object
      */
     protected void setBBox(BoundingBox box) {
