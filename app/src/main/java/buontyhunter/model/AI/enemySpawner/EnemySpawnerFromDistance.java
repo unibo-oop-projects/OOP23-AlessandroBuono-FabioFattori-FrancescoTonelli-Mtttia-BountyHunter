@@ -9,7 +9,7 @@ import java.util.*;
 public class EnemySpawnerFromDistance implements EnemySpawner {
 
     private int maxEnemyNumber = 6;
-    private List<EnemyType> enemyTypes = List.of(EnemyType.SWORD, EnemyType.DAGGER, EnemyType.ARCH);
+    private List<EnemyType> enemyTypes = List.of(EnemyType.SWORD, EnemyType.BRASS_KNUCLES, EnemyType.BOW);
     private double spawnPercentage = 1;
     private double doubleEnemyPercentage = 40;
     private double tripleEnemyPercentage = 20;

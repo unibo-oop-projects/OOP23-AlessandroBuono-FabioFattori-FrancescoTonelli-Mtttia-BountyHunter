@@ -449,6 +449,491 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
+            put(ImageType.hunterFront,new AssetImage(){
+                {
+                    setPath("hunter/hunter_front.png");
+                    setType(ImageType.hunterFront);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.hunterFront1,new AssetImage(){
+                {
+                    setPath("hunter/hunter_front_1.png");
+                    setType(ImageType.hunterFront1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.hunterFront2,new AssetImage(){
+                {
+                    setPath("hunter/hunter_front_2.png");
+                    setType(ImageType.hunterFront2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.hunterBack,new AssetImage(){
+                {
+                    setPath("hunter/hunter_back.png");
+                    setType(ImageType.hunterBack);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.hunterBack1,new AssetImage(){
+                {
+                    setPath("hunter/hunter_back_1.png");
+                    setType(ImageType.hunterBack1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.hunterBack2,new AssetImage(){
+                {
+                    setPath("hunter/hunter_back_2.png");
+                    setType(ImageType.hunterBack2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            
+            put(ImageType.hunterLeft,new AssetImage(){
+                {
+                    setPath("hunter/hunter_left.png");
+                    setType(ImageType.hunterLeft);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.hunterLeft1,new AssetImage(){
+                {
+                    setPath("hunter/hunter_left_1.png");
+                    setType(ImageType.hunterLeft1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.hunterLeft2,new AssetImage(){
+                {
+                    setPath("hunter/hunter_left_2.png");
+                    setType(ImageType.hunterLeft2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.hunterRight,new AssetImage(){
+                {
+                    setPath("hunter/hunter_right.png");
+                    setType(ImageType.hunterRight);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.hunterRight1,new AssetImage(){
+                {
+                    setPath("hunter/hunter_right_1.png");
+                    setType(ImageType.hunterRight1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.hunterRight2,new AssetImage(){
+                {
+                    setPath("hunter/hunter_right_2.png");
+                    setType(ImageType.hunterRight2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.zombieFront,new AssetImage(){
+                {
+                    setPath("zombie/zombie_front.png");
+                    setType(ImageType.zombieFront);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.zombieFront1,new AssetImage(){
+                {
+                    setPath("zombie/zombie_front_1.png");
+                    setType(ImageType.zombieFront1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.zombieFront2,new AssetImage(){
+                {
+                    setPath("zombie/zombie_front_2.png");
+                    setType(ImageType.zombieFront2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.zombieBack,new AssetImage(){
+                {
+                    setPath("zombie/zombie_back.png");
+                    setType(ImageType.zombieBack);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.zombieBack1,new AssetImage(){
+                {
+                    setPath("zombie/zombie_back_1.png");
+                    setType(ImageType.zombieBack1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.zombieBack2,new AssetImage(){
+                {
+                    setPath("zombie/zombie_back_2.png");
+                    setType(ImageType.zombieBack2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+                        
+            put(ImageType.zombieLeft,new AssetImage(){
+                {
+                    setPath("zombie/zombie_left.png");
+                    setType(ImageType.zombieLeft);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.zombieLeft1,new AssetImage(){
+                {
+                    setPath("zombie/zombie_left_1.png");
+                    setType(ImageType.zombieLeft1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.zombieLeft2,new AssetImage(){
+                {
+                    setPath("zombie/zombie_left_2.png");
+                    setType(ImageType.zombieLeft2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.zombieRight,new AssetImage(){
+                {
+                    setPath("zombie/zombie_right.png");
+                    setType(ImageType.zombieRight);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.zombieRight1,new AssetImage(){
+                {
+                    setPath("zombie/zombie_right_1.png");
+                    setType(ImageType.zombieRight1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.zombieRight2,new AssetImage(){
+                {
+                    setPath("zombie/zombie_right_2.png");
+                    setType(ImageType.zombieRight2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.skellyFront,new AssetImage(){
+                {
+                    setPath("skelly/skelly_front.png");
+                    setType(ImageType.skellyFront);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.skellyFront1,new AssetImage(){
+                {
+                    setPath("skelly/skelly_front_1.png");
+                    setType(ImageType.skellyFront1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.skellyFront2,new AssetImage(){
+                {
+                    setPath("skelly/skelly_front_2.png");
+                    setType(ImageType.skellyFront2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.skellyBack,new AssetImage(){
+                {
+                    setPath("skelly/skelly_back.png");
+                    setType(ImageType.skellyBack);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.skellyBack1,new AssetImage(){
+                {
+                    setPath("skelly/skelly_back_1.png");
+                    setType(ImageType.skellyBack1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.skellyBack2,new AssetImage(){
+                {
+                    setPath("skelly/skelly_back_2.png");
+                    setType(ImageType.skellyBack2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+                        
+            put(ImageType.skellyLeft,new AssetImage(){
+                {
+                    setPath("skelly/skelly_left.png");
+                    setType(ImageType.skellyLeft);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.skellyLeft1,new AssetImage(){
+                {
+                    setPath("skelly/skelly_left_1.png");
+                    setType(ImageType.skellyLeft1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.skellyLeft2,new AssetImage(){
+                {
+                    setPath("skelly/skelly_left_2.png");
+                    setType(ImageType.skellyLeft2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.skellyRight,new AssetImage(){
+                {
+                    setPath("skelly/skelly_right.png");
+                    setType(ImageType.skellyRight);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.skellyRight1,new AssetImage(){
+                {
+                    setPath("skelly/skelly_right_1.png");
+                    setType(ImageType.skellyRight1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.skellyRight2,new AssetImage(){
+                {
+                    setPath("skelly/skelly_right_2.png");
+                    setType(ImageType.skellyRight2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.knightFront,new AssetImage(){
+                {
+                    setPath("knight/knight_front.png");
+                    setType(ImageType.knightFront);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.knightFront1,new AssetImage(){
+                {
+                    setPath("knight/knight_front_1.png");
+                    setType(ImageType.knightFront1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.knightFront2,new AssetImage(){
+                {
+                    setPath("knight/knight_front_2.png");
+                    setType(ImageType.knightFront2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.knightBack,new AssetImage(){
+                {
+                    setPath("knight/knight_back.png");
+                    setType(ImageType.knightBack);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.knightBack1,new AssetImage(){
+                {
+                    setPath("knight/knight_back_1.png");
+                    setType(ImageType.knightBack1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.knightBack2,new AssetImage(){
+                {
+                    setPath("knight/knight_back_2.png");
+                    setType(ImageType.knightBack2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+                        
+            put(ImageType.knightLeft,new AssetImage(){
+                {
+                    setPath("knight/knight_left.png");
+                    setType(ImageType.knightLeft);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.knightLeft1,new AssetImage(){
+                {
+                    setPath("knight/knight_left_1.png");
+                    setType(ImageType.knightLeft1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.knightLeft2,new AssetImage(){
+                {
+                    setPath("knight/knight_left_2.png");
+                    setType(ImageType.knightLeft2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.knightRight,new AssetImage(){
+                {
+                    setPath("knight/knight_right.png");
+                    setType(ImageType.knightRight);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.knightRight1,new AssetImage(){
+                {
+                    setPath("knight/knight_right_1.png");
+                    setType(ImageType.knightRight1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.knightRight2,new AssetImage(){
+                {
+                    setPath("knight/knight_right_2.png");
+                    setType(ImageType.knightRight2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.wizardFront,new AssetImage(){
+                {
+                    setPath("wizard/wizard_front.png");
+                    setType(ImageType.wizardFront);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.wizardFront1,new AssetImage(){
+                {
+                    setPath("wizard/wizard_front_1.png");
+                    setType(ImageType.wizardFront1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.wizardFront2,new AssetImage(){
+                {
+                    setPath("wizard/wizard_front_2.png");
+                    setType(ImageType.wizardFront2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.wizardBack,new AssetImage(){
+                {
+                    setPath("wizard/wizard_back.png");
+                    setType(ImageType.wizardBack);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.wizardBack1,new AssetImage(){
+                {
+                    setPath("wizard/wizard_back_1.png");
+                    setType(ImageType.wizardBack1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.wizardBack2,new AssetImage(){
+                {
+                    setPath("wizard/wizard_back_2.png");
+                    setType(ImageType.wizardBack2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+                        
+            put(ImageType.wizardLeft,new AssetImage(){
+                {
+                    setPath("wizard/wizard_left.png");
+                    setType(ImageType.wizardLeft);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.wizardLeft1,new AssetImage(){
+                {
+                    setPath("wizard/wizard_left_1.png");
+                    setType(ImageType.wizardLeft1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.wizardLeft2,new AssetImage(){
+                {
+                    setPath("wizard/wizard_left_2.png");
+                    setType(ImageType.wizardLeft2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.wizardRight,new AssetImage(){
+                {
+                    setPath("wizard/wizard_right.png");
+                    setType(ImageType.wizardRight);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.wizardRight1,new AssetImage(){
+                {
+                    setPath("wizard/wizard_right_1.png");
+                    setType(ImageType.wizardRight1);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.wizardRight2,new AssetImage(){
+                {
+                    setPath("wizard/wizard_right_2.png");
+                    setType(ImageType.wizardRight2);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
         }
     };
 

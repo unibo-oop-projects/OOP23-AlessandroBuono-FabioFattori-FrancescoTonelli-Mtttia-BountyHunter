@@ -2,6 +2,7 @@ package buontyhunter.core;
 
 import buontyhunter.input.*;
 import buontyhunter.model.*;
+import buontyhunter.model.AI.enemySpawner.EnemyType;
 import buontyhunter.physics.*;
 import buontyhunter.weaponClasses.Weapon;
 import buontyhunter.common.*;
@@ -94,7 +95,7 @@ public class GameFactory {
         return new EnemyEntity(GameObjectType.Enemy, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                 new EnemyInputController(), new EnemyGraphicsComponent(), new EnemyPhysicsComponent(),
-                health, health, weapon, enemyIdentifier);
+                health, health, weapon, enemyIdentifier, EnemyType.SWORD);
     }
 
     /**
