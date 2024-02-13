@@ -313,6 +313,8 @@ public class SwingGraphics implements Graphics {
 		});
 	}
 
+
+	
 	private void outWeapon (int x, int y, int width, int height){
 		g2.setColor(Color.blue);
 		g2.fillRect(x, y, width, height);
