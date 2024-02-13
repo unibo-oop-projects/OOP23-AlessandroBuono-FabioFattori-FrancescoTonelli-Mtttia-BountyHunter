@@ -96,7 +96,7 @@ public class SwingGraphics implements Graphics {
 		int i = 0, j = 0;
 		for (int y = firstY; y < lastY; y++) {
 			i = 0;
-			for (int x = firstX; x < lastX; x++) {
+			for (int x = firstX; x < lastX; x++) {	
 				Point2d tilePos = new Point2d(i - offsetX, j - offsetY);
 				try {
 					var image = tiles.get(y).get(x).getImage();
@@ -111,11 +111,6 @@ public class SwingGraphics implements Graphics {
 			}
 			j++;
 		}
-	}
-
-	private int validateCoordinateMiniMap(int computedProps, Predicate<Integer> acceptor,
-			Function<Integer, Integer> getCorrectValue) {
-		return (acceptor.test(computedProps)) ? computedProps : getCorrectValue.apply(computedProps);
 	}
 
 	private int getMaxY(List<List<Tile>> tiles) {
@@ -139,39 +134,24 @@ public class SwingGraphics implements Graphics {
 
 		Point2d tilePos = new Point2d(1, 1);
 
-		var propsX = validateCoordinateMiniMap(this.resizator.getWINDOW_WIDTH() / (lastX),
-				(computedValue) -> !(getXinPixel(tilePos) + (lastY - 1) * computedValue >= this.resizator.getWINDOW_WIDTH()),
-				(computedProps) -> {
+		
 
-					while (getXinPixel(tilePos) + (lastY - 1) * computedProps >= this.resizator.getWINDOW_WIDTH()) {
-						computedProps--;
-					}
-					computedProps--;
-					return (computedProps <= 0) ? 1 : computedProps;
-				});
-		var propsY = validateCoordinateMiniMap(this.resizator.getWINDOW_HEIGHT() / (lastY),
-				(computedValue) -> !(getYinPixel(tilePos) + (lastX - 1) * computedValue >= this.resizator.getWINDOW_HEIGHT()),
-				(computedProps) -> {
-					while (getYinPixel(tilePos) + (lastX - 1) * computedProps >= this.resizator.getWINDOW_HEIGHT()) {
-						computedProps--;
-					}
-					computedProps--;
-					return (computedProps <= 0) ? 1 : computedProps;
-				});
+		int propsX = this.resizator.getWINDOW_WIDTH() / (lastX);
+		int propsY = this.resizator.getWINDOW_HEIGHT() / (lastY);
 
 		g2.drawImage(assetManager.getImage(ImageType.MAPBG), firstX + mapShowOffSetY, firstY + mapShowOffSetX,
-				getXinPixel(tilePos) + mapShowOffSetY * 2 + lastX * propsX,
-				getYinPixel(tilePos) + mapShowOffSetX * 2 + lastY * propsY, null);
+				(getXinPixel(tilePos) + mapShowOffSetY * 2 + lastX * propsX),
+				(getYinPixel(tilePos) + mapShowOffSetX * 2 + lastY * propsY), null);
 		for (int x = firstX; x < lastX; x++) {
 			for (int y = firstY; y < lastY; y++) {
 
 				try {
 					g2.setColor(getTileColor(tiles.get(x).get(y).getType()));
-					g2.fillRect(getXinPixel(tilePos) + mapShowOffSetY + y * propsX,
-							getYinPixel(tilePos) + mapShowOffSetX + x * propsY, propsX, propsY);
+					g2.fillRect((getXinPixel(tilePos) + mapShowOffSetY + y * propsX),
+							(getYinPixel(tilePos) + mapShowOffSetX + x * propsY), propsX, propsY);
 				} catch (Exception ex) {
 					System.out.println(ex.getMessage());
-					System.out.println("we're fucked up");
+					System.out.println("minimap error");
 				}
 
 			}

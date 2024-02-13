@@ -48,7 +48,11 @@ public class EnemyRegistryImpl implements EnemyRegistry {
     @Override
     public void generateEnemy(World w) {
         if (spawnActive) {
+            
             enemySpawner.spawn(w);
+        }
+        else {
+            AppLogger.getLogger().log("spawning is disabled", LogType.MODEL);
         }
     }
 
@@ -57,7 +61,7 @@ public class EnemyRegistryImpl implements EnemyRegistry {
         this.spawnActive = false;
     }
 
-    public void enableEnemies(int id) {
+    public void enableEnemies() {
         this.spawnActive = true;
     }
 

@@ -88,15 +88,16 @@ public class GameEngine implements WorldEventListener {
             // if the map is not showing, the player can move
             if (!gameState.getWorld().getMiniMap().isShow()) {
                 gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
+                gameState.getWorld().processAiInput(controller);
             }
 
             gameState.getWorld().getMiniMap().updateInput(controller, gameState.getWorld());
         } else {
             gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
+            gameState.getWorld().processAiInput(controller);
         }
         gameState.getWorld().getQuestJournal().updateInput(controller, gameState.getWorld());
         gameState.getWorld().getInterractableAreas().forEach(area -> area.updateInput(controller));
-        gameState.getWorld().processAiInput(controller);
     }
 
     /**
@@ -119,12 +120,11 @@ public class GameEngine implements WorldEventListener {
             if (ev instanceof ChangeWorldEvent) {
                 gameState.setWorld(((ChangeWorldEvent) ev).getNewWorld());
                 gameState.getWorld().setEventListener(this);
-                this.view.dispose();
                 controller.reset();
                 if (((ChangeWorldEvent) ev).getNewWorld().getTeleporter().getMapIdOfDestination() == 0) { // hub
-                    this.view = new SwingScene(gameState, controller, true);
+                    this.view.setIsHub(true);
                 } else {
-                    this.view = new SwingScene(gameState, controller, false);
+                    this.view.setIsHub(false);
                 }
 
             }
@@ -152,6 +152,4 @@ public class GameEngine implements WorldEventListener {
     public void notifyEvent(WorldEvent ev) {
         eventQueue.add(ev);
     }
-
-    
 }

@@ -29,11 +29,13 @@ public class SwingScene implements Scene , ComponentListener {
 	protected KeyboardInputController controller;
 	protected GameState gameState;
 	private boolean switchScene = false;
-	private final boolean IsHub;
+	private boolean IsHub;
 	private final List<JButton> buttons = new ArrayList<>();
+	protected final SwingAssetProvider assetManager;
 
 	public SwingScene(GameState gameState, KeyboardInputController controller, boolean IsHub) {
 
+		this.assetManager = new SwingAssetProvider();
 		this.gameState = gameState;
 		this.IsHub = IsHub;
 		frame = new JFrame("Bounty Hunter - the official game");
@@ -55,9 +57,9 @@ public class SwingScene implements Scene , ComponentListener {
 			});
 		}
 		frame.setMinimumSize(new Dimension(gameState.getResizator().getWINDOW_WIDTH(), gameState.getResizator().getWINDOW_HEIGHT()));
-		panel = new ScenePanel(gameState.getResizator().getWINDOW_WIDTH(), gameState.getResizator().getWINDOW_HEIGHT(), Resizator.WORLD_WIDTH,
-		Resizator.WORLD_HEIGHT);
-		frame.setSize(frame.getMinimumSize());
+		panel = new ScenePanel(gameState.getResizator().getWINDOW_WIDTH(), gameState.getResizator().getWINDOW_HEIGHT(), GameEngine.resizator.getWORLD_WIDTH(),
+		GameEngine.resizator.getWORLD_HEIGHT());
+		frame.setSize(panel.getSize());
 		frame.setResizable(true);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -73,6 +75,22 @@ public class SwingScene implements Scene , ComponentListener {
 		frame.add(panel, BorderLayout.CENTER);
 		frame.pack();
 		frame.setVisible(true);
+	}
+
+	public void setIsHub(boolean isHub) {
+		this.IsHub = isHub;
+		if(isHub){
+			getQuestPannel().getQuests().forEach(q -> {
+				JButton button = new JButton();
+				button.addActionListener(e1 -> {
+					q.start((PlayerEntity) gameState.getWorld().getPlayer());
+					frame.repaint();
+				});
+				buttons.add(button);
+			});		
+		}else{
+			buttons.clear();
+		}
 	}
 
 	public void render() {
@@ -105,14 +123,11 @@ public class SwingScene implements Scene , ComponentListener {
 		protected double ratioX;
 		protected double ratioY;
 		protected Font scoreFont, gameOverFont;
-		protected final SwingAssetProvider assetManager;
 
 		public ScenePanel(int w, int h, double width, double height) {
 			setSize(w, h);
-			centerX = w / 2;
-			centerY = h / 2;
-			ratioX = w / width;
-			ratioY = h / height;
+			ratioX = GameEngine.resizator.getRATIO_WIDTH();
+			ratioY = GameEngine.resizator.getRATIO_HEIGHT();
 
 			scoreFont = new Font("Verdana", Font.PLAIN, 36);
 			gameOverFont = new Font("Verdana", Font.PLAIN, 88);
@@ -121,7 +136,14 @@ public class SwingScene implements Scene , ComponentListener {
 			setFocusable(true);
 			setFocusTraversalKeysEnabled(false);
 			requestFocusInWindow();
-			this.assetManager = new SwingAssetProvider();
+		}
+
+		public void setRatioX(double ratioX) {
+			this.ratioX = ratioX;
+		}
+
+		public void setRatioY(double ratioY) {
+			this.ratioY = ratioY;
 		}
 
 		public void paintComponent(Graphics g) {
@@ -138,7 +160,7 @@ public class SwingScene implements Scene , ComponentListener {
 				/* drawing the score */
 				g2.setFont(gameOverFont);
 				g2.setColor(Color.BLACK);
-				g2.drawString("GAME OVER ", 30, centerY - 50);
+				
 				g2.setFont(scoreFont);
 				g2.setColor(Color.GREEN);
 
@@ -183,7 +205,6 @@ public class SwingScene implements Scene , ComponentListener {
 								gr.drawQuest((QuestEntity) q, x + offsetX, y, unit, button);
 								this.add(button, BorderLayout.CENTER);
 							});
-					frame.pack();
 				}
 			}
 		}
@@ -297,10 +318,14 @@ public class SwingScene implements Scene , ComponentListener {
 	public void componentResized(ComponentEvent e) {
 		
 		var dim = frame.getSize();
-		System.out.println("width: " + dim.getWidth()  + " height: " + dim.getHeight());
-		GameEngine.resizator.needToResize( (double)dim.getWidth() / Resizator.WORLD_WIDTH, (double)dim.getHeight() / Resizator.WORLD_HEIGHT);
+		GameEngine.resizator.needToResize(dim);
 		ImagePathProvider.resizeAssets();
-		this.gameState.getWorld().getTileManager().loadMap(0);
+		this.assetManager.loadAllAssets();
+		
+		 this.panel.setSize(dim);
+		 this.panel.setRatioX((int)GameEngine.resizator.getRATIO_WIDTH());
+		 this.panel.setRatioY((int)GameEngine.resizator.getRATIO_HEIGHT());
+		
 	}
 
 	@Override

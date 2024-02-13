@@ -64,8 +64,8 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getWINDOW_HEIGHT());
                 }
             });
-            //put all the new images 
-            put(ImageType.HUBAllPath,new AssetImage(){
+            // put all the new images
+            put(ImageType.HUBAllPath, new AssetImage() {
                 {
                     setPath("allPath.png");
                     setType(ImageType.HUBAllPath);
@@ -73,7 +73,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.HUBEarth,new AssetImage(){
+            put(ImageType.HUBEarth, new AssetImage() {
                 {
                     setPath("HubEarth.png");
                     setType(ImageType.HUBEarth);
@@ -81,7 +81,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.HubMiddleTopRoof,new AssetImage(){
+            put(ImageType.HubMiddleTopRoof, new AssetImage() {
                 {
                     setPath("middleTopRoof.png");
                     setType(ImageType.HubMiddleTopRoof);
@@ -89,7 +89,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.HubLeftSideTopRoof,new AssetImage(){
+            put(ImageType.HubLeftSideTopRoof, new AssetImage() {
                 {
                     setPath("LeftSideTopRoof.png");
                     setType(ImageType.HubLeftSideTopRoof);
@@ -97,7 +97,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.HubRightSideTopRoof,new AssetImage(){
+            put(ImageType.HubRightSideTopRoof, new AssetImage() {
                 {
                     setPath("RightSideTopRoof.png");
                     setType(ImageType.HubRightSideTopRoof);
@@ -105,7 +105,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.LeftSideRoof,new AssetImage(){
+            put(ImageType.LeftSideRoof, new AssetImage() {
                 {
                     setPath("LeftSideRoof.png");
                     setType(ImageType.LeftSideRoof);
@@ -113,7 +113,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.MidleRoof,new AssetImage(){
+            put(ImageType.MidleRoof, new AssetImage() {
                 {
                     setPath("MiddleRoof.png");
                     setType(ImageType.MidleRoof);
@@ -121,7 +121,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.RightSideRoof,new AssetImage(){
+            put(ImageType.RightSideRoof, new AssetImage() {
                 {
                     setPath("RightSideRoof.png");
                     setType(ImageType.RightSideRoof);
@@ -129,7 +129,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.pathParticles,new AssetImage(){
+            put(ImageType.pathParticles, new AssetImage() {
                 {
                     setPath("pathParticles.png");
                     setType(ImageType.pathParticles);
@@ -137,7 +137,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.pathPattern1,new AssetImage(){
+            put(ImageType.pathPattern1, new AssetImage() {
                 {
                     setPath("pathPattern1.png");
                     setType(ImageType.pathPattern1);
@@ -145,7 +145,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.houseFace1,new AssetImage(){
+            put(ImageType.houseFace1, new AssetImage() {
                 {
                     setPath("houseFace1.png");
                     setType(ImageType.houseFace1);
@@ -153,7 +153,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.houseFace2,new AssetImage(){
+            put(ImageType.houseFace2, new AssetImage() {
                 {
                     setPath("houseFace2.png");
                     setType(ImageType.houseFace2);
@@ -161,7 +161,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.houseFace3,new AssetImage(){
+            put(ImageType.houseFace3, new AssetImage() {
                 {
                     setPath("houseFace3.png");
                     setType(ImageType.houseFace3);
@@ -169,7 +169,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.houseFace4,new AssetImage(){
+            put(ImageType.houseFace4, new AssetImage() {
                 {
                     setPath("houseFace4.png");
                     setType(ImageType.houseFace4);
@@ -177,7 +177,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.houseFace5,new AssetImage(){
+            put(ImageType.houseFace5, new AssetImage() {
                 {
                     setPath("houseFace5.png");
                     setType(ImageType.houseFace5);
@@ -185,7 +185,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.houseFace6,new AssetImage(){
+            put(ImageType.houseFace6, new AssetImage() {
                 {
                     setPath("houseFace6.png");
                     setType(ImageType.houseFace6);
@@ -193,7 +193,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.houseFace7,new AssetImage(){
+            put(ImageType.houseFace7, new AssetImage() {
                 {
                     setPath("houseFace7.png");
                     setType(ImageType.houseFace7);
@@ -201,7 +201,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.houseFace8,new AssetImage(){
+            put(ImageType.houseFace8, new AssetImage() {
                 {
                     setPath("houseFace8.png");
                     setType(ImageType.houseFace8);
@@ -209,7 +209,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.houseFace9,new AssetImage(){
+            put(ImageType.houseFace9, new AssetImage() {
                 {
                     setPath("houseFace9.png");
                     setType(ImageType.houseFace9);
@@ -217,7 +217,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.houseFace10,new AssetImage(){
+            put(ImageType.houseFace10, new AssetImage() {
                 {
                     setPath("houseFace10.png");
                     setType(ImageType.houseFace10);
@@ -225,7 +225,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.houseFace11,new AssetImage(){
+            put(ImageType.houseFace11, new AssetImage() {
                 {
                     setPath("houseFace11.png");
                     setType(ImageType.houseFace11);
@@ -233,7 +233,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.Cespuglio,new AssetImage(){
+            put(ImageType.Cespuglio, new AssetImage() {
                 {
                     setPath("Cespuglio.png");
                     setType(ImageType.Cespuglio);
@@ -241,7 +241,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.middleQuestTable,new AssetImage(){
+            put(ImageType.middleQuestTable, new AssetImage() {
                 {
                     setPath("middleQuestTable.png");
                     setType(ImageType.middleQuestTable);
@@ -249,7 +249,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.middleQuestTable2,new AssetImage(){
+            put(ImageType.middleQuestTable2, new AssetImage() {
                 {
                     setPath("middleQuestTable2.png");
                     setType(ImageType.middleQuestTable2);
@@ -257,7 +257,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.middleQuestTable3,new AssetImage(){
+            put(ImageType.middleQuestTable3, new AssetImage() {
                 {
                     setPath("middleQuestTable3.png");
                     setType(ImageType.middleQuestTable3);
@@ -265,7 +265,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.middleQuestTable4,new AssetImage(){
+            put(ImageType.middleQuestTable4, new AssetImage() {
                 {
                     setPath("middleQuestTable4.png");
                     setType(ImageType.middleQuestTable4);
@@ -273,7 +273,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.staccionata,new AssetImage(){
+            put(ImageType.staccionata, new AssetImage() {
                 {
                     setPath("staccionata.png");
                     setType(ImageType.staccionata);
@@ -281,7 +281,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.topQuestTable1,new AssetImage(){
+            put(ImageType.topQuestTable1, new AssetImage() {
                 {
                     setPath("topQuestTable1.png");
                     setType(ImageType.topQuestTable1);
@@ -289,7 +289,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.topQuestTable2,new AssetImage(){
+            put(ImageType.topQuestTable2, new AssetImage() {
                 {
                     setPath("topQuestTable2.png");
                     setType(ImageType.topQuestTable2);
@@ -297,7 +297,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.topQuestTable3,new AssetImage(){
+            put(ImageType.topQuestTable3, new AssetImage() {
                 {
                     setPath("topQuestTable3.png");
                     setType(ImageType.topQuestTable3);
@@ -305,7 +305,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.topQuestTable4,new AssetImage(){
+            put(ImageType.topQuestTable4, new AssetImage() {
                 {
                     setPath("topQuestTable4.png");
                     setType(ImageType.topQuestTable4);
@@ -313,7 +313,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.cespuglio2,new AssetImage(){
+            put(ImageType.cespuglio2, new AssetImage() {
                 {
                     setPath("cespuglio2.png");
                     setType(ImageType.cespuglio2);
@@ -321,7 +321,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.pathPattern2,new AssetImage(){
+            put(ImageType.pathPattern2, new AssetImage() {
                 {
                     setPath("pathPattern2.png");
                     setType(ImageType.pathPattern2);
@@ -329,7 +329,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.pathPattern3,new AssetImage(){
+            put(ImageType.pathPattern3, new AssetImage() {
                 {
                     setPath("pathPattern3.png");
                     setType(ImageType.pathPattern3);
@@ -337,7 +337,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.pathPattern4,new AssetImage(){
+            put(ImageType.pathPattern4, new AssetImage() {
                 {
                     setPath("pathPattern4.png");
                     setType(ImageType.pathPattern4);
@@ -345,7 +345,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.pathPattern5,new AssetImage(){
+            put(ImageType.pathPattern5, new AssetImage() {
                 {
                     setPath("pathPattern5.png");
                     setType(ImageType.pathPattern5);
@@ -353,7 +353,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.pathPattern6,new AssetImage(){
+            put(ImageType.pathPattern6, new AssetImage() {
                 {
                     setPath("pathPattern6.png");
                     setType(ImageType.pathPattern6);
@@ -361,7 +361,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.BottomQuestTable2,new AssetImage(){
+            put(ImageType.BottomQuestTable2, new AssetImage() {
                 {
                     setPath("BottomQuestTable2.png");
                     setType(ImageType.BottomQuestTable2);
@@ -369,7 +369,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.BottomQuestTable3,new AssetImage(){
+            put(ImageType.BottomQuestTable3, new AssetImage() {
                 {
                     setPath("BottomQuestTable3.png");
                     setType(ImageType.BottomQuestTable3);
@@ -377,7 +377,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.BottomQuestTable4,new AssetImage(){
+            put(ImageType.BottomQuestTable4, new AssetImage() {
                 {
                     setPath("BottomQuestTable4.png");
                     setType(ImageType.BottomQuestTable4);
@@ -385,7 +385,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.BottomQuestTable1,new AssetImage(){
+            put(ImageType.BottomQuestTable1, new AssetImage() {
                 {
                     setPath("BottomQuestTable1.png");
                     setType(ImageType.BottomQuestTable1);
@@ -393,7 +393,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.BottomStaccionata,new AssetImage(){
+            put(ImageType.BottomStaccionata, new AssetImage() {
                 {
                     setPath("BottomStaccionata.png");
                     setType(ImageType.BottomStaccionata);
@@ -401,7 +401,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.cespuglio3,new AssetImage(){
+            put(ImageType.cespuglio3, new AssetImage() {
                 {
                     setPath("cespuglio3.png");
                     setType(ImageType.cespuglio3);
@@ -409,7 +409,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.topCespuglio1,new AssetImage(){
+            put(ImageType.topCespuglio1, new AssetImage() {
                 {
                     setPath("topCespuglio1.png");
                     setType(ImageType.topCespuglio1);
@@ -417,7 +417,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.pathPattern7,new AssetImage(){
+            put(ImageType.pathPattern7, new AssetImage() {
                 {
                     setPath("pathPattern7.png");
                     setType(ImageType.pathPattern7);
@@ -425,7 +425,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.pathPattern8,new AssetImage(){
+            put(ImageType.pathPattern8, new AssetImage() {
                 {
                     setPath("pathPattern8.png");
                     setType(ImageType.pathPattern8);
@@ -433,7 +433,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.pathPattern9,new AssetImage(){
+            put(ImageType.pathPattern9, new AssetImage() {
                 {
                     setPath("pathPattern9.png");
                     setType(ImageType.pathPattern9);
@@ -441,7 +441,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.pathPattern10,new AssetImage(){
+            put(ImageType.pathPattern10, new AssetImage() {
                 {
                     setPath("pathPattern10.png");
                     setType(ImageType.pathPattern10);
@@ -454,8 +454,13 @@ public class ImagePathProvider {
 
     public static void resizeAssets() {
         imagePaths.forEach((k, v) -> {
-            v.setHeight(GameEngine.resizator.getRATIO_HEIGHT());
-            v.setWidth(GameEngine.resizator.getRATIO_WIDTH());
+            if (v.getType() == ImageType.MAPBG) {
+                v.setHeight(GameEngine.resizator.getWINDOW_HEIGHT());
+                v.setWidth(GameEngine.resizator.getWINDOW_WIDTH());
+            } else {
+                v.setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                v.setWidth(GameEngine.resizator.getRATIO_WIDTH());
+            }
         });
     }
 }

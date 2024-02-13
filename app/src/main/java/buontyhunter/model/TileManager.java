@@ -9,6 +9,7 @@ import buontyhunter.common.FileProvider;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
+import buontyhunter.core.GameEngine;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
@@ -81,8 +82,15 @@ public class TileManager extends GameObject {
         }
 
         var bbox = new RectBoundingBox(new Point2d(0, 0), height, width);
+        if(GameEngine.resizator.getWORLD_WIDTH() > tiles.get(0).size()){
+            GameEngine.resizator.setWORLD_WIDTH(tiles.get(0).size());
+        }
+        if (GameEngine.resizator.getWORLD_HEIGHT() > tiles.size()) {
+            GameEngine.resizator.setWORLD_HEIGHT(tiles.size());
+        }
         setBBox(bbox);
-        return bbox;
+
+            return bbox;
     }
 
     private ImageType resolveTyleToImageType(TileType tileType) {

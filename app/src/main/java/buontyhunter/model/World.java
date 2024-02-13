@@ -147,13 +147,14 @@ public class World {
             entities.add(healthBar);
         if (tp != null)
             entities.add(tp);
+            for (var enemy : getEnemies()) {
+                entities.add(enemy);
+            }
         if (miniMap != null)
             entities.add(miniMap);
         if (questJournal != null)
             entities.add(questJournal);
-        for (var enemy : getEnemies()) {
-            entities.add(enemy);
-        }
+        
 
         this.interractableAreas.forEach(area -> entities.add(area));
         return entities;

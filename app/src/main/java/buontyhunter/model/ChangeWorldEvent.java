@@ -17,11 +17,12 @@ public class ChangeWorldEvent implements WorldEvent {
             // creo il word dell'hub
             this.newWorldToSet.setTileManager(f.createTileManager(), newMapId);
             oldWorld.getPlayer().setPos(GameEngine.HUB_PLAYER_START);
-            this.newWorldToSet.setPlayer(oldWorld.getPlayer());
+            this.newWorldToSet.setPlayer(oldWorld.getPlayer()); 
             this.newWorldToSet
                     .setTeleporter(f.createTeleporterToOpenWorld());
             this.newWorldToSet.addInterractableArea(f.createQuestPannelForHub(new Point2d(7, 5)));
             this.newWorldToSet.setQuestJournal(f.createQuestJournal());
+            this.newWorldToSet.disableEnemies();
             return;
         } else if (oldWorld.getTeleporter().destination == DestinationOfTeleporterType.OpenWorld) {
             this.newWorldToSet = new World(new RectBoundingBox(new Point2d(0, 0), 20, 18));

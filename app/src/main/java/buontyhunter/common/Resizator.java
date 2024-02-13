@@ -2,11 +2,12 @@ package buontyhunter.common;
 
 import java.awt.Toolkit;
 import java.util.List;
+import java.awt.Dimension;
 
 public class Resizator {
-    public static final int WORLD_WIDTH = 15;
-    public static final int WORLD_HEIGHT = 15;
-    private double X_WINDOW_RATIO = 0.8;
+    private int WORLD_WIDTH = 14;
+    private int WORLD_HEIGHT = 14;
+    private double x_WINDOW_RATIO = 0.8;
     private double y_WINDOW_RATIO = 0.8;
     private int WINDOW_WIDTH;
     private int WINDOW_HEIGHT;
@@ -28,6 +29,30 @@ public class Resizator {
         return WINDOW_HEIGHT;
     }
 
+    public int getWORLD_WIDTH() {
+        return WORLD_WIDTH;
+    }
+
+    public int getWORLD_HEIGHT() {
+        return WORLD_HEIGHT;
+    }
+
+    public double getX_WINDOW_RATIO() {
+        return x_WINDOW_RATIO;
+    }
+
+    public double getY_WINDOW_RATIO() {
+        return y_WINDOW_RATIO;
+    }
+
+    public void setWORLD_WIDTH(int WORLD_WIDTH) {
+        this.WORLD_WIDTH = WORLD_WIDTH;
+    }
+
+    public void setWORLD_HEIGHT(int WORLD_HEIGHT) {
+        this.WORLD_HEIGHT = WORLD_HEIGHT;
+    }
+
     public double getRATIO_WIDTH() {
         return RATIO_WIDTH;
     }
@@ -36,26 +61,22 @@ public class Resizator {
         return RATIO_HEIGHT;
     }
 
-    private double setX_WINDOW_RATIO(double x_WINDOW_RATIO) {
-        return this.X_WINDOW_RATIO = x_WINDOW_RATIO;
-    }
+    public void needToResize(Dimension dim) {
+        var newWidth = dim.getWidth();
+        var newHeight = dim.getHeight();
 
-    private double setY_WINDOW_RATIO(double y_WINDOW_RATIO) {
-        return this.y_WINDOW_RATIO = y_WINDOW_RATIO;
-    }
+        var minDim = newHeight < newWidth ? newHeight : newWidth;
 
-    public void needToResize(double x_WINDOW_RATIO, double y_WINDOW_RATIO) {
-        setX_WINDOW_RATIO(x_WINDOW_RATIO);
-        setY_WINDOW_RATIO(y_WINDOW_RATIO);
-        this.WINDOW_WIDTH = calculateTheWindowWidthAndHeight();
-        this.WINDOW_HEIGHT = WINDOW_WIDTH;
-        this.RATIO_WIDTH = (double) WINDOW_WIDTH / WORLD_WIDTH;
-        this.RATIO_HEIGHT = (double) WINDOW_HEIGHT / WORLD_HEIGHT;
+        this.RATIO_WIDTH = minDim / WORLD_WIDTH;
+        this.RATIO_HEIGHT = minDim / WORLD_HEIGHT;
+        this.WINDOW_WIDTH = (int) minDim;
+        this.WINDOW_HEIGHT = (int) minDim;
+        
     }
 
     private int calculateTheWindowWidthAndHeight() {
         var dim = Toolkit.getDefaultToolkit().getScreenSize();
-        int halfScreenWidth = (int) Math.round(dim.getWidth() * X_WINDOW_RATIO);
+        int halfScreenWidth = (int) Math.round(dim.getWidth() * x_WINDOW_RATIO);
         int halfScreenHeight = (int) Math.round(dim.getHeight() * y_WINDOW_RATIO);
         var minValue = List.of(Integer.valueOf(halfScreenHeight), Integer.valueOf(halfScreenWidth)).stream()
                 .min((Integer a, Integer b) -> {

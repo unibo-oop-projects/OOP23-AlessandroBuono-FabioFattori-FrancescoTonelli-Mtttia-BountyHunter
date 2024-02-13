@@ -3,6 +3,7 @@ package buontyhunter.graphics;
 import java.util.Optional;
 
 import buontyhunter.core.GameEngine;
+import buontyhunter.common.DestinationOfTeleporterType;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Resizator;
 import buontyhunter.model.GameObject;
@@ -26,11 +27,11 @@ public class Camera implements SceneCamera {
     }
 
     private double getHalfWidth() {
-        return Resizator.WORLD_WIDTH / 2;
+        return GameEngine.resizator.getWORLD_WIDTH() / 2;
     }
 
     private double getHalfHeight() {
-        return Resizator.WORLD_HEIGHT / 2;
+        return GameEngine.resizator.getWORLD_HEIGHT() / 2;
     }
 
     @Override
@@ -72,18 +73,23 @@ public class Camera implements SceneCamera {
         double playerY = playerYInCenter ? halfHeight : (pos.y < halfHeight ? pos.y : (pos.y - tmpY) + halfHeight);
         playerPoint = new Point2d(playerX, playerY);
 
-        
-            firstTileX = playerXInCenter ? (int) Math.floor(pos.x - halfWidth)
-                    : (int) (pos.x < halfWidth ? 0 : Math.floor(bbox.getWidth() - 2 * halfWidth));
-            firstTileY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight)
-                    : (pos.y < halfHeight ? 0 : (int) Math.floor(bbox.getHeight() - Resizator.WORLD_HEIGHT));
-            tileOffsetX = playerXInCenter ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
-            tileOffsetY = playerYInCenter ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;
-            lastTileX = tileOffsetX > 0 ? firstTileX + (int) Math.round(Resizator.WORLD_WIDTH) + 1
-                    : firstTileX + (int) (Math.round(Resizator.WORLD_WIDTH));
-            lastTileY = tileOffsetY > 0 ? firstTileY + (int) Math.round(Resizator.WORLD_HEIGHT) + 1
-                    : firstTileY + (int) Math.round(Resizator.WORLD_HEIGHT);
-        
+        firstTileX = playerXInCenter ? (int) Math.floor(pos.x - halfWidth)
+                : (int) (pos.x < halfWidth ? 0 : Math.floor(bbox.getWidth() - 2 * halfWidth));
+        firstTileY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight)
+                : (pos.y < halfHeight ? 0
+                        : (int) Math.floor(bbox.getHeight() - GameEngine.resizator.getWORLD_HEIGHT()));
+        tileOffsetX = playerXInCenter ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
+        tileOffsetY = playerYInCenter ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;
+        if (world.getTeleporter().destination == DestinationOfTeleporterType.HUB) {
+            lastTileX = tileOffsetX > 0 ? firstTileX + (int) Math.round(GameEngine.resizator.getWORLD_WIDTH()) + 1
+                    : firstTileX + (int) (Math.round(GameEngine.resizator.getWORLD_WIDTH()));
+            lastTileY = tileOffsetY > 0 ? firstTileY + (int) Math.round(GameEngine.resizator.getWORLD_HEIGHT()) + 1
+                    : firstTileY + (int) Math.round(GameEngine.resizator.getWORLD_HEIGHT());
+        } else {
+            lastTileX = world.getTileManager().getTiles().size();
+            lastTileY = world.getTileManager().getTiles().size();
+
+        }
     }
 
     @Override

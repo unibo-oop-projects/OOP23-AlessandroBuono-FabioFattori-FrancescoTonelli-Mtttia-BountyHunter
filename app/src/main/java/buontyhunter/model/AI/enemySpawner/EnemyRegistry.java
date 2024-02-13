@@ -17,4 +17,8 @@ public interface EnemyRegistry {
     void removeEnemy(int id);
 
     void generateEnemy(World w);
+
+    void disableEnemies();
+
+    void enableEnemies();
 }

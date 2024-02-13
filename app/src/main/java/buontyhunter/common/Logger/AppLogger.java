@@ -21,9 +21,9 @@ public class AppLogger implements Logger {
     private final Map<LogType, Boolean> logEnabled = new HashMap<>();
 
     public AppLogger() {
-        logEnabled.put(LogType.CORE, false);
+        logEnabled.put(LogType.CORE, true);
         logEnabled.put(LogType.GRAPHICS, false);
-        logEnabled.put(LogType.MODEL, true);
+        logEnabled.put(LogType.MODEL, false);
 
         if (AppLogger.DEFAULT_LOG_ENABLED) {
             defaultLogger.enableLog();

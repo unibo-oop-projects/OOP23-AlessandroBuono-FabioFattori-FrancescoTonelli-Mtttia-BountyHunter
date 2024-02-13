@@ -6,5 +6,7 @@ public interface Scene {
 
 	void renderGameOver();
 
+	void setIsHub(boolean isHub);
+
 	void dispose();
 }
