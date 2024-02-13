@@ -451,4 +451,11 @@ public class ImagePathProvider {
             });
         }
     };
+
+    public static void resizeAssets() {
+        imagePaths.forEach((k, v) -> {
+            v.setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+            v.setWidth(GameEngine.resizator.getRATIO_WIDTH());
+        });
+    }
 }

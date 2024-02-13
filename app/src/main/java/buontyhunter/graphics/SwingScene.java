@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 import javax.swing.*;
+
+import buontyhunter.common.ImagePathProvider;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Resizator;
 import buontyhunter.core.GameEngine;
@@ -294,9 +296,10 @@ public class SwingScene implements Scene , ComponentListener {
 	@Override
 	public void componentResized(ComponentEvent e) {
 		
-		var dim = Toolkit.getDefaultToolkit().getScreenSize();
-		System.out.println("width: " + dim.getWidth() /Resizator.WORLD_WIDTH + " height: " + dim.getHeight() / Resizator.WORLD_HEIGHT);
-		GameEngine.resizator.needToResize( dim.getWidth() /Resizator.WORLD_WIDTH, dim.getHeight() / Resizator.WORLD_HEIGHT);
+		var dim = frame.getSize();
+		System.out.println("width: " + dim.getWidth()  + " height: " + dim.getHeight());
+		GameEngine.resizator.needToResize( (double)dim.getWidth() / Resizator.WORLD_WIDTH, (double)dim.getHeight() / Resizator.WORLD_HEIGHT);
+		ImagePathProvider.resizeAssets();
 		this.gameState.getWorld().getTileManager().loadMap(0);
 	}
 

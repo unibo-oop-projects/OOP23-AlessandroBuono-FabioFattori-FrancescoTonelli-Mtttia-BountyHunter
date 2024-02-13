@@ -4,8 +4,8 @@ import java.awt.Toolkit;
 import java.util.List;
 
 public class Resizator {
-    public static final int WORLD_WIDTH = 20;
-    public static final int WORLD_HEIGHT = 20;
+    public static final int WORLD_WIDTH = 15;
+    public static final int WORLD_HEIGHT = 15;
     private double X_WINDOW_RATIO = 0.8;
     private double y_WINDOW_RATIO = 0.8;
     private int WINDOW_WIDTH;
