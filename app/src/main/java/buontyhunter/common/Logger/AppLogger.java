@@ -22,7 +22,7 @@ public class AppLogger implements Logger {
 
     public AppLogger() {
         logEnabled.put(LogType.CORE, false);
-        logEnabled.put(LogType.GRAPHICS, true);
+        logEnabled.put(LogType.GRAPHICS, false);
         logEnabled.put(LogType.MODEL, true);
 
         if (AppLogger.DEFAULT_LOG_ENABLED) {
