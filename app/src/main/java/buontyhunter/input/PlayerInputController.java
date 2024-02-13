@@ -1,6 +1,7 @@
 package buontyhunter.input;
 
 import buontyhunter.common.Direction;
+import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.PlayerEntity;
@@ -49,6 +50,9 @@ public class PlayerInputController implements InputComponent {
 		player.setVel(vel);
 		var pos = player.getPos();
 
+		if(w.getTileManager().getTileFromPosition(pos.sum(vel)).get().isSolid()|| w.getTileManager().getTileFromPosition(pos.sum(vel.sum(vel))).get().isObstacle()){
+			return;
+		}
 		player.setPos(pos.sum(vel));
 	}
 

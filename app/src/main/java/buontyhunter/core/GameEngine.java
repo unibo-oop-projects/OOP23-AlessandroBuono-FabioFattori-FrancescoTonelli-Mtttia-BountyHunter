@@ -10,9 +10,6 @@ import buontyhunter.graphics.*;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 
-import java.util.List;
-import java.awt.Toolkit;
-
 public class GameEngine implements WorldEventListener {
 
     public static final Resizator resizator = new Resizator();

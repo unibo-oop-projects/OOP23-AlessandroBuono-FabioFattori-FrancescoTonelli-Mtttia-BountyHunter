@@ -67,10 +67,7 @@ public class TileManager extends GameObject {
                         || tileId == TileType.houseFace6
                         || tileId == TileType.houseFace7 || tileId == TileType.houseFace8
                         || tileId == TileType.houseFace9
-                        || tileId == TileType.houseFace10 || tileId == TileType.houseFace11
-                        || tileId == TileType.BottomQuestTable1
-                        || tileId == TileType.BottomQuestTable2 || tileId == TileType.BottomQuestTable3
-                        || tileId == TileType.BottomQuestTable4) {
+                        || tileId == TileType.houseFace10 || tileId == TileType.houseFace11) {
                     row.add(new Tile(resolveTyleToImageType(tileId), true, true, new Point2d(j, i), tileId));
                 } else if (tileId == TileType.water) {
                     row.add(new Tile(resolveTyleToImageType(tileId), false, true, new Point2d(j, i), tileId));

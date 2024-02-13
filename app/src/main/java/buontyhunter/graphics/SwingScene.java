@@ -112,8 +112,13 @@ public class SwingScene implements Scene , ComponentListener {
 	}
 
 	private QuestPannel getQuestPannel() {
-		return (QuestPannel) gameState.getWorld().getInterractableAreas().stream()
+		try {
+			return (QuestPannel) gameState.getWorld().getInterractableAreas().stream()
 				.filter(e -> e.getPanel() instanceof QuestPannel).findFirst().get().getPanel();
+		} catch (Exception e) {
+			throw new RuntimeException("QuestPannel not found"+gameState.getWorld().getInterractableAreas().stream()
+			.filter(pan -> pan.getPanel() instanceof QuestPannel).toString());
+		}
 	}
 
 	public class ScenePanel extends JPanel implements KeyListener {
