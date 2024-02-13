@@ -1,7 +1,7 @@
 package buontyhunter.model.AI.enemySpawner;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 import java.util.*;
 
 import buontyhunter.common.Point2d;
@@ -31,7 +31,7 @@ public class EnemyRegistryImpl implements EnemyRegistry {
 
     @Override
     public List<EnemyEntity> getEnemies() {
-        return enemies.values().stream().toList();
+        return enemies.values().stream().collect(Collectors.toList());
     }
 
     @Override

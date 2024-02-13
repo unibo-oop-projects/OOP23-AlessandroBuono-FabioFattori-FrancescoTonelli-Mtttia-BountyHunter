@@ -160,7 +160,7 @@ public class SwingGraphics implements Graphics {
 		var tileManager = w.getTileManager();
 		var tiles = tileManager.getTiles();
 
-		int mapShowOffSetX = 18;
+		int mapShowOffSetX = 15;
 		int mapShowOffSetY = 15;
 
 		var firstX = 0;
@@ -175,9 +175,9 @@ public class SwingGraphics implements Graphics {
 		int propsX = this.resizator.getWINDOW_WIDTH() / (lastX);
 		int propsY = this.resizator.getWINDOW_HEIGHT() / (lastY);
 
-		g2.drawImage(assetManager.getImage(ImageType.MAPBG), firstX + mapShowOffSetY, firstY + mapShowOffSetX,
-				(getXinPixel(tilePos) + mapShowOffSetY * 2 + lastX * propsX),
-				(getYinPixel(tilePos) + mapShowOffSetX * 2 + lastY * propsY), null);
+		g2.drawImage(assetManager.getImage(ImageType.MAPBG), firstX + mapShowOffSetX *2, firstY + mapShowOffSetY*2,
+				getXinPixel(tilePos) + lastX * propsX + mapShowOffSetX*2,
+				getYinPixel(tilePos) + lastY * propsY + mapShowOffSetY*2, null);
 		for (int x = firstX; x < lastX; x++) {
 			for (int y = firstY; y < lastY; y++) {
 
@@ -196,24 +196,24 @@ public class SwingGraphics implements Graphics {
 		var p = w.getPlayer();
 
 		g2.setColor(Color.RED);
-		g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(p.getPos().x) * propsX,
-				getYinPixel(tilePos) + (int) Math.floor(p.getPos().y) * propsY, propsX * playerSize,
+		g2.fillRect(getXinPixel(tilePos)+mapShowOffSetX + (int) Math.floor(p.getPos().x) * propsX,
+				getYinPixel(tilePos)+mapShowOffSetY + (int) Math.floor(p.getPos().y) * propsY, propsX * playerSize,
 				propsY * playerSize);
 
 		for (var enemy : w.getEnemies()) {
 
 			g2.setColor(Color.YELLOW);
-			g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(enemy.getPos().x) * propsX,
-					getYinPixel(tilePos) + (int) Math.floor(enemy.getPos().y) * propsY, propsX * playerSize,
+			g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(enemy.getPos().x) * propsX + mapShowOffSetX,
+					getYinPixel(tilePos) + mapShowOffSetY+ (int) Math.floor(enemy.getPos().y) * propsY, propsX * playerSize,
 					propsY * playerSize);
 		}
 
 		var navigatorLine = w.getNavigatorLine();
 		var pathStream = navigatorLine.getPath().stream();
-
-		g2.setColor(Color.ORANGE);
-		pathStream.forEach((Point2d np) -> g2.fillOval(getXinPixel(tilePos) + mapShowOffSetY + (int) np.x - 2,
-				getYinPixel(tilePos) + mapShowOffSetX + (int) np.y - 2, 5, 5));
+		
+		// g2.setColor(Color.ORANGE);
+		// pathStream.forEach((Point2d np) -> g2.fillOval(getXinPixel(tilePos) + mapShowOffSetY + (int) np.x - 2,
+		// 		getYinPixel(tilePos) + mapShowOffSetX + (int) np.y - 2, 5, 5));
 	}
 
 	private Color getTileColor(TileType type) {
