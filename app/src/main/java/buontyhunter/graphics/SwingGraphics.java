@@ -16,18 +16,8 @@ import buontyhunter.weaponClasses.Weapon;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
-import buontyhunter.model.EnemyEntity;
-import buontyhunter.model.FighterEntity;
-import buontyhunter.model.GameObject;
-import buontyhunter.model.HealthBar;
-import buontyhunter.model.HidableObject;
-import buontyhunter.model.NavigatorLine;
-import buontyhunter.model.RectBoundingBox;
-import buontyhunter.model.TileManager;
-import buontyhunter.model.TileType;
-import buontyhunter.model.World;
+
 import buontyhunter.model.FighterEntity.MovementState;
-import buontyhunter.model.Tile;
 
 public class SwingGraphics implements Graphics {
 
@@ -392,16 +382,166 @@ public class SwingGraphics implements Graphics {
 	public void drawEnemy(GameObject obj, World w) {
 		var point = camera.getObjectPointInScene(obj.getPos());
 		if (point.isPresent()) {
-			g2.setColor(Color.YELLOW);
-			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()),
-					getDeltaXinPixel(((RectBoundingBox) obj.getBBox()).getWidth()),
-					getDeltaYinPixel(((RectBoundingBox) obj.getBBox()).getHeight()));
 			if (obj instanceof EnemyEntity) {
-				var enemy = (EnemyEntity) obj;
-				
-				g2.drawString("" + enemy.getEnemyIdentifier(), getXinPixel(point.get()), getYinPixel(point.get()));
-
+				switch (((EnemyEntity)obj).getEnemyType()) {
+					case BOW:
+						this.drawSkelly((EnemyEntity)obj, w, getXinPixel(point.get()), getYinPixel(point.get()));
+					break;
+					case BRASS_KNUCLES:
+						this.drawZombie((EnemyEntity)obj, w, getXinPixel(point.get()), getYinPixel(point.get()));
+					break;
+					case SWORD:
+						this.drawKnight((EnemyEntity)obj, w, getXinPixel(point.get()), getYinPixel(point.get()));	
+					break;
+				}
 			}
+		}
+	}
+
+	private void drawZombie(EnemyEntity zombie, World w, int x, int y){
+		switch(zombie.getDirection()){
+			case Direction.STAND_DOWN:
+				g2.drawImage(assetManager.getImage(ImageType.zombieFront), x, y, null);
+			break;
+			case Direction.STAND_UP:
+				g2.drawImage(assetManager.getImage(ImageType.zombieBack), x, y, null);
+			break; 
+			case Direction.STAND_LEFT:
+				g2.drawImage(assetManager.getImage(ImageType.zombieLeft), x, y, null);
+			break; 
+			case Direction.STAND_RIGHT:
+				g2.drawImage(assetManager.getImage(ImageType.zombieRight), x, y, null);
+			break; 
+			case Direction.MOVE_UP:
+				if(zombie.getMovementState() == MovementState.FIRST){
+					g2.drawImage(assetManager.getImage(ImageType.zombieBack1), x, y, null);
+				}
+				else{
+					g2.drawImage(assetManager.getImage(ImageType.zombieBack2), x, y, null);
+				}
+			break; 
+			case Direction.MOVE_DOWN:
+				if(zombie.getMovementState() == MovementState.FIRST){
+					g2.drawImage(assetManager.getImage(ImageType.zombieFront1), x, y, null);
+				}
+				else{
+					g2.drawImage(assetManager.getImage(ImageType.zombieFront2), x, y, null);
+				}
+			break; 
+			case Direction.MOVE_LEFT:
+				if(zombie.getMovementState() == MovementState.FIRST){
+					g2.drawImage(assetManager.getImage(ImageType.zombieLeft1), x, y, null);
+				}
+				else{
+					g2.drawImage(assetManager.getImage(ImageType.zombieLeft2), x, y, null);
+				}
+			break; 
+			case Direction.MOVE_RIGHT:
+				if(zombie.getMovementState() == MovementState.FIRST){
+					g2.drawImage(assetManager.getImage(ImageType.zombieRight1), x, y, null);
+				}
+				else{
+					g2.drawImage(assetManager.getImage(ImageType.zombieRight2), x, y, null);
+				}
+			break; 
+		}
+	}
+
+	private void drawKnight(EnemyEntity knight, World w, int x, int y){
+		switch(knight.getDirection()){
+			case Direction.STAND_DOWN:
+				g2.drawImage(assetManager.getImage(ImageType.knightFront), x, y, null);
+			break;
+			case Direction.STAND_UP:
+				g2.drawImage(assetManager.getImage(ImageType.knightBack), x, y, null);
+			break; 
+			case Direction.STAND_LEFT:
+				g2.drawImage(assetManager.getImage(ImageType.knightLeft), x, y, null);
+			break; 
+			case Direction.STAND_RIGHT:
+				g2.drawImage(assetManager.getImage(ImageType.knightRight), x, y, null);
+			break; 
+			case Direction.MOVE_UP:
+				if(knight.getMovementState() == MovementState.FIRST){
+					g2.drawImage(assetManager.getImage(ImageType.knightBack1), x, y, null);
+				}
+				else{
+					g2.drawImage(assetManager.getImage(ImageType.knightBack2), x, y, null);
+				}
+			break; 
+			case Direction.MOVE_DOWN:
+				if(knight.getMovementState() == MovementState.FIRST){
+					g2.drawImage(assetManager.getImage(ImageType.knightFront1), x, y, null);
+				}
+				else{
+					g2.drawImage(assetManager.getImage(ImageType.knightFront2), x, y, null);
+				}
+			break; 
+			case Direction.MOVE_LEFT:
+				if(knight.getMovementState() == MovementState.FIRST){
+					g2.drawImage(assetManager.getImage(ImageType.knightLeft1), x, y, null);
+				}
+				else{
+					g2.drawImage(assetManager.getImage(ImageType.knightLeft2), x, y, null);
+				}
+			break; 
+			case Direction.MOVE_RIGHT:
+				if(knight.getMovementState() == MovementState.FIRST){
+					g2.drawImage(assetManager.getImage(ImageType.knightRight1), x, y, null);
+				}
+				else{
+					g2.drawImage(assetManager.getImage(ImageType.knightRight2), x, y, null);
+				}
+			break; 
+		}
+	}
+	
+	private void drawSkelly(EnemyEntity skelly, World w, int x, int y){
+		switch(skelly.getDirection()){
+			case Direction.STAND_DOWN:
+				g2.drawImage(assetManager.getImage(ImageType.skellyFront), x, y, null);
+			break;
+			case Direction.STAND_UP:
+				g2.drawImage(assetManager.getImage(ImageType.skellyBack), x, y, null);
+			break; 
+			case Direction.STAND_LEFT:
+				g2.drawImage(assetManager.getImage(ImageType.skellyLeft), x, y, null);
+			break; 
+			case Direction.STAND_RIGHT:
+				g2.drawImage(assetManager.getImage(ImageType.skellyRight), x, y, null);
+			break; 
+			case Direction.MOVE_UP:
+				if(skelly.getMovementState() == MovementState.FIRST){
+					g2.drawImage(assetManager.getImage(ImageType.skellyBack1), x, y, null);
+				}
+				else{
+					g2.drawImage(assetManager.getImage(ImageType.skellyBack2), x, y, null);
+				}
+			break; 
+			case Direction.MOVE_DOWN:
+				if(skelly.getMovementState() == MovementState.FIRST){
+					g2.drawImage(assetManager.getImage(ImageType.skellyFront1), x, y, null);
+				}
+				else{
+					g2.drawImage(assetManager.getImage(ImageType.skellyFront2), x, y, null);
+				}
+			break; 
+			case Direction.MOVE_LEFT:
+				if(skelly.getMovementState() == MovementState.FIRST){
+					g2.drawImage(assetManager.getImage(ImageType.skellyLeft1), x, y, null);
+				}
+				else{
+					g2.drawImage(assetManager.getImage(ImageType.skellyLeft2), x, y, null);
+				}
+			break; 
+			case Direction.MOVE_RIGHT:
+				if(skelly.getMovementState() == MovementState.FIRST){
+					g2.drawImage(assetManager.getImage(ImageType.skellyRight1), x, y, null);
+				}
+				else{
+					g2.drawImage(assetManager.getImage(ImageType.skellyRight2), x, y, null);
+				}
+			break; 
 		}
 	}
 }

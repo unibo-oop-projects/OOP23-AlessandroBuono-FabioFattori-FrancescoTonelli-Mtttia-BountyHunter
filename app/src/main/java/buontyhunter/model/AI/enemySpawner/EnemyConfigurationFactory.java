@@ -56,9 +56,9 @@ public class EnemyConfigurationFactory {
         switch (enemies) {
             case SWORD:
                 return swordEnemy();
-            case DAGGER:
+            case BRASS_KNUCLES:
                 return daggerEnemy();
-            case ARCH:
+            case BOW:
                 return archEnemy();
             default:
                 return null;
