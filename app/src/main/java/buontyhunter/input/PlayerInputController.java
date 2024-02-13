@@ -41,18 +41,22 @@ public class PlayerInputController implements InputComponent {
 
 			if(c.isAttackUp()){
 				setDirection(player, Direction.STAND_UP);
+				instanceAttack((PlayerEntity)player, 0, -1);
 				setTimer(player);
 			}
 			else if(c.isAttackLeft()){
 				setDirection(player, Direction.STAND_LEFT);
+				instanceAttack((PlayerEntity)player, -1, 0);
 				setTimer(player);
 			}
 			else if(c.isAttackRight()){
 				setDirection(player, Direction.STAND_RIGHT);
+				instanceAttack((PlayerEntity)player, 1, 0);
 				setTimer(player);
 			}
 			else if(c.isAttackDown()){
 				setDirection(player, Direction.STAND_DOWN);
+				instanceAttack((PlayerEntity)player, 0, 1);
 				setTimer(player);
 			}
 			
