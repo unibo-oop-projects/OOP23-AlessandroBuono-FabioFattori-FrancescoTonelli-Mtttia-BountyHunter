@@ -5,13 +5,50 @@ package buontyhunter;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Assertions;
 
 import buontyhunter.core.*;
-import buontyhunter.graphics.SwingAssetProvider;
 import buontyhunter.common.*;
 import buontyhunter.model.*;
 
 class AppTest {
+    // write your tests here
+    @Test
+    void testAll() {
+        testGameEngine();
+        testGameState();
+        testWorld();
+    }
 
+    @Test
+    void testGameEngine() {
+        GameEngine gameEngine = new GameEngine();
+        Assertions.assertNotNull(gameEngine);
+        
+        Assertions.assertEquals(GameEngine.HUB_PLAYER_START, new Point2d(8, 8));
+        Assertions.assertEquals(GameEngine.OPEN_WORLD_PLAYER_START, new Point2d(5, 106));
+    }
+
+    @Test
+    void testGameState(){
+        GameState gameState = new GameState(new GameEngine());
+        Assertions.assertNotNull(gameState);
+        Assertions.assertFalse(gameState.isGameOver());
+        Assertions.assertEquals(0, gameState.getDoblons());
+        gameState.depositDoblons(10);
+        Assertions.assertEquals(10, gameState.getDoblons());
+        Assertions.assertTrue(gameState.withdrawDoblons(5));
+        Assertions.assertEquals(5, gameState.getDoblons());
+        Assertions.assertFalse(gameState.withdrawDoblons(10));
+        Assertions.assertEquals(5, gameState.getDoblons());
+        gameState.gameOver();
+        Assertions.assertTrue(gameState.isGameOver());
+    }
+
+    @Test
+    void testWorld() {
+        GameState gameState = new GameState(new GameEngine());
+        Assertions.assertNotNull(gameState.getWorld());
+        //TODO implements
+    }
 }

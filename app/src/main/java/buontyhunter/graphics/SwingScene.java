@@ -6,45 +6,48 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 import javax.swing.*;
+
+import buontyhunter.common.ImagePathProvider;
 import buontyhunter.common.Point2d;
+import buontyhunter.common.Resizator;
 import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.*;
 import java.util.stream.Collectors;
 import java.awt.BorderLayout;
+import java.awt.*;
 
-public class SwingScene implements Scene {
+public class SwingScene implements Scene , ComponentListener {
 
 	protected JFrame frame;
 	protected ScenePanel panel;
 	protected KeyboardInputController controller;
 	protected GameState gameState;
 	private boolean switchScene = false;
-	private final boolean IsHub;
+	private boolean IsHub;
 	private final List<JButton> buttons = new ArrayList<>();
+	protected final SwingAssetProvider assetManager;
 
 	public SwingScene(GameState gameState, KeyboardInputController controller, boolean IsHub) {
 
+		this.assetManager = new SwingAssetProvider();
 		this.gameState = gameState;
 		this.IsHub = IsHub;
 		frame = new JFrame("Bounty Hunter - the official game");
 		// make the frame appear in the middle of the screen
 		// Calculates the position where the CenteredJFrame
 		// should be paced on the screen.
-		int x = (GameEngine.WINDOW_WIDTH - frame.getWidth()) / 2;
-		int y = (GameEngine.WINDOW_HEIGHT - frame.getHeight()) / 2;
+		int x = (gameState.getResizator().getWINDOW_WIDTH() - frame.getWidth()) / 2;
+		int y = (gameState.getResizator().getWINDOW_HEIGHT() - frame.getHeight()) / 2;
 		frame.setLocation(x, y);
 		// frame.setLocationRelativeTo(null);
 		if (IsHub) {
-			frame.setMinimumSize(new Dimension(GameEngine.HUB_WINDOW_WIDTH, GameEngine.HUB_WINDOW_HEIGHT));
 			getQuestPannel().getQuests().forEach(q -> {
 				JButton button = new JButton();
 				button.addActionListener(e1 -> {
@@ -53,16 +56,11 @@ public class SwingScene implements Scene {
 				});
 				buttons.add(button);
 			});
-
-			panel = new ScenePanel(GameEngine.HUB_WINDOW_WIDTH, GameEngine.HUB_WINDOW_WIDTH, GameEngine.HUB_WIDTH,
-					GameEngine.HUB_HEIGHT);
-		} else {
-			frame.setMinimumSize(new Dimension(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT));
-
-			panel = new ScenePanel(GameEngine.WINDOW_WIDTH, GameEngine.WINDOW_HEIGHT, GameEngine.WORLD_WIDTH,
-					GameEngine.WORLD_HEIGHT);
 		}
-		frame.setSize(frame.getMinimumSize());
+		frame.setMinimumSize(new Dimension(gameState.getResizator().getWINDOW_WIDTH(), gameState.getResizator().getWINDOW_HEIGHT()));
+		panel = new ScenePanel(gameState.getResizator().getWINDOW_WIDTH(), gameState.getResizator().getWINDOW_HEIGHT(), GameEngine.resizator.getWORLD_WIDTH(),
+		GameEngine.resizator.getWORLD_HEIGHT());
+		frame.setSize(panel.getSize());
 		frame.setResizable(true);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -71,12 +69,29 @@ public class SwingScene implements Scene {
 				}
 			}
 		});
+		frame.addComponentListener(this);
 		// frame.setUndecorated(true); // Remove title bar
 		this.controller = controller;
 		frame.setLayout(null);
 		frame.add(panel, BorderLayout.CENTER);
 		frame.pack();
 		frame.setVisible(true);
+	}
+
+	public void setIsHub(boolean isHub) {
+		this.IsHub = isHub;
+		if(isHub){
+			getQuestPannel().getQuests().forEach(q -> {
+				JButton button = new JButton();
+				button.addActionListener(e1 -> {
+					q.start((PlayerEntity) gameState.getWorld().getPlayer());
+					frame.repaint();
+				});
+				buttons.add(button);
+			});		
+		}else{
+			buttons.clear();
+		}
 	}
 
 	public void render() {
@@ -98,8 +113,13 @@ public class SwingScene implements Scene {
 	}
 
 	private QuestPannel getQuestPannel() {
-		return (QuestPannel) gameState.getWorld().getInterractableAreas().stream()
+		try {
+			return (QuestPannel) gameState.getWorld().getInterractableAreas().stream()
 				.filter(e -> e.getPanel() instanceof QuestPannel).findFirst().get().getPanel();
+		} catch (Exception e) {
+			throw new RuntimeException("QuestPannel not found"+gameState.getWorld().getInterractableAreas().stream()
+			.filter(pan -> pan.getPanel() instanceof QuestPannel).toString());
+		}
 	}
 
 	public class ScenePanel extends JPanel implements KeyListener {
@@ -109,14 +129,11 @@ public class SwingScene implements Scene {
 		protected double ratioX;
 		protected double ratioY;
 		protected Font scoreFont, gameOverFont;
-		protected final SwingAssetProvider assetManager;
 
 		public ScenePanel(int w, int h, double width, double height) {
 			setSize(w, h);
-			centerX = w / 2;
-			centerY = h / 2;
-			ratioX = w / width;
-			ratioY = h / height;
+			ratioX = GameEngine.resizator.getRATIO_WIDTH();
+			ratioY = GameEngine.resizator.getRATIO_HEIGHT();
 
 			scoreFont = new Font("Verdana", Font.PLAIN, 36);
 			gameOverFont = new Font("Verdana", Font.PLAIN, 88);
@@ -125,7 +142,14 @@ public class SwingScene implements Scene {
 			setFocusable(true);
 			setFocusTraversalKeysEnabled(false);
 			requestFocusInWindow();
-			this.assetManager = new SwingAssetProvider();
+		}
+
+		public void setRatioX(double ratioX) {
+			this.ratioX = ratioX;
+		}
+
+		public void setRatioY(double ratioY) {
+			this.ratioY = ratioY;
 		}
 
 		public void paintComponent(Graphics g) {
@@ -142,7 +166,7 @@ public class SwingScene implements Scene {
 				/* drawing the score */
 				g2.setFont(gameOverFont);
 				g2.setColor(Color.BLACK);
-				g2.drawString("GAME OVER ", 30, centerY - 50);
+				
 				g2.setFont(scoreFont);
 				g2.setColor(Color.GREEN);
 
@@ -152,9 +176,9 @@ public class SwingScene implements Scene {
 
 				/* drawing the game objects */
 
-				var camera = new Camera(scene, IsHub);
+				var camera = new Camera(scene);
 				camera.update(scene.getPlayer(), scene.getTileManager());
-				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera, assetManager);
+				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera, assetManager,gameState.getResizator());
 				gameState.getWorld().getSceneEntities().forEach(e -> {
 					if (!(e instanceof Teleporter)) {
 						e.updateGraphics(gr, scene);
@@ -175,7 +199,7 @@ public class SwingScene implements Scene {
 					int height = (int) ((RectBoundingBox) getQuestPannel().getBBox()).getHeight();
 					int unit = height / 6;
 					int x = unit + unit / 6;
-					int y = x;
+					int y = x + unit / 12;
 					buttons.forEach(btn -> {
 						frame.remove(btn);
 						btn.setVisible(false);
@@ -192,7 +216,6 @@ public class SwingScene implements Scene {
 								gr.drawQuest((QuestEntity) q, x + offsetX, y, unit, button);
 								this.add(button, BorderLayout.CENTER);
 							});
-					frame.pack();
 				}
 			}
 		}
@@ -300,5 +323,34 @@ public class SwingScene implements Scene {
 	public void dispose() {
 		this.switchScene = true;
 		this.frame.dispose();
+	}
+
+	@Override
+	public void componentResized(ComponentEvent e) {
+		
+		var dim = frame.getSize();
+		GameEngine.resizator.needToResize(dim);
+		ImagePathProvider.resizeAssets();
+		this.assetManager.loadAllAssets();
+		
+		 this.panel.setSize(dim);
+		 this.panel.setRatioX((int)GameEngine.resizator.getRATIO_WIDTH());
+		 this.panel.setRatioY((int)GameEngine.resizator.getRATIO_HEIGHT());
+		
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {
+		// do nothing
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e) {
+		// do nothing
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e) {
+		// do nothing
 	}
 }

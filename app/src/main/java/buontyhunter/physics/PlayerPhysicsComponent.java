@@ -55,12 +55,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
                 obj.setPos(collision.getWhere());
             }
         } while (collisionPresent);
-
-        // think about navigation line
-        var navigationLine = w.getNavigatorLine();
-        if (navigationLine != null) {
-            navigationLine.setPath(obj.getPos(), FINAL_POINT);
-        }
     }
 
 }

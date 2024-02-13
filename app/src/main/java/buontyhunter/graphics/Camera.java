@@ -3,7 +3,9 @@ package buontyhunter.graphics;
 import java.util.Optional;
 
 import buontyhunter.core.GameEngine;
+import buontyhunter.common.DestinationOfTeleporterType;
 import buontyhunter.common.Point2d;
+import buontyhunter.common.Resizator;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
@@ -12,7 +14,6 @@ import buontyhunter.model.World;
 public class Camera implements SceneCamera {
 
     private World world;
-
     private Point2d playerPoint;
     private int firstTileX;
     private int firstTileY;
@@ -20,19 +21,17 @@ public class Camera implements SceneCamera {
     private int lastTileY;
     private double tileOffsetX;
     private double tileOffsetY;
-    private boolean isHub;
 
-    public Camera(World world, boolean isHub) {
+    public Camera(World world) {
         this.world = world;
-        this.isHub = isHub;
     }
 
     private double getHalfWidth() {
-        return isHub ? (double)GameEngine.HUB_WIDTH / 2 : GameEngine.WORLD_WIDTH / 2;
+        return GameEngine.resizator.getWORLD_WIDTH() / 2;
     }
 
     private double getHalfHeight() {
-        return isHub ? (double)GameEngine.HUB_HEIGHT / 2 : GameEngine.WORLD_HEIGHT / 2;
+        return GameEngine.resizator.getWORLD_HEIGHT() / 2;
     }
 
     @Override
@@ -61,8 +60,8 @@ public class Camera implements SceneCamera {
         var pos = player.getPos();
         var bbox = (RectBoundingBox) tm.getBBox();
 
-        boolean playerXInCenter = pos.x > halfWidth && pos.x < (bbox.getWidth() + bbox.getULCorner().x) - halfWidth;
-        boolean playerYInCenter = pos.y > halfHeight && pos.y < (bbox.getHeight() + bbox.getULCorner().y) - halfHeight;
+        boolean playerXInCenter = pos.x >= halfWidth && pos.x < (bbox.getWidth() + bbox.getULCorner().x) - halfWidth;
+        boolean playerYInCenter = pos.y >= halfHeight && pos.y < (bbox.getHeight() + bbox.getULCorner().y) - halfHeight;
 
         // TODO: rename variable
         // delta larghezza del mondo senza l'ultima meta
@@ -74,26 +73,22 @@ public class Camera implements SceneCamera {
         double playerY = playerYInCenter ? halfHeight : (pos.y < halfHeight ? pos.y : (pos.y - tmpY) + halfHeight);
         playerPoint = new Point2d(playerX, playerY);
 
-        if (isHub) {
-            firstTileX = playerXInCenter ? (int) Math.floor(pos.x - halfWidth)
-                    : (int) (pos.x < halfWidth ? 0 : Math.floor(bbox.getWidth() - 2 * halfWidth));
-            firstTileY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight)
-                    : (pos.y < halfHeight ? 0 : (int) Math.floor(bbox.getHeight() - GameEngine.HUB_HEIGHT));
-            tileOffsetX = playerXInCenter ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
-            tileOffsetY = playerYInCenter ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;
+        firstTileX = playerXInCenter ? (int) Math.floor(pos.x - halfWidth)
+                : (int) (pos.x < halfWidth ? 0 : Math.floor(bbox.getWidth() - 2 * halfWidth));
+        firstTileY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight)
+                : (pos.y < halfHeight ? 0
+                        : (int) Math.floor(bbox.getHeight() - GameEngine.resizator.getWORLD_HEIGHT()));
+        tileOffsetX = playerXInCenter ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
+        tileOffsetY = playerYInCenter ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;
+        if (world.getTeleporter().destination == DestinationOfTeleporterType.HUB) {
+            lastTileX = tileOffsetX > 0 ? firstTileX + (int) Math.round(GameEngine.resizator.getWORLD_WIDTH()) + 1
+                    : firstTileX + (int) (Math.round(GameEngine.resizator.getWORLD_WIDTH()));
+            lastTileY = tileOffsetY > 0 ? firstTileY + (int) Math.round(GameEngine.resizator.getWORLD_HEIGHT()) + 1
+                    : firstTileY + (int) Math.round(GameEngine.resizator.getWORLD_HEIGHT());
+        } else {
             lastTileX = world.getTileManager().getTiles().size();
             lastTileY = world.getTileManager().getTiles().size();
-        } else {
-            firstTileX = playerXInCenter ? (int) Math.floor(pos.x - halfWidth)
-                    : (int) (pos.x < halfWidth ? 0 : Math.floor(bbox.getWidth() - 2 * halfWidth));
-            firstTileY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight)
-                    : (pos.y < halfHeight ? 0 : (int) Math.floor(bbox.getHeight() - GameEngine.WORLD_HEIGHT));
-            tileOffsetX = playerXInCenter ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
-            tileOffsetY = playerYInCenter ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;
-            lastTileX = tileOffsetX > 0 ? firstTileX + (int) Math.round(GameEngine.WORLD_WIDTH) + 1
-                    : firstTileX + (int) (Math.round(GameEngine.WORLD_WIDTH));
-            lastTileY = tileOffsetY > 0 ? firstTileY + (int) Math.round(GameEngine.WORLD_HEIGHT) + 1
-                    : firstTileY + (int) Math.round(GameEngine.WORLD_HEIGHT);
+
         }
     }
 
@@ -130,11 +125,6 @@ public class Camera implements SceneCamera {
     @Override
     public double getTileOffsetY() {
         return tileOffsetY;
-    }
-
-    @Override
-    public boolean isHub() {
-        return isHub;
     }
 
 }

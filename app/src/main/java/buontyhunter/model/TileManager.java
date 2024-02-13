@@ -3,14 +3,17 @@ package buontyhunter.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import java.util.List;
 import buontyhunter.common.FileProvider;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
+import buontyhunter.core.GameEngine;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
+import java.util.*;
 
 public class TileManager extends GameObject {
 
@@ -64,10 +67,7 @@ public class TileManager extends GameObject {
                         || tileId == TileType.houseFace6
                         || tileId == TileType.houseFace7 || tileId == TileType.houseFace8
                         || tileId == TileType.houseFace9
-                        || tileId == TileType.houseFace10 || tileId == TileType.houseFace11
-                        || tileId == TileType.BottomQuestTable1
-                        || tileId == TileType.BottomQuestTable2 || tileId == TileType.BottomQuestTable3
-                        || tileId == TileType.BottomQuestTable4) {
+                        || tileId == TileType.houseFace10 || tileId == TileType.houseFace11) {
                     row.add(new Tile(resolveTyleToImageType(tileId), true, true, new Point2d(j, i), tileId));
                 } else if (tileId == TileType.water) {
                     row.add(new Tile(resolveTyleToImageType(tileId), false, true, new Point2d(j, i), tileId));
@@ -79,8 +79,15 @@ public class TileManager extends GameObject {
         }
 
         var bbox = new RectBoundingBox(new Point2d(0, 0), height, width);
+        if(GameEngine.resizator.getWORLD_WIDTH() > tiles.get(0).size()){
+            GameEngine.resizator.setWORLD_WIDTH(tiles.get(0).size());
+        }
+        if (GameEngine.resizator.getWORLD_HEIGHT() > tiles.size()) {
+            GameEngine.resizator.setWORLD_HEIGHT(tiles.size());
+        }
         setBBox(bbox);
-        return bbox;
+
+            return bbox;
     }
 
     private ImageType resolveTyleToImageType(TileType tileType) {
@@ -316,6 +323,17 @@ public class TileManager extends GameObject {
 
     public List<List<Tile>> getTiles() {
         return tiles;
+    }
+
+    public Optional<Tile> getTileFromPosition(Point2d point) {
+        int xTopLeft = (int) point.x;
+        int yTopLeft = (int) point.y;
+        var tiles = getTiles();
+        if (tiles.size() > yTopLeft
+                && tiles.get(0).size() > xTopLeft) {
+            return Optional.of(tiles.get(yTopLeft).get(xTopLeft));
+        }
+        return Optional.empty();
     }
 
 }

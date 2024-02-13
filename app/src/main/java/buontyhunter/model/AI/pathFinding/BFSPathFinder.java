@@ -1,4 +1,4 @@
-package buontyhunter.model.pathFinding;
+package buontyhunter.model.AI.pathFinding;
 
 import java.util.*;
 
@@ -28,6 +28,8 @@ public class BFSPathFinder implements PathFinder {
     @Override
     public List<Point2d> findPath(Point2d initialPoint, Point2d finalPoint, List<List<Tile>> map) {
         // Initialize visited set and queue for BFS
+        initialPoint = initialPoint.duplicate().floorCoordinates();
+        finalPoint = finalPoint.duplicate().floorCoordinates();
         Set<Point2d> visited = new HashSet<>();
         Queue<Point2d> queue = new LinkedList<>();
         if (!useCache)

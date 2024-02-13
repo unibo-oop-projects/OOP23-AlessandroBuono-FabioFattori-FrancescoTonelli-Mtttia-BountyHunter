@@ -3,25 +3,16 @@ package buontyhunter.core;
 import java.util.LinkedList;
 
 import buontyhunter.common.Point2d;
+import buontyhunter.common.Resizator;
+import buontyhunter.common.Logger.AppLogger;
+import buontyhunter.common.Logger.LogType;
 import buontyhunter.graphics.*;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 
-import java.util.List;
-import java.awt.Toolkit;
-
 public class GameEngine implements WorldEventListener {
 
-    public static final int WORLD_WIDTH = 20;
-    public static final int WORLD_HEIGHT = 20;
-    public static final int WINDOW_WIDTH = calculateTheWindowWidthAndHeight();
-    public static final int WINDOW_HEIGHT = WINDOW_WIDTH;
-    public static final double RATIO_WIDTH = WINDOW_WIDTH / WORLD_WIDTH;
-    public static final double RATIO_HEIGHT = RATIO_WIDTH;
-    public static final int HUB_WIDTH = 15;
-    public static final int HUB_HEIGHT = 15;
-    public static final int HUB_WINDOW_WIDTH = calculateTheWindowWidthAndHeightForHub();
-    public static final int HUB_WINDOW_HEIGHT = HUB_WINDOW_WIDTH + 27; // summed offset of Y
+    public static final Resizator resizator = new Resizator();
     public static final Point2d HUB_PLAYER_START = new Point2d(8, 8);
     public static final Point2d OPEN_WORLD_PLAYER_START = new Point2d(5, 106);
 
@@ -63,7 +54,7 @@ public class GameEngine implements WorldEventListener {
             previousCycleStartTime = currentCycleStartTime;
             if (System.currentTimeMillis() - lastFPSPrint > 1000) {
                 lastFPSPrint = System.currentTimeMillis();
-                System.out.println("FPS: " + drawCount);
+                AppLogger.getLogger().log("FPS: " + drawCount, LogType.CORE);
                 drawCount = 0;
             }
         }
@@ -89,22 +80,25 @@ public class GameEngine implements WorldEventListener {
      * Process the input foreach game object that needs it
      */
     protected void processInput() {
-        //check if the world has a minimap (the hub doesn't have a minimap)
+        // check if the world has a minimap (the hub doesn't have a minimap)
         if (gameState.getWorld().getMiniMap() != null) {
             // if the map is not showing, the player can move
             if (!gameState.getWorld().getMiniMap().isShow()) {
-                gameState.getWorld().getPlayer().updateInput(controller);
+                gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
+                gameState.getWorld().processAiInput(controller);
             }
 
-            gameState.getWorld().getMiniMap().updateInput(controller);
-        }else{
-            gameState.getWorld().getPlayer().updateInput(controller);
+            gameState.getWorld().getMiniMap().updateInput(controller, gameState.getWorld());
+        } else {
+            gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
+            gameState.getWorld().processAiInput(controller);
         }
-        gameState.getWorld().getQuestJournal().updateInput(controller);
+        gameState.getWorld().getQuestJournal().updateInput(controller, gameState.getWorld());
         gameState.getWorld().getInterractableAreas().forEach(area -> area.updateInput(controller));
     }
 
     /**
+     * 
      * Update the game state
      * 
      * @param elapsed time elapsed since last update
@@ -123,12 +117,11 @@ public class GameEngine implements WorldEventListener {
             if (ev instanceof ChangeWorldEvent) {
                 gameState.setWorld(((ChangeWorldEvent) ev).getNewWorld());
                 gameState.getWorld().setEventListener(this);
-                this.view.dispose();
                 controller.reset();
                 if (((ChangeWorldEvent) ev).getNewWorld().getTeleporter().getMapIdOfDestination() == 0) { // hub
-                    this.view = new SwingScene(gameState, controller, true);
+                    this.view.setIsHub(true);
                 } else {
-                    this.view = new SwingScene(gameState, controller, false);
+                    this.view.setIsHub(false);
                 }
 
             }
@@ -151,34 +144,9 @@ public class GameEngine implements WorldEventListener {
         view.renderGameOver();
     }
 
+
     @Override
     public void notifyEvent(WorldEvent ev) {
         eventQueue.add(ev);
-    }
-
-    private static int calculateTheWindowWidthAndHeight() {
-        var dim = Toolkit.getDefaultToolkit().getScreenSize();
-        int halfScreenWidth = (int) Math.round(dim.getWidth() / 1.5);
-        int halfScreenHeight = (int) Math.round(dim.getHeight() / 1.5);
-        var minValue = List.of(Integer.valueOf(halfScreenHeight), Integer.valueOf(halfScreenWidth)).stream()
-                .min((Integer a, Integer b) -> {
-                    return a.compareTo(b);
-                }).get();
-
-        return minValue.intValue() - minValue.intValue() % WORLD_WIDTH;
-
-    }
-
-    private static int calculateTheWindowWidthAndHeightForHub() {
-        var dim = Toolkit.getDefaultToolkit().getScreenSize();
-        int halfScreenWidth = (int) Math.round(dim.getWidth() / 2);
-        int halfScreenHeight = (int) Math.round(dim.getHeight() / 2);
-        var minValue = List.of(Integer.valueOf(halfScreenHeight), Integer.valueOf(halfScreenWidth)).stream()
-                .min((Integer a, Integer b) -> {
-                    return a.compareTo(b);
-                }).get();
-
-        return minValue.intValue() - minValue.intValue() % HUB_WIDTH;
-
     }
 }

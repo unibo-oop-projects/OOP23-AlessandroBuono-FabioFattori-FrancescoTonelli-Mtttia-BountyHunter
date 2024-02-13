@@ -14,7 +14,7 @@ public interface Graphics {
 
 	void drawHealthBar(HealthBar healthBar, World w);
 
-	void drawTeleporter(Teleporter tp,World w);
+	void drawTeleporter(Teleporter tp, World w);
 
 	void drawQuestPannel(QuestPannel questPannel, World w);
 
@@ -23,4 +23,6 @@ public interface Graphics {
 	void drawQuestJournal(World w);
 	
 	void drawWeapon(FighterEntity fe);
+
+	void drawEnemy(GameObject obj, World w);
 }

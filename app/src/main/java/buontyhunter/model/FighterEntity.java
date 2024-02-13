@@ -1,7 +1,9 @@
 package buontyhunter.model;
 
+import buontyhunter.common.Direction;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
+import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
@@ -10,10 +12,17 @@ import buontyhunter.weaponClasses.Weapon;
 
 public class FighterEntity extends GameObject {
 
+    public enum MovementState{
+        FIRST,
+        SECOND
+    }
+
     private int health;
     private final int maxHealth;
     private Weapon weapon;
     private HidableObject damagingArea;
+    private Direction direction = Direction.STAND_DOWN;
+    private MovementState movementState = MovementState.SECOND;
 
     /**
      * Create a new fighter entity which is a game object with health
@@ -38,7 +47,7 @@ public class FighterEntity extends GameObject {
             throw new IllegalArgumentException("Max health must be greater than health");
         }
         weapon = w;
-        damagingArea = GameFactory.getInstance().WeaponDamagingArea((FighterEntity)this, new Vector2d(0,0));
+        damagingArea = GameFactory.getInstance(GameEngine.resizator).WeaponDamagingArea((FighterEntity)this, new Vector2d(0,0));
     }
 
     /**
@@ -82,5 +91,27 @@ public class FighterEntity extends GameObject {
 
     public void setDamagingArea(HidableObject da){
         this.damagingArea=da;
+    }
+    
+    public void setDirection(Direction direction){
+        this.direction = direction;
+    }
+
+    public Direction getDirection(){
+        return this.direction;
+    }
+
+    public MovementState getMovementState(){
+        switchMovementState();
+        return this.movementState;
+    }
+    
+    private void switchMovementState(){
+        if(this.movementState.equals(MovementState.FIRST)){
+            this.movementState = MovementState.SECOND;
+        }
+        else{
+            this.movementState = MovementState.FIRST;
+        }
     }
 }
