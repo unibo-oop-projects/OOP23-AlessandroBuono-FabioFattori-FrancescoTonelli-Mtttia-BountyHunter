@@ -196,4 +196,12 @@ public class World {
     public void generateEnemy() {
         enemyRegistry.generateEnemy(this);
     }
+
+    public void disableEnemies() {
+        enemyRegistry.disableEnemies();
+    }
+
+    public void enableEnemies() {
+        enemyRegistry.enableEnemies();
+    }
 }
