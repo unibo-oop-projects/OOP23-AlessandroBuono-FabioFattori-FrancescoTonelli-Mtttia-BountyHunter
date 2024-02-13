@@ -14,6 +14,7 @@ import buontyhunter.model.World;
 public class PlayerInputController implements InputComponent {
 
 	private final double speed = 0.3;
+	private double timer;
 
 	@Override
 	public void update(GameObject player, InputController c, World w) {
@@ -35,17 +36,27 @@ public class PlayerInputController implements InputComponent {
 			vel.x += speed;
 			setDirection(player, Direction.MOVE_RIGHT);
 		}
-		else if(c.isAttackUp()){
-			setDirection(player, Direction.STAND_UP);
-		}
-		else if(c.isAttackLeft()){
-			setDirection(player, Direction.STAND_LEFT);
-		}
-		else if(c.isAttackRight()){
-			setDirection(player, Direction.STAND_RIGHT);
-		}
-		else{
-			setDirection(player, Direction.STAND_DOWN);
+		if(timer <= 0){
+				
+			if(c.isAttackUp()){
+				setDirection(player, Direction.STAND_UP);
+				setTimer(player);
+			}
+			else if(c.isAttackLeft()){
+				setDirection(player, Direction.STAND_LEFT);
+				setTimer(player);
+			}
+			else if(c.isAttackRight()){
+				setDirection(player, Direction.STAND_RIGHT);
+				setTimer(player);
+			}
+			else if(c.isAttackDown()){
+				setDirection(player, Direction.STAND_DOWN);
+				setTimer(player);
+			}
+
+		}else{
+			timer--;
 		}
 		
 		player.setVel(vel);
@@ -61,5 +72,11 @@ public class PlayerInputController implements InputComponent {
 		if(player instanceof PlayerEntity){
 			((PlayerEntity)player).setDirection(direction);
 		}
+		
 	}
+
+	private void setTimer(GameObject player){
+		timer=30/((PlayerEntity)player).getWeapon().getAttackSpeed();
+	}
+	
 }
