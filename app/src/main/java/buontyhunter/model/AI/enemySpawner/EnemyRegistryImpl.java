@@ -13,12 +13,12 @@ import buontyhunter.model.EnemyEntity;
 import buontyhunter.model.World;
 import buontyhunter.model.EnemyManager.EnemyIdentifierManager;
 import buontyhunter.model.EnemyManager.EnemyIdentifierManagerImpl;
-import java.util.stream.Collectors;
 
 public class EnemyRegistryImpl implements EnemyRegistry {
     private Map<Integer, EnemyEntity> enemies = new HashMap<>();
     private EnemyIdentifierManager enemyIdManger = new EnemyIdentifierManagerImpl();
     private EnemySpawner enemySpawner = new EnemySpawnerFromDistance();
+    private boolean spawnActive = true;
 
     @Override
     public void addEnemy(Point2d pos, Vector2d speed, int health) {
@@ -30,7 +30,7 @@ public class EnemyRegistryImpl implements EnemyRegistry {
 
     @Override
     public List<EnemyEntity> getEnemies() {
-        return enemies.values().stream().collect(Collectors.toList());
+        return enemies.values().stream().toList();
     }
 
     @Override
@@ -46,7 +46,22 @@ public class EnemyRegistryImpl implements EnemyRegistry {
 
     @Override
     public void generateEnemy(World w) {
-        enemySpawner.spawn(w);
+        if (spawnActive) {
+            enemySpawner.spawn(w);
+        }
+    }
+
+    public void disableEnemies() {
+        this.clearEnemy();
+        this.spawnActive = false;
+    }
+
+    public void enableEnemies(int id) {
+        this.spawnActive = true;
+    }
+
+    public void clearEnemy() {
+        enemies.clear();
     }
 
 }
