@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
-import buontyhunter.common.Direction;
 import buontyhunter.model.*;
 import buontyhunter.weaponClasses.Weapon;
 
@@ -67,19 +66,19 @@ public class SwingGraphics implements Graphics {
 
 		if(obj instanceof PlayerEntity){
 			switch(((PlayerEntity)obj).getDirection()){
-				case Direction.STAND_DOWN:
+				case STAND_DOWN:
 					g2.drawImage(assetManager.getImage(ImageType.hunterFront), x, y, null);
 				break;
-				case Direction.STAND_UP:
+				case STAND_UP:
 					g2.drawImage(assetManager.getImage(ImageType.hunterBack), x, y, null);
 				break; 
-				case Direction.STAND_LEFT:
+				case STAND_LEFT:
 					g2.drawImage(assetManager.getImage(ImageType.hunterLeft), x, y, null);
 				break; 
-				case Direction.STAND_RIGHT:
+				case STAND_RIGHT:
 					g2.drawImage(assetManager.getImage(ImageType.hunterRight), x, y, null);
 				break; 
-				case Direction.MOVE_UP:
+				case MOVE_UP:
 					if(((PlayerEntity)obj).getMovementState() == MovementState.FIRST){
 						g2.drawImage(assetManager.getImage(ImageType.hunterBack1), x, y, null);
 					}
@@ -87,7 +86,7 @@ public class SwingGraphics implements Graphics {
 						g2.drawImage(assetManager.getImage(ImageType.hunterBack2), x, y, null);
 					}
 				break; 
-				case Direction.MOVE_DOWN:
+				case MOVE_DOWN:
 					if(((PlayerEntity)obj).getMovementState() == MovementState.FIRST){
 						g2.drawImage(assetManager.getImage(ImageType.hunterFront1), x, y, null);
 					}
@@ -95,7 +94,7 @@ public class SwingGraphics implements Graphics {
 						g2.drawImage(assetManager.getImage(ImageType.hunterFront2), x, y, null);
 					}
 				break; 
-				case Direction.MOVE_LEFT:
+				case MOVE_LEFT:
 					if(((PlayerEntity)obj).getMovementState() == MovementState.FIRST){
 						g2.drawImage(assetManager.getImage(ImageType.hunterLeft1), x, y, null);
 					}
@@ -103,7 +102,7 @@ public class SwingGraphics implements Graphics {
 						g2.drawImage(assetManager.getImage(ImageType.hunterLeft2), x, y, null);
 					}
 				break; 
-				case Direction.MOVE_RIGHT:
+				case MOVE_RIGHT:
 					if(((PlayerEntity)obj).getMovementState() == MovementState.FIRST){
 						g2.drawImage(assetManager.getImage(ImageType.hunterRight1), x, y, null);
 					}
