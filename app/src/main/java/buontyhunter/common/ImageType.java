@@ -57,5 +57,17 @@ public enum ImageType {
     BottomStaccionata,
     topCespuglio1,
     cespuglio3,
-    FALLBACK
+    FALLBACK,
+    hunterFront,
+    hunterFront1,
+    hunterFront2,
+    hunterBack,
+    hunterBack1,
+    hunterBack2,
+    hunterLeft,
+    hunterLeft1,
+    hunterLeft2,
+    hunterRight,
+    hunterRight1,
+    hunterRight2
 }

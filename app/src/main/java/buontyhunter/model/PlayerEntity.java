@@ -1,6 +1,7 @@
 package buontyhunter.model;
 
 import java.util.*;
+
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
 import buontyhunter.graphics.GraphicsComponent;
@@ -11,7 +12,8 @@ import buontyhunter.weaponClasses.Weapon;
 public class PlayerEntity extends FighterEntity{
 
     
-    List<Quest> quests;
+    private List<Quest> quests;
+
 
     public PlayerEntity(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
             GraphicsComponent graph, PhysicsComponent phys, int health, int maxHealth, Weapon w) {

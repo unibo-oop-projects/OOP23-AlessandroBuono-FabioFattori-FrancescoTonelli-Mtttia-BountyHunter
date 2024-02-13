@@ -1,12 +1,5 @@
 package buontyhunter.model;
 
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.swing.text.html.Option;
-
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import buontyhunter.common.Point2d;

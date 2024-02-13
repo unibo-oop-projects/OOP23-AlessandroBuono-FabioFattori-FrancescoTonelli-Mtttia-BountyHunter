@@ -449,6 +449,103 @@ public class ImagePathProvider {
                     setWidth(GameEngine.RATIO_WIDTH);
                 }
             });
+            put(ImageType.hunterFront,new AssetImage(){
+                {
+                    setPath("hunter/hunter_front.png");
+                    setType(ImageType.hunterFront);
+                    setHeight(GameEngine.RATIO_HEIGHT);
+                    setWidth(GameEngine.RATIO_WIDTH);
+                }
+            });
+            put(ImageType.hunterFront1,new AssetImage(){
+                {
+                    setPath("hunter/hunter_front_1.png");
+                    setType(ImageType.hunterFront1);
+                    setHeight(GameEngine.RATIO_HEIGHT);
+                    setWidth(GameEngine.RATIO_WIDTH);
+                }
+            });
+            put(ImageType.hunterFront2,new AssetImage(){
+                {
+                    setPath("hunter/hunter_front_2.png");
+                    setType(ImageType.hunterFront2);
+                    setHeight(GameEngine.RATIO_HEIGHT);
+                    setWidth(GameEngine.RATIO_WIDTH);
+                }
+            });
+            put(ImageType.hunterBack,new AssetImage(){
+                {
+                    setPath("hunter/hunter_back.png");
+                    setType(ImageType.hunterBack);
+                    setHeight(GameEngine.RATIO_HEIGHT);
+                    setWidth(GameEngine.RATIO_WIDTH);
+                }
+            });
+            put(ImageType.hunterBack1,new AssetImage(){
+                {
+                    setPath("hunter/hunter_back_1.png");
+                    setType(ImageType.hunterBack1);
+                    setHeight(GameEngine.RATIO_HEIGHT);
+                    setWidth(GameEngine.RATIO_WIDTH);
+                }
+            });
+            put(ImageType.hunterBack2,new AssetImage(){
+                {
+                    setPath("hunter/hunter_back_2.png");
+                    setType(ImageType.hunterBack2);
+                    setHeight(GameEngine.RATIO_HEIGHT);
+                    setWidth(GameEngine.RATIO_WIDTH);
+                }
+            });
+            
+            put(ImageType.hunterLeft,new AssetImage(){
+                {
+                    setPath("hunter/hunter_left.png");
+                    setType(ImageType.hunterLeft);
+                    setHeight(GameEngine.RATIO_HEIGHT);
+                    setWidth(GameEngine.RATIO_WIDTH);
+                }
+            });
+            put(ImageType.hunterLeft1,new AssetImage(){
+                {
+                    setPath("hunter/hunter_left_1.png");
+                    setType(ImageType.hunterLeft1);
+                    setHeight(GameEngine.RATIO_HEIGHT);
+                    setWidth(GameEngine.RATIO_WIDTH);
+                }
+            });
+            put(ImageType.hunterLeft2,new AssetImage(){
+                {
+                    setPath("hunter/hunter_left_2.png");
+                    setType(ImageType.hunterLeft2);
+                    setHeight(GameEngine.RATIO_HEIGHT);
+                    setWidth(GameEngine.RATIO_WIDTH);
+                }
+            });
+            put(ImageType.hunterRight,new AssetImage(){
+                {
+                    setPath("hunter/hunter_right.png");
+                    setType(ImageType.hunterRight);
+                    setHeight(GameEngine.RATIO_HEIGHT);
+                    setWidth(GameEngine.RATIO_WIDTH);
+                }
+            });
+            put(ImageType.hunterRight1,new AssetImage(){
+                {
+                    setPath("hunter/hunter_right_1.png");
+                    setType(ImageType.hunterRight1);
+                    setHeight(GameEngine.RATIO_HEIGHT);
+                    setWidth(GameEngine.RATIO_WIDTH);
+                }
+            });
+            put(ImageType.hunterRight2,new AssetImage(){
+                {
+                    setPath("hunter/hunter_right_2.png");
+                    setType(ImageType.hunterRight2);
+                    setHeight(GameEngine.RATIO_HEIGHT);
+                    setWidth(GameEngine.RATIO_WIDTH);
+                }
+            });
         }
     };
 }

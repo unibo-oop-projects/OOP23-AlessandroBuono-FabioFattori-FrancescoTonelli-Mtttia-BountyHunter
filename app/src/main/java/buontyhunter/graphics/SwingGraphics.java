@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
+import buontyhunter.common.Direction;
 import buontyhunter.model.*;
 import buontyhunter.weaponClasses.Weapon;
 
@@ -25,6 +26,7 @@ import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
 import buontyhunter.model.TileType;
 import buontyhunter.model.World;
+import buontyhunter.model.FighterEntity.MovementState;
 import buontyhunter.model.Tile;
 
 public class SwingGraphics implements Graphics {
@@ -71,12 +73,57 @@ public class SwingGraphics implements Graphics {
 	@Override
 	public void drawPlayer(GameObject obj, World w) {
 		var x = getXinPixel(camera.getPlayerPoint());
-		var y = getYinPixel(camera.getPlayerPoint());
-		var height = getDeltaYinPixel(((RectBoundingBox) obj.getBBox()).getHeight());
-		var width = getDeltaXinPixel(((RectBoundingBox) obj.getBBox()).getWidth());
+		var y = getYinPixel(camera.getPlayerPoint());	
 
-		g2.setColor(Color.RED);
-		g2.fillRect(x, y, width, height);
+		if(obj instanceof PlayerEntity){
+			switch(((PlayerEntity)obj).getDirection()){
+				case Direction.STAND_DOWN:
+					g2.drawImage(assetManager.getImage(ImageType.hunterFront), x, y, null);
+				break;
+				case Direction.STAND_UP:
+					g2.drawImage(assetManager.getImage(ImageType.hunterBack), x, y, null);
+				break; 
+				case Direction.STAND_LEFT:
+					g2.drawImage(assetManager.getImage(ImageType.hunterLeft), x, y, null);
+				break; 
+				case Direction.STAND_RIGHT:
+					g2.drawImage(assetManager.getImage(ImageType.hunterRight), x, y, null);
+				break; 
+				case Direction.MOVE_UP:
+					if(((PlayerEntity)obj).getMovementState() == MovementState.FIRST){
+						g2.drawImage(assetManager.getImage(ImageType.hunterBack1), x, y, null);
+					}
+					else{
+						g2.drawImage(assetManager.getImage(ImageType.hunterBack2), x, y, null);
+					}
+				break; 
+				case Direction.MOVE_DOWN:
+					if(((PlayerEntity)obj).getMovementState() == MovementState.FIRST){
+						g2.drawImage(assetManager.getImage(ImageType.hunterFront1), x, y, null);
+					}
+					else{
+						g2.drawImage(assetManager.getImage(ImageType.hunterFront2), x, y, null);
+					}
+				break; 
+				case Direction.MOVE_LEFT:
+					if(((PlayerEntity)obj).getMovementState() == MovementState.FIRST){
+						g2.drawImage(assetManager.getImage(ImageType.hunterLeft1), x, y, null);
+					}
+					else{
+						g2.drawImage(assetManager.getImage(ImageType.hunterLeft2), x, y, null);
+					}
+				break; 
+				case Direction.MOVE_RIGHT:
+					if(((PlayerEntity)obj).getMovementState() == MovementState.FIRST){
+						g2.drawImage(assetManager.getImage(ImageType.hunterRight1), x, y, null);
+					}
+					else{
+						g2.drawImage(assetManager.getImage(ImageType.hunterRight2), x, y, null);
+					}
+				break; 
+			}
+		}
+
 	}
 
 	@Override
@@ -351,6 +398,7 @@ public class SwingGraphics implements Graphics {
 					getDeltaYinPixel(((RectBoundingBox) obj.getBBox()).getHeight()));
 			if (obj instanceof EnemyEntity) {
 				var enemy = (EnemyEntity) obj;
+				
 				g2.drawString("" + enemy.getEnemyIdentifier(), getXinPixel(point.get()), getYinPixel(point.get()));
 
 			}
