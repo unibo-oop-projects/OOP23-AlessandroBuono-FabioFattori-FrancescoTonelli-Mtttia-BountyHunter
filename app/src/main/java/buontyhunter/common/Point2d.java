@@ -29,8 +29,8 @@ public class Point2d implements java.io.Serializable, Comparable<Point2d> {
      * @param v the vector to sub to this point
      * @return the new point after the sub
      */
-    public Vector2d sub(Point2d v) {
-        return new Vector2d(x - v.x, y - v.y);
+    public Point2d sub(Vector2d v) {
+        return new Point2d(x - v.x, y - v.y);
     }
 
     /**

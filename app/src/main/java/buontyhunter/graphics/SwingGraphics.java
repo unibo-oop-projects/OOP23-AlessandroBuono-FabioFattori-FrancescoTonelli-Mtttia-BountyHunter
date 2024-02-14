@@ -28,19 +28,17 @@ public class SwingGraphics implements Graphics {
 	private double ratioY;
 	private SceneCamera camera;
 	private SwingAssetProvider assetManager;
-	private Resizator resizator;
 
 	private Font titleFont = new Font("Arial", Font.BOLD, 20);
 	private Font paragraphFont = new Font("Arial", Font.PLAIN, 15);
 
 	public SwingGraphics(Graphics2D g2, double ratioX, double ratioY, SceneCamera camera,
-			SwingAssetProvider assetManager, Resizator resizator) {
+			SwingAssetProvider assetManager) {
 		this.g2 = g2;
 		this.ratioX = ratioX;
 		this.ratioY = ratioY;
 		this.camera = camera;
 		this.assetManager = assetManager;
-		this.resizator = resizator;
 	}
 
 	private int getXinPixel(Point2d p) {
@@ -177,8 +175,8 @@ public class SwingGraphics implements Graphics {
 
 		
 
-		int propsX = this.resizator.getWINDOW_WIDTH() / (lastX);
-		int propsY = this.resizator.getWINDOW_HEIGHT() / (lastY);
+		int propsX = GameEngine.resizator.getWINDOW_WIDTH() / (lastX);
+		int propsY = GameEngine.resizator.getWINDOW_HEIGHT() / (lastY);
 
 		g2.drawImage(assetManager.getImage(ImageType.MAPBG), firstX + mapShowOffSetX *2, firstY + mapShowOffSetY*2,
 				getXinPixel(tilePos) + lastX * propsX + mapShowOffSetX*2,
@@ -329,8 +327,8 @@ public class SwingGraphics implements Graphics {
 	public void drawQuestJournal(World w) {
 		int width;
 		int height;
-			width = this.resizator.getWINDOW_WIDTH();
-			height = this.resizator.getWINDOW_HEIGHT();
+			width = GameEngine.resizator.getWINDOW_WIDTH();
+			height = GameEngine.resizator.getWINDOW_HEIGHT();
 		
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect(0, 0, width, height);

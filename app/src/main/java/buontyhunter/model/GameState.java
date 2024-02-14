@@ -11,11 +11,10 @@ public class GameState {
     private int dobloni;
     private World world;
     private boolean gameOver;
-    private Resizator resizator;
 
     public GameState(WorldEventListener l) {
-        resizator = new Resizator();
-        GameFactory f = GameFactory.getInstance(resizator);
+
+        GameFactory f = GameFactory.getInstance();
 
         dobloni = 0;
         world = new World(new RectBoundingBox(new Point2d(0, 0), 20, 18));
@@ -32,9 +31,6 @@ public class GameState {
         return world;
     }
 
-    public Resizator getResizator() {
-        return resizator;
-    }
 
     /** add doblons(in game money) to the player account
      * @param doblons the doblons to deposit

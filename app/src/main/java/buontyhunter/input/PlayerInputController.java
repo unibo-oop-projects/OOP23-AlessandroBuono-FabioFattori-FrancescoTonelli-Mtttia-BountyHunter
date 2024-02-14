@@ -90,7 +90,7 @@ public class PlayerInputController implements InputComponent {
 
 	private void instanceAttack(PlayerEntity player, int x, int y){
 
-		((PlayerEntity)player).setDamagingArea(GameFactory.getInstance(GameEngine.resizator).WeaponDamagingArea((PlayerEntity)player, new Vector2d(x,y)));
+		((PlayerEntity)player).setDamagingArea(GameFactory.getInstance().WeaponDamagingArea((PlayerEntity)player, new Vector2d(x,y)));
 		player.getWeapon().directAttack();
 
 		((PlayerEntity)player).getDamagingArea().setShow(true);

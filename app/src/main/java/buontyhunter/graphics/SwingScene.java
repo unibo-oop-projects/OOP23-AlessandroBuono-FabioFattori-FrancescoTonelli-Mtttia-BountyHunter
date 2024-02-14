@@ -11,7 +11,6 @@ import javax.swing.*;
 
 import buontyhunter.common.ImagePathProvider;
 import buontyhunter.common.Point2d;
-import buontyhunter.common.Resizator;
 import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.input.*;
@@ -21,7 +20,6 @@ import java.util.List;
 import java.awt.event.*;
 import java.util.stream.Collectors;
 import java.awt.BorderLayout;
-import java.awt.*;
 
 public class SwingScene implements Scene , ComponentListener {
 
@@ -43,8 +41,8 @@ public class SwingScene implements Scene , ComponentListener {
 		// make the frame appear in the middle of the screen
 		// Calculates the position where the CenteredJFrame
 		// should be paced on the screen.
-		int x = (gameState.getResizator().getWINDOW_WIDTH() - frame.getWidth()) / 2;
-		int y = (gameState.getResizator().getWINDOW_HEIGHT() - frame.getHeight()) / 2;
+		int x = (GameEngine.resizator.getWINDOW_WIDTH() - frame.getWidth()) / 2;
+		int y = (GameEngine.resizator.getWINDOW_HEIGHT() - frame.getHeight()) / 2;
 		frame.setLocation(x, y);
 		// frame.setLocationRelativeTo(null);
 		if (IsHub) {
@@ -57,8 +55,8 @@ public class SwingScene implements Scene , ComponentListener {
 				buttons.add(button);
 			});
 		}
-		frame.setMinimumSize(new Dimension(gameState.getResizator().getWINDOW_WIDTH(), gameState.getResizator().getWINDOW_HEIGHT()));
-		panel = new ScenePanel(gameState.getResizator().getWINDOW_WIDTH(), gameState.getResizator().getWINDOW_HEIGHT(), GameEngine.resizator.getWORLD_WIDTH(),
+		frame.setMinimumSize(new Dimension(GameEngine.resizator.getWINDOW_WIDTH(), GameEngine.resizator.getWINDOW_HEIGHT()));
+		panel = new ScenePanel(GameEngine.resizator.getWINDOW_WIDTH(), GameEngine.resizator.getWINDOW_HEIGHT(), GameEngine.resizator.getWORLD_WIDTH(),
 		GameEngine.resizator.getWORLD_HEIGHT());
 		frame.setSize(panel.getSize());
 		frame.setResizable(true);
@@ -178,7 +176,7 @@ public class SwingScene implements Scene , ComponentListener {
 
 				var camera = new Camera(scene);
 				camera.update(scene.getPlayer(), scene.getTileManager());
-				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera, assetManager,gameState.getResizator());
+				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera, assetManager);
 				gameState.getWorld().getSceneEntities().forEach(e -> {
 					if (!(e instanceof Teleporter)) {
 						e.updateGraphics(gr, scene);

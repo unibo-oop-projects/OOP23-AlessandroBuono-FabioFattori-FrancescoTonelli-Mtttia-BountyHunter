@@ -9,7 +9,7 @@ public class ChangeWorldEvent implements WorldEvent {
     private final World newWorldToSet;
 
     public ChangeWorldEvent(int newMapId, World oldWorld) throws Exception {
-        GameFactory f = GameFactory.getInstance(GameEngine.resizator);
+        GameFactory f = GameFactory.getInstance();
 
         if (oldWorld.getTeleporter().destination == DestinationOfTeleporterType.HUB) {
             this.newWorldToSet = new World(new RectBoundingBox(new Point2d(0, 0), 16, 16));

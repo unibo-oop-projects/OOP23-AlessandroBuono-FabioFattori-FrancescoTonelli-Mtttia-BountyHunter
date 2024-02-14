@@ -14,17 +14,12 @@ import java.util.*;
 /* this class has methods to create all gameObjects */
 public class GameFactory {
 
-    private Resizator resizator;
-
-    public GameFactory(Resizator resizator) {
-        this.resizator = resizator;
-    }
 
     static private GameFactory instance;
 
-    static public GameFactory getInstance(Resizator resizator) {
+    static public GameFactory getInstance() {
         if (instance == null) {
-            instance = new GameFactory(resizator);
+            instance = new GameFactory();
         }
         return instance;
     }
@@ -108,8 +103,8 @@ public class GameFactory {
      */
     public HealthBar createHealthBar() {
         return new HealthBar(GameObjectType.HealthBar,
-                new Point2d((GameEngine.resizator.getWORLD_WIDTH() / 2) * (this.resizator.getWINDOW_WIDTH() / GameEngine.resizator.getWORLD_WIDTH()) - 100,
-                GameEngine.resizator.getWORLD_HEIGHT() * (this.resizator.getWINDOW_HEIGHT() / GameEngine.resizator.getWORLD_WIDTH()) - 100),
+                new Point2d((GameEngine.resizator.getWORLD_WIDTH() / 2) * (GameEngine.resizator.getWINDOW_WIDTH() / GameEngine.resizator.getWORLD_WIDTH()) - 100,
+                GameEngine.resizator.getWORLD_HEIGHT() * (GameEngine.resizator.getWINDOW_HEIGHT() / GameEngine.resizator.getWORLD_WIDTH()) - 100),
                 new Vector2d(0, 0),
                 new RectBoundingBox(new Point2d(0, 0), GameEngine.resizator.getWORLD_HEIGHT(), GameEngine.resizator.getWORLD_WIDTH()),
                 new NullInputComponent(), new HealthBarGraphicsComponent(), new NullPhysicsComponent());
@@ -138,7 +133,7 @@ public class GameFactory {
     public InterractableArea createQuestPannelForHub(Point2d pos) {
         QuestPannel panel = new QuestPannel(GameObjectType.HidableObject,
                 new Point2d(0, 0), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), this.resizator.getWINDOW_WIDTH(), this.resizator.getWINDOW_HEIGHT ()),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.resizator.getWINDOW_WIDTH(), GameEngine.resizator.getWINDOW_HEIGHT ()),
                 new NullInputComponent(), new QuestPanelGraphicsComponent(), new NullPhysicsComponent(), false);
 
         return new InterractableArea(GameObjectType.InterractableArea,
