@@ -39,6 +39,10 @@ public class RectBoundingBox implements BoundingBox {
 		return width;
 	}
 
+	public Point2d getPoint2d() {
+		return new Point2d(point.x,point.y);
+	}
+
 	public RectBoundingBox withPoint(Point2d point) {
 		return new RectBoundingBox(point, height, width);
 	}

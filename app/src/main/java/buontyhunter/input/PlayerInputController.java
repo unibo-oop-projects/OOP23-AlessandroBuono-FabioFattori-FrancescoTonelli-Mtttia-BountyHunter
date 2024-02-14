@@ -1,8 +1,8 @@
 package buontyhunter.input;
 
 import buontyhunter.common.Direction;
-import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
+import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.PlayerEntity;
@@ -36,8 +36,9 @@ public class PlayerInputController implements InputComponent {
 			vel.x += speed;
 			setDirection(player, Direction.MOVE_RIGHT);
 		}
+
 		if(timer <= 0){
-				
+
 			if(c.isAttackUp()){
 				setDirection(player, Direction.STAND_UP);
 				setTimer(player);
@@ -54,9 +55,18 @@ public class PlayerInputController implements InputComponent {
 				setDirection(player, Direction.STAND_DOWN);
 				setTimer(player);
 			}
+			
+		}
+		else{
+			if(((PlayerEntity)player).getDamagingArea() == null){
+				instanceAttack((PlayerEntity)player, 0, 0);
+			}
+			
+			((PlayerEntity)player).getDamagingArea().setShow(false);
 
-		}else{
-			timer--;
+			if(timer>0){
+				timer--;
+			}
 		}
 		
 		player.setVel(vel);
@@ -68,6 +78,20 @@ public class PlayerInputController implements InputComponent {
 		player.setPos(pos.sum(vel));
 	}
 
+	private void instanceAttack(PlayerEntity player, int x, int y){
+
+		((PlayerEntity)player).setDamagingArea(GameFactory.getInstance(GameEngine.resizator).WeaponDamagingArea((PlayerEntity)player, new Vector2d(x,y)));
+		player.getWeapon().directAttack();
+
+		((PlayerEntity)player).getDamagingArea().setShow(true);
+		
+		//TODO wait(1000);
+	}
+
+	private void setTimer(GameObject player){
+		timer=30/((PlayerEntity)player).getWeapon().getAttackSpeed();
+	}
+
 	private void setDirection(GameObject player, Direction direction){
 		if(player instanceof PlayerEntity){
 			((PlayerEntity)player).setDirection(direction);
@@ -75,8 +99,4 @@ public class PlayerInputController implements InputComponent {
 		
 	}
 
-	private void setTimer(GameObject player){
-		timer=30/((PlayerEntity)player).getWeapon().getAttackSpeed();
-	}
-	
 }

@@ -31,8 +31,8 @@ public class CollisionDetector {
         double rectBottom = rect.getULCorner().y;
         double rectTop = rect.getULCorner().y + rect.getHeight();
 
-        if (point.x > rectLeft && point.x < rectRight &&
-                point.y < rectTop && point.y > rectBottom) {
+        if (point.x >= rectLeft && point.x <= rectRight &&
+                point.y <= rectTop && point.y >= rectBottom) {
             return true; // Colliding
         } else {
             return false; // Not colliding

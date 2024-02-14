@@ -72,9 +72,23 @@ public class World {
         return enemyRegistry.getEnemies();
     }
 
+    public List<FighterEntity> getFighterEntities() {
+        List<FighterEntity> entities = new ArrayList<FighterEntity>();
+        if (player != null) {
+            entities.add((FighterEntity) player);
+        }
+        for (var enemy : getEnemies()) {
+            entities.add(enemy);
+        }
+        return entities;
+    }
+
     public void updateState(long dt) {
         if (player != null) {
             player.updatePhysics(dt, this);
+            if(((FighterEntity)player).getWeapon() != null){
+                ((FighterEntity)player).getDamagingArea().updatePhysics(dt, this);
+            }
         }
         if (tileManager != null) {
             tileManager.updatePhysics(dt, this);

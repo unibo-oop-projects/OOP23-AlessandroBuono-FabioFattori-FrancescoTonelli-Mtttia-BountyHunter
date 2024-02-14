@@ -43,7 +43,7 @@ public class GameFactory {
         return new PlayerEntity(GameObjectType.Player, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                 new PlayerInputController(), new PlayerGraphicsComponent(), new PlayerPhysicsComponent(),
-                health, maxHealth,new DefaultWeapon());
+                health, maxHealth,null);
     }
 
     /**
@@ -75,7 +75,7 @@ public class GameFactory {
     // TODO tutte le classi qui dentro @Buono
     public HidableObject WeaponDamagingArea(FighterEntity entity, Vector2d direction) {
         return new HidableObject(GameObjectType.Weapon, entity.getPos(), direction, entity.getWeapon().getHitbox(),
-                new NullInputComponent(), new WeaponGraphicsComponent(), new WeaponPhysicsComponent(), false);
+                new NullInputComponent(), new WeaponGraphicsComponent(), new WeaponPhysicsComponent(entity), false);
     }
 
     /**
