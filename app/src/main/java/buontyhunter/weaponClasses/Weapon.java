@@ -77,7 +77,7 @@ public abstract class Weapon {
         return hitbox;
     }
 
-    public ImageType getSprite(){
+    public ImageType getSprite() {
         return sprite;
     }
 
@@ -121,6 +121,5 @@ public abstract class Weapon {
         }
         this.hitbox = hitbox;
     }
-
 
 }
