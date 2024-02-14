@@ -51,7 +51,7 @@ public class FighterEntity extends GameObject {
         if(weapon == null){
             weapon = new DefaultWeapon(this);
         }
-        damagingArea = GameFactory.getInstance(GameEngine.resizator).WeaponDamagingArea((FighterEntity)this, new Vector2d(0,0));
+        damagingArea = GameFactory.getInstance().WeaponDamagingArea((FighterEntity)this, new Vector2d(0,0));
     }
 
     /**
