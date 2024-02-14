@@ -12,7 +12,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 
+import buontyhunter.common.ImageType;
 import buontyhunter.common.Logger.AppLogger;
 import buontyhunter.common.Logger.LogType;
 import buontyhunter.model.World;
@@ -29,9 +31,11 @@ public class TitleSwingScene {
         this.loadingTime = 490;
         this.frame = new JFrame("BountyHunter");
         this.frame.setAlwaysOnTop(true);
-        this.frame.setBackground(Color.CYAN);
         this.frame.setSize(new Dimension(width, height));
         this.frame.setPreferredSize(new Dimension(width, height));
+
+        this.frame.setBackground(Color.CYAN);
+
         this.pannelLoader = new TitlePannel();
         this.frame.add(pannelLoader);
         this.frame.addKeyListener(pannelLoader);
@@ -114,8 +118,6 @@ public class TitleSwingScene {
 
         public void paint(Graphics g) {
             Graphics2D g2 = (Graphics2D) g;
-
-            g2.drawString("BOUNTYHUNTER", frame.getWidth() / 2 - " BOUNTYHUNTER ".length() * 2, 100);
 
             if (!isLoading) {
                 g2.drawString("Press any key to start", frame.getWidth() / 2 - "Press any key to start".length() * 2,

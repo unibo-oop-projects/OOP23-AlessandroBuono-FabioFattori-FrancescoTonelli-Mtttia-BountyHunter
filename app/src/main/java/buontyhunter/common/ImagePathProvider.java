@@ -8,6 +8,14 @@ import buontyhunter.core.GameEngine;
 public class ImagePathProvider {
     public static Map<ImageType, AssetImage> imagePaths = new HashMap<>() {
         {
+            put(ImageType.title,new AssetImage(){
+                {
+                    setPath("utility/title.png");
+                    setType(ImageType.title);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
             put(ImageType.EARTH, new AssetImage() {
                 {
                     setPath("earth.png");
