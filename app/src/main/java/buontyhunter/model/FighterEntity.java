@@ -8,6 +8,7 @@ import buontyhunter.core.GameFactory;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
+import buontyhunter.weaponClasses.DefaultWeapon;
 import buontyhunter.weaponClasses.Weapon;
 
 public class FighterEntity extends GameObject {
@@ -47,6 +48,9 @@ public class FighterEntity extends GameObject {
             throw new IllegalArgumentException("Max health must be greater than health");
         }
         weapon = w;
+        if(weapon == null){
+            weapon = new DefaultWeapon(this);
+        }
         damagingArea = GameFactory.getInstance(GameEngine.resizator).WeaponDamagingArea((FighterEntity)this, new Vector2d(0,0));
     }
 
@@ -78,21 +82,22 @@ public class FighterEntity extends GameObject {
         return damagingArea;
     }
 
+    public void takeDamage(int damage){
+        setHealth(health - damage);
+    }
+
     /**
      * Set the health of the entity
      * @param healt the new health of the entity (must be positive & > 0)
      */
     public void setHealth(int healt) {
-        if (healt <= 0) {
-            throw new IllegalArgumentException("Healt must be positive");
-        }
         this.health = healt;
     }
 
     public void setDamagingArea(HidableObject da){
         this.damagingArea=da;
     }
-    
+
     public void setDirection(Direction direction){
         this.direction = direction;
     }

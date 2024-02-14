@@ -41,7 +41,7 @@ public class PlayerInputController implements InputComponent {
 		
 			
 		if(timer <= 0){
-			
+
 			if(c.isAttackUp()){
 				instanceAttack((PlayerEntity)player, 0, -1);
 				setTimer(player);
@@ -50,27 +50,33 @@ public class PlayerInputController implements InputComponent {
 			else if(c.isAttackDown()){
 				instanceAttack((PlayerEntity)player, 0, 1);
 				setTimer(player);
+				setDirection(player, Direction.STAND_DOWN);
 				
-			setDirection(player, Direction.STAND_LEFT);
 			}
 			else if(c.isAttackLeft()){
 				instanceAttack((PlayerEntity)player, -1, 0);
 				setTimer(player);
 				
-			setDirection(player, Direction.STAND_RIGHT);
+				setDirection(player, Direction.STAND_LEFT);
 			}
 			else if(c.isAttackRight()){
 				instanceAttack((PlayerEntity)player, 1, 0);
 				setTimer(player);
 				
-			setDirection(player, Direction.STAND_DOWN);
+				setDirection(player, Direction.STAND_RIGHT);
 			}
 			
+		}
+		else{
+			if(((FighterEntity)player).getDamagingArea() == null){
+				instanceAttack((PlayerEntity)player, 0, 0);
+			}
 			
-		}else{
-			instanceAttack((PlayerEntity)player, 0, 0);
 			((PlayerEntity)player).getDamagingArea().setShow(false);
-			timer--;
+
+			if(timer>0){
+				timer--;
+			}
 		}
 		
 		player.setVel(vel);
@@ -85,11 +91,13 @@ public class PlayerInputController implements InputComponent {
 	private void instanceAttack(PlayerEntity player, int x, int y){
 
 		((PlayerEntity)player).setDamagingArea(GameFactory.getInstance(GameEngine.resizator).WeaponDamagingArea((PlayerEntity)player, new Vector2d(x,y)));
+		player.getWeapon().directAttack();
 
 		((PlayerEntity)player).getDamagingArea().setShow(true);
 		
 		//TODO wait(1000);
 	}
+
 	private void setTimer(GameObject player){
 		timer=30/((PlayerEntity)player).getWeapon().getAttackSpeed();
 	}
