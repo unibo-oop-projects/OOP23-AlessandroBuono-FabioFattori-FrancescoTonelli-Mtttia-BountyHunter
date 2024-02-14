@@ -193,7 +193,7 @@ public class SwingScene implements Scene , ComponentListener {
 				});
 
 				// render the buttons if it is the hub
-				if (IsHub) {
+				if (IsHub && getQuestPannel().isShow()) {
 					int height = (int) ((RectBoundingBox) getQuestPannel().getBBox()).getHeight();
 					int unit = height / 6;
 					int x = unit + unit / 6;
