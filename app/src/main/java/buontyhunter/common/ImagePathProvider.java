@@ -8,6 +8,14 @@ import buontyhunter.core.GameEngine;
 public class ImagePathProvider {
     public static Map<ImageType, AssetImage> imagePaths = new HashMap<>() {
         {
+            put(ImageType.title,new AssetImage(){
+                {
+                    setPath("utility/title.png");
+                    setType(ImageType.title);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
             put(ImageType.EARTH, new AssetImage() {
                 {
                     setPath("earth.png");
@@ -934,12 +942,77 @@ public class ImagePathProvider {
                     setWidth(GameEngine.resizator.getRATIO_WIDTH());
                 }
             });
+            put(ImageType.arrow,new AssetImage(){
+                {
+                    setPath("utility/arrow.png");
+                    setType(ImageType.arrow);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.bow,new AssetImage(){
+                {
+                    setPath("utility/bow.png");
+                    setType(ImageType.bow);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.brassKnucles,new AssetImage(){
+                {
+                    setPath("utility/brass_knucles.png");
+                    setType(ImageType.brassKnucles);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.hammer,new AssetImage(){
+                {
+                    setPath("utility/hammer.png");
+                    setType(ImageType.hammer);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.noticeBoard,new AssetImage(){
+                {
+                    setPath("utility/notice_board.png");
+                    setType(ImageType.noticeBoard);
+                    setHeight(GameEngine.resizator.getWINDOW_HEIGHT());
+                    setWidth(GameEngine.resizator.getWINDOW_WIDTH());
+                }
+            });
+            put(ImageType.paper,new AssetImage(){
+                {
+                    setPath("utility/paper.png");
+                    setType(ImageType.paper);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.sword,new AssetImage(){
+                {
+                    setPath("utility/sword.png");
+                    setType(ImageType.sword);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.teleporter,new AssetImage(){
+                {
+                    setPath("utility/teleporter.png");
+                    setType(ImageType.teleporter);
+                    setHeight(GameEngine.resizator.getRATIO_HEIGHT());
+                    setWidth(GameEngine.resizator.getRATIO_WIDTH());
+                }
+            });
         }
     };
 
     public static void resizeAssets() {
         imagePaths.forEach((k, v) -> {
-            if (v.getType() == ImageType.MAPBG) {
+            if (v.getType() == ImageType.MAPBG ||
+                    v.getType() == ImageType.noticeBoard) {
                 v.setHeight(GameEngine.resizator.getWINDOW_HEIGHT());
                 v.setWidth(GameEngine.resizator.getWINDOW_WIDTH());
             } else {

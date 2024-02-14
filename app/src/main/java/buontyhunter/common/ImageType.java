@@ -1,6 +1,7 @@
 package buontyhunter.common;
 
 public enum ImageType {
+    title,
     EARTH, 
     WATER, 
     GRASS, 
@@ -117,5 +118,13 @@ public enum ImageType {
     wizardLeft2,
     wizardRight,
     wizardRight1,
-    wizardRight2
+    wizardRight2,
+    arrow,
+    bow,
+    brassKnucles,
+    hammer,
+    noticeBoard,
+    paper,
+    sword,
+    teleporter
 }

@@ -1,7 +1,5 @@
 package buontyhunter.graphics;
 
-import java.util.function.Predicate;
-import java.util.function.Function;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -10,12 +8,11 @@ import javax.swing.JButton;
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
-import buontyhunter.common.Resizator;
 import buontyhunter.model.*;
-
+import java.awt.Image;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
-
+import javax.swing.ImageIcon;
 import buontyhunter.model.FighterEntity.MovementState;
 import buontyhunter.weaponClasses.DefaultWeapon;
 import buontyhunter.weaponClasses.MeleeWeapon;
@@ -23,7 +20,6 @@ import buontyhunter.weaponClasses.MeleeWeapon;
 public class SwingGraphics implements Graphics {
 
 	private Graphics2D g2;
-
 	private double ratioX;
 	private double ratioY;
 	private SceneCamera camera;
@@ -266,13 +262,8 @@ public class SwingGraphics implements Graphics {
 	@Override
 	public void drawTeleporter(Teleporter tp, World w) {
 
-		// TODO => replace this code with an image loader for the Teleporter
 		var tpPosInPixel = getTilePosInPixel(camera.getObjectPointInScene(tp.getPos()).get());
-		var height = getDeltaYinPixel(((RectBoundingBox) tp.getBBox()).getHeight());
-		var width = getDeltaXinPixel(((RectBoundingBox) tp.getBBox()).getWidth());
-
-		g2.setColor(Color.WHITE);
-		g2.fillRect((int) tpPosInPixel.x, (int) tpPosInPixel.y, width, height);
+		g2.drawImage(assetManager.getImage(ImageType.teleporter), (int)tpPosInPixel.x, (int)tpPosInPixel.y, null);
 	}
 
 	@Override
@@ -281,30 +272,33 @@ public class SwingGraphics implements Graphics {
 			return;
 		var panelPosInPixel = questPannel.getPos();
 		var height = (int) ((RectBoundingBox) questPannel.getBBox()).getHeight();
-
+		
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
+		
 
 		// questa unità di misura mi permette di disegnare le varie parti della bacheca
-		int unit = height / 6;
-		g2.setColor(new Color(239, 208, 144, 255));
-		g2.fillRoundRect(unit, unit, 4 * unit, 4 * unit, 36, 36);
-		g2.setColor(Color.BLACK);
-		g2.setFont(paragraphFont);
-		g2.drawString("Missioni Disponibili", unit + 11, unit + 13);
+		int unit = height / 7;
+		int boardDimension = unit * 5;
+
+		g2.drawImage(assetManager.getImage(ImageType.noticeBoard), unit, unit, boardDimension, boardDimension, null);
 
 	}
 
 	public void drawQuest(QuestEntity quest, int x, int y, int unit, JButton btn) {
-		btn.setBackground(Color.red);
 		btn.setOpaque(true);
 		btn.setBorderPainted(false);
 		btn.setBounds(x, y, unit, unit);
 		btn.setLayout(new BorderLayout());
-		JLabel nameLabel = new JLabel(quest.getName());
+
+		Image scaled = assetManager.getImage(ImageType.paper).getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH);
+		btn.setIcon(new ImageIcon(scaled));
+
+		JLabel nameLabel = new JLabel("<html><br>" + quest.getName() + "</html>");
 		JLabel descriptionLabel = new JLabel(quest.getDescription());
 		JLabel rewardLabel = new JLabel(quest.getDoblonsReward() + " dobloni");
-		nameLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
+
+		nameLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
 		descriptionLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 10));
 		rewardLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
 		btn.add(nameLabel, BorderLayout.NORTH);
