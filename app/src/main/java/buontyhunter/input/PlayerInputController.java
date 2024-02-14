@@ -36,10 +36,10 @@ public class PlayerInputController implements InputComponent {
 			vel.x += speed;
 			setDirection(player, Direction.MOVE_RIGHT);
 		}
-
-		//Controls if the player is already executing an attack
+		else{
+			setDirection(player, Direction.STAND_DOWN);
+		}
 		
-			
 		if(timer <= 0){
 
 			if(c.isAttackUp()){

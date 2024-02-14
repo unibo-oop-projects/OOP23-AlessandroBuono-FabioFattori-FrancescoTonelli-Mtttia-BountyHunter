@@ -214,6 +214,11 @@ public class SwingScene implements Scene , ComponentListener {
 								gr.drawQuest((QuestEntity) q, x + offsetX, y, unit, button);
 								this.add(button, BorderLayout.CENTER);
 							});
+				}else if(IsHub && !getQuestPannel().isShow()){
+					buttons.forEach(btn -> {
+						frame.remove(btn);
+						btn.setVisible(false);
+					});
 				}
 			}
 		}

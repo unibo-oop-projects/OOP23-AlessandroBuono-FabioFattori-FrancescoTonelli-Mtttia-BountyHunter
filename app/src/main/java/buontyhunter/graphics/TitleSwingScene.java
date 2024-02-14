@@ -33,9 +33,7 @@ public class TitleSwingScene {
         this.frame.setAlwaysOnTop(true);
         this.frame.setSize(new Dimension(width, height));
         this.frame.setPreferredSize(new Dimension(width, height));
-
         this.frame.setBackground(Color.CYAN);
-
         this.pannelLoader = new TitlePannel();
         this.frame.add(pannelLoader);
         this.frame.addKeyListener(pannelLoader);
