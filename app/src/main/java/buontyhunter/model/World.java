@@ -30,7 +30,7 @@ public class World {
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
-        this.healthBar = GameFactory.getInstance(GameEngine.resizator).createHealthBar();
+        this.healthBar = GameFactory.getInstance().createHealthBar();
         this.interractableAreas = new ArrayList<InterractableArea>();
         enemyRegistry = new EnemyRegistryImpl();
     }
