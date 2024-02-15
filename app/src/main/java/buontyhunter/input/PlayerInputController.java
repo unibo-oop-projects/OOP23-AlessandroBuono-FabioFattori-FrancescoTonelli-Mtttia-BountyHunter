@@ -91,7 +91,6 @@ public class PlayerInputController implements InputComponent {
 
 		((PlayerEntity)player).getDamagingArea().setShow(true);
 		
-		//TODO wait(1000);
 	}
 
 	private void setTimer(GameObject player){
