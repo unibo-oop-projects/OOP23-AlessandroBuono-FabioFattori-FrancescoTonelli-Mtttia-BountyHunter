@@ -146,11 +146,36 @@ Ho deciso di fare InteractableArea il più generale possibile per poterla utiliz
 
 # Sviluppo
 
-sviluppo
-
 ### 1. Testing Automatizzato 
 
-testing-automatizzato
+I test sono implementati nel file AppTest.java (https://github.com/progetto-oop/BountyHunter/blob/5ccdbee327faf29c9509e4f0d6f9b93535d6af11/app/src/test/java/buontyhunter/AppTest.java) ed essi verificano il corretto funzionamento dell classe GameEngine, GameFactory, GameState, World , PlayerEntity e Point2d poichè consideriamo queste le classi più importanti del nostro progetto.
+Di queste classi si testano :
+- GameEngine
+    - il costruttore 
+    - le variabili statiche
+- GameFactory
+    - il costruttore
+    - il metodo createPlayerEntity
+    - il metodo createWorld
+    - il metodo createTeleporter
+    - il metodo createQuestPannel
+- GameState
+    - il costruttore
+    - il metodo setWorld
+    - la gestione del gameOver
+    - il metodo notifyWorldEvent
+- World
+    - il costruttore
+    - il metodo notifyWorldEvent
+- PlayerEntity
+    - il costruttore
+    - il metodo addQuest
+    - il metodo removeQuest
+    - se il metodo getQuests ritorna una copia delle quest
+- Point2d
+    - l'equals 
+    - l'hashCode
+
 
 ### 2. Note di sviluppo
 

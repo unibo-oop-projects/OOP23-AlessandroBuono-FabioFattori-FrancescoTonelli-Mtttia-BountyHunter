@@ -36,6 +36,10 @@ public class GameEngine implements WorldEventListener {
         this.mainLoop();
     }
 
+    public GameState getGameState() {
+        return gameState;
+    }
+
     /**
      * start the game loop and keep it running until the game is over
      */
