@@ -5,8 +5,7 @@ import buontyhunter.common.Vector2d;
 import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.model.GameObject;
-import buontyhunter.model.PlayerEntity;
-import buontyhunter.model.World;
+import buontyhunter.model.*;
 
 /**
  * PlayerInputController
@@ -37,28 +36,35 @@ public class PlayerInputController implements InputComponent {
 			setDirection(player, Direction.MOVE_RIGHT);
 		}
 
+		//Controls if the player is already executing an attack
+		
+			
 		if(timer <= 0){
 
 			if(c.isAttackUp()){
+				instanceAttack((PlayerEntity)player, 0, -1);
+				setTimer(player);
 				setDirection(player, Direction.STAND_UP);
-				setTimer(player);
-			}
-			else if(c.isAttackLeft()){
-				setDirection(player, Direction.STAND_LEFT);
-				setTimer(player);
-			}
-			else if(c.isAttackRight()){
-				setDirection(player, Direction.STAND_RIGHT);
-				setTimer(player);
 			}
 			else if(c.isAttackDown()){
-				setDirection(player, Direction.STAND_DOWN);
+				instanceAttack((PlayerEntity)player, 0, 1);
 				setTimer(player);
+				setDirection(player, Direction.STAND_DOWN);
+			}
+			else if(c.isAttackLeft()){
+				instanceAttack((PlayerEntity)player, -1, 0);
+				setTimer(player);
+				setDirection(player, Direction.STAND_LEFT);
+			}
+			else if(c.isAttackRight()){
+				instanceAttack((PlayerEntity)player, 1, 0);
+				setTimer(player);
+				setDirection(player, Direction.STAND_RIGHT);
 			}
 			
 		}
 		else{
-			if(((PlayerEntity)player).getDamagingArea() == null){
+			if(((FighterEntity)player).getDamagingArea() == null){
 				instanceAttack((PlayerEntity)player, 0, 0);
 			}
 			

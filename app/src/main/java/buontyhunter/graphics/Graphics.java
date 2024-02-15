@@ -21,7 +21,7 @@ public interface Graphics {
 	void drawStringUnderPlayer(String s);
 
 	void drawQuestJournal(World w);
-
+	
 	void drawWeapon(FighterEntity fe);
 
 	void drawEnemy(GameObject obj, World w);
