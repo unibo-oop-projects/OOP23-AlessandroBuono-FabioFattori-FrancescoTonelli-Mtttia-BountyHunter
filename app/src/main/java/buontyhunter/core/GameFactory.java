@@ -4,8 +4,6 @@ import buontyhunter.input.*;
 import buontyhunter.model.*;
 import buontyhunter.model.AI.enemySpawner.EnemyType;
 import buontyhunter.physics.*;
-import buontyhunter.weaponClasses.DefaultWeapon;
-import buontyhunter.weaponClasses.MeleeWeapon;
 import buontyhunter.weaponClasses.Weapon;
 import buontyhunter.common.*;
 import buontyhunter.graphics.*;
@@ -138,6 +136,19 @@ public class GameFactory {
 
         return new InterractableArea(GameObjectType.InterractableArea,
                 pos, new Vector2d(0, 0),
+                new RectBoundingBox(pos, 3, 4),
+                panel);
+    }
+
+    public InterractableArea createBlacksmithForHub(Point2d pos){
+        
+        BlacksmithPanel panel = new BlacksmithPanel(GameObjectType.HidableObject, 
+                new Point2d(0, 0), new Vector2d(0, 0), 
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.resizator.getWINDOW_WIDTH(), GameEngine.resizator.getWINDOW_HEIGHT ()), 
+                new NullInputComponent(), new BlacksmithPanelGraphicsComponent(), new NullPhysicsComponent(), false);
+
+        return new InterractableArea(GameObjectType.InterractableArea, 
+                pos, new Vector2d(0,0), 
                 new RectBoundingBox(pos, 3, 4),
                 panel);
     }

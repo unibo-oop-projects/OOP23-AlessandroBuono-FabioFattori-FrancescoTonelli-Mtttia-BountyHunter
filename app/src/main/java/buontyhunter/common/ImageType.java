@@ -126,5 +126,6 @@ public enum ImageType {
     noticeBoard,
     paper,
     sword,
-    teleporter
+    teleporter,
+    blacksmith
 }

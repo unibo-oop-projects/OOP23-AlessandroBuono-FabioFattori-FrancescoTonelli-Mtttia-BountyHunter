@@ -306,6 +306,24 @@ public class SwingGraphics implements Graphics {
 		btn.add(rewardLabel, BorderLayout.SOUTH);
 	}
 
+	public void drawBlacksmithButtons(int index, int x, int y, int unit, JButton btn) {
+		btn.setOpaque(true);
+		btn.setBorderPainted(false);
+		btn.setBounds(x, y, unit, unit);
+		btn.setLayout(new BorderLayout());
+
+		Image scaled;
+
+		if(index == 0){
+			scaled = assetManager.getImage(ImageType.hammer).getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH);
+		}
+		else{
+			scaled = assetManager.getImage(ImageType.arrow).getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH);
+		}
+		
+		btn.setIcon(new ImageIcon(scaled));
+	}
+
 	public void drawStringUnderPlayer(String s) {
 		var playerPosition = camera.getPlayerPoint();
 		playerPosition.setY(playerPosition.y + 1.5);
@@ -315,6 +333,26 @@ public class SwingGraphics implements Graphics {
 		g2.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 20));
 		g2.setColor(Color.BLACK);
 		g2.drawString(s, x, y);
+	}
+
+	@Override
+	public void drawBlacksmithPanel(BlacksmithPanel blacksmithPanel, World w) {
+		if (!blacksmithPanel.isShow())
+			return;
+		var panelPosInPixel = blacksmithPanel.getPos();
+		var height = (int) ((RectBoundingBox) blacksmithPanel.getBBox()).getHeight();
+		
+		g2.setColor(new Color(0, 0, 0, 0.6f));
+		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
+		
+
+		// questa unità di misura mi permette di disegnare le varie parti della bacheca
+		int unit = height / 7;
+		int boardDimension = unit * 5;
+
+		g2.drawImage(assetManager.getImage(ImageType.blacksmith), unit, unit, boardDimension, boardDimension, null);
+		
+
 	}
 
 	@Override

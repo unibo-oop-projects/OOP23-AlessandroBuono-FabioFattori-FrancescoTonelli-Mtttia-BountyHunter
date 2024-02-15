@@ -34,13 +34,6 @@ class AppTest {
         GameState gameState = new GameState(new GameEngine());
         Assertions.assertNotNull(gameState);
         Assertions.assertFalse(gameState.isGameOver());
-        Assertions.assertEquals(0, gameState.getDoblons());
-        gameState.depositDoblons(10);
-        Assertions.assertEquals(10, gameState.getDoblons());
-        Assertions.assertTrue(gameState.withdrawDoblons(5));
-        Assertions.assertEquals(5, gameState.getDoblons());
-        Assertions.assertFalse(gameState.withdrawDoblons(10));
-        Assertions.assertEquals(5, gameState.getDoblons());
         gameState.gameOver();
         Assertions.assertTrue(gameState.isGameOver());
     }

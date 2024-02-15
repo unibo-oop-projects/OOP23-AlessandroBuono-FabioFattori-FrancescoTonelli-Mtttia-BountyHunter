@@ -18,6 +18,8 @@ public abstract class Weapon {
     private ImageType sprite;
     private FighterEntity owner;
 
+    //necessaria la durabilità
+
     public Weapon(int damage, int attackSpeed, int range, int speed, ImageType sprite, FighterEntity owner) {
         this.damage = damage;
         this.attackSpeed = attackSpeed;
