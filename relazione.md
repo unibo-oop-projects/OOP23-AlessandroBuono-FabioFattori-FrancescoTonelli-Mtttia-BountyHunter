@@ -148,7 +148,7 @@ Ho deciso di fare InteractableArea il più generale possibile per poterla utiliz
 
 ### 1. Testing Automatizzato 
 
-I test sono implementati nel file AppTest.java (https://github.com/progetto-oop/BountyHunter/blob/5ccdbee327faf29c9509e4f0d6f9b93535d6af11/app/src/test/java/buontyhunter/AppTest.java) ed essi verificano il corretto funzionamento dell classe GameEngine, GameFactory, GameState, World , PlayerEntity e Point2d poichè consideriamo queste le classi più importanti del nostro progetto.
+I test sono implementati nel file AppTest.java (link di AppTestAggiornato) ed essi verificano il corretto funzionamento dell classe GameEngine, GameFactory, GameState, World , PlayerEntity e Point2d poichè consideriamo queste le classi più importanti del nostro progetto.
 Di queste classi si testano :
 - GameEngine
     - il costruttore 
