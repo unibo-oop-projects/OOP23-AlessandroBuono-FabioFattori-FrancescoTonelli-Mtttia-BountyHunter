@@ -258,14 +258,16 @@ public class SwingScene implements Scene , ComponentListener {
 							getBlacksmithPannel().getBlacksmith().buyAmmo((PlayerEntity) gameState.getWorld().getPlayer());	
 						}
 					});
+
 					blacksmithButtons.add(repair);
 					blacksmithButtons.add(sell);
-					repair.setVisible(getBlacksmithPannel().isShow());
-					gr.drawBlacksmithButtons(0, 2*x, y, unit, repair);
-					this.add(repair, BorderLayout.SOUTH);
-					sell.setVisible(getBlacksmithPannel().isShow());
-					gr.drawBlacksmithButtons(1, x, y, unit, repair);
-					this.add(repair, BorderLayout.NORTH);
+
+					blacksmithButtons.get(0).setVisible(getBlacksmithPannel().isShow());
+					gr.drawBlacksmithButtons(0, (height - x - unit), y, unit, blacksmithButtons.get(0));
+					this.add(blacksmithButtons.get(0), BorderLayout.CENTER);
+					blacksmithButtons.get(1).setVisible(getBlacksmithPannel().isShow());
+					gr.drawBlacksmithButtons(1, x, y, unit, blacksmithButtons.get(1));
+					this.add(blacksmithButtons.get(1), BorderLayout.CENTER);
 					
 				}else if(IsHub && !getBlacksmithPannel().isShow()){
 					blacksmithButtons.forEach(btn -> {

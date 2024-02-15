@@ -21,7 +21,7 @@ public class ChangeWorldEvent implements WorldEvent {
             this.newWorldToSet
                     .setTeleporter(f.createTeleporterToOpenWorld());
             this.newWorldToSet.addInterractableArea(f.createQuestPannelForHub(new Point2d(7, 5)));
-            this.newWorldToSet.addInterractableArea(f.createBlacksmithForHub(new Point2d(2, 5)));
+            this.newWorldToSet.addInterractableArea(f.createBlacksmithForHub(new Point2d(1, 4)));
             this.newWorldToSet.setQuestJournal(f.createQuestJournal());
             this.newWorldToSet.disableEnemies();
             return;

@@ -12,6 +12,7 @@ import buontyhunter.model.*;
 import java.awt.Image;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.border.LineBorder;
 import javax.swing.ImageIcon;
 import buontyhunter.model.FighterEntity.MovementState;
 import buontyhunter.weaponClasses.DefaultWeapon;
@@ -308,17 +309,19 @@ public class SwingGraphics implements Graphics {
 
 	public void drawBlacksmithButtons(int index, int x, int y, int unit, JButton btn) {
 		btn.setOpaque(true);
-		btn.setBorderPainted(false);
+		btn.setBackground(new Color(197, 145, 84));
+		btn.setBorderPainted(true);
+		btn.setBorder(new LineBorder(new Color(130, 91, 49), unit/10));
 		btn.setBounds(x, y, unit, unit);
 		btn.setLayout(new BorderLayout());
 
 		Image scaled;
 
 		if(index == 0){
-			scaled = assetManager.getImage(ImageType.hammer).getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH);
+			scaled = assetManager.getImage(ImageType.hammer).getScaledInstance((int)(btn.getWidth()/(1.5)), (int)(btn.getHeight()/(1.5)), Image.SCALE_SMOOTH);
 		}
 		else{
-			scaled = assetManager.getImage(ImageType.arrow).getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH);
+			scaled = assetManager.getImage(ImageType.arrow).getScaledInstance((int)(btn.getWidth()/(1.5)), (int)(btn.getHeight()/(1.5)), Image.SCALE_SMOOTH);
 		}
 		
 		btn.setIcon(new ImageIcon(scaled));

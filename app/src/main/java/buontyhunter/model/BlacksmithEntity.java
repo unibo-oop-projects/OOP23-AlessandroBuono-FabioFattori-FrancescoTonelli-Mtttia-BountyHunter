@@ -19,6 +19,10 @@ public class BlacksmithEntity extends InterractableArea implements Blacksmith{
     public void buyAmmo(PlayerEntity player) {
         if(player.withdrawDoblons(1)){
             player.giveAmmo(1);
+            System.out.println("Freccia comprata");
+        }
+        else{
+            System.out.println("Freccia non comprata");
         }
     }
     
