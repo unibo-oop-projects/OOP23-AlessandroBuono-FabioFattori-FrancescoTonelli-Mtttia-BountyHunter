@@ -8,7 +8,6 @@ import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
 import buontyhunter.common.Logger.AppLogger;
 import buontyhunter.common.Logger.LogType;
-import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.model.EnemyEntity;
 import buontyhunter.model.World;
@@ -23,7 +22,7 @@ public class EnemyRegistryImpl implements EnemyRegistry {
 
     @Override
     public void addEnemy(Point2d pos, Vector2d speed, int health) {
-        var gameFactory = new GameFactory();
+        var gameFactory = GameFactory.getInstance();
         var enemy = gameFactory.createEnemy(pos, speed, health, enemyIdManger.getIdentifier(), null);
         enemies.put(enemy.getEnemyIdentifier(), enemy);
         AppLogger.getLogger().log("adding enemy" + enemy.getEnemyIdentifier(), LogType.MODEL);

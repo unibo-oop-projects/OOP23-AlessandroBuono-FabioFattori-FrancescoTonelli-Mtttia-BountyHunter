@@ -4,8 +4,6 @@ import buontyhunter.input.*;
 import buontyhunter.model.*;
 import buontyhunter.model.AI.enemySpawner.EnemyType;
 import buontyhunter.physics.*;
-import buontyhunter.weaponClasses.DefaultWeapon;
-import buontyhunter.weaponClasses.MeleeWeapon;
 import buontyhunter.weaponClasses.Weapon;
 import buontyhunter.common.*;
 import buontyhunter.graphics.*;
@@ -16,6 +14,8 @@ public class GameFactory {
 
 
     static private GameFactory instance;
+
+    private GameFactory() {}
 
     static public GameFactory getInstance() {
         if (instance == null) {

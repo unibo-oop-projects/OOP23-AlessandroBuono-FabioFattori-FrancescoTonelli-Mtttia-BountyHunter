@@ -5,9 +5,6 @@ import buontyhunter.model.World;
 
 public class PlayerGraphicsComponent implements GraphicsComponent {
 
-    public PlayerGraphicsComponent() {
-    }
-
     @Override
     public void update(GameObject obj, Graphics w, World world) {
         w.drawPlayer(obj, world);
