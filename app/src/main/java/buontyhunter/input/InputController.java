@@ -24,4 +24,6 @@ public interface InputController {
 	boolean isIPressed();
 
 	boolean isJPressed();
+
+	boolean anyKeyIsPressedSinceStart();
 }

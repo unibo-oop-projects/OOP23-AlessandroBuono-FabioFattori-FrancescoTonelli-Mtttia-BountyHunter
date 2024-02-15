@@ -41,8 +41,8 @@ public class SwingGraphics implements Graphics {
 		return (int) Math.round(p.x * ratioX);
 	}
 
-	private int getValueInPixel(double value){
-		return (int) Math.round(value*ratioX);
+	private int getValueInPixel(double value) {
+		return (int) Math.round(value * ratioX);
 	}
 
 	private int getYinPixel(Point2d p) {
@@ -64,54 +64,50 @@ public class SwingGraphics implements Graphics {
 	@Override
 	public void drawPlayer(GameObject obj, World w) {
 		var x = getXinPixel(camera.getPlayerPoint());
-		var y = getYinPixel(camera.getPlayerPoint());	
+		var y = getYinPixel(camera.getPlayerPoint());
 
-		if(obj instanceof PlayerEntity){
-			switch(((PlayerEntity)obj).getDirection()){
+		if (obj instanceof PlayerEntity) {
+			switch (((PlayerEntity) obj).getDirection()) {
 				case STAND_DOWN:
 					g2.drawImage(assetManager.getImage(ImageType.hunterFront), x, y, null);
-				break;
+					break;
 				case STAND_UP:
 					g2.drawImage(assetManager.getImage(ImageType.hunterBack), x, y, null);
-				break; 
+					break;
 				case STAND_LEFT:
 					g2.drawImage(assetManager.getImage(ImageType.hunterLeft), x, y, null);
-				break; 
+					break;
 				case STAND_RIGHT:
 					g2.drawImage(assetManager.getImage(ImageType.hunterRight), x, y, null);
-				break; 
+					break;
 				case MOVE_UP:
-					if(((PlayerEntity)obj).getMovementState() == MovementState.FIRST){
+					if (((PlayerEntity) obj).getMovementState() == MovementState.FIRST) {
 						g2.drawImage(assetManager.getImage(ImageType.hunterBack1), x, y, null);
-					}
-					else{
+					} else {
 						g2.drawImage(assetManager.getImage(ImageType.hunterBack2), x, y, null);
 					}
-				break; 
+					break;
 				case MOVE_DOWN:
-					if(((PlayerEntity)obj).getMovementState() == MovementState.FIRST){
+					if (((PlayerEntity) obj).getMovementState() == MovementState.FIRST) {
 						g2.drawImage(assetManager.getImage(ImageType.hunterFront1), x, y, null);
-					}
-					else{
+					} else {
 						g2.drawImage(assetManager.getImage(ImageType.hunterFront2), x, y, null);
 					}
-				break; 
+					break;
 				case MOVE_LEFT:
-					if(((PlayerEntity)obj).getMovementState() == MovementState.FIRST){
+					if (((PlayerEntity) obj).getMovementState() == MovementState.FIRST) {
 						g2.drawImage(assetManager.getImage(ImageType.hunterLeft1), x, y, null);
-					}
-					else{
+					} else {
 						g2.drawImage(assetManager.getImage(ImageType.hunterLeft2), x, y, null);
 					}
-				break; 
+					break;
 				case MOVE_RIGHT:
-					if(((PlayerEntity)obj).getMovementState() == MovementState.FIRST){
+					if (((PlayerEntity) obj).getMovementState() == MovementState.FIRST) {
 						g2.drawImage(assetManager.getImage(ImageType.hunterRight1), x, y, null);
-					}
-					else{
+					} else {
 						g2.drawImage(assetManager.getImage(ImageType.hunterRight2), x, y, null);
 					}
-				break; 
+					break;
 			}
 		}
 
@@ -131,7 +127,7 @@ public class SwingGraphics implements Graphics {
 		int i = 0, j = 0;
 		for (int y = firstY; y < lastY; y++) {
 			i = 0;
-			for (int x = firstX; x < lastX; x++) {	
+			for (int x = firstX; x < lastX; x++) {
 				Point2d tilePos = new Point2d(i - offsetX, j - offsetY);
 				try {
 					var image = tiles.get(y).get(x).getImage();
@@ -169,14 +165,12 @@ public class SwingGraphics implements Graphics {
 
 		Point2d tilePos = new Point2d(1, 1);
 
-		
+		int propsX = GameEngine.RESIZATOR.getWINDOW_WIDTH() / (lastX);
+		int propsY = GameEngine.RESIZATOR.getWINDOW_HEIGHT() / (lastY);
 
-		int propsX = GameEngine.resizator.getWINDOW_WIDTH() / (lastX);
-		int propsY = GameEngine.resizator.getWINDOW_HEIGHT() / (lastY);
-
-		g2.drawImage(assetManager.getImage(ImageType.MAPBG), firstX + mapShowOffSetX *2, firstY + mapShowOffSetY*2,
-				getXinPixel(tilePos) + lastX * propsX + mapShowOffSetX*2,
-				getYinPixel(tilePos) + lastY * propsY + mapShowOffSetY*2, null);
+		g2.drawImage(assetManager.getImage(ImageType.MAPBG), firstX + mapShowOffSetX * 2, firstY + mapShowOffSetY * 2,
+				getXinPixel(tilePos) + lastX * propsX + mapShowOffSetX * 2,
+				getYinPixel(tilePos) + lastY * propsY + mapShowOffSetY * 2, null);
 		for (int x = firstX; x < lastX; x++) {
 			for (int y = firstY; y < lastY; y++) {
 
@@ -195,24 +189,26 @@ public class SwingGraphics implements Graphics {
 		var p = w.getPlayer();
 
 		g2.setColor(Color.RED);
-		g2.fillRect(getXinPixel(tilePos)+mapShowOffSetX + (int) Math.floor(p.getPos().x) * propsX,
-				getYinPixel(tilePos)+mapShowOffSetY + (int) Math.floor(p.getPos().y) * propsY, propsX * playerSize,
+		g2.fillRect(getXinPixel(tilePos) + mapShowOffSetX + (int) Math.floor(p.getPos().x) * propsX,
+				getYinPixel(tilePos) + mapShowOffSetY + (int) Math.floor(p.getPos().y) * propsY, propsX * playerSize,
 				propsY * playerSize);
 
 		for (var enemy : w.getEnemies()) {
 
 			g2.setColor(Color.YELLOW);
 			g2.fillRect(getXinPixel(tilePos) + (int) Math.floor(enemy.getPos().x) * propsX + mapShowOffSetX,
-					getYinPixel(tilePos) + mapShowOffSetY+ (int) Math.floor(enemy.getPos().y) * propsY, propsX * playerSize,
+					getYinPixel(tilePos) + mapShowOffSetY + (int) Math.floor(enemy.getPos().y) * propsY,
+					propsX * playerSize,
 					propsY * playerSize);
 		}
 
 		var navigatorLine = w.getNavigatorLine();
 		var pathStream = navigatorLine.getPath().stream();
-		
+
 		// g2.setColor(Color.ORANGE);
-		// pathStream.forEach((Point2d np) -> g2.fillOval(getXinPixel(tilePos) + mapShowOffSetY + (int) np.x - 2,
-		// 		getYinPixel(tilePos) + mapShowOffSetX + (int) np.y - 2, 5, 5));
+		// pathStream.forEach((Point2d np) -> g2.fillOval(getXinPixel(tilePos) +
+		// mapShowOffSetY + (int) np.x - 2,
+		// getYinPixel(tilePos) + mapShowOffSetX + (int) np.y - 2, 5, 5));
 	}
 
 	private Color getTileColor(TileType type) {
@@ -263,7 +259,7 @@ public class SwingGraphics implements Graphics {
 	public void drawTeleporter(Teleporter tp, World w) {
 
 		var tpPosInPixel = getTilePosInPixel(camera.getObjectPointInScene(tp.getPos()).get());
-		g2.drawImage(assetManager.getImage(ImageType.teleporter), (int)tpPosInPixel.x, (int)tpPosInPixel.y, null);
+		g2.drawImage(assetManager.getImage(ImageType.teleporter), (int) tpPosInPixel.x, (int) tpPosInPixel.y, null);
 	}
 
 	@Override
@@ -272,10 +268,9 @@ public class SwingGraphics implements Graphics {
 			return;
 		var panelPosInPixel = questPannel.getPos();
 		var height = (int) ((RectBoundingBox) questPannel.getBBox()).getHeight();
-		
+
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
-		
 
 		// questa unità di misura mi permette di disegnare le varie parti della bacheca
 		int unit = height / 7;
@@ -291,7 +286,8 @@ public class SwingGraphics implements Graphics {
 		btn.setBounds(x, y, unit, unit);
 		btn.setLayout(new BorderLayout());
 
-		Image scaled = assetManager.getImage(ImageType.paper).getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH);
+		Image scaled = assetManager.getImage(ImageType.paper).getScaledInstance(btn.getWidth(), btn.getHeight(),
+				Image.SCALE_SMOOTH);
 		btn.setIcon(new ImageIcon(scaled));
 
 		JLabel nameLabel = new JLabel("<html><br>" + quest.getName() + "</html>");
@@ -321,9 +317,9 @@ public class SwingGraphics implements Graphics {
 	public void drawQuestJournal(World w) {
 		int width;
 		int height;
-			width = GameEngine.resizator.getWINDOW_WIDTH();
-			height = GameEngine.resizator.getWINDOW_HEIGHT();
-		
+		width = GameEngine.RESIZATOR.getWINDOW_WIDTH();
+		height = GameEngine.RESIZATOR.getWINDOW_HEIGHT();
+
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect(0, 0, width, height);
 		g2.setColor(Color.WHITE);
@@ -348,21 +344,20 @@ public class SwingGraphics implements Graphics {
 		});
 	}
 
-
-	
-	private void outWeapon (Point2d pos, int width, int height){
+	private void outWeapon(Point2d pos, int width, int height) {
 		g2.setColor(Color.blue);
 		g2.fillRect(getXinPixel(pos), getYinPixel(pos), width, height);
 	}
 
-	private void drawMeleeWeapon(Point2d pos, FighterEntity fe){
-		
-		outWeapon(pos, getValueInPixel(((RectBoundingBox)fe.getWeapon().getHitbox()).getWidth()), getValueInPixel(((RectBoundingBox)fe.getWeapon().getHitbox()).getHeight()));
+	private void drawMeleeWeapon(Point2d pos, FighterEntity fe) {
+
+		outWeapon(pos, getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getWidth()),
+				getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getHeight()));
 	}
 
 	@Override
 	public void drawWeapon(FighterEntity fe) {
-		if(((FighterEntity)fe).getWeapon().getSprite()==null){
+		if (((FighterEntity) fe).getWeapon().getSprite() == null) {
 			// int vectX =((int)fe.getDamagingArea().getVel().x);
 			// int vectY =((int)fe.getDamagingArea().getVel().y);
 			// int height =50;
@@ -374,221 +369,228 @@ public class SwingGraphics implements Graphics {
 			// int y= getYinPixel(camera.getPlayerPoint())+18;
 
 			// if(vectY==-1){
-			// 	outWeapon(x-offsetPP, y-(height+offsetPL), width, height);
+			// outWeapon(x-offsetPP, y-(height+offsetPL), width, height);
 			// }
 			// if(vectY==1){
-			// 	outWeapon(x-offsetPP, y+offsetPL, width, height);
+			// outWeapon(x-offsetPP, y+offsetPL, width, height);
 			// }
 			// if(vectX==-1){
-			// 	outWeapon(x-(height+offsetPL), y-offsetPP, height, width);
+			// outWeapon(x-(height+offsetPL), y-offsetPP, height, width);
 			// }
 			// if(vectX==1){
-			// 	outWeapon(x+offsetPL, y-offsetPP, height, width);
+			// outWeapon(x+offsetPL, y-offsetPP, height, width);
 			// }
 			var point = camera.getPlayerPoint();
-			//point = point.sum(fe.getDamagingArea().getVel());
-			if(fe.getWeapon() instanceof DefaultWeapon || fe.getWeapon() instanceof MeleeWeapon){
+			// point = point.sum(fe.getDamagingArea().getVel());
+			if (fe.getWeapon() instanceof DefaultWeapon || fe.getWeapon() instanceof MeleeWeapon) {
 				drawMeleeWeapon(point, fe);
+			} else {
+				outWeapon(point, (int) fe.getWeapon().getHitbox().getWidth(),
+						(int) fe.getWeapon().getHitbox().getHeight());
 			}
-			else{
-				outWeapon(point, (int)fe.getWeapon().getHitbox().getWidth(), (int)fe.getWeapon().getHitbox().getHeight());
-			}
+		} else {
+			/*
+			 * da fare con sprite
+			 * int vectX =((int)fe.getDamagingArea().getVel().x);
+			 * int vectY =((int)fe.getDamagingArea().getVel().y);
+			 * int height = fe.getWeapon().getSprite().;
+			 * int width =20;
+			 * int offsetPP=width/2;
+			 * int offsetPL=18;
+			 * 
+			 * int x= getXinPixel(camera.getPlayerPoint())+18;
+			 * int y= getYinPixel(camera.getPlayerPoint())+18;
+			 * 
+			 * if(vectY==-1){
+			 * outWeapon(x-offsetPP, y-(height+offsetPL), width, height);
+			 * }
+			 * if(vectY==1){
+			 * outWeapon(x-offsetPP, y+offsetPL, width, height);
+			 * }
+			 * if(vectX==-1){
+			 * outWeapon(x-(height+offsetPL), y-offsetPP, height, width);
+			 * }
+			 * if(vectX==1){
+			 * outWeapon(x+offsetPL, y-offsetPP, height, width);
+			 * }
+			 */
+
 		}
-		else{
-			/* da fare con sprite
-			int vectX =((int)fe.getDamagingArea().getVel().x);
-			int vectY =((int)fe.getDamagingArea().getVel().y);
-			int height = fe.getWeapon().getSprite().;
-			int width =20;
-			int offsetPP=width/2;
-			int offsetPL=18;
 
-			int x= getXinPixel(camera.getPlayerPoint())+18;
-			int y= getYinPixel(camera.getPlayerPoint())+18;
-
-			if(vectY==-1){
-				outWeapon(x-offsetPP, y-(height+offsetPL), width, height);
-			}
-			if(vectY==1){
-				outWeapon(x-offsetPP, y+offsetPL, width, height);
-			}
-			if(vectX==-1){
-				outWeapon(x-(height+offsetPL), y-offsetPP, height, width);
-			}
-			if(vectX==1){
-				outWeapon(x+offsetPL, y-offsetPP, height, width);
-			}
-			*/
-
-		}
-		
-		
-		
 	}
 
 	public void drawEnemy(GameObject obj, World w) {
 		var point = camera.getObjectPointInScene(obj.getPos());
 		if (point.isPresent()) {
 			if (obj instanceof EnemyEntity) {
-				switch (((EnemyEntity)obj).getEnemyType()) {
+				switch (((EnemyEntity) obj).getEnemyType()) {
 					case BOW:
-						this.drawSkelly((EnemyEntity)obj, w, getXinPixel(point.get()), getYinPixel(point.get()));
-					break;
+						this.drawSkelly((EnemyEntity) obj, w, getXinPixel(point.get()), getYinPixel(point.get()));
+						break;
 					case BRASS_KNUCLES:
-						this.drawZombie((EnemyEntity)obj, w, getXinPixel(point.get()), getYinPixel(point.get()));
-					break;
+						this.drawZombie((EnemyEntity) obj, w, getXinPixel(point.get()), getYinPixel(point.get()));
+						break;
 					case SWORD:
-						this.drawKnight((EnemyEntity)obj, w, getXinPixel(point.get()), getYinPixel(point.get()));	
-					break;
+						this.drawKnight((EnemyEntity) obj, w, getXinPixel(point.get()), getYinPixel(point.get()));
+						break;
 				}
 			}
 		}
 	}
 
-	private void drawZombie(EnemyEntity zombie, World w, int x, int y){
-		switch(zombie.getDirection()){
+	private void drawZombie(EnemyEntity zombie, World w, int x, int y) {
+		switch (zombie.getDirection()) {
 			case STAND_DOWN:
 				g2.drawImage(assetManager.getImage(ImageType.zombieFront), x, y, null);
-			break;
+				break;
 			case STAND_UP:
 				g2.drawImage(assetManager.getImage(ImageType.zombieBack), x, y, null);
-			break; 
+				break;
 			case STAND_LEFT:
 				g2.drawImage(assetManager.getImage(ImageType.zombieLeft), x, y, null);
-			break; 
+				break;
 			case STAND_RIGHT:
 				g2.drawImage(assetManager.getImage(ImageType.zombieRight), x, y, null);
-			break; 
+				break;
 			case MOVE_UP:
-				if(zombie.getMovementState() == MovementState.FIRST){
+				if (zombie.getMovementState() == MovementState.FIRST) {
 					g2.drawImage(assetManager.getImage(ImageType.zombieBack1), x, y, null);
-				}
-				else{
+				} else {
 					g2.drawImage(assetManager.getImage(ImageType.zombieBack2), x, y, null);
 				}
-			break; 
+				break;
 			case MOVE_DOWN:
-				if(zombie.getMovementState() == MovementState.FIRST){
+				if (zombie.getMovementState() == MovementState.FIRST) {
 					g2.drawImage(assetManager.getImage(ImageType.zombieFront1), x, y, null);
-				}
-				else{
+				} else {
 					g2.drawImage(assetManager.getImage(ImageType.zombieFront2), x, y, null);
 				}
-			break; 
+				break;
 			case MOVE_LEFT:
-				if(zombie.getMovementState() == MovementState.FIRST){
+				if (zombie.getMovementState() == MovementState.FIRST) {
 					g2.drawImage(assetManager.getImage(ImageType.zombieLeft1), x, y, null);
-				}
-				else{
+				} else {
 					g2.drawImage(assetManager.getImage(ImageType.zombieLeft2), x, y, null);
 				}
-			break; 
+				break;
 			case MOVE_RIGHT:
-				if(zombie.getMovementState() == MovementState.FIRST){
+				if (zombie.getMovementState() == MovementState.FIRST) {
 					g2.drawImage(assetManager.getImage(ImageType.zombieRight1), x, y, null);
-				}
-				else{
+				} else {
 					g2.drawImage(assetManager.getImage(ImageType.zombieRight2), x, y, null);
 				}
-			break; 
+				break;
 		}
 	}
 
-	private void drawKnight(EnemyEntity knight, World w, int x, int y){
-		switch(knight.getDirection()){
+	private void drawKnight(EnemyEntity knight, World w, int x, int y) {
+		switch (knight.getDirection()) {
 			case STAND_DOWN:
 				g2.drawImage(assetManager.getImage(ImageType.knightFront), x, y, null);
-			break;
+				break;
 			case STAND_UP:
 				g2.drawImage(assetManager.getImage(ImageType.knightBack), x, y, null);
-			break; 
+				break;
 			case STAND_LEFT:
 				g2.drawImage(assetManager.getImage(ImageType.knightLeft), x, y, null);
-			break; 
+				break;
 			case STAND_RIGHT:
 				g2.drawImage(assetManager.getImage(ImageType.knightRight), x, y, null);
-			break; 
+				break;
 			case MOVE_UP:
-				if(knight.getMovementState() == MovementState.FIRST){
+				if (knight.getMovementState() == MovementState.FIRST) {
 					g2.drawImage(assetManager.getImage(ImageType.knightBack1), x, y, null);
-				}
-				else{
+				} else {
 					g2.drawImage(assetManager.getImage(ImageType.knightBack2), x, y, null);
 				}
-			break; 
+				break;
 			case MOVE_DOWN:
-				if(knight.getMovementState() == MovementState.FIRST){
+				if (knight.getMovementState() == MovementState.FIRST) {
 					g2.drawImage(assetManager.getImage(ImageType.knightFront1), x, y, null);
-				}
-				else{
+				} else {
 					g2.drawImage(assetManager.getImage(ImageType.knightFront2), x, y, null);
 				}
-			break; 
+				break;
 			case MOVE_LEFT:
-				if(knight.getMovementState() == MovementState.FIRST){
+				if (knight.getMovementState() == MovementState.FIRST) {
 					g2.drawImage(assetManager.getImage(ImageType.knightLeft1), x, y, null);
-				}
-				else{
+				} else {
 					g2.drawImage(assetManager.getImage(ImageType.knightLeft2), x, y, null);
 				}
-			break; 
+				break;
 			case MOVE_RIGHT:
-				if(knight.getMovementState() == MovementState.FIRST){
+				if (knight.getMovementState() == MovementState.FIRST) {
 					g2.drawImage(assetManager.getImage(ImageType.knightRight1), x, y, null);
-				}
-				else{
+				} else {
 					g2.drawImage(assetManager.getImage(ImageType.knightRight2), x, y, null);
 				}
-			break; 
+				break;
 		}
 	}
-	
-	private void drawSkelly(EnemyEntity skelly, World w, int x, int y){
-		switch(skelly.getDirection()){
+
+	private void drawSkelly(EnemyEntity skelly, World w, int x, int y) {
+		switch (skelly.getDirection()) {
 			case STAND_DOWN:
 				g2.drawImage(assetManager.getImage(ImageType.skellyFront), x, y, null);
-			break;
+				break;
 			case STAND_UP:
 				g2.drawImage(assetManager.getImage(ImageType.skellyBack), x, y, null);
-			break; 
+				break;
 			case STAND_LEFT:
 				g2.drawImage(assetManager.getImage(ImageType.skellyLeft), x, y, null);
-			break; 
+				break;
 			case STAND_RIGHT:
 				g2.drawImage(assetManager.getImage(ImageType.skellyRight), x, y, null);
-			break; 
+				break;
 			case MOVE_UP:
-				if(skelly.getMovementState() == MovementState.FIRST){
+				if (skelly.getMovementState() == MovementState.FIRST) {
 					g2.drawImage(assetManager.getImage(ImageType.skellyBack1), x, y, null);
-				}
-				else{
+				} else {
 					g2.drawImage(assetManager.getImage(ImageType.skellyBack2), x, y, null);
 				}
-			break; 
+				break;
 			case MOVE_DOWN:
-				if(skelly.getMovementState() == MovementState.FIRST){
+				if (skelly.getMovementState() == MovementState.FIRST) {
 					g2.drawImage(assetManager.getImage(ImageType.skellyFront1), x, y, null);
-				}
-				else{
+				} else {
 					g2.drawImage(assetManager.getImage(ImageType.skellyFront2), x, y, null);
 				}
-			break; 
+				break;
 			case MOVE_LEFT:
-				if(skelly.getMovementState() == MovementState.FIRST){
+				if (skelly.getMovementState() == MovementState.FIRST) {
 					g2.drawImage(assetManager.getImage(ImageType.skellyLeft1), x, y, null);
-				}
-				else{
+				} else {
 					g2.drawImage(assetManager.getImage(ImageType.skellyLeft2), x, y, null);
 				}
-			break; 
+				break;
 			case MOVE_RIGHT:
-				if(skelly.getMovementState() == MovementState.FIRST){
+				if (skelly.getMovementState() == MovementState.FIRST) {
 					g2.drawImage(assetManager.getImage(ImageType.skellyRight1), x, y, null);
-				}
-				else{
+				} else {
 					g2.drawImage(assetManager.getImage(ImageType.skellyRight2), x, y, null);
 				}
-			break; 
+				break;
+		}
+	}
+
+	@Override
+	public void drawProgressBar(LoadingBar loadingBar, World w) {
+		if (loadingBar.loadingIsStarted()) {
+			var currentLoaded = loadingBar.getCurrentLoaded();
+			var loadingTime = loadingBar.getLoadingTime();
+			var frame = GameEngine.RESIZATOR.getWINDOW_WIDTH();
+			var g2 = this.g2;
+			if (currentLoaded < loadingTime) {
+				g2.setColor(Color.BLACK);
+				g2.fillRect(0, frame - 180, frame, 80);
+				g2.setColor(Color.WHITE);
+				g2.fillRect(10, frame - 170, currentLoaded * frame / loadingTime -30, 60);
+			} else {
+				g2.setColor(Color.BLACK);
+				g2.fillRect(0, frame - 180, frame, 80);
+				g2.setColor(Color.WHITE);
+				g2.fillRect(10, frame - 170, frame - 100 , 60);
+			}
 		}
 	}
 }

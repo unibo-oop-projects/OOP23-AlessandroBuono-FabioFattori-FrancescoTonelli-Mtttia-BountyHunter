@@ -27,11 +27,11 @@ public class Camera implements SceneCamera {
     }
 
     private double getHalfWidth() {
-        return GameEngine.resizator.getWORLD_WIDTH() / 2;
+        return GameEngine.RESIZATOR.getWORLD_WIDTH() / 2;
     }
 
     private double getHalfHeight() {
-        return GameEngine.resizator.getWORLD_HEIGHT() / 2;
+        return GameEngine.RESIZATOR.getWORLD_HEIGHT() / 2;
     }
 
     @Override
@@ -77,14 +77,14 @@ public class Camera implements SceneCamera {
                 : (int) (pos.x < halfWidth ? 0 : Math.floor(bbox.getWidth() - 2 * halfWidth));
         firstTileY = playerYInCenter ? (int) Math.floor(pos.y - halfHeight)
                 : (pos.y < halfHeight ? 0
-                        : (int) Math.floor(bbox.getHeight() - GameEngine.resizator.getWORLD_HEIGHT()));
+                        : (int) Math.floor(bbox.getHeight() - GameEngine.RESIZATOR.getWORLD_HEIGHT()));
         tileOffsetX = playerXInCenter ? (pos.x - halfWidth) - Math.floor(pos.x - halfWidth) : 0;
         tileOffsetY = playerYInCenter ? (pos.y - halfHeight) - Math.floor(pos.y - halfHeight) : 0;
         if (world.getTeleporter().destination == DestinationOfTeleporterType.HUB) {
-            lastTileX = tileOffsetX > 0 ? firstTileX + (int) Math.round(GameEngine.resizator.getWORLD_WIDTH()) + 1
-                    : firstTileX + (int) (Math.round(GameEngine.resizator.getWORLD_WIDTH()));
-            lastTileY = tileOffsetY > 0 ? firstTileY + (int) Math.round(GameEngine.resizator.getWORLD_HEIGHT()) + 1
-                    : firstTileY + (int) Math.round(GameEngine.resizator.getWORLD_HEIGHT());
+            lastTileX = tileOffsetX > 0 ? firstTileX + (int) Math.round(GameEngine.RESIZATOR.getWORLD_WIDTH()) + 1
+                    : firstTileX + (int) (Math.round(GameEngine.RESIZATOR.getWORLD_WIDTH()));
+            lastTileY = tileOffsetY > 0 ? firstTileY + (int) Math.round(GameEngine.RESIZATOR.getWORLD_HEIGHT()) + 1
+                    : firstTileY + (int) Math.round(GameEngine.RESIZATOR.getWORLD_HEIGHT());
         } else {
             lastTileX = world.getTileManager().getTiles().size();
             lastTileY = world.getTileManager().getTiles().size();

@@ -12,7 +12,7 @@ import buontyhunter.model.*;
 
 public class GameEngine implements WorldEventListener {
 
-    public static final Resizator resizator = new Resizator();
+    public static final Resizator RESIZATOR = new Resizator();
     public static final Point2d HUB_PLAYER_START = new Point2d(8, 8);
     public static final Point2d OPEN_WORLD_PLAYER_START = new Point2d(5, 106);
 
@@ -84,21 +84,29 @@ public class GameEngine implements WorldEventListener {
      * Process the input foreach game object that needs it
      */
     protected void processInput() {
-        // check if the world has a minimap (the hub doesn't have a minimap)
-        if (gameState.getWorld().getMiniMap() != null) {
-            // if the map is not showing, the player can move
-            if (!gameState.getWorld().getMiniMap().isShow()) {
+        // check if the game is in the title screen
+        if (gameState.isInTitleScreen()) {
+
+            if (controller.anyKeyIsPressedSinceStart()) {
+                gameState.getWorld().getLoadingBar().startLoading();
+            }
+        } else {
+            // check if the world has a minimap (the hub doesn't have a minimap)
+            if (gameState.getWorld().getMiniMap() != null) {
+                // if the map is not showing, the player can move
+                if (!gameState.getWorld().getMiniMap().isShow()) {
+                    gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
+                    gameState.getWorld().processAiInput(controller);
+                }
+
+                gameState.getWorld().getMiniMap().updateInput(controller, gameState.getWorld());
+            } else {
                 gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
                 gameState.getWorld().processAiInput(controller);
             }
-
-            gameState.getWorld().getMiniMap().updateInput(controller, gameState.getWorld());
-        } else {
-            gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
-            gameState.getWorld().processAiInput(controller);
+            gameState.getWorld().getQuestJournal().updateInput(controller, gameState.getWorld());
+            gameState.getWorld().getInterractableAreas().forEach(area -> area.updateInput(controller));
         }
-        gameState.getWorld().getQuestJournal().updateInput(controller, gameState.getWorld());
-        gameState.getWorld().getInterractableAreas().forEach(area -> area.updateInput(controller));
     }
 
     /**
@@ -119,6 +127,9 @@ public class GameEngine implements WorldEventListener {
         World scene = gameState.getWorld();
         eventQueue.stream().forEach(ev -> {
             if (ev instanceof ChangeWorldEvent) {
+                if(!gameState.isGameStarted()){
+                    gameState.startGame();
+                }
                 gameState.setWorld(((ChangeWorldEvent) ev).getNewWorld());
                 gameState.getWorld().setEventListener(this);
                 controller.reset();
@@ -147,7 +158,6 @@ public class GameEngine implements WorldEventListener {
     protected void renderGameOver() {
         view.renderGameOver();
     }
-
 
     @Override
     public void notifyEvent(WorldEvent ev) {

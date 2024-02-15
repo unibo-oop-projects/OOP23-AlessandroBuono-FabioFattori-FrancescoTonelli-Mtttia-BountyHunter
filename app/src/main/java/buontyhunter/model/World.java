@@ -27,6 +27,7 @@ public class World {
     private HidableObject questJournal;
     private List<InterractableArea> interractableAreas;
     private EnemyRegistry enemyRegistry;
+    private LoadingBar loadingBar;
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
@@ -35,8 +36,20 @@ public class World {
         enemyRegistry = new EnemyRegistryImpl();
     }
 
+    public void setLoadingBar(LoadingBar loadingBar) {
+        this.loadingBar = loadingBar;
+    }
+
+    public LoadingBar getLoadingBar() {
+        return loadingBar;
+    }
+
     public void setEventListener(WorldEventListener l) {
         evListener = l;
+    }
+
+    public void setHealthBar(HealthBar healthBar) {
+        this.healthBar = healthBar;
     }
 
     public void setTileManager(TileManager tileManager, int settedMap) {
@@ -72,6 +85,10 @@ public class World {
         return enemyRegistry.getEnemies();
     }
 
+    public WorldEventListener getEventListener() {
+        return evListener;
+    }
+
     public List<FighterEntity> getFighterEntities() {
         List<FighterEntity> entities = new ArrayList<FighterEntity>();
         if (player != null) {
@@ -84,25 +101,34 @@ public class World {
     }
 
     public void updateState(long dt) {
-        if (player != null) {
-            player.updatePhysics(dt, this);
-            if(((FighterEntity)player).getWeapon() != null){
-                ((FighterEntity)player).getDamagingArea().updatePhysics(dt, this);
+        if (loadingBar != null) {
+            if (loadingBar.loadingIsStarted()) {
+                loadingBar.advanceLoadingTime();
+                if (loadingBar.isLoaded()) {
+                    notifyWorldEvent(new ChangeWorldEvent(TileManager.HUB_MAP_ID, this));
+                }
             }
-        }
-        if (tileManager != null) {
-            tileManager.updatePhysics(dt, this);
-        }
-        if (miniMap != null) {
-            miniMap.updatePhysics(dt, this);
-        }
-        if (tp != null) {
-            tp.updatePhysics(dt, this);
-        }
+        } else {
+            if (player != null) {
+                player.updatePhysics(dt, this);
+                if (((FighterEntity) player).getWeapon() != null) {
+                    ((FighterEntity) player).getDamagingArea().updatePhysics(dt, this);
+                }
+            }
+            if (tileManager != null) {
+                tileManager.updatePhysics(dt, this);
+            }
+            if (miniMap != null) {
+                miniMap.updatePhysics(dt, this);
+            }
+            if (tp != null) {
+                tp.updatePhysics(dt, this);
+            }
 
-        this.interractableAreas.forEach(area -> area.updatePhysics(dt, this));
-        for (var enemy : getEnemies()) {
-            enemy.updatePhysics(dt, this);
+            this.interractableAreas.forEach(area -> area.updatePhysics(dt, this));
+            for (var enemy : getEnemies()) {
+                enemy.updatePhysics(dt, this);
+            }
         }
     }
 
@@ -161,14 +187,13 @@ public class World {
             entities.add(healthBar);
         if (tp != null)
             entities.add(tp);
-            for (var enemy : getEnemies()) {
-                entities.add(enemy);
-            }
+        for (var enemy : getEnemies()) {
+            entities.add(enemy);
+        }
         if (miniMap != null)
             entities.add(miniMap);
         if (questJournal != null)
             entities.add(questJournal);
-        
 
         this.interractableAreas.forEach(area -> entities.add(area));
         return entities;

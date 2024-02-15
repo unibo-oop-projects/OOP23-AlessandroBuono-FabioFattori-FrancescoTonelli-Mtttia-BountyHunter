@@ -25,4 +25,6 @@ public interface Graphics {
 	void drawWeapon(FighterEntity fe);
 
 	void drawEnemy(GameObject obj, World w);
+
+	void drawProgressBar(LoadingBar loadingBar, World w);
 }

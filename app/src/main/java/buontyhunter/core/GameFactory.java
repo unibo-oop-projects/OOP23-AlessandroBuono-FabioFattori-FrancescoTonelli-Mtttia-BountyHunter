@@ -12,10 +12,10 @@ import java.util.*;
 /* this class has methods to create all gameObjects */
 public class GameFactory {
 
-
     static private GameFactory instance;
 
-    private GameFactory() {}
+    private GameFactory() {
+    }
 
     static public GameFactory getInstance() {
         if (instance == null) {
@@ -39,7 +39,7 @@ public class GameFactory {
         return new PlayerEntity(GameObjectType.Player, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                 new PlayerInputController(), new PlayerGraphicsComponent(), new PlayerPhysicsComponent(),
-                health, maxHealth,null);
+                health, maxHealth, null);
     }
 
     /**
@@ -50,8 +50,10 @@ public class GameFactory {
      */
     public TileManager createTileManager() {
         return new TileManager(GameObjectType.TileManager,
-                new Point2d(-(GameEngine.resizator.getWORLD_WIDTH() / 2), GameEngine.resizator.getWORLD_HEIGHT() / 2), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.resizator.getWORLD_HEIGHT(), GameEngine.resizator.getWORLD_WIDTH()),
+                new Point2d(-(GameEngine.RESIZATOR.getWORLD_WIDTH() / 2), GameEngine.RESIZATOR.getWORLD_HEIGHT() / 2),
+                new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.RESIZATOR.getWORLD_HEIGHT(),
+                        GameEngine.RESIZATOR.getWORLD_WIDTH()),
                 new NullInputComponent(), new MapGraphicsComponent(), new NullPhysicsComponent());
     }
 
@@ -64,7 +66,8 @@ public class GameFactory {
     public HidableObject createMinimap() {
         return new HidableObject(GameObjectType.MiniMap,
                 new Point2d(0, 0), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.resizator.getWORLD_HEIGHT(), GameEngine.resizator.getWORLD_WIDTH()),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.RESIZATOR.getWORLD_HEIGHT(),
+                        GameEngine.RESIZATOR.getWORLD_WIDTH()),
                 new MiniMapInputController(), new MiniMapGraphicsComponent(), new NullPhysicsComponent(), false);
     }
 
@@ -84,7 +87,8 @@ public class GameFactory {
     public NavigatorLine createNavigatorLine(World world) {
         return new NavigatorLine(GameObjectType.NavigatorLine,
                 new Point2d(0, 0), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.resizator.getWORLD_HEIGHT(), GameEngine.resizator.getWORLD_WIDTH()),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.RESIZATOR.getWORLD_HEIGHT(),
+                        GameEngine.RESIZATOR.getWORLD_WIDTH()),
                 new NullInputComponent(), new NavigatorLineGraphicsComponent(), new NullPhysicsComponent(), world);
     }
 
@@ -103,10 +107,16 @@ public class GameFactory {
      */
     public HealthBar createHealthBar() {
         return new HealthBar(GameObjectType.HealthBar,
-                new Point2d((GameEngine.resizator.getWORLD_WIDTH() / 2) * (GameEngine.resizator.getWINDOW_WIDTH() / GameEngine.resizator.getWORLD_WIDTH()) - 100,
-                GameEngine.resizator.getWORLD_HEIGHT() * (GameEngine.resizator.getWINDOW_HEIGHT() / GameEngine.resizator.getWORLD_WIDTH()) - 100),
+                new Point2d(
+                        (GameEngine.RESIZATOR.getWORLD_WIDTH() / 2)
+                                * (GameEngine.RESIZATOR.getWINDOW_WIDTH() / GameEngine.RESIZATOR.getWORLD_WIDTH())
+                                - 100,
+                        GameEngine.RESIZATOR.getWORLD_HEIGHT()
+                                * (GameEngine.RESIZATOR.getWINDOW_HEIGHT() / GameEngine.RESIZATOR.getWORLD_WIDTH())
+                                - 100),
                 new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.resizator.getWORLD_HEIGHT(), GameEngine.resizator.getWORLD_WIDTH()),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.RESIZATOR.getWORLD_HEIGHT(),
+                        GameEngine.RESIZATOR.getWORLD_WIDTH()),
                 new NullInputComponent(), new HealthBarGraphicsComponent(), new NullPhysicsComponent());
     }
 
@@ -133,7 +143,8 @@ public class GameFactory {
     public InterractableArea createQuestPannelForHub(Point2d pos) {
         QuestPannel panel = new QuestPannel(GameObjectType.HidableObject,
                 new Point2d(0, 0), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.resizator.getWINDOW_WIDTH(), GameEngine.resizator.getWINDOW_HEIGHT ()),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.RESIZATOR.getWINDOW_WIDTH(),
+                        GameEngine.RESIZATOR.getWINDOW_HEIGHT()),
                 new NullInputComponent(), new QuestPanelGraphicsComponent(), new NullPhysicsComponent(), false);
 
         return new InterractableArea(GameObjectType.InterractableArea,
@@ -153,8 +164,66 @@ public class GameFactory {
     public HidableObject createQuestJournal() {
         return new HidableObject(GameObjectType.HidableObject,
                 new Point2d(0, 0), new Vector2d(0, 0),
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.resizator.getWORLD_HEIGHT(), GameEngine.resizator.getWORLD_WIDTH()),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.RESIZATOR.getWORLD_HEIGHT(),
+                        GameEngine.RESIZATOR.getWORLD_WIDTH()),
                 new QuestJournalInputComponent(), new QuestJournalGraphicsComponent(), new NullPhysicsComponent(),
                 false);
+    }
+
+    public LoadingBar createLoadingBar() {
+        return new LoadingBar(GameObjectType.LoadingBar,
+                new Point2d(0, 0), new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.RESIZATOR.getWORLD_HEIGHT(),
+                        GameEngine.RESIZATOR.getWORLD_WIDTH()),
+                new NullInputComponent(), new LoadingBarGraphicsComponent(), new NullPhysicsComponent());
+    }
+
+    public World createLoadingScreenWorld(WorldEventListener l) {
+        var toRet = new World(new RectBoundingBox(new Point2d(0, 0), 20, 18));
+        toRet.setLoadingBar(this.createLoadingBar());
+        toRet.setEventListener(l);
+        toRet.setHealthBar(null);
+        return toRet;
+    }
+
+    public World createOpenWorld(World oldWorld) {
+        var toRet = new World(new RectBoundingBox(new Point2d(0, 0), 20, 18));
+        if (oldWorld != null && oldWorld.getPlayer() != null && oldWorld.getPlayer() instanceof PlayerEntity) {
+            oldWorld.getPlayer().setPos(GameEngine.OPEN_WORLD_PLAYER_START);
+            toRet.setPlayer(oldWorld.getPlayer());
+        } else {
+            toRet.setPlayer(this.createPlayer(GameEngine.OPEN_WORLD_PLAYER_START, Vector2d.symmetrical(0), 10, 100));
+        }
+        if (oldWorld != null) {
+            toRet.setEventListener(oldWorld.getEventListener());
+        }
+        toRet.setTileManager(this.createTileManager(), 0);
+        toRet.setMiniMap(this.createMinimap());
+        toRet.setNavigatorLine(this.createNavigatorLine(toRet));
+        toRet.setTeleporter(this.createTeleporterToHub());
+        toRet.setQuestJournal(this.createQuestJournal());
+        return toRet;
+    }
+
+    public World createHubWorld(World oldWorld) {
+        var toRet = new World(new RectBoundingBox(new Point2d(0, 0), 16, 16));
+        if (oldWorld != null && oldWorld.getPlayer() != null && oldWorld.getPlayer() instanceof PlayerEntity) {
+            oldWorld.getPlayer().setPos(GameEngine.HUB_PLAYER_START);
+            toRet.setPlayer(oldWorld.getPlayer());
+        } else {
+            toRet.setPlayer(this.createPlayer(GameEngine.HUB_PLAYER_START, Vector2d.symmetrical(0), 10, 100));
+        }
+
+        if (oldWorld != null) {
+            toRet.setEventListener(oldWorld.getEventListener());
+        }
+
+        toRet.setTileManager(this.createTileManager(), 1);
+        toRet.setNavigatorLine(this.createNavigatorLine(toRet));
+        toRet.setTeleporter(this.createTeleporterToOpenWorld());
+        toRet.addInterractableArea(this.createQuestPannelForHub(new Point2d(7, 5)));
+        toRet.setQuestJournal(this.createQuestJournal());
+        toRet.disableEnemies();
+        return toRet;
     }
 }

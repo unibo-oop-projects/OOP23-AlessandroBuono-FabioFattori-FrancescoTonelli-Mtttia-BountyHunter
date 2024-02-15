@@ -19,7 +19,7 @@ class AppTest {
     void testAll() {
         testGameEngine();
         testGameState();
-        testWorld();
+        testAllWorlds();
         testPoint2d();
         testPlayerEntity();
         testGameFactory();
@@ -43,9 +43,17 @@ class AppTest {
     }
 
     @Test
-    void testWorld() {
-        GameState gameState = new GameState(new GameEngine());
-        World world = gameState.getWorld();
+    void testAllWorlds(){
+        GameEngine engine = new GameEngine();
+        
+        World world = GameFactory.getInstance().createLoadingScreenWorld(engine);
+        world = GameFactory.getInstance().createHubWorld(world);
+        testWorld(world);
+        world = GameFactory.getInstance().createOpenWorld(world);
+        testWorld(world);
+    }
+
+    void testWorld(World world) {
         Assertions.assertNotNull(world);
         world.disableEnemies();
         Assertions.assertEquals(world.getEnemies().size(), 0);

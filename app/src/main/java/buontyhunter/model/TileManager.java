@@ -20,6 +20,8 @@ public class TileManager extends GameObject {
     private List<List<Tile>> tiles;
     private final Map<Integer, String> maps;
     private FileProvider fileProvider;
+    public static final int HUB_MAP_ID = 1;
+    public static final int OPEN_WORLD_MAP_ID = 0;
 
     public TileManager(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
             GraphicsComponent graph, PhysicsComponent phys) {
@@ -34,9 +36,9 @@ public class TileManager extends GameObject {
 
     private void setDefaultValueForMaps() {
 
-        this.maps.put(0, fileProvider.getText("/maps/map.txt").orElse(""));
+        this.maps.put(OPEN_WORLD_MAP_ID, fileProvider.getText("/maps/map.txt").orElse(""));
 
-        this.maps.put(1, fileProvider.getText("/maps/hubMap.txt").orElse(""));
+        this.maps.put(HUB_MAP_ID, fileProvider.getText("/maps/hubMap.txt").orElse(""));
     }
 
     public RectBoundingBox loadMap(int mapId) {
@@ -79,15 +81,15 @@ public class TileManager extends GameObject {
         }
 
         var bbox = new RectBoundingBox(new Point2d(0, 0), height, width);
-        if(GameEngine.resizator.getWORLD_WIDTH() > tiles.get(0).size()){
-            GameEngine.resizator.setWORLD_WIDTH(tiles.get(0).size());
+        if (GameEngine.RESIZATOR.getWORLD_WIDTH() > tiles.get(0).size()) {
+            GameEngine.RESIZATOR.setWORLD_WIDTH(tiles.get(0).size());
         }
-        if (GameEngine.resizator.getWORLD_HEIGHT() > tiles.size()) {
-            GameEngine.resizator.setWORLD_HEIGHT(tiles.size());
+        if (GameEngine.RESIZATOR.getWORLD_HEIGHT() > tiles.size()) {
+            GameEngine.RESIZATOR.setWORLD_HEIGHT(tiles.size());
         }
         setBBox(bbox);
 
-            return bbox;
+        return bbox;
     }
 
     private ImageType resolveTyleToImageType(TileType tileType) {

@@ -11,6 +11,9 @@ public class KeyboardInputController implements InputController {
 	private boolean isMPressed;
 	private boolean isIPressed;
 	private boolean isJPressed;
+
+	//Any key pressed since start => game need to start
+	private boolean anyKeyIsPressedSinceStart;
 	
 	//Attack variables
 	private boolean isAttackUp;
@@ -192,5 +195,18 @@ public class KeyboardInputController implements InputController {
 	@Override
 	public boolean isJPressed() {
 		return isJPressed;
+	}
+
+	@Override
+	public boolean anyKeyIsPressedSinceStart() {
+		return anyKeyIsPressedSinceStart;
+	}
+
+	public void notifyAnyKeyIsPressedSinceStart() {
+		anyKeyIsPressedSinceStart = true;
+	}
+
+	public void notifyNoMoreAnyKeyIsPressedSinceStart() {
+		anyKeyIsPressedSinceStart = false;
 	}
 }
