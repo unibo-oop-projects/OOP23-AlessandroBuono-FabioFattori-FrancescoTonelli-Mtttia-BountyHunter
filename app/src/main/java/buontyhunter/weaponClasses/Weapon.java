@@ -2,8 +2,6 @@ package buontyhunter.weaponClasses;
 
 import buontyhunter.common.Point2d;
 import buontyhunter.common.ImageType;
-import buontyhunter.core.GameEngine;
-import buontyhunter.core.GameFactory;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.HidableObject;
 import buontyhunter.model.RectBoundingBox;

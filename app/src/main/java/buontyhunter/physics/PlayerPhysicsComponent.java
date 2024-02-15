@@ -1,7 +1,6 @@
 package buontyhunter.physics;
 
 import buontyhunter.common.Point2d;
-import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.PlayerEntity;
 import buontyhunter.model.RectBoundingBox;
