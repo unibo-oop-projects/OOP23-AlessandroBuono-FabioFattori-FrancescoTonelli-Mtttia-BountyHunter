@@ -1006,13 +1006,22 @@ public class ImagePathProvider {
                     setWidth(GameEngine.RESIZATOR.getRATIO_WIDTH());
                 }
             });
+            put(ImageType.blacksmith,new AssetImage(){
+                {
+                    setPath("utility/blacksmith.png");
+                    setType(ImageType.blacksmith);
+                    setHeight(GameEngine.RESIZATOR.getWINDOW_HEIGHT());
+                    setWidth(GameEngine.RESIZATOR.getWINDOW_WIDTH());
+                }
+            });
         }
     };
 
     public static void resizeAssets() {
         imagePaths.forEach((k, v) -> {
             if (v.getType() == ImageType.MAPBG ||
-                    v.getType() == ImageType.noticeBoard) {
+                    v.getType() == ImageType.noticeBoard ||
+                    v.getType() == ImageType.blacksmith) {
                 v.setHeight(GameEngine.RESIZATOR.getWINDOW_HEIGHT());
                 v.setWidth(GameEngine.RESIZATOR.getWINDOW_WIDTH());
             } else {

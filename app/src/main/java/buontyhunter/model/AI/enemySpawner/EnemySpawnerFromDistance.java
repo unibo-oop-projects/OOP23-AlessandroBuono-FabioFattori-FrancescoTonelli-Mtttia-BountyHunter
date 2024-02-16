@@ -7,8 +7,6 @@ import buontyhunter.model.World;
 
 import java.util.*;
 
-import com.google.common.base.Optional;
-
 public class EnemySpawnerFromDistance implements EnemySpawner {
 
     /**
@@ -96,7 +94,7 @@ public class EnemySpawnerFromDistance implements EnemySpawner {
         if (tile.isPresent() && tile.get().isTraversable()) {
             return Optional.of(spawnPoint);
         } else {
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 }

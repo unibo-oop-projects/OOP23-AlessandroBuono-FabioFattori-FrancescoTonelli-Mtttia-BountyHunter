@@ -29,7 +29,8 @@ public class SwingScene implements Scene, ComponentListener {
 	protected GameState gameState;
 	private boolean switchScene = false;
 	private boolean IsHub;
-	private final List<JButton> buttons = new ArrayList<>();
+	private final List<JButton> questButtons = new ArrayList<>();
+	private final List<JButton> blacksmithButtons = new ArrayList<>();
 	protected final SwingAssetProvider assetManager;
 
 	public SwingScene(GameState gameState, KeyboardInputController controller, boolean IsHub) {
@@ -59,7 +60,7 @@ public class SwingScene implements Scene, ComponentListener {
 					q.start((PlayerEntity) gameState.getWorld().getPlayer());
 					frame.repaint();
 				});
-				buttons.add(button);
+				questButtons.add(button);
 			});
 		}
 
@@ -89,10 +90,10 @@ public class SwingScene implements Scene, ComponentListener {
 					q.start((PlayerEntity) gameState.getWorld().getPlayer());
 					frame.repaint();
 				});
-				buttons.add(button);
-			});
-		} else {
-			buttons.clear();
+				questButtons.add(button);
+			});		
+		}else{
+			questButtons.clear();
 		}
 	}
 
@@ -121,6 +122,16 @@ public class SwingScene implements Scene, ComponentListener {
 		} catch (Exception e) {
 			throw new RuntimeException("QuestPannel not found" + gameState.getWorld().getInterractableAreas().stream()
 					.filter(pan -> pan.getPanel() instanceof QuestPannel).toString());
+		}
+	}
+
+	private BlacksmithPanel getBlacksmithPannel() {
+		try {
+			return (BlacksmithPanel) gameState.getWorld().getInterractableAreas().stream()
+				.filter(e -> e.getPanel() instanceof BlacksmithPanel).findFirst().get().getPanel();
+		} catch (Exception e) {
+			throw new RuntimeException("QuestPannel not found"+gameState.getWorld().getInterractableAreas().stream()
+			.filter(pan -> pan.getPanel() instanceof QuestPannel).toString());
 		}
 	}
 
@@ -214,7 +225,7 @@ public class SwingScene implements Scene, ComponentListener {
 					int unit = height / 6;
 					int x = unit + unit / 6;
 					int y = x + unit / 12;
-					buttons.forEach(btn -> {
+					questButtons.forEach(btn -> {
 						frame.remove(btn);
 						btn.setVisible(false);
 					});
@@ -225,11 +236,60 @@ public class SwingScene implements Scene, ComponentListener {
 										.filter(quest -> !((PlayerEntity) gameState.getWorld().getPlayer()).getQuests()
 												.contains(quest))
 										.collect(Collectors.toList()).indexOf(q);
-								var button = buttons.get(getQuestPannel().getQuests().indexOf(q));
+								var button = questButtons.get(getQuestPannel().getQuests().indexOf(q));
 								button.setVisible(getQuestPannel().isShow());
 								gr.drawQuest((QuestEntity) q, x + offsetX, y, unit, button);
 								this.add(button, BorderLayout.CENTER);
 							});
+				}else if(IsHub && !getQuestPannel().isShow()){
+					questButtons.forEach(btn -> {
+						frame.remove(btn);
+						btn.setVisible(false);
+					});
+				}
+
+				//render blacksmith
+				// render the buttons if it is the hub
+				if (IsHub && getBlacksmithPannel().isShow()) {
+					int height = (int) ((RectBoundingBox) getBlacksmithPannel().getBBox()).getHeight();
+					int unit = height / 6;
+					int x = unit + unit / 6;
+					int y = x + unit / 12;
+					blacksmithButtons.forEach(btn -> {
+						frame.remove(btn);
+						btn.setVisible(false);
+					});
+
+					JButton repair = new JButton();
+					repair.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							getBlacksmithPannel().getBlacksmith().repairWeapon((PlayerEntity) gameState.getWorld().getPlayer());	
+						}
+					});
+					JButton sell = new JButton();
+					sell.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							getBlacksmithPannel().getBlacksmith().buyAmmo((PlayerEntity) gameState.getWorld().getPlayer());	
+						}
+					});
+
+					blacksmithButtons.add(repair);
+					blacksmithButtons.add(sell);
+
+					blacksmithButtons.get(0).setVisible(getBlacksmithPannel().isShow());
+					gr.drawBlacksmithButtons(0, (height - x - unit), y, unit, blacksmithButtons.get(0));
+					this.add(blacksmithButtons.get(0), BorderLayout.CENTER);
+					blacksmithButtons.get(1).setVisible(getBlacksmithPannel().isShow());
+					gr.drawBlacksmithButtons(1, x, y, unit, blacksmithButtons.get(1));
+					this.add(blacksmithButtons.get(1), BorderLayout.CENTER);
+					
+				}else if(IsHub && !getBlacksmithPannel().isShow()){
+					blacksmithButtons.forEach(btn -> {
+						frame.remove(btn);
+						btn.setVisible(false);
+					});
 				}
 			}
 		}

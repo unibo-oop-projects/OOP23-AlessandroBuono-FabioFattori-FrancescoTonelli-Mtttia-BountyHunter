@@ -153,6 +153,19 @@ public class GameFactory {
                 panel);
     }
 
+    public InterractableArea createBlacksmithForHub(Point2d pos){
+        
+        BlacksmithPanel panel = new BlacksmithPanel(GameObjectType.HidableObject, 
+                new Point2d(0, 0), new Vector2d(0, 0), 
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.RESIZATOR.getWINDOW_WIDTH(), GameEngine.RESIZATOR.getWINDOW_HEIGHT ()), 
+                new NullInputComponent(), new BlacksmithPanelGraphicsComponent(), new NullPhysicsComponent(), false);
+
+        return new InterractableArea(GameObjectType.InterractableArea, 
+                pos, new Vector2d(0,0), 
+                new RectBoundingBox(pos, 3, 4),
+                panel);
+    }
+
     public List<Quest> createQuests() {
         List<Quest> quests = new ArrayList<Quest>();
         quests.add(new QuestEntity("prova1", "descrizione", 10));
@@ -222,6 +235,7 @@ public class GameFactory {
         toRet.setNavigatorLine(this.createNavigatorLine(toRet));
         toRet.setTeleporter(this.createTeleporterToOpenWorld());
         toRet.addInterractableArea(this.createQuestPannelForHub(new Point2d(7, 5)));
+        toRet.addInterractableArea(this.createBlacksmithForHub(new Point2d(1, 4)));
         toRet.setQuestJournal(this.createQuestJournal());
         toRet.disableEnemies();
         return toRet;

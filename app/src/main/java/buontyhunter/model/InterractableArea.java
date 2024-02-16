@@ -18,7 +18,7 @@ public class InterractableArea extends GameObject {
         super(type, pos, vel, box, null, null, null);
         this.panel = panel;
         this.areaInMap = new GameObject(type, pos, vel, box, new NullInputComponent(),
-                new AreaInMapGraphicsComponent("premi E per Interagire"), new NullPhysicsComponent());
+                new AreaInMapGraphicsComponent("Press E to interact"), new NullPhysicsComponent());
     }
 
     /**
