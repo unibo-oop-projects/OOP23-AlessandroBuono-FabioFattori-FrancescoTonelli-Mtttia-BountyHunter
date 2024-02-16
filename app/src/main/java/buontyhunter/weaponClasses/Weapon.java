@@ -1,25 +1,21 @@
 package buontyhunter.weaponClasses;
 
 import buontyhunter.common.Point2d;
-import buontyhunter.common.Direction;
 import buontyhunter.common.ImageType;
-import buontyhunter.core.GameEngine;
-import buontyhunter.core.GameFactory;
 import buontyhunter.model.FighterEntity;
-import buontyhunter.model.HidableObject;
 import buontyhunter.model.RectBoundingBox;
 
 public abstract class Weapon {
     protected int damage;
-    protected int attackSpeed; // the higher the attack speed, the slower the attack
+    protected double attackSpeed; // the higher the attack speed, the slower the attack
     protected int range;
-    protected int speed;
+    protected double speed;
     // da implementare
     protected RectBoundingBox hitbox;
     protected ImageType sprite;
     protected FighterEntity owner;
 
-    public Weapon(int damage, int attackSpeed, int range, int speed, ImageType sprite, FighterEntity owner) {
+    public Weapon(int damage, double attackSpeed, int range, double speed, ImageType sprite, FighterEntity owner) {
         this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.range = range;
@@ -64,7 +60,7 @@ public abstract class Weapon {
         return damage;
     }
 
-    public int getAttackSpeed() {
+    public double getAttackSpeed() {
         return attackSpeed;
     }
 
@@ -72,7 +68,7 @@ public abstract class Weapon {
         return range;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
