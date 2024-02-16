@@ -43,27 +43,25 @@ public class PlayerInputController implements InputComponent {
 		if(timer <= 0){
 
 			if(c.isAttackUp()){
+				setDirection(player, Direction.STAND_UP);
 				instanceAttack((PlayerEntity)player, 0, -1);
 				setTimer(player);
-				setDirection(player, Direction.STAND_UP);
 			}
 			else if(c.isAttackDown()){
+				setDirection(player, Direction.STAND_DOWN);
 				instanceAttack((PlayerEntity)player, 0, 1);
 				setTimer(player);
-				setDirection(player, Direction.STAND_DOWN);
 				
 			}
 			else if(c.isAttackLeft()){
+				setDirection(player, Direction.STAND_LEFT);
 				instanceAttack((PlayerEntity)player, -1, 0);
 				setTimer(player);
-				
-				setDirection(player, Direction.STAND_LEFT);
 			}
 			else if(c.isAttackRight()){
+				setDirection(player, Direction.STAND_RIGHT);
 				instanceAttack((PlayerEntity)player, 1, 0);
 				setTimer(player);
-				
-				setDirection(player, Direction.STAND_RIGHT);
 			}
 			
 		}
@@ -72,7 +70,6 @@ public class PlayerInputController implements InputComponent {
 				instanceAttack((PlayerEntity)player, 0, 0);
 			}
 			
-
 			if(timer>0){
 				timer--;
 			}
@@ -94,7 +91,6 @@ public class PlayerInputController implements InputComponent {
 
 		((PlayerEntity)player).getDamagingArea().setShow(true);
 		
-		//TODO wait(1000);
 	}
 
 	private void setTimer(GameObject player){
