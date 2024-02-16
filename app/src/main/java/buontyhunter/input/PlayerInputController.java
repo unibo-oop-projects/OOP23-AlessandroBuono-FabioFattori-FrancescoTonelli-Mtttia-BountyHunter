@@ -85,6 +85,7 @@ public class PlayerInputController implements InputComponent {
 		if(w.getTileManager().getTileFromPosition(pos.sum(vel)).get().isSolid()|| w.getTileManager().getTileFromPosition(pos.sum(vel.sum(vel))).get().isObstacle()){
 			return;
 		}
+		pos = new Point2d(player.getPos().x, player.getPos().y);
 		player.setPos(pos.sum(vel));
 	}
 
