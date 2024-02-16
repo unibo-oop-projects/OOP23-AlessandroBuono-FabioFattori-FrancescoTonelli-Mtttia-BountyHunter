@@ -18,6 +18,11 @@ import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
+import buontyhunter.weaponClasses.DefaultWeapon;
+import buontyhunter.weaponClasses.MeleeWeapon;
+import buontyhunter.weaponClasses.RangedWeapon;
+import buontyhunter.weaponClasses.Weapon;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.*;
@@ -194,11 +199,6 @@ public class SwingScene implements Scene, ComponentListener {
 
 			// title screen graphics
 			if (gameState.isInTitleScreen()) {
-				/*
-				 * g2.setColor(Color.CYAN);
-				 * g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-				 */
-
 				g2.drawImage(assetManager.getImage(ImageType.title), 0, 0, this.getWidth(), this.getHeight(), null);
 				g2.setColor(Color.WHITE);
 				g2.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 20));
@@ -266,6 +266,8 @@ public class SwingScene implements Scene, ComponentListener {
 					});
 				}
 
+				
+
 				// render the buttons if it is the hub
 				if (IsHub && getQuestPannel().isShow()) {
 					
@@ -294,8 +296,7 @@ public class SwingScene implements Scene, ComponentListener {
 					});
 				}
 
-				// render blacksmith
-				// render the buttons if it is the hub
+				//render blacksmith
 				if (IsHub && getBlacksmithPannel().isShow()) {
 					int x = unit + unit / 6;
 					int y = x + unit / 12;
@@ -337,6 +338,38 @@ public class SwingScene implements Scene, ComponentListener {
 						btn.setVisible(false);
 					});
 				}
+
+				//HUD render
+				int weaponContainerDimension = frame.getHeight() / 8;
+				int weaponContainerX = 10;
+				int weaponContainerY = frame.getHeight() - weaponContainerDimension - 50;
+				g2.drawImage(assetManager.getImage(ImageType.weaponContainer), weaponContainerX,
+					weaponContainerY, weaponContainerDimension, weaponContainerDimension, null);
+				gr.drawWeaponIcon(((PlayerEntity) gameState.getWorld().getPlayer()).getWeapon(), 
+					weaponContainerX, weaponContainerY, weaponContainerDimension);
+
+				gr.drawDurabilityBar(((PlayerEntity) gameState.getWorld().getPlayer()).getWeapon(), 
+					weaponContainerX + weaponContainerDimension + 10,
+					weaponContainerY + (weaponContainerDimension / 3));
+
+				int iconDimension = weaponContainerDimension / 4;
+				int doblonsIconX = weaponContainerX + weaponContainerDimension + 10;
+				int iconY = weaponContainerY + (3 * (weaponContainerDimension / 4));
+				g2.drawImage(assetManager.getImage(ImageType.doblon), 
+					doblonsIconX, iconY, iconDimension, iconDimension, null);
+				String doblonsAmount = ((PlayerEntity) gameState.getWorld().getPlayer()).getDoblons()+"";
+				g2.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+				g2.setColor(Color.BLACK);
+				g2.drawString(doblonsAmount, doblonsIconX + iconDimension, iconY + iconDimension);
+
+				int arrowIconX = doblonsIconX + iconDimension + 20;
+				g2.drawImage(assetManager.getImage(ImageType.arrow), 
+					arrowIconX, iconY, iconDimension, iconDimension, null);
+				String ammoAmount = ((PlayerEntity) gameState.getWorld().getPlayer()).getAmmo()+"";
+				g2.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
+				g2.setColor(Color.BLACK);
+				g2.drawString(ammoAmount, arrowIconX + iconDimension, iconY + iconDimension);
+				
 			}
 		}
 

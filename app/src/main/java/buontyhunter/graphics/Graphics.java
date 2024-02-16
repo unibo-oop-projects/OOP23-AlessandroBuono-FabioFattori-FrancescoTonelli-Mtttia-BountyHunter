@@ -2,6 +2,7 @@ package buontyhunter.graphics;
 
 import buontyhunter.model.*;
 import buontyhunter.weaponClasses.RangedWeapon;
+import buontyhunter.weaponClasses.Weapon;
 
 public interface Graphics {
 
@@ -36,4 +37,8 @@ public interface Graphics {
 	void drawWizardBoss(WizardBossEntity boss, World w);
 
 	void drawInventory(InventoryObject inventory, World w);
+	
+	void drawWeaponIcon(Weapon weapon, int x, int y, int dimension);
+
+	void drawDurabilityBar(Weapon weapon, int x, int y);
 }
