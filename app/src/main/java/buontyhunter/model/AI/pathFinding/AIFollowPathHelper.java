@@ -2,6 +2,8 @@ package buontyhunter.model.AI.pathFinding;
 
 import java.util.*;
 
+import com.google.common.collect.Iterables;
+
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
 import buontyhunter.model.Tile;
@@ -48,23 +50,24 @@ public class AIFollowPathHelper {
     }
 
     private boolean canUsePreviousIterator(Point2d current, Point2d destination) {
-        return pathIterator.hasNext()
-                && this.current.equals(current)
-                && this.destination.equals(destination);
+        // return pathIterator.hasNext()
+        // && this.current.equals(current)
+        // && this.destination.equals(destination);
+        return false;
     }
 
-    public Point2d moveItem(Point2d current, Point2d destination, Vector2d speed, List<List<Tile>> map,
-            Set<Point2d> invalidPoints) {
+    public Point2d moveItem(Point2d current, Point2d destination, Vector2d speed, List<List<Tile>> map) {
         var movement = current.duplicate();
         if (!canUsePreviousIterator(current, destination)) {
-            generateIterator(current, destination, map, invalidPoints);
+            generateIterator(current, destination, map, new HashSet<>());
         }
         this.current = current;
         this.destination = destination;
 
         Vector2d speedLeft = speed.duplicate();
+
         // go forward with speed since you can
-        while ((speedLeft.x != 0 || speedLeft.y != 0) && pathIterator.hasNext()) {
+        while ((speedLeft.x > 0 || speedLeft.y > 0) && nextPoint != null) {
             // speed must always be positive
 
             var deltaX = nextPoint.x - movement.x;
@@ -72,8 +75,9 @@ public class AIFollowPathHelper {
 
             /// if different X or Y to next point is 0 but speedLeft X or Y is not 0, then
             /// exit from while cause it would loop
-            if ((deltaX != 0 && speedLeft.x == 0 || deltaX == 0)
-                    && (deltaY != 0 && speedLeft.y == 0 || deltaY == 0)) {
+            /// if is first run force the play
+            if ((deltaX != 0 && speedLeft.x <= 0 || deltaX == 0)
+                    && (deltaY != 0 && speedLeft.y <= 0 || deltaY == 0)) {
                 break;
             }
 
@@ -94,8 +98,10 @@ public class AIFollowPathHelper {
                 movement = nextPoint.duplicate();
             }
 
-            if (movement.equals(nextPoint)) {
+            if (pathIterator.hasNext() && movement.equals(nextPoint)) {
                 nextPoint = pathIterator.next();
+            } else {
+                nextPoint = null;
             }
         }
 

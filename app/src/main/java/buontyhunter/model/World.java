@@ -29,12 +29,21 @@ public class World {
     private List<InterractableArea> interractableAreas;
     private EnemyRegistry enemyRegistry;
     private LoadingBar loadingBar;
+    private WizardBossEntity wizardBoss;
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
         this.healthBar = GameFactory.getInstance().createHealthBar();
         this.interractableAreas = new ArrayList<InterractableArea>();
         enemyRegistry = new EnemyRegistryImpl();
+    }
+
+    public WizardBossEntity getWizardBoss() {
+        return wizardBoss;
+    }
+
+    public void setWizardBoss(WizardBossEntity wizardBoss) {
+        this.wizardBoss = wizardBoss;
     }
 
     public void setLoadingBar(LoadingBar loadingBar) {
@@ -133,6 +142,13 @@ public class World {
                     enemy.getDamagingArea().updatePhysics(dt, this);
                 }
             }
+
+            if (wizardBoss != null) {
+                wizardBoss.updatePhysics(dt, this);
+                if (wizardBoss.getWeapon() != null) {
+                    wizardBoss.getDamagingArea().updatePhysics(dt, this);
+                }
+            }
         }
     }
 
@@ -198,6 +214,9 @@ public class World {
             entities.add(miniMap);
         if (questJournal != null)
             entities.add(questJournal);
+
+        if (wizardBoss != null)
+            entities.add(wizardBoss);
 
         this.interractableAreas.forEach(area -> entities.add(area));
         return entities;

@@ -207,6 +207,14 @@ public class SwingGraphics implements Graphics {
 		var navigatorLine = w.getNavigatorLine();
 		var pathStream = navigatorLine.getPath().stream();
 
+		// TODO: COMMENTA STA RIGA E' UNA RIGA DI DEBUG
+		var b = w.getWizardBoss();
+
+		g2.setColor(Color.MAGENTA);
+		g2.fillRect(getXinPixel(tilePos) + mapShowOffSetX + (int) Math.floor(b.getPos().x) * propsX,
+				getYinPixel(tilePos) + mapShowOffSetY + (int) Math.floor(b.getPos().y) * propsY, propsX * playerSize,
+				propsY * playerSize);
+
 		// g2.setColor(Color.ORANGE);
 		// pathStream.forEach((Point2d np) -> g2.fillOval(getXinPixel(tilePos) +
 		// mapShowOffSetY + (int) np.x - 2,
@@ -585,6 +593,16 @@ public class SwingGraphics implements Graphics {
 				g2.setColor(Color.WHITE);
 				g2.fillRect(10, frame - 110, frame - 100, 20);
 			}
+		}
+	}
+
+	public void drawWizardBoss(WizardBossEntity boss, World w) {
+		var point = camera.getObjectPointInScene(boss.getPos());
+		var bBox = (RectBoundingBox) boss.getBBox();
+		if (point.isPresent()) {
+			g2.setColor(Color.MAGENTA);
+			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()), getDeltaXinPixel(bBox.getWidth()),
+					getDeltaYinPixel(bBox.getHeight()));
 		}
 	}
 }
