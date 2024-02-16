@@ -13,13 +13,13 @@ public abstract class Weapon {
     protected int damage;
     protected int attackSpeed; // the higher the attack speed, the slower the attack
     protected int range;
-    protected int speed;
+    protected double speed;
     // da implementare
     protected RectBoundingBox hitbox;
     protected ImageType sprite;
     protected FighterEntity owner;
 
-    public Weapon(int damage, int attackSpeed, int range, int speed, ImageType sprite, FighterEntity owner) {
+    public Weapon(int damage, int attackSpeed, int range, double speed, ImageType sprite, FighterEntity owner) {
         this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.range = range;
