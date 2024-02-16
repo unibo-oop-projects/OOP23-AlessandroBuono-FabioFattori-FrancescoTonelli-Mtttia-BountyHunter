@@ -15,6 +15,7 @@ public class PlayerEntity extends FighterEntity {
     protected FighterEntityType type = FighterEntityType.PLAYER;
     private int doblons;
     private int ammo;
+    private List<Weapon> inventoryWeapons;
 
 
     public PlayerEntity(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
@@ -23,6 +24,25 @@ public class PlayerEntity extends FighterEntity {
         quests = new ArrayList<Quest>();
         this.doblons = 0;
         this.ammo = 0;
+        inventoryWeapons = new ArrayList<Weapon>();
+    }
+
+    public void equipWeapon(Weapon w) {
+        if (inventoryWeapons.contains(w)) {
+            this.weapon = w;
+        }
+    }
+
+    public void addWeapon(Weapon w) {
+        inventoryWeapons.add(w);
+    }
+
+    public void removeWeapon(Weapon w) {
+        inventoryWeapons.remove(w);
+    }
+
+    public List<Weapon> getWeapons() {
+        return new ArrayList<Weapon>(inventoryWeapons);
     }
 
     public void addQuest(Quest q) {

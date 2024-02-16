@@ -109,7 +109,7 @@ public class GameEngine implements WorldEventListener {
             gameState.getWorld().getFighterEntities().stream()
                     .filter(fighter -> fighter.getWeapon() instanceof RangedWeapon)
                     .forEach(fighter -> ((RangedWeapon) fighter.getWeapon()).getShot());
-
+                    gameState.getWorld().getInventory().updateInput(controller, gameState.getWorld());
             gameState.getWorld().getQuestJournal().updateInput(controller, gameState.getWorld());
             gameState.getWorld().getInterractableAreas().forEach(area -> area.updateInput(controller));
         }

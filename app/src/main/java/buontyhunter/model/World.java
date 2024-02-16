@@ -30,6 +30,7 @@ public class World {
     private EnemyRegistry enemyRegistry;
     private LoadingBar loadingBar;
     private WizardBossEntity wizardBoss;
+    private InventoryObject inventory;
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
@@ -48,6 +49,14 @@ public class World {
 
     public void setLoadingBar(LoadingBar loadingBar) {
         this.loadingBar = loadingBar;
+    }
+
+    public void setInventory(InventoryObject inventory) {
+        this.inventory = inventory;
+    }
+
+    public InventoryObject getInventory() {
+        return inventory;
     }
 
     public LoadingBar getLoadingBar() {
@@ -217,6 +226,8 @@ public class World {
 
         if (wizardBoss != null)
             entities.add(wizardBoss);
+        if (inventory != null)
+            entities.add(inventory);
 
         this.interractableAreas.forEach(area -> entities.add(area));
         return entities;

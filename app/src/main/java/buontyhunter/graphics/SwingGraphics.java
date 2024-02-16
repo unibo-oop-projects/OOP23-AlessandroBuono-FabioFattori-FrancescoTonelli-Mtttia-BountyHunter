@@ -18,6 +18,7 @@ import buontyhunter.model.FighterEntity.MovementState;
 import buontyhunter.weaponClasses.DefaultWeapon;
 import buontyhunter.weaponClasses.MeleeWeapon;
 import buontyhunter.weaponClasses.RangedWeapon;
+import buontyhunter.weaponClasses.Weapon;
 
 public class SwingGraphics implements Graphics {
 
@@ -603,6 +604,31 @@ public class SwingGraphics implements Graphics {
 			g2.setColor(Color.MAGENTA);
 			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()), getDeltaXinPixel(bBox.getWidth()),
 					getDeltaYinPixel(bBox.getHeight()));
+		}
+	}
+
+	@Override
+	public void drawInventory(InventoryObject inventory, World w) {
+		g2.setColor(new Color(0, 0, 0, 0.6f));
+		g2.fillRect(0, 0, GameEngine.RESIZATOR.getWINDOW_WIDTH(), GameEngine.RESIZATOR.getWINDOW_HEIGHT());
+
+		var player = (PlayerEntity) w.getPlayer();
+
+		player.getWeapons().forEach((weapon) -> {
+			if (weapon instanceof DefaultWeapon) {
+				drawBlacksmithButtons(0, 100, 100, 100, new JButton());
+			} else {
+				drawBlacksmithButtons(1, 100, 100, 100, new JButton());
+			}
+		});
+	}
+
+	public void drawInventoryWeapon(Weapon w, int x, int y, JButton btn) {
+		btn.setBounds(x, y, 100, 100);
+		if (w instanceof MeleeWeapon) {
+			btn.setText("Melee");
+		} else {
+			btn.setText("Ranged");
 		}
 	}
 }

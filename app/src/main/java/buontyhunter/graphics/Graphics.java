@@ -34,4 +34,6 @@ public interface Graphics {
 	void drawBlacksmithPanel(BlacksmithPanel blacksmithPanel, World w);
 
 	void drawWizardBoss(WizardBossEntity boss, World w);
+
+	void drawInventory(InventoryObject inventory, World w);
 }
