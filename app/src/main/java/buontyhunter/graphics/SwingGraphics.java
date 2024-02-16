@@ -249,13 +249,16 @@ public class SwingGraphics implements Graphics {
 	@Override
 	public void drawHealthBar(HealthBar healthBar, World w) {
 
+		int healthBarLenght = 200;
+		int healthBarWidth = 20;
+
 		g2.setColor(Color.BLACK);
-		g2.fillRect((int) healthBar.getPos().x, (int) healthBar.getPos().y,
-				((FighterEntity) w.getPlayer()).getMaxHealth() * HealthBar.zoom + HealthBar.margin, 30);
+		g2.fillRect((int) healthBar.getPos().x, (int) healthBar.getPos().y, healthBarLenght, healthBarWidth);
 		g2.setColor(Color.RED);
 		g2.fillRect((int) healthBar.getPos().x + HealthBar.margin / 2,
 				(int) healthBar.getPos().y + HealthBar.margin / 2,
-				((FighterEntity) w.getPlayer()).getHealth() * HealthBar.zoom, 20);
+				((healthBarLenght - HealthBar.margin) * ((FighterEntity) w.getPlayer()).getHealth()) / ((FighterEntity) w.getPlayer()).getMaxHealth(),
+				healthBarWidth / 2);
 	}
 
 	@Override
@@ -612,5 +615,28 @@ public class SwingGraphics implements Graphics {
 		}else{
 			btn.setText("Ranged");
 		}
+	}
+		
+	public void drawWeaponIcon(Weapon weapon, int x, int y, int dimension){
+		if(weapon instanceof MeleeWeapon){
+			g2.drawImage(assetManager.getImage(ImageType.sword), x, y, dimension, dimension, null);
+		}
+		else if(weapon instanceof DefaultWeapon){
+			g2.drawImage(assetManager.getImage(ImageType.brassKnucles), x, y, dimension, dimension, null);
+		}
+		else if(weapon instanceof RangedWeapon){
+			g2.drawImage(assetManager.getImage(ImageType.bow), x, y, dimension, dimension, null);
+		}
+	}
+
+	@Override
+	public void drawDurabilityBar(Weapon weapon, int x, int y){
+		int barLenght = 150;
+		int barWidth = 20;
+
+		g2.setColor(Color.BLACK);
+		g2.fillRect(x, y, barLenght, barWidth);
+		g2.setColor(Color.GREEN);
+		g2.fillRect(x+5, y+5, barLenght - 10, barWidth - 10);
 	}
 }	

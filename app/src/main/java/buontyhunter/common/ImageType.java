@@ -127,5 +127,7 @@ public enum ImageType {
     paper,
     sword,
     teleporter,
-    blacksmith
+    blacksmith,
+    weaponContainer,
+    doblon
 }

@@ -1014,6 +1014,22 @@ public class ImagePathProvider {
                     setWidth(GameEngine.RESIZATOR.getWINDOW_WIDTH());
                 }
             });
+            put(ImageType.weaponContainer, new AssetImage() {
+                {
+                    setPath("utility/weapon_hud.png");
+                    setType(ImageType.weaponContainer);
+                    setHeight(GameEngine.RESIZATOR.getRATIO_HEIGHT());
+                    setWidth(GameEngine.RESIZATOR.getRATIO_WIDTH());
+                }
+            });
+            put(ImageType.doblon, new AssetImage() {
+                {
+                    setPath("utility/doblon.png");
+                    setType(ImageType.doblon);
+                    setHeight(GameEngine.RESIZATOR.getRATIO_HEIGHT());
+                    setWidth(GameEngine.RESIZATOR.getRATIO_WIDTH());
+                }
+            });
         }
     };
 
