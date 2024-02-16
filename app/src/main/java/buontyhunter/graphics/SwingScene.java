@@ -263,7 +263,6 @@ public class SwingScene implements Scene, ComponentListener {
 				}
 
 				//render blacksmith
-				// render the buttons if it is the hub
 				if (IsHub && getBlacksmithPannel().isShow()) {
 					int height = (int) ((RectBoundingBox) getBlacksmithPannel().getBBox()).getHeight();
 					int unit = height / 6;
@@ -314,6 +313,10 @@ public class SwingScene implements Scene, ComponentListener {
 					weaponContainerY, weaponContainerDimension, weaponContainerDimension, null);
 				gr.drawWeaponIcon(((PlayerEntity) gameState.getWorld().getPlayer()).getWeapon(), 
 					weaponContainerX, weaponContainerY, weaponContainerDimension);
+
+				gr.drawDurabilityBar(((PlayerEntity) gameState.getWorld().getPlayer()).getWeapon(), 
+					weaponContainerX + weaponContainerDimension + 10,
+					weaponContainerY + (weaponContainerDimension / 3));
 
 				int iconDimension = weaponContainerDimension / 4;
 				int doblonsIconX = weaponContainerX + weaponContainerDimension + 10;

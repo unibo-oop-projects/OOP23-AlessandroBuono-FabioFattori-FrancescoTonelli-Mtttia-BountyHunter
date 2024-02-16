@@ -603,4 +603,15 @@ public class SwingGraphics implements Graphics {
 			g2.drawImage(assetManager.getImage(ImageType.bow), x, y, dimension, dimension, null);
 		}
 	}
+
+	@Override
+	public void drawDurabilityBar(Weapon weapon, int x, int y){
+		int barLenght = 150;
+		int barWidth = 20;
+
+		g2.setColor(Color.BLACK);
+		g2.fillRect(x, y, barLenght, barWidth);
+		g2.setColor(Color.GREEN);
+		g2.fillRect(x+5, y+5, barLenght - 10, barWidth - 10);
+	}
 }	
