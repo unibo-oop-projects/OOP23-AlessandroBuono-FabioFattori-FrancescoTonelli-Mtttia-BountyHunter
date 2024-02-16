@@ -9,14 +9,14 @@ import buontyhunter.model.HidableObject;
 import buontyhunter.model.RectBoundingBox;
 
 public abstract class Weapon {
-    private int damage;
-    private int attackSpeed; // the higher the attack speed, the slower the attack
-    private int range;
-    private int speed;
+    protected int damage;
+    protected int attackSpeed; // the higher the attack speed, the slower the attack
+    protected int range;
+    protected int speed;
     // da implementare
-    private RectBoundingBox hitbox;
-    private ImageType sprite;
-    private FighterEntity owner;
+    protected RectBoundingBox hitbox;
+    protected ImageType sprite;
+    protected FighterEntity owner;
 
     public Weapon(int damage, int attackSpeed, int range, int speed, ImageType sprite, FighterEntity owner) {
         this.damage = damage;

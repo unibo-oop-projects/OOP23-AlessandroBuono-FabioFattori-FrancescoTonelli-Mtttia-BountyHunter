@@ -1,6 +1,7 @@
 package buontyhunter.graphics;
 
 import buontyhunter.model.*;
+import buontyhunter.weaponClasses.RangedWeapon;
 
 public interface Graphics {
 
@@ -27,4 +28,6 @@ public interface Graphics {
 	void drawEnemy(GameObject obj, World w);
 
 	void drawProgressBar(LoadingBar loadingBar, World w);
+
+	void drawBullet(RangedWeapon w);
 }

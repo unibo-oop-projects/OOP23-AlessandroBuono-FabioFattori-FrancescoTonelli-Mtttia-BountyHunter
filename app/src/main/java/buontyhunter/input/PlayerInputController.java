@@ -72,7 +72,6 @@ public class PlayerInputController implements InputComponent {
 				instanceAttack((PlayerEntity)player, 0, 0);
 			}
 			
-			((PlayerEntity)player).getDamagingArea().setShow(false);
 
 			if(timer>0){
 				timer--;

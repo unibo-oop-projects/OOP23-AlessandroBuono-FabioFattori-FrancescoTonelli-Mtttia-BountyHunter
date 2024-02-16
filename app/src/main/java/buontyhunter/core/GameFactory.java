@@ -5,6 +5,7 @@ import buontyhunter.model.*;
 import buontyhunter.model.AI.enemySpawner.EnemyType;
 import buontyhunter.physics.*;
 import buontyhunter.weaponClasses.Weapon;
+import buontyhunter.weaponClasses.WeaponFactory;
 import buontyhunter.common.*;
 import buontyhunter.graphics.*;
 import java.util.*;
@@ -213,6 +214,9 @@ public class GameFactory {
         } else {
             toRet.setPlayer(this.createPlayer(GameEngine.HUB_PLAYER_START, Vector2d.symmetrical(0), 10, 100));
         }
+
+        //TODO delete this
+        ((PlayerEntity)toRet.getPlayer()).setWeapon(WeaponFactory.getInstance().createBow((FighterEntity)toRet.getPlayer()));
 
         if (oldWorld != null) {
             toRet.setEventListener(oldWorld.getEventListener());
