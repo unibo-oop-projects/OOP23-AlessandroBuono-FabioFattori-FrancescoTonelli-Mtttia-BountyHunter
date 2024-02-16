@@ -43,7 +43,7 @@ public class LoadingBar extends GameObject {
     }
 
     public void advanceLoadingTime() {
-        this.currentLoaded += (int) (Math.random() * loadingTime / 50);
+        this.currentLoaded += (int) (Math.random() * loadingTime / 40);
         if(this.currentLoaded >= loadingTime) {
             this.isLoaded = true;
         }

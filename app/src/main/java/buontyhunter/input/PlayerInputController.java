@@ -82,8 +82,10 @@ public class PlayerInputController implements InputComponent {
 		player.setVel(vel);
 		var pos = new Point2d(player.getPos().x, player.getPos().y+1); // +1 per simulare lo shift che c'è nel disegno
 
-		if(w.getTileManager().getTileFromPosition(pos.sum(vel)).get().isSolid()|| w.getTileManager().getTileFromPosition(pos.sum(vel.sum(vel))).get().isObstacle()){
-			return;
+		if(w.getTileManager().getTileFromPosition(pos.sum(vel)).isPresent()){
+			if(w.getTileManager().getTileFromPosition(pos.sum(vel)).get().isSolid()|| w.getTileManager().getTileFromPosition(pos.sum(vel)).get().isObstacle()){
+				return;
+			}
 		}
 		pos = new Point2d(player.getPos().x, player.getPos().y);
 		player.setPos(pos.sum(vel));
