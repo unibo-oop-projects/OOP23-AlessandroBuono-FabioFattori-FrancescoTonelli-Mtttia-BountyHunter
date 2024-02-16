@@ -65,12 +65,12 @@ public class Resizator {
         var newWidth = dim.getWidth();
         var newHeight = dim.getHeight();
 
-        var minDim = newHeight < newWidth ? newHeight : newWidth;
+        //var minDim = newHeight < newWidth ? newHeight : newWidth;
 
-        this.RATIO_WIDTH = minDim / WORLD_WIDTH;
-        this.RATIO_HEIGHT = minDim / WORLD_HEIGHT;
-        this.WINDOW_WIDTH = (int) minDim;
-        this.WINDOW_HEIGHT = (int) minDim;
+        this.RATIO_WIDTH = newWidth / WORLD_WIDTH;
+        this.RATIO_HEIGHT = newHeight / WORLD_HEIGHT;
+        this.WINDOW_WIDTH = (int) newWidth;
+        this.WINDOW_HEIGHT = (int) newHeight;
         
     }
 
