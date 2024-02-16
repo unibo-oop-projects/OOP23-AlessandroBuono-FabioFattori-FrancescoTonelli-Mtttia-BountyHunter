@@ -3,6 +3,7 @@ package buontyhunter.model;
 import java.util.List;
 
 import buontyhunter.common.Direction;
+import buontyhunter.common.ExponentialProbability;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
 import buontyhunter.graphics.GraphicsComponent;
@@ -23,6 +24,7 @@ public class EnemyEntity extends FighterEntity {
     private int enemyIdentifier;
     private EnemyType enemyType;
     protected FighterEntityType type = FighterEntityType.ENEMY;
+    private ExponentialProbability probability;
 
     public EnemyEntity(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
             GraphicsComponent graph, PhysicsComponent phys, int health, int maxHealth, Weapon w, int enemyIdentifier,
@@ -33,6 +35,7 @@ public class EnemyEntity extends FighterEntity {
         followPathHelper = aiFactory.CreateFollowPathHelper(PathFinderType.AStar, false);
         this.enemyIdentifier = enemyIdentifier;
         this.enemyType = enemyType;
+        this.probability = new ExponentialProbability(100);
     }
 
     public void moveItem(World world) {
@@ -77,5 +80,9 @@ public class EnemyEntity extends FighterEntity {
 
     public EnemyType getEnemyType() {
         return this.enemyType;
+    }
+
+    public boolean tryAttach(long millisecondSinceLastAttack) {
+        return false;
     }
 }

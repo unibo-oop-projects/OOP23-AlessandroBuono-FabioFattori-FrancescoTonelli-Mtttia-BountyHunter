@@ -12,7 +12,7 @@ public class EnemyInputController implements InputComponent {
             var enemy = (EnemyEntity) obj;
             var isDeath = enemy.moveItemAssertIsDeath(w);
             if (isDeath) {
-                w.removeEnemy(enemy.getEnemyIdentifier());
+                w.removeEnemy(enemy.getEnemyIdentifier(), false);
             }
         }
     }

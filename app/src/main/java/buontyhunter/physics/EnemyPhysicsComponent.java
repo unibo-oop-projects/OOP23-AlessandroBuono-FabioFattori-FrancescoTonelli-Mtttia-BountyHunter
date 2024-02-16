@@ -11,9 +11,16 @@ import buontyhunter.model.Tile;
 import buontyhunter.model.World;
 
 public class EnemyPhysicsComponent extends PhysicsComponent {
+
+    private long dtSinceLastMove = 0;
+
     public void update(long dt, GameObject obj, World w) {
-        if(((FighterEntity)obj).getHealth() <= 0){
-            w.removeEnemy(((EnemyEntity)obj).getEnemyIdentifier());
+        var enemy = (EnemyEntity) obj;
+        if (enemy.getHealth() <= 0) {
+            w.removeEnemy(enemy.getEnemyIdentifier(), true);
+        } else {
+            // if is still alive, try to attach
+
         }
     }
 }

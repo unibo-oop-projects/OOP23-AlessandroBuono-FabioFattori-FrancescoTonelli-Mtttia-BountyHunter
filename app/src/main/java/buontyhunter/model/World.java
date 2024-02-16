@@ -9,6 +9,7 @@ import buontyhunter.common.Vector2d;
 import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.input.KeyboardInputController;
+import buontyhunter.model.AI.enemySpawner.EnemyConfiguration;
 import buontyhunter.model.AI.enemySpawner.EnemyRegistry;
 import buontyhunter.model.AI.enemySpawner.EnemyRegistryImpl;
 import buontyhunter.physics.BoundaryCollision;
@@ -225,8 +226,8 @@ public class World {
         }
     }
 
-    public void addEnemy(Point2d pos, Vector2d speed, int health) {
-        enemyRegistry.addEnemy(pos, speed, health);
+    public void addEnemy(Point2d pos, EnemyConfiguration conf) {
+        enemyRegistry.addEnemy(pos, conf.getSpeed(), conf.getHealth());
     }
 
     public void removeEnemy(int enemyIdentifier, boolean killed) {

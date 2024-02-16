@@ -12,4 +12,6 @@ public interface EnemyConfiguration {
     double getMaxSpawnDistanceFromPlayer();
 
     EnemyType getType();
+
+    long getAttackCoolDown();
 }

@@ -51,7 +51,7 @@ public class EnemySpawnerFromDistance implements EnemySpawner {
         var conf = enemyFactory.random();
         var pos = generatePoint(conf, w);
         if (pos.isPresent()) {
-            w.addEnemy(pos.get(), conf.getSpeed(), maxEnemyNumber);
+            w.addEnemy(pos.get(), conf);
         }
     }
 

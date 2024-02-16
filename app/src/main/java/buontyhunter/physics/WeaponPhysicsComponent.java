@@ -20,8 +20,8 @@ public class WeaponPhysicsComponent extends PhysicsComponent {
             CollisionDetector detector = new CollisionDetector();
 
             world.getFighterEntities().forEach(fighter -> {
-                if (fighter != owner) {
-                    RectBoundingBox realBoundingBox = ((RectBoundingBox)fighter.getBBox()).withPoint(fighter.getPos());
+                if (fighter.getType() != owner.getType()) {
+                    RectBoundingBox realBoundingBox = ((RectBoundingBox) fighter.getBBox()).withPoint(fighter.getPos());
                     if (detector.isColliding(((RectBoundingBox) obj.getBBox()), realBoundingBox)) {
                         fighter.takeDamage(owner.getWeapon().getDamage());
                     }

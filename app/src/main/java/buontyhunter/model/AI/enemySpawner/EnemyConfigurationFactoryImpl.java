@@ -8,7 +8,8 @@ public class EnemyConfigurationFactoryImpl implements EnemyConfigurationFactory 
     private final Vector2d DEFAULT_SPEED = new Vector2d(0.4, 0.4);
     private final float seepVariance = 0.2f;
 
-    private EnemyConfiguration general(Vector2d speed, int health, double minSpawnDistanceFromPlayer, EnemyType type) {
+    private EnemyConfiguration general(Vector2d speed, int health, double minSpawnDistanceFromPlayer, EnemyType type,
+            long attackCoolDown) {
         return new EnemyConfiguration() {
 
             @Override
@@ -35,6 +36,11 @@ public class EnemyConfigurationFactoryImpl implements EnemyConfigurationFactory 
             public EnemyType getType() {
                 return type;
             }
+
+            @Override
+            public long getAttackCoolDown() {
+                return attackCoolDown;
+            }
         };
     }
 
@@ -46,15 +52,15 @@ public class EnemyConfigurationFactoryImpl implements EnemyConfigurationFactory 
     }
 
     private EnemyConfiguration swordEnemy() {
-        return general(getSpeed(), 50, 5, EnemyType.SWORD);
+        return general(getSpeed(), 50, 5, EnemyType.SWORD, 1000);
     }
 
     private EnemyConfiguration throwPunchesEnemy() {
-        return general(getSpeed(), 70, 2, EnemyType.THROW_PUNCHES);
+        return general(getSpeed(), 70, 2, EnemyType.THROW_PUNCHES, 500);
     }
 
     private EnemyConfiguration archEnemy() {
-        return general(getSpeed(), 40, 14, EnemyType.SWORD);
+        return general(getSpeed(), 40, 14, EnemyType.BOW, 2000);
     }
 
     @Override
