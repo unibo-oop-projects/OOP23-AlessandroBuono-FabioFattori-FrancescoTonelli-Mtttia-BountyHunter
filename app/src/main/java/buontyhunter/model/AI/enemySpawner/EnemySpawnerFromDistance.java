@@ -2,17 +2,40 @@ package buontyhunter.model.AI.enemySpawner;
 
 import buontyhunter.common.PercentageHelper;
 import buontyhunter.common.Point2d;
+import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.World;
 
 import java.util.*;
 
+import com.google.common.base.Optional;
+
 public class EnemySpawnerFromDistance implements EnemySpawner {
 
+    /**
+     * max number of enemies in the world
+     */
     private int maxEnemyNumber = 6;
-    private List<EnemyType> enemyTypes = List.of(EnemyType.SWORD, EnemyType.BRASS_KNUCLES, EnemyType.BOW);
-    private double spawnPercentage = 1;
-    private double doubleEnemyPercentage = 40;
-    private double tripleEnemyPercentage = 20;
+    /**
+     * all different types of enemies
+     */
+    private List<EnemyType> enemyTypes = List.of(EnemyType.SWORD, EnemyType.THROW_PUNCHES, EnemyType.BOW);
+    /**
+     * spawn in percentage /100
+     */
+    private double spawnPercentage = 0.2;
+    /**
+     * percentage of spawning 2 enemies
+     */
+    private double doubleEnemyPercentage = 30;
+    /**
+     * percentage of spawning 3 enemies
+     */
+    private double tripleEnemyPercentage = 10;
+    private EnemyConfigurationFactory enemyFactory;
+
+    public EnemySpawnerFromDistance() {
+        this.enemyFactory = new EnemyConfigurationFactoryImpl();
+    }
 
     @Override
     public void spawn(World w) {
@@ -25,10 +48,11 @@ public class EnemySpawnerFromDistance implements EnemySpawner {
     }
 
     private void createEnemy(World w) {
-        var conf = getEnemyTypeFromIndex(getNextSpawnEnemyType());
-        var pos = generatePoint(w.getPlayer().getPos(), conf.getMinSpawnDistanceFromPlayer(),
-                conf.getMaxSpawnDistanceFromPlayer());
-        w.addEnemy(pos, conf.getSpeed(), maxEnemyNumber);
+        var conf = enemyFactory.random();
+        var pos = generatePoint(conf, w);
+        if (pos.isPresent()) {
+            w.addEnemy(pos.get(), conf.getSpeed(), maxEnemyNumber);
+        }
     }
 
     private int getEnemyNumber(int actualEnemyNumber) {
@@ -45,17 +69,11 @@ public class EnemySpawnerFromDistance implements EnemySpawner {
         return PercentageHelper.match(spawnPercentage) && enemyTypes.size() > 0;
     }
 
-    private int getNextSpawnEnemyType() {
-        var rand = new Random();
-        return rand.nextInt(enemyTypes.size());
-    }
-
-    private EnemyConfiguration getEnemyTypeFromIndex(int index) {
-        var enemyConfFactory = new EnemyConfigurationFactory();
-        return enemyConfFactory.fromType(enemyTypes.get(index));
-    }
-
-    private Point2d generatePoint(Point2d playerPos, double minDistanceFromPlayer, double maxDistanceFromPlayer) {
+    private Optional<Point2d> generatePoint(EnemyConfiguration conf, World w) {
+        var maxDistanceFromPlayer = conf.getMaxSpawnDistanceFromPlayer();
+        var minDistanceFromPlayer = conf.getMinSpawnDistanceFromPlayer();
+        var playerPos = w.getPlayer().getPos();
+        var worldRectBBox = (RectBoundingBox) w.getTileManager().getBBox();
         var rand = new Random();
         var distance = rand.nextDouble() * (maxDistanceFromPlayer - minDistanceFromPlayer) + minDistanceFromPlayer;
         var angle = rand.nextDouble() * 2 * Math.PI;
@@ -63,10 +81,22 @@ public class EnemySpawnerFromDistance implements EnemySpawner {
         var y = playerPos.y + distance * Math.sin(angle);
         if (x < 0) {
             x = 0;
+        } else if (x > worldRectBBox.getWidth()) {
+            x = worldRectBBox.getWidth() - 1;
         }
         if (y < 0) {
             y = 0;
+        } else if (y > worldRectBBox.getHeight()) {
+            y = worldRectBBox.getHeight() - 1;
         }
-        return new Point2d(x, y);
+        var spawnPoint = new Point2d(x, y);
+
+        // check if tile is valid
+        var tile = w.getTileManager().getTileFromPosition(spawnPoint);
+        if (tile.isPresent() && tile.get().isTraversable()) {
+            return Optional.of(spawnPoint);
+        } else {
+            return Optional.absent();
+        }
     }
 }

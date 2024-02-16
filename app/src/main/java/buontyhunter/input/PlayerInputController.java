@@ -23,67 +23,60 @@ public class PlayerInputController implements InputComponent {
 		if (c.isMoveUp()) {
 			vel.y -= speed;
 			setDirection(player, Direction.MOVE_UP);
-		}
-		else if (c.isMoveDown()) {
+		} else if (c.isMoveDown()) {
 			vel.y += speed;
 			setDirection(player, Direction.MOVE_DOWN);
-		}
-		else if (c.isMoveLeft()) {
+		} else if (c.isMoveLeft()) {
 			vel.x -= speed;
 			setDirection(player, Direction.MOVE_LEFT);
-		}
-		else if (c.isMoveRight()) {
+		} else if (c.isMoveRight()) {
 			vel.x += speed;
 			setDirection(player, Direction.MOVE_RIGHT);
 		}
 
-		//Controls if the player is already executing an attack
-		
-			
-		if(timer <= 0){
+		// Controls if the player is already executing an attack
 
-			if(c.isAttackUp()){
-				instanceAttack((PlayerEntity)player, 0, -1);
+		if (timer <= 0) {
+
+			if (c.isAttackUp()) {
+				instanceAttack((PlayerEntity) player, 0, -1);
 				setTimer(player);
 				setDirection(player, Direction.STAND_UP);
-			}
-			else if(c.isAttackDown()){
-				instanceAttack((PlayerEntity)player, 0, 1);
+			} else if (c.isAttackDown()) {
+				instanceAttack((PlayerEntity) player, 0, 1);
 				setTimer(player);
 				setDirection(player, Direction.STAND_DOWN);
-				
-			}
-			else if(c.isAttackLeft()){
-				instanceAttack((PlayerEntity)player, -1, 0);
+
+			} else if (c.isAttackLeft()) {
+				instanceAttack((PlayerEntity) player, -1, 0);
 				setTimer(player);
-				
+
 				setDirection(player, Direction.STAND_LEFT);
-			}
-			else if(c.isAttackRight()){
-				instanceAttack((PlayerEntity)player, 1, 0);
+			} else if (c.isAttackRight()) {
+				instanceAttack((PlayerEntity) player, 1, 0);
 				setTimer(player);
-				
+
 				setDirection(player, Direction.STAND_RIGHT);
 			}
-			
-		}
-		else{
-			if(((FighterEntity)player).getDamagingArea() == null){
-				instanceAttack((PlayerEntity)player, 0, 0);
-			}
-			
-			((PlayerEntity)player).getDamagingArea().setShow(false);
 
-			if(timer>0){
+		} else {
+			if (((FighterEntity) player).getDamagingArea() == null) {
+				instanceAttack((PlayerEntity) player, 0, 0);
+			}
+
+			((PlayerEntity) player).getDamagingArea().setShow(false);
+
+			if (timer > 0) {
 				timer--;
 			}
 		}
-		
-		player.setVel(vel);
-		var pos = new Point2d(player.getPos().x, player.getPos().y+1); // +1 per simulare lo shift che c'è nel disegno
 
-		if(w.getTileManager().getTileFromPosition(pos.sum(vel)).isPresent()){
-			if(w.getTileManager().getTileFromPosition(pos.sum(vel)).get().isSolid()|| w.getTileManager().getTileFromPosition(pos.sum(vel)).get().isObstacle()){
+		player.setVel(vel);
+		var pos = new Point2d(player.getPos().x, player.getPos().y + 1); // +1 per simulare lo shift che c'è nel disegno
+
+		if (w.getTileManager().getTileFromPosition(pos.sum(vel)).isPresent()) {
+			if (w.getTileManager().getTileFromPosition(pos.sum(vel)).get().isSolid()
+					|| w.getTileManager().getTileFromPosition(pos.sum(vel)).get().isObstacle()) {
 				return;
 			}
 		}
@@ -91,23 +84,24 @@ public class PlayerInputController implements InputComponent {
 		player.setPos(pos.sum(vel));
 	}
 
-	private void instanceAttack(PlayerEntity player, int x, int y){
+	private void instanceAttack(PlayerEntity player, int x, int y) {
 
-		((PlayerEntity)player).setDamagingArea(GameFactory.getInstance().WeaponDamagingArea((PlayerEntity)player, new Vector2d(x,y)));
+		((PlayerEntity) player).setDamagingArea(
+				GameFactory.getInstance().WeaponDamagingArea((PlayerEntity) player, new Vector2d(x, y)));
 		player.getWeapon().directAttack();
 
-		((PlayerEntity)player).getDamagingArea().setShow(true);
-		
-		//TODO wait(1000);
+		((PlayerEntity) player).getDamagingArea().setShow(true);
+
+		// TODO wait(1000);
 	}
 
-	private void setTimer(GameObject player){
-		timer=30/((PlayerEntity)player).getWeapon().getAttackSpeed();
+	private void setTimer(GameObject player) {
+		timer = 30 / ((PlayerEntity) player).getWeapon().getAttackSpeed();
 	}
 
-	private void setDirection(GameObject player, Direction direction){
-		if(player instanceof PlayerEntity){
-			((PlayerEntity)player).setDirection(direction);
+	private void setDirection(GameObject player, Direction direction) {
+		if (player instanceof PlayerEntity) {
+			((PlayerEntity) player).setDirection(direction);
 		}
 	}
 }
