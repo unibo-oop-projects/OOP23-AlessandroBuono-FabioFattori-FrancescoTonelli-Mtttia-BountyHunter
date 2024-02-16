@@ -102,15 +102,17 @@ public class SwingScene implements Scene, ComponentListener {
 			questButtons.clear();
 		}
 
-		((PlayerEntity)gameState.getWorld().getPlayer()).getWeapons().forEach(w->{
-			JButton button = new JButton();
-			button.addActionListener(e1 -> {
-				((PlayerEntity)gameState.getWorld().getPlayer()).equipWeapon(w);
-				frame.repaint();
+		if(inventoryButtons.size() == 0){
+			((PlayerEntity)gameState.getWorld().getPlayer()).getWeapons().forEach(w->{
+				JButton button = new JButton();
+				button.addActionListener(e1 -> {
+					((PlayerEntity)gameState.getWorld().getPlayer()).equipWeapon(w);
+					frame.repaint();
+				});
+				inventoryButtons.add(button);
+			
 			});
-			inventoryButtons.add(button);
-		
-		});
+		}
 	}
 
 	public void render() {
@@ -243,7 +245,7 @@ public class SwingScene implements Scene, ComponentListener {
 						e.updateGraphics(gr, scene);
 					}
 				});
-				int height = (int) ((RectBoundingBox) getQuestPannel().getBBox()).getHeight();
+				int height = (int) (GameEngine.RESIZATOR.getWINDOW_HEIGHT());
 					int unit = height / 6;
 
 				if(gameState.getWorld().getInventory().isShow()){
