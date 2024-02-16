@@ -332,7 +332,9 @@ public class TileManager extends GameObject {
         int yTopLeft = (int) point.y;
         var tiles = getTiles();
         if (tiles.size() > yTopLeft
-                && tiles.get(0).size() > xTopLeft) {
+                && tiles.get(0).size() > xTopLeft
+                && yTopLeft >= 0
+                && xTopLeft >= 0) {
             return Optional.of(tiles.get(yTopLeft).get(xTopLeft));
         }
         return Optional.empty();

@@ -5,8 +5,8 @@ import java.util.List;
 import java.awt.Dimension;
 
 public class Resizator {
-    private int WORLD_WIDTH = 14;
-    private int WORLD_HEIGHT = 14;
+    private int WORLD_WIDTH = 18;
+    private int WORLD_HEIGHT = 18;
     private double x_WINDOW_RATIO = 0.8;
     private double y_WINDOW_RATIO = 0.8;
     private int WINDOW_WIDTH;
@@ -71,7 +71,7 @@ public class Resizator {
         this.RATIO_HEIGHT = minDim / WORLD_HEIGHT;
         this.WINDOW_WIDTH = (int) minDim;
         this.WINDOW_HEIGHT = (int) minDim;
-        
+
     }
 
     private int calculateTheWindowWidthAndHeight() {

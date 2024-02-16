@@ -208,6 +208,14 @@ public class SwingGraphics implements Graphics {
 		var navigatorLine = w.getNavigatorLine();
 		var pathStream = navigatorLine.getPath().stream();
 
+		// TODO: COMMENTA STA RIGA E' UNA RIGA DI DEBUG
+		var b = w.getWizardBoss();
+
+		g2.setColor(Color.MAGENTA);
+		g2.fillRect(getXinPixel(tilePos) + mapShowOffSetX + (int) Math.floor(b.getPos().x) * propsX,
+				getYinPixel(tilePos) + mapShowOffSetY + (int) Math.floor(b.getPos().y) * propsY, propsX * playerSize,
+				propsY * playerSize);
+
 		// g2.setColor(Color.ORANGE);
 		// pathStream.forEach((Point2d np) -> g2.fillOval(getXinPixel(tilePos) +
 		// mapShowOffSetY + (int) np.x - 2,
@@ -592,27 +600,37 @@ public class SwingGraphics implements Graphics {
 		}
 	}
 
+	public void drawWizardBoss(WizardBossEntity boss, World w) {
+		var point = camera.getObjectPointInScene(boss.getPos());
+		var bBox = (RectBoundingBox) boss.getBBox();
+		if (point.isPresent()) {
+			g2.setColor(Color.MAGENTA);
+			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()), getDeltaXinPixel(bBox.getWidth()),
+					getDeltaYinPixel(bBox.getHeight()));
+		}
+	}
+
 	@Override
 	public void drawInventory(InventoryObject inventory, World w) {
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect(0, 0, GameEngine.RESIZATOR.getWINDOW_WIDTH(), GameEngine.RESIZATOR.getWINDOW_HEIGHT());
 
 		var player = (PlayerEntity) w.getPlayer();
-		
+
 		player.getWeapons().forEach((weapon) -> {
-			if(weapon instanceof DefaultWeapon){
+			if (weapon instanceof DefaultWeapon) {
 				drawBlacksmithButtons(0, 100, 100, 100, new JButton());
-			}else{
+			} else {
 				drawBlacksmithButtons(1, 100, 100, 100, new JButton());
 			}
 		});
 	}
 
-	public void drawInventoryWeapon(Weapon w, int x , int y,JButton btn){
-		btn.setBounds(x,y, 100, 100);
-		if(w instanceof MeleeWeapon){
+	public void drawInventoryWeapon(Weapon w, int x, int y, JButton btn) {
+		btn.setBounds(x, y, 100, 100);
+		if (w instanceof MeleeWeapon) {
 			btn.setText("Melee");
-		}else{
+		} else {
 			btn.setText("Ranged");
 		}
 	}
