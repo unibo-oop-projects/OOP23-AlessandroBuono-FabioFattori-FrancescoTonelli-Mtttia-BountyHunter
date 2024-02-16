@@ -61,7 +61,7 @@ public class RangedWeapon extends Weapon {
             this.attackDirection = direction;
             this.sprite = sprite;
             pos = owner.getPos();
-            hitbox = new RectBoundingBox(pos, 30, 30);
+            hitbox = new RectBoundingBox(pos, 1, 1);
         }
 
         public void update() {

@@ -6,6 +6,7 @@ import buontyhunter.common.Vector2d;
 import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.model.GameObject;
+import buontyhunter.weaponClasses.MeleeWeapon;
 import buontyhunter.model.*;
 
 /**
@@ -77,7 +78,9 @@ public class PlayerInputController implements InputComponent {
 				instanceAttack((PlayerEntity) player, 0, 0);
 			}
 
-			((PlayerEntity) player).getDamagingArea().setShow(false);
+			if(((FighterEntity)player).getWeapon() instanceof MeleeWeapon){
+				((PlayerEntity) player).getDamagingArea().setShow(false);
+			}
 
 			if (timer > 0) {
 				timer--;
