@@ -128,6 +128,10 @@ public class World {
                 }
             }
         } else {
+
+            if (getMiniMap() != null && getMiniMap().isShow()) {
+                return;
+            }
             if (player != null) {
                 player.updatePhysics(dt, this);
                 if (((FighterEntity) player).getWeapon() != null) {
