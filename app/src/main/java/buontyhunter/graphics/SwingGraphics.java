@@ -369,7 +369,7 @@ public class SwingGraphics implements Graphics {
 		var point = camera.getObjectPointInScene(w.getHitbox().getPoint2d());
 		if (point.isPresent()) {
 			g2.setColor(Color.RED);
-			g2.fillOval(getXinPixel(point.get()), getYinPixel(point.get()), (int)w.getHitbox().getWidth(), (int)w.getHitbox().getHeight());
+			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()), (int)w.getHitbox().getWidth(), (int)w.getHitbox().getHeight());
 		}
 	}
 
