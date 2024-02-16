@@ -1,7 +1,6 @@
 package buontyhunter.weaponClasses;
 
 import buontyhunter.common.Point2d;
-import buontyhunter.common.Direction;
 import buontyhunter.common.ImageType;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.RectBoundingBox;
