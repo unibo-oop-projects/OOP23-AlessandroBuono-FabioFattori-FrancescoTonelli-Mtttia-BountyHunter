@@ -233,7 +233,7 @@ public class GameFactory {
 
         // TODO delete this
         ((PlayerEntity) toRet.getPlayer())
-                .setWeapon(WeaponFactory.getInstance().createBow((FighterEntity) toRet.getPlayer()));
+                .setWeapon(WeaponFactory.getInstance().createSword((FighterEntity) toRet.getPlayer()));
 
         if (oldWorld != null) {
             toRet.setEventListener(oldWorld.getEventListener());
