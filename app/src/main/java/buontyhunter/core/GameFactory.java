@@ -37,10 +37,22 @@ public class GameFactory {
 
     // TODO weapon input
     public PlayerEntity createPlayer(Point2d point, Vector2d vector, int health, int maxHealth) {
-        return new PlayerEntity(GameObjectType.Player, point, vector,
+        PlayerEntity toRet = new PlayerEntity(GameObjectType.Player, point, vector,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                 new PlayerInputController(), new PlayerGraphicsComponent(), new PlayerPhysicsComponent(),
                 health, maxHealth, null);
+
+        toRet.addWeapon(WeaponFactory.getInstance().createSword(toRet));
+        toRet.addWeapon(WeaponFactory.getInstance().createBow(toRet));
+        toRet.addWeapon(WeaponFactory.getInstance().createBrassKnuckles(toRet));
+
+        return toRet;
+    }
+
+    public InventoryObject createInventoryPanel() {
+        return new InventoryObject(GameObjectType.HidableObject, new Point2d(0, 0), new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d(0, 0), new Point2d(0, 0)), new InventoryInputComponent(),
+                new InventoryGraphycsComponent(), new NullPhysicsComponent(), false);
     }
 
     /**
@@ -154,15 +166,16 @@ public class GameFactory {
                 panel);
     }
 
-    public InterractableArea createBlacksmithForHub(Point2d pos){
-        
-        BlacksmithPanel panel = new BlacksmithPanel(GameObjectType.HidableObject, 
-                new Point2d(0, 0), new Vector2d(0, 0), 
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.RESIZATOR.getWINDOW_WIDTH(), GameEngine.RESIZATOR.getWINDOW_HEIGHT ()), 
+    public InterractableArea createBlacksmithForHub(Point2d pos) {
+
+        BlacksmithPanel panel = new BlacksmithPanel(GameObjectType.HidableObject,
+                new Point2d(0, 0), new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.RESIZATOR.getWINDOW_WIDTH(),
+                        GameEngine.RESIZATOR.getWINDOW_HEIGHT()),
                 new NullInputComponent(), new BlacksmithPanelGraphicsComponent(), new NullPhysicsComponent(), false);
 
-        return new InterractableArea(GameObjectType.InterractableArea, 
-                pos, new Vector2d(0,0), 
+        return new InterractableArea(GameObjectType.InterractableArea,
+                pos, new Vector2d(0, 0),
                 new RectBoundingBox(pos, 3, 4),
                 panel);
     }
@@ -216,6 +229,7 @@ public class GameFactory {
         toRet.setNavigatorLine(this.createNavigatorLine(toRet));
         toRet.setTeleporter(this.createTeleporterToHub());
         toRet.setQuestJournal(this.createQuestJournal());
+        toRet.setInventory(this.createInventoryPanel());
         return toRet;
     }
 
@@ -228,8 +242,9 @@ public class GameFactory {
             toRet.setPlayer(this.createPlayer(GameEngine.HUB_PLAYER_START, Vector2d.symmetrical(0), 10, 100));
         }
 
-        //TODO delete this
-        ((PlayerEntity)toRet.getPlayer()).setWeapon(WeaponFactory.getInstance().createBow((FighterEntity)toRet.getPlayer()));
+        // TODO delete this
+        ((PlayerEntity) toRet.getPlayer())
+                .setWeapon(WeaponFactory.getInstance().createBow((FighterEntity) toRet.getPlayer()));
 
         if (oldWorld != null) {
             toRet.setEventListener(oldWorld.getEventListener());
@@ -242,6 +257,7 @@ public class GameFactory {
         toRet.addInterractableArea(this.createBlacksmithForHub(new Point2d(1, 4)));
         toRet.setQuestJournal(this.createQuestJournal());
         toRet.disableEnemies();
+        toRet.setInventory(this.createInventoryPanel());
         return toRet;
     }
 }

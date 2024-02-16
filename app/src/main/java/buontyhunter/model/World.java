@@ -29,6 +29,7 @@ public class World {
     private List<InterractableArea> interractableAreas;
     private EnemyRegistry enemyRegistry;
     private LoadingBar loadingBar;
+    private InventoryObject inventory;
 
     public World(RectBoundingBox bbox) {
         mainBBox = bbox;
@@ -39,6 +40,14 @@ public class World {
 
     public void setLoadingBar(LoadingBar loadingBar) {
         this.loadingBar = loadingBar;
+    }
+
+    public void setInventory(InventoryObject inventory) {
+        this.inventory = inventory;
+    }
+
+    public InventoryObject getInventory() {
+        return inventory;
     }
 
     public LoadingBar getLoadingBar() {
@@ -195,6 +204,9 @@ public class World {
             entities.add(miniMap);
         if (questJournal != null)
             entities.add(questJournal);
+
+        if(inventory != null)
+            entities.add(inventory);
 
         this.interractableAreas.forEach(area -> entities.add(area));
         return entities;

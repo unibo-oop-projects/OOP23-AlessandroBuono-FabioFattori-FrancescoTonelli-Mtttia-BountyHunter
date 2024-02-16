@@ -34,6 +34,7 @@ public class SwingScene implements Scene, ComponentListener {
 	private boolean IsHub;
 	private final List<JButton> questButtons = new ArrayList<>();
 	private final List<JButton> blacksmithButtons = new ArrayList<>();
+	private final List<JButton> inventoryButtons = new ArrayList<>();
 	protected final SwingAssetProvider assetManager;
 
 	public SwingScene(GameState gameState, KeyboardInputController controller, boolean IsHub) {
@@ -67,6 +68,8 @@ public class SwingScene implements Scene, ComponentListener {
 			});
 		}
 
+		
+
 		frame.setResizable(true);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -98,6 +101,16 @@ public class SwingScene implements Scene, ComponentListener {
 		}else{
 			questButtons.clear();
 		}
+
+		((PlayerEntity)gameState.getWorld().getPlayer()).getWeapons().forEach(w->{
+			JButton button = new JButton();
+			button.addActionListener(e1 -> {
+				((PlayerEntity)gameState.getWorld().getPlayer()).equipWeapon(w);
+				frame.repaint();
+			});
+			inventoryButtons.add(button);
+		
+		});
 	}
 
 	public void render() {
@@ -230,11 +243,30 @@ public class SwingScene implements Scene, ComponentListener {
 						e.updateGraphics(gr, scene);
 					}
 				});
+				int height = (int) ((RectBoundingBox) getQuestPannel().getBBox()).getHeight();
+					int unit = height / 6;
+
+				if(gameState.getWorld().getInventory().isShow()){
+					inventoryButtons.forEach(btn -> {
+
+					int x = unit + unit / 6;
+					int y = x + unit / 12;
+						this.add(btn, BorderLayout.CENTER);
+						var offsetX = (unit + (unit * 2) / 6) * inventoryButtons.indexOf(btn);
+						gr.drawInventoryWeapon(((PlayerEntity)gameState.getWorld().getPlayer()).getWeapons().get(inventoryButtons.indexOf(btn)), x+offsetX, y, btn);
+						frame.pack();
+						btn.setVisible(true);
+					});
+				}else{
+					inventoryButtons.forEach(btn -> {
+						this.remove(btn);
+						btn.setVisible(false);
+					});
+				}
 
 				// render the buttons if it is the hub
 				if (IsHub && getQuestPannel().isShow()) {
-					int height = (int) ((RectBoundingBox) getQuestPannel().getBBox()).getHeight();
-					int unit = height / 6;
+					
 					int x = unit + unit / 6;
 					int y = x + unit / 12;
 					questButtons.forEach(btn -> {
@@ -263,8 +295,6 @@ public class SwingScene implements Scene, ComponentListener {
 				//render blacksmith
 				// render the buttons if it is the hub
 				if (IsHub && getBlacksmithPannel().isShow()) {
-					int height = (int) ((RectBoundingBox) getBlacksmithPannel().getBBox()).getHeight();
-					int unit = height / 6;
 					int x = unit + unit / 6;
 					int y = x + unit / 12;
 					blacksmithButtons.forEach(btn -> {
@@ -353,6 +383,9 @@ public class SwingScene implements Scene, ComponentListener {
 				case 69:
 					controller.notifyEPressed();
 					break;
+				case 73:
+					controller.notifyIPressed();
+					break;
 				default:
 					break;
 			}
@@ -401,7 +434,9 @@ public class SwingScene implements Scene, ComponentListener {
 				case 69:
 					controller.notifyNoMoreEPressed();
 					break;
-
+				case 73:
+					controller.notifyNoMoreIPressed();
+					break;
 				default:
 					break;
 

@@ -32,4 +32,6 @@ public interface Graphics {
 	void drawBullet(RangedWeapon w);
 
 	void drawBlacksmithPanel(BlacksmithPanel blacksmithPanel, World w);
+
+	void drawInventory(InventoryObject inventory, World w);
 }
