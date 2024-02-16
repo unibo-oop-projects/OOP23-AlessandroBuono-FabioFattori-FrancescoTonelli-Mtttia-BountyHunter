@@ -399,17 +399,23 @@ public class SwingGraphics implements Graphics {
 
 	private void outWeapon(Point2d pos, int width, int height) {
 		g2.setColor(Color.blue);
-		g2.fillRect(getXinPixel(pos), getYinPixel(pos), width, height);
+		g2.fillRect(getXinPixel(pos),getYinPixel(pos), width, height);
 	}
 
 	@Override
 	public void drawWeapon(FighterEntity fe) {
+		
 		if (fe.getWeapon() instanceof RangedWeapon) {
 			drawBullet(((RangedWeapon) fe.getWeapon()));
 		} else {
-			var point = camera.getPlayerPoint();
-			outWeapon(point, getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getWidth()),
-					getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getHeight()));
+			var point = camera.getObjectPointInScene(((RectBoundingBox)fe.getDamagingArea().getBBox()).getPoint2d());
+
+			if(point.isPresent()){
+				outWeapon(point.get(), getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getWidth()),
+					 getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getHeight()));
+			}
+			
+			
 		}
 	}
 
