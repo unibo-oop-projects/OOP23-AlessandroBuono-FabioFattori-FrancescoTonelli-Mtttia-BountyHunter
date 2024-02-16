@@ -229,8 +229,11 @@ public class World {
         enemyRegistry.addEnemy(pos, speed, health);
     }
 
-    public void removeEnemy(int enemyIdentifier) {
+    public void removeEnemy(int enemyIdentifier, boolean killed) {
         enemyRegistry.removeEnemy(enemyIdentifier);
+        if (killed) {
+            // TODO: Add enemy drop
+        }
     }
 
     public void generateEnemy() {

@@ -427,7 +427,7 @@ public class SwingGraphics implements Graphics {
 					case BOW:
 						this.drawSkelly((EnemyEntity) obj, w, getXinPixel(point.get()), getYinPixel(point.get()));
 						break;
-					case BRASS_KNUCLES:
+					case THROW_PUNCHES:
 						this.drawZombie((EnemyEntity) obj, w, getXinPixel(point.get()), getYinPixel(point.get()));
 						break;
 					case SWORD:
@@ -584,12 +584,12 @@ public class SwingGraphics implements Graphics {
 				g2.setColor(Color.BLACK);
 				g2.fillRect(0, frame - 180, frame, 80);
 				g2.setColor(Color.WHITE);
-				g2.fillRect(10, frame - 170, currentLoaded * frame / loadingTime -30, 60);
+				g2.fillRect(10, frame - 170, currentLoaded * frame / loadingTime - 30, 60);
 			} else {
 				g2.setColor(Color.BLACK);
 				g2.fillRect(0, frame - 180, frame, 80);
 				g2.setColor(Color.WHITE);
-				g2.fillRect(10, frame - 170, frame - 100 , 60);
+				g2.fillRect(10, frame - 170, frame - 100, 60);
 			}
 		}
 	}

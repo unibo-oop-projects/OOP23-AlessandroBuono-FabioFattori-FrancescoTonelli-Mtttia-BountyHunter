@@ -39,6 +39,9 @@ public class Tile {
 
     public boolean isObstacle() {
         return isObstacle;
+    }
 
+    public boolean isTraversable() {
+        return !isObstacle && !isSolid;
     }
 }

@@ -22,9 +22,11 @@ public class EnemyEntity extends FighterEntity {
     private final int deathDistance = 40;
     private int enemyIdentifier;
     private EnemyType enemyType;
+    protected FighterEntityType type = FighterEntityType.ENEMY;
 
     public EnemyEntity(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
-            GraphicsComponent graph, PhysicsComponent phys, int health, int maxHealth, Weapon w, int enemyIdentifier, EnemyType enemyType) {
+            GraphicsComponent graph, PhysicsComponent phys, int health, int maxHealth, Weapon w, int enemyIdentifier,
+            EnemyType enemyType) {
         super(type, pos, vel, box, input, graph, phys, health, maxHealth, w);
 
         var aiFactory = new AIFactoryImpl();
@@ -32,7 +34,6 @@ public class EnemyEntity extends FighterEntity {
         this.enemyIdentifier = enemyIdentifier;
         this.enemyType = enemyType;
     }
-
 
     public void moveItem(World world) {
         var currentPos = this.getPos();
@@ -42,19 +43,15 @@ public class EnemyEntity extends FighterEntity {
 
         var nextPos = followPathHelper.moveItem(currentPos, playerPos, speed, tiles);
 
-        if(nextPos.y < currentPos.y){
+        if (nextPos.y < currentPos.y) {
             this.setDirection(Direction.MOVE_UP);
-        }
-        else if(nextPos.y > currentPos.y){
+        } else if (nextPos.y > currentPos.y) {
             this.setDirection(Direction.MOVE_DOWN);
-        }
-        else if(nextPos.x < currentPos.x){
+        } else if (nextPos.x < currentPos.x) {
             this.setDirection(Direction.MOVE_LEFT);
-        }
-        else if(nextPos.x > currentPos.x){
+        } else if (nextPos.x > currentPos.x) {
             this.setDirection(Direction.MOVE_RIGHT);
-        }
-        else{
+        } else {
             this.setDirection(Direction.STAND_DOWN);
         }
 
@@ -78,7 +75,7 @@ public class EnemyEntity extends FighterEntity {
         return enemyIdentifier;
     }
 
-    public EnemyType getEnemyType(){
+    public EnemyType getEnemyType() {
         return this.enemyType;
     }
 }

@@ -10,4 +10,6 @@ public interface EnemyConfiguration {
     double getMinSpawnDistanceFromPlayer();
 
     double getMaxSpawnDistanceFromPlayer();
+
+    EnemyType getType();
 }

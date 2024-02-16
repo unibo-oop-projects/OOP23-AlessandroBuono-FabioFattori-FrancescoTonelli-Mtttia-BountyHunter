@@ -9,11 +9,10 @@ import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
 import buontyhunter.weaponClasses.Weapon;
 
-public class PlayerEntity extends FighterEntity{
+public class PlayerEntity extends FighterEntity {
 
-    
     private List<Quest> quests;
-
+    protected FighterEntityType type = FighterEntityType.PLAYER;
 
     public PlayerEntity(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
             GraphicsComponent graph, PhysicsComponent phys, int health, int maxHealth, Weapon w) {
@@ -32,5 +31,5 @@ public class PlayerEntity extends FighterEntity{
     public List<Quest> getQuests() {
         return new ArrayList<Quest>(quests);
     }
-    
+
 }
