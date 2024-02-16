@@ -142,7 +142,7 @@ public class GameObject {
      * 
      * @param box the new bounding box of the game object
      */
-    protected void setBBox(BoundingBox box) {
+    public void setBBox(BoundingBox box) {
         this.bbox = box;
     }
 

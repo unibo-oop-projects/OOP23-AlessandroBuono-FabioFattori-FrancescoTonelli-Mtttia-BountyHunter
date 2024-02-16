@@ -8,7 +8,7 @@ import buontyhunter.model.World;
 import java.util.List;
 
 public interface EnemyRegistry {
-    void addEnemy(Point2d pos, Vector2d speed, int health);
+    void addEnemy(Point2d pos, EnemyConfiguration conf);
 
     List<EnemyEntity> getEnemies();
 

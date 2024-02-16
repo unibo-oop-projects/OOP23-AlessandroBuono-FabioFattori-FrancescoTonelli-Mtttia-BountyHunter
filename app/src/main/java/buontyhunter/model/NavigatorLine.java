@@ -29,7 +29,7 @@ public class NavigatorLine extends GameObject {
 
     public void setPath(Point2d initialPoint, Point2d finalPoint) {
         path = pathFinder.findPath(initialPoint.duplicate().floorCoordinates(),
-                finalPoint.duplicate().floorCoordinates(), world.getTileManager().getTiles());
+                finalPoint.duplicate().floorCoordinates(), world.getTileManager().getTiles(), new HashSet<>());
     }
 
     public List<Point2d> getPath() {

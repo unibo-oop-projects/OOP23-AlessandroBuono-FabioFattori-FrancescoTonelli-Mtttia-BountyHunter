@@ -21,9 +21,9 @@ public class EnemyRegistryImpl implements EnemyRegistry {
     private boolean spawnActive = true;
 
     @Override
-    public void addEnemy(Point2d pos, Vector2d speed, int health) {
+    public void addEnemy(Point2d pos, EnemyConfiguration conf) {
         var gameFactory = GameFactory.getInstance();
-        var enemy = gameFactory.createEnemy(pos, speed, health, enemyIdManger.getIdentifier(), null);
+        var enemy = gameFactory.createEnemy(pos, conf, enemyIdManger.getIdentifier());
         enemies.put(enemy.getEnemyIdentifier(), enemy);
         AppLogger.getLogger().log("adding enemy" + enemy.getEnemyIdentifier(), LogType.MODEL);
     }
@@ -47,10 +47,9 @@ public class EnemyRegistryImpl implements EnemyRegistry {
     @Override
     public void generateEnemy(World w) {
         if (spawnActive) {
-            
+
             enemySpawner.spawn(w);
-        }
-        else {
+        } else {
             AppLogger.getLogger().log("spawning is disabled", LogType.MODEL);
         }
     }

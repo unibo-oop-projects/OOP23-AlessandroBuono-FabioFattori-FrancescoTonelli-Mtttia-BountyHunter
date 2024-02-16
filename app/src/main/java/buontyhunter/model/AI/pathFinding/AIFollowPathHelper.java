@@ -35,8 +35,9 @@ public class AIFollowPathHelper {
         };
     }
 
-    private void generateIterator(Point2d current, Point2d destination, List<List<Tile>> map) {
-        actualPath = pathFinder.findPath(current, destination, map);
+    private void generateIterator(Point2d current, Point2d destination, List<List<Tile>> map,
+            Set<Point2d> invalidPoints) {
+        actualPath = pathFinder.findPath(current, destination, map, invalidPoints);
         if (actualPath.size() > 1) {
             pathIterator = actualPath.iterator();
             pathIterator.next();
@@ -52,10 +53,11 @@ public class AIFollowPathHelper {
                 && this.destination.equals(destination);
     }
 
-    public Point2d moveItem(Point2d current, Point2d destination, Vector2d speed, List<List<Tile>> map) {
+    public Point2d moveItem(Point2d current, Point2d destination, Vector2d speed, List<List<Tile>> map,
+            Set<Point2d> invalidPoints) {
         var movement = current.duplicate();
         if (!canUsePreviousIterator(current, destination)) {
-            generateIterator(current, destination, map);
+            generateIterator(current, destination, map, invalidPoints);
         }
         this.current = current;
         this.destination = destination;

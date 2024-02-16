@@ -1,11 +1,14 @@
 package buontyhunter.model.AI.enemySpawner;
 
 import buontyhunter.common.Vector2d;
+import buontyhunter.weaponClasses.Weapon;
+import buontyhunter.weaponClasses.WeaponFactory;
+
 import java.util.*;
 
 public class EnemyConfigurationFactoryImpl implements EnemyConfigurationFactory {
     private final double MAX_DISTANCE = 20;
-    private final Vector2d DEFAULT_SPEED = new Vector2d(0.4, 0.4);
+    private final Vector2d DEFAULT_SPEED = new Vector2d(0.2, 0.2);
     private final float seepVariance = 0.2f;
 
     private EnemyConfiguration general(Vector2d speed, int health, double minSpawnDistanceFromPlayer, EnemyType type,

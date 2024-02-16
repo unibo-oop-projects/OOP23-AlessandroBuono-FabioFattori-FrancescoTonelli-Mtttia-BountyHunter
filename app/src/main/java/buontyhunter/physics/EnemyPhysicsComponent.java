@@ -12,7 +12,7 @@ import buontyhunter.model.World;
 
 public class EnemyPhysicsComponent extends PhysicsComponent {
 
-    private long dtSinceLastMove = 0;
+    private long dtSinceLastAttach = 0;
 
     public void update(long dt, GameObject obj, World w) {
         var enemy = (EnemyEntity) obj;
@@ -20,7 +20,12 @@ public class EnemyPhysicsComponent extends PhysicsComponent {
             w.removeEnemy(enemy.getEnemyIdentifier(), true);
         } else {
             // if is still alive, try to attach
-
+            var attached = enemy.tryAttach(dtSinceLastAttach, w.getPlayer().getPos());
+            if (attached) {
+                dtSinceLastAttach = 0;
+            } else {
+                dtSinceLastAttach += dt;
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ package buontyhunter.core;
 
 import buontyhunter.input.*;
 import buontyhunter.model.*;
+import buontyhunter.model.AI.enemySpawner.EnemyConfiguration;
 import buontyhunter.model.AI.enemySpawner.EnemyType;
 import buontyhunter.physics.*;
 import buontyhunter.weaponClasses.Weapon;
@@ -73,9 +74,10 @@ public class GameFactory {
     }
 
     // TODO tutte le classi qui dentro @Buono
-    public HidableObject WeaponDamagingArea(FighterEntity entity, Vector2d direction) {
-        return new HidableObject(GameObjectType.Weapon, entity.getPos(), direction, entity.getWeapon().getHitbox(),
-                new NullInputComponent(), new WeaponGraphicsComponent(), new WeaponPhysicsComponent(entity), false);
+    public DamagingArea WeaponDamagingArea(FighterEntity entity, Vector2d direction) {
+        return new DamagingArea(GameObjectType.Weapon, entity.getPos(), direction, entity.getWeapon().getHitbox(),
+                new NullInputComponent(), new WeaponGraphicsComponent(), new WeaponPhysicsComponent(entity), false,
+                entity);
     }
 
     /**
@@ -93,11 +95,11 @@ public class GameFactory {
                 new NullInputComponent(), new NavigatorLineGraphicsComponent(), new NullPhysicsComponent(), world);
     }
 
-    public EnemyEntity createEnemy(Point2d point, Vector2d vector, int health, int enemyIdentifier, Weapon weapon) {
-        return new EnemyEntity(GameObjectType.Enemy, point, vector,
+    public EnemyEntity createEnemy(Point2d point, EnemyConfiguration conf, int enemyIdentifier) {
+        return new EnemyEntity(GameObjectType.Enemy, point,
                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                 new EnemyInputController(), new EnemyGraphicsComponent(), new EnemyPhysicsComponent(),
-                health, health, weapon, enemyIdentifier, EnemyType.SWORD);
+                conf, enemyIdentifier);
     }
 
     /**
@@ -154,15 +156,16 @@ public class GameFactory {
                 panel);
     }
 
-    public InterractableArea createBlacksmithForHub(Point2d pos){
-        
-        BlacksmithPanel panel = new BlacksmithPanel(GameObjectType.HidableObject, 
-                new Point2d(0, 0), new Vector2d(0, 0), 
-                new RectBoundingBox(new Point2d(0, 0), GameEngine.RESIZATOR.getWINDOW_WIDTH(), GameEngine.RESIZATOR.getWINDOW_HEIGHT ()), 
+    public InterractableArea createBlacksmithForHub(Point2d pos) {
+
+        BlacksmithPanel panel = new BlacksmithPanel(GameObjectType.HidableObject,
+                new Point2d(0, 0), new Vector2d(0, 0),
+                new RectBoundingBox(new Point2d(0, 0), GameEngine.RESIZATOR.getWINDOW_WIDTH(),
+                        GameEngine.RESIZATOR.getWINDOW_HEIGHT()),
                 new NullInputComponent(), new BlacksmithPanelGraphicsComponent(), new NullPhysicsComponent(), false);
 
-        return new InterractableArea(GameObjectType.InterractableArea, 
-                pos, new Vector2d(0,0), 
+        return new InterractableArea(GameObjectType.InterractableArea,
+                pos, new Vector2d(0, 0),
                 new RectBoundingBox(pos, 3, 4),
                 panel);
     }
@@ -228,8 +231,9 @@ public class GameFactory {
             toRet.setPlayer(this.createPlayer(GameEngine.HUB_PLAYER_START, Vector2d.symmetrical(0), 10, 100));
         }
 
-        //TODO delete this
-        ((PlayerEntity)toRet.getPlayer()).setWeapon(WeaponFactory.getInstance().createBow((FighterEntity)toRet.getPlayer()));
+        // TODO delete this
+        ((PlayerEntity) toRet.getPlayer())
+                .setWeapon(WeaponFactory.getInstance().createBow((FighterEntity) toRet.getPlayer()));
 
         if (oldWorld != null) {
             toRet.setEventListener(oldWorld.getEventListener());

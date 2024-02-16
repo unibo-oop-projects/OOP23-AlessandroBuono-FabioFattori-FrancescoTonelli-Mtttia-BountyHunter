@@ -25,34 +25,35 @@ public abstract class Weapon {
         this.sprite = sprite;
         this.owner = owner;
         this.attackDirection = owner.getDirection();
-        
+
         directAttack();
     }
 
     public void directAttack() {
         Point2d offet;
+
         switch (attackDirection) {
-            case STAND_UP:{
+            case STAND_UP: {
                 offet = new Point2d(owner.getPos().x, owner.getPos().y - range);
                 hitbox = new RectBoundingBox(offet, range, ((RectBoundingBox) owner.getBBox()).getHeight());
                 break;
             }
-            case STAND_DOWN:{
+            case STAND_DOWN: {
                 offet = new Point2d(owner.getPos().x, owner.getPos().y + range);
-                hitbox = new RectBoundingBox(owner.getPos(), range, ((RectBoundingBox) owner.getBBox()).getHeight());
+                hitbox = new RectBoundingBox(owner.getPos(), range, ((RectBoundingBox) owner.getBBox()).getWidth());
                 break;
             }
-            case STAND_LEFT:{
+            case STAND_LEFT: {
                 offet = new Point2d(owner.getPos().x - range, owner.getPos().y);
                 hitbox = new RectBoundingBox(offet, ((RectBoundingBox) owner.getBBox()).getWidth(), range);
                 break;
             }
-            case STAND_RIGHT:{
+            case STAND_RIGHT: {
                 offet = new Point2d(owner.getPos().x + range, owner.getPos().y);
                 hitbox = new RectBoundingBox(owner.getPos(), ((RectBoundingBox) owner.getBBox()).getWidth(), range);
                 break;
             }
-            default:{
+            default: {
                 break;
             }
         }

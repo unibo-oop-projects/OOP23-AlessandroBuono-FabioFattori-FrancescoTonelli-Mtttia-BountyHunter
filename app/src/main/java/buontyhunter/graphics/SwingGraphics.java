@@ -308,19 +308,20 @@ public class SwingGraphics implements Graphics {
 		btn.setOpaque(true);
 		btn.setBackground(new Color(197, 145, 84));
 		btn.setBorderPainted(true);
-		btn.setBorder(new LineBorder(new Color(130, 91, 49), unit/10));
+		btn.setBorder(new LineBorder(new Color(130, 91, 49), unit / 10));
 		btn.setBounds(x, y, unit, unit);
 		btn.setLayout(new BorderLayout());
 
 		Image scaled;
 
-		if(index == 0){
-			scaled = assetManager.getImage(ImageType.hammer).getScaledInstance((int)(btn.getWidth()/(1.5)), (int)(btn.getHeight()/(1.5)), Image.SCALE_SMOOTH);
+		if (index == 0) {
+			scaled = assetManager.getImage(ImageType.hammer).getScaledInstance((int) (btn.getWidth() / (1.5)),
+					(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
+		} else {
+			scaled = assetManager.getImage(ImageType.arrow).getScaledInstance((int) (btn.getWidth() / (1.5)),
+					(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
 		}
-		else{
-			scaled = assetManager.getImage(ImageType.arrow).getScaledInstance((int)(btn.getWidth()/(1.5)), (int)(btn.getHeight()/(1.5)), Image.SCALE_SMOOTH);
-		}
-		
+
 		btn.setIcon(new ImageIcon(scaled));
 	}
 
@@ -341,17 +342,15 @@ public class SwingGraphics implements Graphics {
 			return;
 		var panelPosInPixel = blacksmithPanel.getPos();
 		var height = (int) ((RectBoundingBox) blacksmithPanel.getBBox()).getHeight();
-		
+
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
-		
 
 		// questa unità di misura mi permette di disegnare le varie parti della bacheca
 		int unit = height / 7;
 		int boardDimension = unit * 5;
 
 		g2.drawImage(assetManager.getImage(ImageType.blacksmith), unit, unit, boardDimension, boardDimension, null);
-		
 
 	}
 
@@ -393,12 +392,12 @@ public class SwingGraphics implements Graphics {
 
 	@Override
 	public void drawWeapon(FighterEntity fe) {
-		if(fe.getWeapon() instanceof RangedWeapon){
-			drawBullet(((RangedWeapon)fe.getWeapon()));
-		}else{
+		if (fe.getWeapon() instanceof RangedWeapon) {
+			drawBullet(((RangedWeapon) fe.getWeapon()));
+		} else {
 			var point = camera.getPlayerPoint();
-		outWeapon(point, getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getWidth()),
-				getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getHeight()));
+			outWeapon(point, getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getWidth()),
+					getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getHeight()));
 		}
 	}
 
@@ -407,15 +406,17 @@ public class SwingGraphics implements Graphics {
 		var point = camera.getObjectPointInScene(w.getHitbox().getPoint2d());
 		if (point.isPresent()) {
 			g2.setColor(Color.RED);
-			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()), (int)w.getHitbox().getWidth(), (int)w.getHitbox().getHeight());
+			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()), (int) w.getHitbox().getWidth(),
+					(int) w.getHitbox().getHeight());
 		}
 	}
-
 
 	public void drawEnemy(GameObject obj, World w) {
 		var point = camera.getObjectPointInScene(obj.getPos());
 		if (point.isPresent()) {
 			if (obj instanceof EnemyEntity) {
+				g2.drawString(((EnemyEntity) obj).getEnemyIdentifier() + "", getXinPixel(point.get()),
+						getYinPixel(point.get()));
 				switch (((EnemyEntity) obj).getEnemyType()) {
 					case BOW:
 						this.drawSkelly((EnemyEntity) obj, w, getXinPixel(point.get()), getYinPixel(point.get()));
@@ -586,4 +587,4 @@ public class SwingGraphics implements Graphics {
 			}
 		}
 	}
-}	
+}

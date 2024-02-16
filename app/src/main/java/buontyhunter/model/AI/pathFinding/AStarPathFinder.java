@@ -2,6 +2,7 @@ package buontyhunter.model.AI.pathFinding;
 
 import java.util.*;
 
+import buontyhunter.common.Pair;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.Tile;
 
@@ -11,6 +12,7 @@ public class AStarPathFinder implements PathFinder {
     private final Map<Pair<Point2d, Point2d>, List<Point2d>> pathCache = new HashMap<>();
     private boolean useCache = true;
     private boolean passNearObstacle = false;
+    private Set<Point2d> invalidPoints = new HashSet<>();
 
     public AStarPathFinder(boolean useCache) {
         this.useCache = useCache;
@@ -40,7 +42,8 @@ public class AStarPathFinder implements PathFinder {
     }
 
     @Override
-    public List<Point2d> findPath(Point2d initialPoint, Point2d finalPoint, List<List<Tile>> map) {
+    public List<Point2d> findPath(Point2d initialPoint, Point2d finalPoint, List<List<Tile>> map,
+            Set<Point2d> invalidPoints) {
         if (useCache && pathCache.containsKey(new Pair<>(initialPoint, finalPoint))) {
             return pathCache.get(new Pair<>(initialPoint, finalPoint));
         }
@@ -51,6 +54,8 @@ public class AStarPathFinder implements PathFinder {
         if (isObstacle(initialPoint, map) || isObstacle(finalPoint, map)) {
             return Collections.emptyList();
         }
+
+        this.invalidPoints = invalidPoints;
 
         Set<Point2d> closedSet = new HashSet<>();
         PriorityQueue<Node> openQueue = new PriorityQueue<>(Comparator.comparingDouble(Node::getF));
@@ -107,7 +112,7 @@ public class AStarPathFinder implements PathFinder {
     }
 
     private boolean isObstacle(Point2d point, List<List<Tile>> map) {
-        return map.get((int) point.y).get((int) point.x).isSolid();
+        return map.get((int) point.y).get((int) point.x).isSolid() || invalidPoints.contains(point);
     }
 
     private boolean isNearObstacle(Point2d point, List<List<Tile>> map) {
@@ -184,32 +189,6 @@ public class AStarPathFinder implements PathFinder {
 
         double getF() {
             return f;
-        }
-    }
-
-    private static class Pair<K, V> {
-        private final K first;
-        private final V second;
-
-        Pair(K first, V second) {
-            this.first = first;
-            this.second = second;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o)
-                return true;
-            if (o == null || getClass() != o.getClass())
-                return false;
-            Pair<?, ?> pair = (Pair<?, ?>) o;
-            return Objects.equals(first, pair.first) &&
-                    Objects.equals(second, pair.second);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(first, second);
         }
     }
 }

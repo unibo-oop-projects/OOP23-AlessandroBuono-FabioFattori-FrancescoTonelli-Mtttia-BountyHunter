@@ -129,6 +129,9 @@ public class World {
             this.interractableAreas.forEach(area -> area.updatePhysics(dt, this));
             for (var enemy : getEnemies()) {
                 enemy.updatePhysics(dt, this);
+                if (enemy.getWeapon() != null) {
+                    enemy.getDamagingArea().updatePhysics(dt, this);
+                }
             }
         }
     }
@@ -227,7 +230,7 @@ public class World {
     }
 
     public void addEnemy(Point2d pos, EnemyConfiguration conf) {
-        enemyRegistry.addEnemy(pos, conf.getSpeed(), conf.getHealth());
+        enemyRegistry.addEnemy(pos, conf);
     }
 
     public void removeEnemy(int enemyIdentifier, boolean killed) {

@@ -106,9 +106,9 @@ public class GameEngine implements WorldEventListener {
                 gameState.getWorld().processAiInput(controller);
             }
 
-            if(((FighterEntity)gameState.getWorld().getPlayer()).getWeapon() instanceof RangedWeapon){
-                ((RangedWeapon)((FighterEntity)gameState.getWorld().getPlayer()).getWeapon()).getShot();
-            }
+            gameState.getWorld().getFighterEntities().stream()
+                    .filter(fighter -> fighter.getWeapon() instanceof RangedWeapon)
+                    .forEach(fighter -> ((RangedWeapon) fighter.getWeapon()).getShot());
 
             gameState.getWorld().getQuestJournal().updateInput(controller, gameState.getWorld());
             gameState.getWorld().getInterractableAreas().forEach(area -> area.updateInput(controller));
@@ -133,7 +133,7 @@ public class GameEngine implements WorldEventListener {
         World scene = gameState.getWorld();
         eventQueue.stream().forEach(ev -> {
             if (ev instanceof ChangeWorldEvent) {
-                if(!gameState.isGameStarted()){
+                if (!gameState.isGameStarted()) {
                     gameState.startGame();
                 }
                 gameState.setWorld(((ChangeWorldEvent) ev).getNewWorld());

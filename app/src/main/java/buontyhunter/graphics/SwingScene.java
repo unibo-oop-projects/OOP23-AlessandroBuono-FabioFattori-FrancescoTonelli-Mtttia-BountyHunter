@@ -94,8 +94,8 @@ public class SwingScene implements Scene, ComponentListener {
 					frame.repaint();
 				});
 				questButtons.add(button);
-			});		
-		}else{
+			});
+		} else {
 			questButtons.clear();
 		}
 	}
@@ -131,10 +131,10 @@ public class SwingScene implements Scene, ComponentListener {
 	private BlacksmithPanel getBlacksmithPannel() {
 		try {
 			return (BlacksmithPanel) gameState.getWorld().getInterractableAreas().stream()
-				.filter(e -> e.getPanel() instanceof BlacksmithPanel).findFirst().get().getPanel();
+					.filter(e -> e.getPanel() instanceof BlacksmithPanel).findFirst().get().getPanel();
 		} catch (Exception e) {
-			throw new RuntimeException("QuestPannel not found"+gameState.getWorld().getInterractableAreas().stream()
-			.filter(pan -> pan.getPanel() instanceof QuestPannel).toString());
+			throw new RuntimeException("QuestPannel not found" + gameState.getWorld().getInterractableAreas().stream()
+					.filter(pan -> pan.getPanel() instanceof QuestPannel).toString());
 		}
 	}
 
@@ -180,10 +180,10 @@ public class SwingScene implements Scene, ComponentListener {
 			// title screen graphics
 			if (gameState.isInTitleScreen()) {
 				/*
-				g2.setColor(Color.CYAN);
-				g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-				*/
-				
+				 * g2.setColor(Color.CYAN);
+				 * g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+				 */
+
 				g2.drawImage(assetManager.getImage(ImageType.title), 0, 0, this.getWidth(), this.getHeight(), null);
 				g2.setColor(Color.WHITE);
 				g2.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 20));
@@ -191,8 +191,8 @@ public class SwingScene implements Scene, ComponentListener {
 				String toPrint = "Press any key to start";
 				FontMetrics metrics = g2.getFontMetrics();
 
-				g2.drawString(toPrint, GameEngine.RESIZATOR.getWINDOW_WIDTH() / 2 - (metrics.stringWidth(toPrint)/2),
-						GameEngine.RESIZATOR.getWINDOW_HEIGHT() -100);
+				g2.drawString(toPrint, GameEngine.RESIZATOR.getWINDOW_WIDTH() / 2 - (metrics.stringWidth(toPrint) / 2),
+						GameEngine.RESIZATOR.getWINDOW_HEIGHT() - 100);
 				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, null, assetManager);
 				gameState.getWorld().getLoadingBar().updateGraphics(gr, gameState.getWorld());
 				return;
@@ -221,9 +221,9 @@ public class SwingScene implements Scene, ComponentListener {
 						e.updateGraphics(gr, scene);
 					}
 
-					if (e instanceof PlayerEntity) {
+					if (e instanceof FighterEntity) {
 
-						((PlayerEntity) e).getDamagingArea().updateGraphics(gr, scene);
+						((FighterEntity) e).getDamagingArea().updateGraphics(gr, scene);
 					}
 
 					if ((camera.inScene(e.getPos()) && e instanceof Teleporter)) {
@@ -253,14 +253,14 @@ public class SwingScene implements Scene, ComponentListener {
 								gr.drawQuest((QuestEntity) q, x + offsetX, y, unit, button);
 								this.add(button, BorderLayout.CENTER);
 							});
-				}else if(IsHub && !getQuestPannel().isShow()){
+				} else if (IsHub && !getQuestPannel().isShow()) {
 					questButtons.forEach(btn -> {
 						frame.remove(btn);
 						btn.setVisible(false);
 					});
 				}
 
-				//render blacksmith
+				// render blacksmith
 				// render the buttons if it is the hub
 				if (IsHub && getBlacksmithPannel().isShow()) {
 					int height = (int) ((RectBoundingBox) getBlacksmithPannel().getBBox()).getHeight();
@@ -276,14 +276,16 @@ public class SwingScene implements Scene, ComponentListener {
 					repair.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							getBlacksmithPannel().getBlacksmith().repairWeapon((PlayerEntity) gameState.getWorld().getPlayer());	
+							getBlacksmithPannel().getBlacksmith()
+									.repairWeapon((PlayerEntity) gameState.getWorld().getPlayer());
 						}
 					});
 					JButton sell = new JButton();
 					sell.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							getBlacksmithPannel().getBlacksmith().buyAmmo((PlayerEntity) gameState.getWorld().getPlayer());	
+							getBlacksmithPannel().getBlacksmith()
+									.buyAmmo((PlayerEntity) gameState.getWorld().getPlayer());
 						}
 					});
 
@@ -296,8 +298,8 @@ public class SwingScene implements Scene, ComponentListener {
 					blacksmithButtons.get(1).setVisible(getBlacksmithPannel().isShow());
 					gr.drawBlacksmithButtons(1, x, y, unit, blacksmithButtons.get(1));
 					this.add(blacksmithButtons.get(1), BorderLayout.CENTER);
-					
-				}else if(IsHub && !getBlacksmithPannel().isShow()){
+
+				} else if (IsHub && !getBlacksmithPannel().isShow()) {
 					blacksmithButtons.forEach(btn -> {
 						frame.remove(btn);
 						btn.setVisible(false);

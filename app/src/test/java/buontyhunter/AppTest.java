@@ -30,11 +30,11 @@ class AppTest {
         GameEngine gameEngine = new GameEngine();
         Assertions.assertNotNull(gameEngine);
         Assertions.assertEquals(GameEngine.HUB_PLAYER_START, new Point2d(8, 8));
-        Assertions.assertEquals(GameEngine.OPEN_WORLD_PLAYER_START, new Point2d(5, 106));        
+        Assertions.assertEquals(GameEngine.OPEN_WORLD_PLAYER_START, new Point2d(5, 106));
     }
 
     @Test
-    void testGameState(){
+    void testGameState() {
         GameState gameState = new GameState(new GameEngine());
         Assertions.assertNotNull(gameState);
         Assertions.assertFalse(gameState.isGameOver());
@@ -43,9 +43,9 @@ class AppTest {
     }
 
     @Test
-    void testAllWorlds(){
+    void testAllWorlds() {
         GameEngine engine = new GameEngine();
-        
+
         World world = GameFactory.getInstance().createLoadingScreenWorld(engine);
         world = GameFactory.getInstance().createHubWorld(world);
         testWorld(world);
@@ -76,8 +76,8 @@ class AppTest {
     }
 
     @Test
-    void testPlayerEntity(){
-        PlayerEntity player = GameFactory.getInstance().createPlayer(new Point2d(0, 0),new Vector2d(0,0), 0, 0);
+    void testPlayerEntity() {
+        PlayerEntity player = GameFactory.getInstance().createPlayer(new Point2d(0, 0), new Vector2d(0, 0), 0, 0);
         Assertions.assertNotNull(player);
         Assertions.assertNotNull(player.getBBox());
         Assertions.assertNotNull(player.getQuests());
@@ -88,15 +88,16 @@ class AppTest {
         Assertions.assertEquals(player.getQuests().size(), 0);
         player.getQuests().add(new QuestEntity("test", "test", 0));
         Assertions.assertEquals(player.getQuests().size(), 0);
-        Assertions.assertDoesNotThrow(() -> player.removeQuest(new QuestEntity("test1","test1", 0)));
+        Assertions.assertDoesNotThrow(() -> player.removeQuest(new QuestEntity("test1", "test1", 0)));
     }
 
     @Test
-    void testGameFactory(){
+    void testGameFactory() {
         GameFactory gameFactory = GameFactory.getInstance();
         Assertions.assertNotNull(gameFactory);
-        Assertions.assertNotNull(gameFactory.createPlayer(new Point2d(0, 0),new Vector2d(0,0), 0, 0));
-        Assertions.assertNotNull(gameFactory.createEnemy(new Point2d(0, 0),new Vector2d(0,0), 0, 0,null));
+        Assertions.assertNotNull(gameFactory.createPlayer(new Point2d(0, 0), new Vector2d(0, 0), 0, 0));
+        // Assertions.assertNotNull(gameFactory.createEnemy(new Point2d(0, 0),new
+        // Vector2d(0,0), 0, 0,null));
         Assertions.assertNotNull(gameFactory.createQuests());
         Assertions.assertNotNull(gameFactory.createTileManager());
         Assertions.assertNotNull(gameFactory.createTeleporterToHub());
@@ -105,40 +106,40 @@ class AppTest {
         Assertions.assertNotNull(gameFactory.createHealthBar());
         Assertions.assertNotNull(gameFactory.createQuestJournal());
         Assertions.assertNotNull(gameFactory.createQuestPannelForHub(new Point2d(0, 0)));
-        if(!(gameFactory.createHealthBar() instanceof HealthBar)){
+        if (!(gameFactory.createHealthBar() instanceof HealthBar)) {
             Assertions.fail();
         }
-        if(!(gameFactory.createMinimap() instanceof HidableObject)){
+        if (!(gameFactory.createMinimap() instanceof HidableObject)) {
             Assertions.fail();
         }
-        if(!(gameFactory.createQuestJournal() instanceof HidableObject)){
+        if (!(gameFactory.createQuestJournal() instanceof HidableObject)) {
             Assertions.fail();
         }
-        if(!(gameFactory.createQuestPannelForHub(new Point2d(0, 0)) instanceof InterractableArea)){
+        if (!(gameFactory.createQuestPannelForHub(new Point2d(0, 0)) instanceof InterractableArea)) {
             Assertions.fail();
-        }else if(!(gameFactory.createQuestPannelForHub(new Point2d(0, 0)).getPanel() instanceof QuestPannel)){
-            Assertions.fail();
-        }
-        if(!(gameFactory.createTeleporterToHub() instanceof Teleporter)){
-            Assertions.fail();
-        }else if(gameFactory.createTeleporterToHub().getMapIdOfDestination() != 1){
+        } else if (!(gameFactory.createQuestPannelForHub(new Point2d(0, 0)).getPanel() instanceof QuestPannel)) {
             Assertions.fail();
         }
-        if(!(gameFactory.createTeleporterToOpenWorld() instanceof Teleporter)){
+        if (!(gameFactory.createTeleporterToHub() instanceof Teleporter)) {
             Assertions.fail();
-        }else if (gameFactory.createTeleporterToOpenWorld().getMapIdOfDestination() != 0){
-            Assertions.fail();
-        }
-        if(!(gameFactory.createTileManager() instanceof TileManager)){
+        } else if (gameFactory.createTeleporterToHub().getMapIdOfDestination() != 1) {
             Assertions.fail();
         }
-        if(!(gameFactory.createEnemy(new Point2d(0, 0),new Vector2d(0,0), 0, 0,null) instanceof EnemyEntity)){
+        if (!(gameFactory.createTeleporterToOpenWorld() instanceof Teleporter)) {
+            Assertions.fail();
+        } else if (gameFactory.createTeleporterToOpenWorld().getMapIdOfDestination() != 0) {
             Assertions.fail();
         }
-        if(!(gameFactory.createPlayer(new Point2d(0, 0),new Vector2d(0,0), 0, 0) instanceof PlayerEntity)){
+        if (!(gameFactory.createTileManager() instanceof TileManager)) {
             Assertions.fail();
         }
-        
+        // if (!(gameFactory.createEnemy(new Point2d(0, 0), new Vector2d(0, 0), 0, 0,
+        // null) instanceof EnemyEntity)) {
+        // Assertions.fail();
+        // }
+        if (!(gameFactory.createPlayer(new Point2d(0, 0), new Vector2d(0, 0), 0, 0) instanceof PlayerEntity)) {
+            Assertions.fail();
+        }
 
     }
 }

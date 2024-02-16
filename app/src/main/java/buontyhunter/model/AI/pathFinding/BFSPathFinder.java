@@ -26,7 +26,8 @@ public class BFSPathFinder implements PathFinder {
     }
 
     @Override
-    public List<Point2d> findPath(Point2d initialPoint, Point2d finalPoint, List<List<Tile>> map) {
+    public List<Point2d> findPath(Point2d initialPoint, Point2d finalPoint, List<List<Tile>> map,
+            Set<Point2d> invalidPoints) {
         // Initialize visited set and queue for BFS
         initialPoint = initialPoint.duplicate().floorCoordinates();
         finalPoint = finalPoint.duplicate().floorCoordinates();
