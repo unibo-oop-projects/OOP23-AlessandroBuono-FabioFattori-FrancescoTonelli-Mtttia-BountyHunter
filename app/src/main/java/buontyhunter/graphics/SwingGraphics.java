@@ -575,14 +575,14 @@ public class SwingGraphics implements Graphics {
 			var g2 = this.g2;
 			if (currentLoaded < loadingTime) {
 				g2.setColor(Color.BLACK);
-				g2.fillRect(0, frame - 180, frame, 80);
+				g2.fillRect(0, frame - 120, frame, 40);
 				g2.setColor(Color.WHITE);
-				g2.fillRect(10, frame - 170, currentLoaded * frame / loadingTime - 30, 60);
+				g2.fillRect(10, frame - 110, currentLoaded * frame / loadingTime - 30, 20);
 			} else {
 				g2.setColor(Color.BLACK);
-				g2.fillRect(0, frame - 180, frame, 80);
+				g2.fillRect(0, frame - 120, frame, 40);
 				g2.setColor(Color.WHITE);
-				g2.fillRect(10, frame - 170, frame - 100, 60);
+				g2.fillRect(10, frame - 110, frame - 100, 20);
 			}
 		}
 	}
