@@ -12,8 +12,8 @@ public class ImagePathProvider {
                 {
                     setPath("utility/title.png");
                     setType(ImageType.title);
-                    setHeight(GameEngine.RESIZATOR.getRATIO_HEIGHT());
-                    setWidth(GameEngine.RESIZATOR.getRATIO_WIDTH());
+                    setHeight(GameEngine.RESIZATOR.getWINDOW_HEIGHT());
+                    setWidth(GameEngine.RESIZATOR.getWINDOW_WIDTH());
                 }
             });
             put(ImageType.EARTH, new AssetImage() {
@@ -1019,7 +1019,8 @@ public class ImagePathProvider {
 
     public static void resizeAssets() {
         imagePaths.forEach((k, v) -> {
-            if (v.getType() == ImageType.MAPBG ||
+            if (v.getType() == ImageType.title || 
+                    v.getType() == ImageType.MAPBG ||
                     v.getType() == ImageType.noticeBoard ||
                     v.getType() == ImageType.blacksmith) {
                 v.setHeight(GameEngine.RESIZATOR.getWINDOW_HEIGHT());

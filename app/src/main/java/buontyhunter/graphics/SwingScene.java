@@ -3,13 +3,16 @@ package buontyhunter.graphics;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 
 import javax.swing.*;
 
 import buontyhunter.common.ImagePathProvider;
+import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
@@ -176,11 +179,20 @@ public class SwingScene implements Scene, ComponentListener {
 
 			// title screen graphics
 			if (gameState.isInTitleScreen()) {
+				/*
 				g2.setColor(Color.CYAN);
 				g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-				g2.setColor(Color.BLACK);
-				g2.drawString("Press any key to start", GameEngine.RESIZATOR.getWINDOW_WIDTH() / 2 -50,
-						GameEngine.RESIZATOR.getWINDOW_HEIGHT() -200);
+				*/
+				
+				g2.drawImage(assetManager.getImage(ImageType.title), 0, 0, this.getWidth(), this.getHeight(), null);
+				g2.setColor(Color.WHITE);
+				g2.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 20));
+
+				String toPrint = "Press any key to start";
+				FontMetrics metrics = g2.getFontMetrics();
+
+				g2.drawString(toPrint, GameEngine.RESIZATOR.getWINDOW_WIDTH() / 2 - (metrics.stringWidth(toPrint)/2),
+						GameEngine.RESIZATOR.getWINDOW_HEIGHT() -100);
 				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, null, assetManager);
 				gameState.getWorld().getLoadingBar().updateGraphics(gr, gameState.getWorld());
 				return;
