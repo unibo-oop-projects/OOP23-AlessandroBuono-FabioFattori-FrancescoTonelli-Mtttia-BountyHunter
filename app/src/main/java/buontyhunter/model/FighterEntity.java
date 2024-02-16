@@ -20,7 +20,7 @@ public class FighterEntity extends GameObject {
 
     private int health;
     private final int maxHealth;
-    private Weapon weapon;
+    protected Weapon weapon;
     private HidableObject damagingArea;
     private Direction direction = Direction.STAND_DOWN;
     private MovementState movementState = MovementState.SECOND;
