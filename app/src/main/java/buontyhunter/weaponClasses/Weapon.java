@@ -12,10 +12,11 @@ public abstract class Weapon {
     protected int range;
     protected double speed;
     protected Direction attackDirection;
-    // da implementare
     protected RectBoundingBox hitbox;
-    protected ImageType sprite;
     protected FighterEntity owner;
+
+    //further implementation
+    protected ImageType sprite;
 
     public Weapon(int damage, double attackSpeed, int range, double speed, ImageType sprite, FighterEntity owner) {
         this.damage = damage;

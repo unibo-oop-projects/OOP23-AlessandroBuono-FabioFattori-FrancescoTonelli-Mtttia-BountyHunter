@@ -18,6 +18,7 @@ import buontyhunter.model.FighterEntity.MovementState;
 import buontyhunter.weaponClasses.DefaultWeapon;
 import buontyhunter.weaponClasses.MeleeWeapon;
 import buontyhunter.weaponClasses.RangedWeapon;
+import buontyhunter.weaponClasses.Weapon;
 
 public class SwingGraphics implements Graphics {
 
@@ -248,13 +249,16 @@ public class SwingGraphics implements Graphics {
 	@Override
 	public void drawHealthBar(HealthBar healthBar, World w) {
 
+		int healthBarLenght = 200;
+		int healthBarWidth = 20;
+
 		g2.setColor(Color.BLACK);
-		g2.fillRect((int) healthBar.getPos().x, (int) healthBar.getPos().y,
-				((FighterEntity) w.getPlayer()).getMaxHealth() * HealthBar.zoom + HealthBar.margin, 30);
+		g2.fillRect((int) healthBar.getPos().x, (int) healthBar.getPos().y, healthBarLenght, healthBarWidth);
 		g2.setColor(Color.RED);
 		g2.fillRect((int) healthBar.getPos().x + HealthBar.margin / 2,
 				(int) healthBar.getPos().y + HealthBar.margin / 2,
-				((FighterEntity) w.getPlayer()).getHealth() * HealthBar.zoom, 20);
+				((healthBarLenght - HealthBar.margin) * ((FighterEntity) w.getPlayer()).getHealth()) / ((FighterEntity) w.getPlayer()).getMaxHealth(),
+				healthBarWidth / 2);
 	}
 
 	@Override
@@ -584,6 +588,19 @@ public class SwingGraphics implements Graphics {
 				g2.setColor(Color.WHITE);
 				g2.fillRect(10, frame - 110, frame - 100, 20);
 			}
+		}
+	}
+
+	@Override
+	public void drawWeaponIcon(Weapon weapon, int x, int y, int dimension){
+		if(weapon instanceof MeleeWeapon){
+			g2.drawImage(assetManager.getImage(ImageType.sword), x, y, dimension, dimension, null);
+		}
+		else if(weapon instanceof DefaultWeapon){
+			g2.drawImage(assetManager.getImage(ImageType.brassKnucles), x, y, dimension, dimension, null);
+		}
+		else if(weapon instanceof RangedWeapon){
+			g2.drawImage(assetManager.getImage(ImageType.bow), x, y, dimension, dimension, null);
 		}
 	}
 }	

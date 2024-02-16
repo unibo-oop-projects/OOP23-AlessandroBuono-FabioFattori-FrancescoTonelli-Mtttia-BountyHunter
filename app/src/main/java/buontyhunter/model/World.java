@@ -184,13 +184,13 @@ public class World {
             entities.add(player);
         if (navigatorLine != null)
             entities.add(navigatorLine);
-        if (healthBar != null)
-            entities.add(healthBar);
         if (tp != null)
             entities.add(tp);
         for (var enemy : getEnemies()) {
             entities.add(enemy);
         }
+        if (healthBar != null)
+            entities.add(healthBar);
         if (miniMap != null)
             entities.add(miniMap);
         if (questJournal != null)

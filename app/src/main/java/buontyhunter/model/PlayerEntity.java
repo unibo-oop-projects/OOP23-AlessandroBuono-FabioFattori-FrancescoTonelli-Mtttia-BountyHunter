@@ -66,5 +66,9 @@ public class PlayerEntity extends FighterEntity {
     public void giveAmmo(int ammo){
         this.ammo += ammo;
     }
+
+    public int getAmmo(){
+        return this.ammo;
+    }
     
 }
