@@ -15,58 +15,67 @@ public class PlayerInputController implements InputComponent {
 
 	private final double speed = 0.3;
 	private double timer;
+	private boolean isAttacking = false;
 
 	@Override
 	public void update(GameObject player, InputController c, World w) {
 		Vector2d vel = new Vector2d(0, 0);
 
 		if (c.isMoveUp()) {
+			isAttacking = false;
 			vel.y -= speed;
 			setDirection(player, Direction.MOVE_UP);
 		} else if (c.isMoveDown()) {
+			isAttacking = false;
 			vel.y += speed;
 			setDirection(player, Direction.MOVE_DOWN);
 		} else if (c.isMoveLeft()) {
+			isAttacking = false;
 			vel.x -= speed;
 			setDirection(player, Direction.MOVE_LEFT);
 		} else if (c.isMoveRight()) {
+			isAttacking = false;
 			vel.x += speed;
 			setDirection(player, Direction.MOVE_RIGHT);
 		}
-		else{
+		else if (!isAttacking){
 			setDirection(player, Direction.STAND_DOWN);
 		}
 	
 
 		if (timer <= 0) {
+			
 
 			if (c.isAttackUp()) {
-				instanceAttack((PlayerEntity) player, 0, -1);
+				isAttacking = true;
 				setTimer(player);
 				setDirection(player, Direction.STAND_UP);
+				instanceAttack((PlayerEntity) player, 0, -1);
+				
 			} else if (c.isAttackDown()) {
-				instanceAttack((PlayerEntity) player, 0, 1);
+				isAttacking = true;
 				setTimer(player);
 				setDirection(player, Direction.STAND_DOWN);
+				instanceAttack((PlayerEntity) player, 0, 1);
 
 			} else if (c.isAttackLeft()) {
-				instanceAttack((PlayerEntity) player, -1, 0);
+				isAttacking = true;
 				setTimer(player);
-
+				
 				setDirection(player, Direction.STAND_LEFT);
+				instanceAttack((PlayerEntity) player, -1, 0);
 			} else if (c.isAttackRight()) {
-				instanceAttack((PlayerEntity) player, 1, 0);
+				isAttacking = true;
 				setTimer(player);
-
+				
 				setDirection(player, Direction.STAND_RIGHT);
+				instanceAttack((PlayerEntity) player, 1, 0);
 			}
 
 		} else {
 			if (((FighterEntity) player).getDamagingArea() == null) {
 				instanceAttack((PlayerEntity) player, 0, 0);
 			}
-
-			((PlayerEntity) player).getDamagingArea().setShow(false);
 
 			if (timer > 0) {
 				timer--;

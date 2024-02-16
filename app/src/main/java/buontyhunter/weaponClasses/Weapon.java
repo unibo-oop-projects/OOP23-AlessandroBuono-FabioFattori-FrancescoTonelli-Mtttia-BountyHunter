@@ -1,59 +1,60 @@
 package buontyhunter.weaponClasses;
 
 import buontyhunter.common.Point2d;
+import buontyhunter.common.Direction;
 import buontyhunter.common.ImageType;
-import buontyhunter.core.GameEngine;
-import buontyhunter.core.GameFactory;
 import buontyhunter.model.FighterEntity;
-import buontyhunter.model.HidableObject;
 import buontyhunter.model.RectBoundingBox;
 
 public abstract class Weapon {
-    private int damage;
-    private int attackSpeed; // the higher the attack speed, the slower the attack
-    private int range;
-    private int speed;
+    protected int damage;
+    protected double attackSpeed; // the higher the attack speed, the slower the attack
+    protected int range;
+    protected double speed;
+    protected Direction attackDirection;
     // da implementare
-    private RectBoundingBox hitbox;
-    private ImageType sprite;
-    private FighterEntity owner;
+    protected RectBoundingBox hitbox;
+    protected ImageType sprite;
+    protected FighterEntity owner;
 
-    //necessaria la durabilità
-
-    public Weapon(int damage, int attackSpeed, int range, int speed, ImageType sprite, FighterEntity owner) {
+    public Weapon(int damage, double attackSpeed, int range, double speed, ImageType sprite, FighterEntity owner) {
         this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.range = range;
         this.speed = speed;
         this.sprite = sprite;
         this.owner = owner;
-        // create a RectBoundingBox calculated from the range of the weapon
+        this.attackDirection = owner.getDirection();
+        
         directAttack();
     }
 
     public void directAttack() {
         Point2d offet;
-        switch (owner.getDirection()) {
-            case STAND_UP:
+        switch (attackDirection) {
+            case STAND_UP:{
                 offet = new Point2d(owner.getPos().x, owner.getPos().y - range);
                 hitbox = new RectBoundingBox(offet, range, ((RectBoundingBox) owner.getBBox()).getHeight());
                 break;
-            case STAND_DOWN:
+            }
+            case STAND_DOWN:{
                 offet = new Point2d(owner.getPos().x, owner.getPos().y + range);
                 hitbox = new RectBoundingBox(owner.getPos(), range, ((RectBoundingBox) owner.getBBox()).getHeight());
-
                 break;
-            case STAND_LEFT:
+            }
+            case STAND_LEFT:{
                 offet = new Point2d(owner.getPos().x - range, owner.getPos().y);
                 hitbox = new RectBoundingBox(offet, ((RectBoundingBox) owner.getBBox()).getWidth(), range);
                 break;
-            case STAND_RIGHT:
+            }
+            case STAND_RIGHT:{
                 offet = new Point2d(owner.getPos().x + range, owner.getPos().y);
                 hitbox = new RectBoundingBox(owner.getPos(), ((RectBoundingBox) owner.getBBox()).getWidth(), range);
                 break;
-
-            default:
+            }
+            default:{
                 break;
+            }
         }
     }
 
@@ -62,7 +63,7 @@ public abstract class Weapon {
         return damage;
     }
 
-    public int getAttackSpeed() {
+    public double getAttackSpeed() {
         return attackSpeed;
     }
 
@@ -70,7 +71,7 @@ public abstract class Weapon {
         return range;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 

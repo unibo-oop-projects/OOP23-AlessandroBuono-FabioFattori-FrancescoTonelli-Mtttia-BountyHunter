@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import buontyhunter.model.FighterEntity.MovementState;
 import buontyhunter.weaponClasses.DefaultWeapon;
 import buontyhunter.weaponClasses.MeleeWeapon;
+import buontyhunter.weaponClasses.RangedWeapon;
 
 public class SwingGraphics implements Graphics {
 
@@ -390,75 +391,26 @@ public class SwingGraphics implements Graphics {
 		g2.fillRect(getXinPixel(pos), getYinPixel(pos), width, height);
 	}
 
-	private void drawMeleeWeapon(Point2d pos, FighterEntity fe) {
-
-		outWeapon(pos, getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getWidth()),
+	@Override
+	public void drawWeapon(FighterEntity fe) {
+		if(fe.getWeapon() instanceof RangedWeapon){
+			drawBullet(((RangedWeapon)fe.getWeapon()));
+		}else{
+			var point = camera.getPlayerPoint();
+		outWeapon(point, getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getWidth()),
 				getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getHeight()));
+		}
 	}
 
 	@Override
-	public void drawWeapon(FighterEntity fe) {
-		if (((FighterEntity) fe).getWeapon().getSprite() == null) {
-			// int vectX =((int)fe.getDamagingArea().getVel().x);
-			// int vectY =((int)fe.getDamagingArea().getVel().y);
-			// int height =50;
-			// int width =20;
-			// int offsetPP=width/2;
-			// int offsetPL=18;
-
-			// int x= getXinPixel(camera.getPlayerPoint())+18;
-			// int y= getYinPixel(camera.getPlayerPoint())+18;
-
-			// if(vectY==-1){
-			// outWeapon(x-offsetPP, y-(height+offsetPL), width, height);
-			// }
-			// if(vectY==1){
-			// outWeapon(x-offsetPP, y+offsetPL, width, height);
-			// }
-			// if(vectX==-1){
-			// outWeapon(x-(height+offsetPL), y-offsetPP, height, width);
-			// }
-			// if(vectX==1){
-			// outWeapon(x+offsetPL, y-offsetPP, height, width);
-			// }
-			var point = camera.getPlayerPoint();
-			// point = point.sum(fe.getDamagingArea().getVel());
-			if (fe.getWeapon() instanceof DefaultWeapon || fe.getWeapon() instanceof MeleeWeapon) {
-				drawMeleeWeapon(point, fe);
-			} else {
-				outWeapon(point, (int) fe.getWeapon().getHitbox().getWidth(),
-						(int) fe.getWeapon().getHitbox().getHeight());
-			}
-		} else {
-			/*
-			 * da fare con sprite
-			 * int vectX =((int)fe.getDamagingArea().getVel().x);
-			 * int vectY =((int)fe.getDamagingArea().getVel().y);
-			 * int height = fe.getWeapon().getSprite().;
-			 * int width =20;
-			 * int offsetPP=width/2;
-			 * int offsetPL=18;
-			 * 
-			 * int x= getXinPixel(camera.getPlayerPoint())+18;
-			 * int y= getYinPixel(camera.getPlayerPoint())+18;
-			 * 
-			 * if(vectY==-1){
-			 * outWeapon(x-offsetPP, y-(height+offsetPL), width, height);
-			 * }
-			 * if(vectY==1){
-			 * outWeapon(x-offsetPP, y+offsetPL, width, height);
-			 * }
-			 * if(vectX==-1){
-			 * outWeapon(x-(height+offsetPL), y-offsetPP, height, width);
-			 * }
-			 * if(vectX==1){
-			 * outWeapon(x+offsetPL, y-offsetPP, height, width);
-			 * }
-			 */
-
+	public void drawBullet(RangedWeapon w) {
+		var point = camera.getObjectPointInScene(w.getHitbox().getPoint2d());
+		if (point.isPresent()) {
+			g2.setColor(Color.RED);
+			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()), (int)w.getHitbox().getWidth(), (int)w.getHitbox().getHeight());
 		}
-
 	}
+
 
 	public void drawEnemy(GameObject obj, World w) {
 		var point = camera.getObjectPointInScene(obj.getPos());
@@ -634,4 +586,4 @@ public class SwingGraphics implements Graphics {
 			}
 		}
 	}
-}
+}	

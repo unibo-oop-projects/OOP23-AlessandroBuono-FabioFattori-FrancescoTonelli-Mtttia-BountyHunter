@@ -9,6 +9,7 @@ import buontyhunter.common.Logger.LogType;
 import buontyhunter.graphics.*;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
+import buontyhunter.weaponClasses.RangedWeapon;
 
 public class GameEngine implements WorldEventListener {
 
@@ -104,6 +105,11 @@ public class GameEngine implements WorldEventListener {
                 gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
                 gameState.getWorld().processAiInput(controller);
             }
+
+            if(((FighterEntity)gameState.getWorld().getPlayer()).getWeapon() instanceof RangedWeapon){
+                ((RangedWeapon)((FighterEntity)gameState.getWorld().getPlayer()).getWeapon()).getShot();
+            }
+
             gameState.getWorld().getQuestJournal().updateInput(controller, gameState.getWorld());
             gameState.getWorld().getInterractableAreas().forEach(area -> area.updateInput(controller));
         }
