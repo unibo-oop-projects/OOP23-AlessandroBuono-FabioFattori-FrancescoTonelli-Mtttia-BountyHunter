@@ -1,5 +1,6 @@
 package buontyhunter.model.AI;
 
+import buontyhunter.model.AI.pathFinding.AIEnemyFollowPathHelper;
 import buontyhunter.model.AI.pathFinding.AIFollowPathHelper;
 import buontyhunter.model.AI.pathFinding.PathFinder;
 
@@ -12,5 +13,7 @@ public interface AIFactory {
     PathFinder CreatePathFinder(PathFinderType type, boolean useCache);
 
     AIFollowPathHelper CreateFollowPathHelper(PathFinderType type, boolean pathFinderUseCache);
+
+    AIEnemyFollowPathHelper CreateEnemyFollowPathHelper(PathFinderType type, boolean pathFinderUseCache);
 
 }

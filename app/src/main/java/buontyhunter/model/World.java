@@ -214,6 +214,8 @@ public class World {
             entities.add(tileManager);
         if (player != null)
             entities.add(player);
+        if (wizardBoss != null)
+            entities.add(wizardBoss);
         if (navigatorLine != null)
             entities.add(navigatorLine);
         if (tp != null)
@@ -228,8 +230,6 @@ public class World {
         if (questJournal != null)
             entities.add(questJournal);
 
-        if (wizardBoss != null)
-            entities.add(wizardBoss);
         if (inventory != null)
             entities.add(inventory);
 

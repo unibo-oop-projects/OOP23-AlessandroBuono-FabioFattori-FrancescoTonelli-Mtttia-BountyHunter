@@ -18,6 +18,8 @@ public class GameObject {
     private GraphicsComponent graph;
     private PhysicsComponent phys;
 
+    protected long updateTime = 500;
+
     /**
      * Create a new game object
      * 

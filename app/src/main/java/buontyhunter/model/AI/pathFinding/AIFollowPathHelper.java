@@ -23,39 +23,6 @@ public class AIFollowPathHelper {
         pathIterator = emptyIterator();
     }
 
-    private Iterator<Point2d> emptyIterator() {
-        return new Iterator<Point2d>() {
-            @Override
-            public boolean hasNext() {
-                return false;
-            }
-
-            @Override
-            public Point2d next() {
-                return null;
-            }
-        };
-    }
-
-    private void generateIterator(Point2d current, Point2d destination, List<List<Tile>> map,
-            Set<Point2d> invalidPoints) {
-        actualPath = pathFinder.findPath(current, destination, map, invalidPoints);
-        if (actualPath.size() > 1) {
-            pathIterator = actualPath.iterator();
-            pathIterator.next();
-            nextPoint = pathIterator.next();
-        } else {
-            pathIterator = emptyIterator();
-        }
-    }
-
-    private boolean canUsePreviousIterator(Point2d current, Point2d destination) {
-        // return pathIterator.hasNext()
-        // && this.current.equals(current)
-        // && this.destination.equals(destination);
-        return false;
-    }
-
     public Point2d moveItem(Point2d current, Point2d destination, Vector2d speed, List<List<Tile>> map) {
         var movement = current.duplicate();
         if (!canUsePreviousIterator(current, destination)) {
@@ -112,7 +79,39 @@ public class AIFollowPathHelper {
         return actualPath.size();
     }
 
-    public boolean isTileWater(List<List<Tile>> map, Point2d pos) {
+    private boolean isTileWater(List<List<Tile>> map, Point2d pos) {
         return map.get((int) pos.y).get((int) pos.x).getType() == TileType.water;
+    }
+
+    private Iterator<Point2d> emptyIterator() {
+        return new Iterator<Point2d>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public Point2d next() {
+                return null;
+            }
+        };
+    }
+
+    private void generateIterator(Point2d current, Point2d destination, List<List<Tile>> map,
+            Set<Point2d> invalidPoints) {
+        actualPath = pathFinder.findPath(current, destination, map, invalidPoints);
+        if (actualPath.size() > 1) {
+            pathIterator = actualPath.iterator();
+            pathIterator.next();
+            nextPoint = pathIterator.next();
+        } else {
+            pathIterator = emptyIterator();
+        }
+    }
+
+    private boolean canUsePreviousIterator(Point2d current, Point2d destination) {
+        return pathIterator.hasNext()
+                && this.current.equals(current)
+                && this.destination.equals(destination);
     }
 }
