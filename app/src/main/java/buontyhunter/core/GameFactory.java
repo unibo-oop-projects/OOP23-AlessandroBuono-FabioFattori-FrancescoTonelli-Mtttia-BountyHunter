@@ -199,9 +199,10 @@ public class GameFactory {
 
         public List<Quest> createQuests() {
                 List<Quest> quests = new ArrayList<Quest>();
-                quests.add(new QuestEntity("prova1", "descrizione", 10));
-                quests.add(new QuestEntity("prova2", "descrizione", 10));
-                quests.add(new QuestEntity("prova3", "descrizione", 10));
+                quests.add(new QuestEntity("Stregone", "Uccidi lo stregone!", 100 , EnemyType.WIZARD, 1));
+                quests.add(new QuestEntity("flagello zombie", "Uccidi 5 Zombie", 20 , EnemyType.THROW_PUNCHES, 5));
+                quests.add(new QuestEntity("flagello Scheletri", "Uccidi 5 Scheletri", 20 , EnemyType.BOW, 5));
+                quests.add(new QuestEntity("flagello Cavalieri", "Uccidi 5 Cavalieri", 20 , EnemyType.SWORD, 5));
                 return quests;
         }
 
@@ -255,9 +256,9 @@ public class GameFactory {
                 toRet.setMiniMap(this.createMinimap());
                 toRet.setNavigatorLine(this.createNavigatorLine(toRet));
                 toRet.setTeleporter(this.createTeleporterToHub());
-                toRet.setQuestJournal(this.createQuestJournal());
                 toRet.setInventory(this.createInventoryPanel());
                 toRet.setWizardBoss(this.createWizardBoss(toRet));
+                toRet.setQuestJournal(this.createQuestJournal());
                 return toRet;
         }
 

@@ -83,7 +83,8 @@ public class EnemyConfigurationFactoryImpl implements EnemyConfigurationFactory 
     @Override
     public EnemyConfiguration random() {
         var rand = new Random();
-        var enemyType = EnemyType.values()[rand.nextInt(EnemyType.values().length)];
+        var availableEnemy = List.of(EnemyType.BOW, EnemyType.SWORD, EnemyType.THROW_PUNCHES);
+        var enemyType = availableEnemy.get(rand.nextInt(availableEnemy.size()));
         return fromType(enemyType);
     }
 }

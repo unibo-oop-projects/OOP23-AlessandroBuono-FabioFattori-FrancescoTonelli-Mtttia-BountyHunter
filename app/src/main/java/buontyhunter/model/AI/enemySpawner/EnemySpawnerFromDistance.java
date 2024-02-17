@@ -68,33 +68,37 @@ public class EnemySpawnerFromDistance implements EnemySpawner {
     }
 
     private Optional<Point2d> generatePoint(EnemyConfiguration conf, World w) {
-        var maxDistanceFromPlayer = conf.getMaxSpawnDistanceFromPlayer();
-        var minDistanceFromPlayer = conf.getMinSpawnDistanceFromPlayer();
-        var playerPos = w.getPlayer().getPos();
-        var worldRectBBox = (RectBoundingBox) w.getTileManager().getBBox();
-        var rand = new Random();
-        var distance = rand.nextDouble() * (maxDistanceFromPlayer - minDistanceFromPlayer) + minDistanceFromPlayer;
-        var angle = rand.nextDouble() * 2 * Math.PI;
-        var x = playerPos.x + distance * Math.cos(angle);
-        var y = playerPos.y + distance * Math.sin(angle);
-        if (x < 0) {
-            x = 0;
-        } else if (x > worldRectBBox.getWidth()) {
-            x = worldRectBBox.getWidth() - 1;
-        }
-        if (y < 0) {
-            y = 0;
-        } else if (y > worldRectBBox.getHeight()) {
-            y = worldRectBBox.getHeight() - 1;
-        }
-        var spawnPoint = new Point2d(x, y);
-
-        // check if tile is valid
-        var tile = w.getTileManager().getTileFromPosition(spawnPoint);
-        if (tile.isPresent() && tile.get().isTraversable()) {
-            return Optional.of(spawnPoint);
-        } else {
+        if (conf == null || w == null)
             return Optional.empty();
+        else {
+            var maxDistanceFromPlayer = conf.getMaxSpawnDistanceFromPlayer();
+            var minDistanceFromPlayer = conf.getMinSpawnDistanceFromPlayer();
+            var playerPos = w.getPlayer().getPos();
+            var worldRectBBox = (RectBoundingBox) w.getTileManager().getBBox();
+            var rand = new Random();
+            var distance = rand.nextDouble() * (maxDistanceFromPlayer - minDistanceFromPlayer) + minDistanceFromPlayer;
+            var angle = rand.nextDouble() * 2 * Math.PI;
+            var x = playerPos.x + distance * Math.cos(angle);
+            var y = playerPos.y + distance * Math.sin(angle);
+            if (x < 0) {
+                x = 0;
+            } else if (x > worldRectBBox.getWidth()) {
+                x = worldRectBBox.getWidth() - 1;
+            }
+            if (y < 0) {
+                y = 0;
+            } else if (y > worldRectBBox.getHeight()) {
+                y = worldRectBBox.getHeight() - 1;
+            }
+            var spawnPoint = new Point2d(x, y);
+
+            // check if tile is valid
+            var tile = w.getTileManager().getTileFromPosition(spawnPoint);
+            if (tile.isPresent() && tile.get().isTraversable()) {
+                return Optional.of(spawnPoint);
+            } else {
+                return Optional.empty();
+            }
         }
     }
 }

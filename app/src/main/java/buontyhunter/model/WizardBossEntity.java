@@ -9,6 +9,7 @@ import buontyhunter.physics.PhysicsComponent;
 import buontyhunter.weaponClasses.Weapon;
 import buontyhunter.weaponClasses.WeaponFactory;
 import buontyhunter.model.AI.AIFactoryImpl;
+import buontyhunter.model.AI.enemySpawner.EnemyType;
 import buontyhunter.model.AI.pathFinding.AIEnemyFollowPathHelper;
 
 import java.util.*;
@@ -21,7 +22,8 @@ public class WizardBossEntity extends FighterEntity {
     private static final Vector2d vel = new Vector2d(0.5, 0.5);
     private final AIEnemyFollowPathHelper followPathHelper;
     private Point2d currentTarget;
-    private boolean gpsActive = false;
+    private boolean gpsActive = true;
+    public static final EnemyType type = EnemyType.WIZARD;
 
     /**
      * is how much the boss have to be near the player for attack him
@@ -41,6 +43,7 @@ public class WizardBossEntity extends FighterEntity {
         var aiFactory = new AIFactoryImpl();
         followPathHelper = aiFactory.CreateEnemyFollowPathHelper(AIFactoryImpl.PathFinderType.AStar, false);
     }
+
 
     public boolean isGpsActive() {
         return gpsActive;

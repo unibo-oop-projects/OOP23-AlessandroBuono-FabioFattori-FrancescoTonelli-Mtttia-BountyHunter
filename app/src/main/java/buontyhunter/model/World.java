@@ -268,10 +268,10 @@ public class World {
     }
 
     public void removeEnemy(int enemyIdentifier, boolean killed) {
-        enemyRegistry.removeEnemy(enemyIdentifier);
         if (killed) {
-            // TODO: Add enemy drop
+            notifyWorldEvent(new killedEnemyEvent(enemyRegistry.getEnemy(enemyIdentifier).getEnemyType()));
         }
+        enemyRegistry.removeEnemy(enemyIdentifier);
     }
 
     public void generateEnemy() {

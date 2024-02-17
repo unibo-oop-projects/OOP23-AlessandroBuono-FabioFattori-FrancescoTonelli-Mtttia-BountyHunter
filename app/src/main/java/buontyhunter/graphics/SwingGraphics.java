@@ -396,6 +396,10 @@ public class SwingGraphics implements Graphics {
 			g2.setFont(titleFont);
 			g2.drawString(q.getDoblonsReward() + " dobloni", width / 12 + 10,
 					height / 12 + 80 + singleQuestHeight * indexOfQuest);
+			g2.setFont(paragraphFont);
+			g2.setFont(titleFont);
+			g2.drawString("Nemici uccisi: " + q.getnTargetActuallyKilled(), width / 12 + 10,
+					height / 12 + 110 + singleQuestHeight * indexOfQuest);
 		});
 	}
 

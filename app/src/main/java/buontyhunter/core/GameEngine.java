@@ -109,7 +109,7 @@ public class GameEngine implements WorldEventListener {
             gameState.getWorld().getFighterEntities().stream()
                     .filter(fighter -> fighter.getWeapon() instanceof RangedWeapon)
                     .forEach(fighter -> ((RangedWeapon) fighter.getWeapon()).getShot());
-                    gameState.getWorld().getInventory().updateInput(controller, gameState.getWorld());
+            gameState.getWorld().getInventory().updateInput(controller, gameState.getWorld());
             gameState.getWorld().getQuestJournal().updateInput(controller, gameState.getWorld());
             gameState.getWorld().getInterractableAreas().forEach(area -> area.updateInput(controller));
         }
@@ -144,6 +144,16 @@ public class GameEngine implements WorldEventListener {
                 } else {
                     this.view.setIsHub(false);
                 }
+
+            } else if (ev instanceof killedEnemyEvent) {
+                ((PlayerEntity) gameState.getWorld().getPlayer()).getQuests().stream()
+                        .filter(quest -> quest.getTarget().equals(((killedEnemyEvent) ev).getKilledType()))
+                        .forEach(quest -> quest.incrementTargetActuallyKilled());
+                ((PlayerEntity) gameState.getWorld().getPlayer())
+                        .depositDoblons(((killedEnemyEvent) ev).getMoneyReward());
+                ((PlayerEntity) gameState.getWorld().getPlayer()).getQuests().stream()
+                        .filter(quest -> quest.getnTargetActuallyKilled() >= quest.getnTargetToKill())
+                        .forEach(quest -> quest.end((PlayerEntity) gameState.getWorld().getPlayer()));
 
             }
         });

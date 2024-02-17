@@ -1,16 +1,22 @@
 package buontyhunter.model;
 
+import buontyhunter.model.AI.enemySpawner.EnemyType;
+
 public class QuestEntity implements Quest{
     private final String name;
     private final String description;
     private final int doblonsReward;
-    //TODO: add a optional reward item to the quest (weapon)
-    //TODO: a quest has a boss that the player has to defeat => each boss on defeat generate an event 
+    private final EnemyType target;
+    private final int nTargetToKill;
+    private int nTargetActuallyKilled;
 
-    public QuestEntity(String name, String description, int doblonsReward) {
+    public QuestEntity(String name, String description, int doblonsReward , EnemyType target, int nTargetToKill) {
         this.name = name;
         this.description = description;
         this.doblonsReward = doblonsReward;
+        this.target = target;
+        this.nTargetToKill = nTargetToKill;
+        this.nTargetActuallyKilled = 0;
     }
 
     @Override
@@ -36,6 +42,7 @@ public class QuestEntity implements Quest{
     @Override
     public void end(PlayerEntity player) {
         player.removeQuest(this);
+        player.depositDoblons(doblonsReward);
     }
 
     @Override
@@ -47,5 +54,27 @@ public class QuestEntity implements Quest{
         if (doblonsReward != that.doblonsReward) return false;
         if (!name.equals(that.name)) return false;
         return description.equals(that.description);
+    }
+
+    
+
+    @Override
+    public int getnTargetToKill() {
+        return nTargetToKill;
+    }
+
+    @Override
+    public EnemyType getTarget() {
+        return target;
+    }
+
+    @Override
+    public int getnTargetActuallyKilled() {
+        return nTargetActuallyKilled;
+    }
+
+    @Override
+    public void incrementTargetActuallyKilled() {
+        nTargetActuallyKilled++;
     }
 }

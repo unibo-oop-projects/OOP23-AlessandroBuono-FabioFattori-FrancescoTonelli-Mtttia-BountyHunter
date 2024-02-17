@@ -82,13 +82,13 @@ class AppTest {
         Assertions.assertNotNull(player.getBBox());
         Assertions.assertNotNull(player.getQuests());
         Assertions.assertEquals(player.getQuests().size(), 0);
-        player.addQuest(new QuestEntity("test", "test", 0));
+        player.addQuest(new QuestEntity("test", "test", 0, null, 0));
         Assertions.assertEquals(player.getQuests().size(), 1);
-        player.removeQuest(new QuestEntity("test", "test", 0));
+        player.removeQuest(new QuestEntity("test", "test", 0, null, 0));
         Assertions.assertEquals(player.getQuests().size(), 0);
-        player.getQuests().add(new QuestEntity("test", "test", 0));
+        player.getQuests().add(new QuestEntity("test", "test", 0, null, 0));
         Assertions.assertEquals(player.getQuests().size(), 0);
-        Assertions.assertDoesNotThrow(() -> player.removeQuest(new QuestEntity("test1", "test1", 0)));
+        Assertions.assertDoesNotThrow(() -> player.removeQuest(new QuestEntity("test1", "test1", 0, null, 0)));
     }
 
     @Test
