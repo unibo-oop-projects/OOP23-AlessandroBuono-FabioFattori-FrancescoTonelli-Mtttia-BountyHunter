@@ -13,11 +13,13 @@ public class RangedWeapon extends Weapon {
 
     private ImageType bulletSprite;
     private Bullet bullet;
+    private int ammo;
     // private List<Bullet> bullets = new ArrayList<Bullet>();
 
     public RangedWeapon(int damage, double attackSpeed, int range, double speed, ImageType sprite, FighterEntity owner,
             ImageType bulletSprite) {
         super(damage, attackSpeed, range, speed, sprite, owner);
+        ammo=50;
     }
 
     public void getShot() {
@@ -37,15 +39,38 @@ public class RangedWeapon extends Weapon {
      * }
      */
 
+
+    public void setAmmo(int ammo){
+        this.ammo=ammo;
+    }
+
+    public void subtractAmmo(int ammo){
+        this.ammo-=ammo;
+    }
+
+    public void addAmmo(int ammo){
+        this.ammo+=ammo;
+    }
+
+    public int howManyAmmo(){
+        return ammo;
+    }
+
     public Bullet getBullet() {
         return bullet;
     }
 
     @Override
     public void directAttack() {
-
-        bullet = new Bullet(bulletSprite, owner.getDirection());
-        // bullets.add(new Bullet(bulletSprite));
+        if(ammo>0){
+            bullet = new Bullet(bulletSprite, owner.getDirection());
+            // bullets.add(new Bullet(bulletSprite));
+        }
+        else{
+            //TODO metodo che per esempio chiamando una funzione e mettendola a true ti faccia vedere in basso a sinistra "HAI FINITO LE MUNIZIONI, VAI A COMPRARLE DAL FABBRO"
+            //tipo qualcosa.needsBlacksmith(true)
+        }
+        
 
     }
 
@@ -71,7 +96,13 @@ public class RangedWeapon extends Weapon {
             if (travelDistance > range) {
                 bullet = null;
 
-            } else {
+            } else
+            {
+
+                if(travelDistance==0){
+                    ((RangedWeapon)owner.getWeapon()).subtractAmmo(1);
+                }
+
                 switch (attackDirection) {
                     case STAND_UP: {
                         pos = new Point2d(pos.x, pos.y - speed);
