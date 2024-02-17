@@ -6,19 +6,25 @@ import buontyhunter.model.RectBoundingBox;
 
 public class MeleeWeapon  extends Weapon{
 
+    private final int maxDurability;
     private int durability;
 
     public MeleeWeapon(int damage, int attackSpeed, int range, double speed, ImageType sprite,FighterEntity owner, int durability) {
         super(damage, attackSpeed, range, speed, sprite,owner);
-        this.durability=durability;
+        this.maxDurability=durability;
+        this.durability = this.maxDurability;
     }
 
-    public int getDurability(){
-        return durability;
+    public int getMaxDurability(){
+        return maxDurability;
     }
 
     public void setDurability(int a){
         durability=a;
+    }
+
+    public int getDurability(){
+        return this.durability;
     }
 
     @Override
@@ -56,7 +62,8 @@ public class MeleeWeapon  extends Weapon{
                 }
             }
             owner.getDamagingArea().setBBox(hitbox);
+        this.setDurability(this.getDurability()-1);
 
-        }
+    }
 
 }

@@ -153,8 +153,8 @@ public class SwingScene implements Scene, ComponentListener {
 			return (BlacksmithPanel) gameState.getWorld().getInterractableAreas().stream()
 					.filter(e -> e.getPanel() instanceof BlacksmithPanel).findFirst().get().getPanel();
 		} catch (Exception e) {
-			throw new RuntimeException("QuestPannel not found" + gameState.getWorld().getInterractableAreas().stream()
-					.filter(pan -> pan.getPanel() instanceof QuestPannel).toString());
+			throw new RuntimeException("BlacksmithPanel not found" + gameState.getWorld().getInterractableAreas().stream()
+					.filter(pan -> pan.getPanel() instanceof BlacksmithPanel).toString());
 		}
 	}
 
@@ -245,8 +245,10 @@ public class SwingScene implements Scene, ComponentListener {
 						e.updateGraphics(gr, scene);
 					}
 				});
+
 				int height = (int) (GameEngine.RESIZATOR.getWINDOW_HEIGHT());
-					int unit = height / 6;
+				int width = (int) (GameEngine.RESIZATOR.getWINDOW_WIDTH());
+				int unit = (height < width ? height : width) / 6;
 
 				if(gameState.getWorld().getInventory().isShow()){
 					inventoryButtons.forEach(btn -> {
@@ -298,8 +300,6 @@ public class SwingScene implements Scene, ComponentListener {
 
 				//render blacksmith
 				if (IsHub && getBlacksmithPannel().isShow()) {
-					int x = unit + unit / 6;
-					int y = x + unit / 12;
 					blacksmithButtons.forEach(btn -> {
 						frame.remove(btn);
 						btn.setVisible(false);
@@ -325,11 +325,19 @@ public class SwingScene implements Scene, ComponentListener {
 					blacksmithButtons.add(repair);
 					blacksmithButtons.add(sell);
 
+					
+					int x = width/2;
+					int y = height/2 - unit/2;
+
 					blacksmithButtons.get(0).setVisible(getBlacksmithPannel().isShow());
-					gr.drawBlacksmithButtons(0, (height - x - unit), y, unit, blacksmithButtons.get(0));
+					gr.drawBlacksmithButtons(0, 
+						x - unit*2, y,
+						unit, blacksmithButtons.get(0));
 					this.add(blacksmithButtons.get(0), BorderLayout.CENTER);
 					blacksmithButtons.get(1).setVisible(getBlacksmithPannel().isShow());
-					gr.drawBlacksmithButtons(1, x, y, unit, blacksmithButtons.get(1));
+					gr.drawBlacksmithButtons(1, 
+						x + unit, y, 
+						unit, blacksmithButtons.get(1));
 					this.add(blacksmithButtons.get(1), BorderLayout.CENTER);
 
 				} else if (IsHub && !getBlacksmithPannel().isShow()) {
@@ -343,6 +351,7 @@ public class SwingScene implements Scene, ComponentListener {
 				int weaponContainerDimension = frame.getHeight() / 8;
 				int weaponContainerX = 10;
 				int weaponContainerY = frame.getHeight() - weaponContainerDimension - 50;
+
 				g2.drawImage(assetManager.getImage(ImageType.weaponContainer), weaponContainerX,
 					weaponContainerY, weaponContainerDimension, weaponContainerDimension, null);
 				gr.drawWeaponIcon(((PlayerEntity) gameState.getWorld().getPlayer()).getWeapon(), 
