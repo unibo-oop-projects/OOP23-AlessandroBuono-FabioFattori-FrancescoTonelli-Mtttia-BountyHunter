@@ -130,9 +130,7 @@ public class SwingScene implements Scene, ComponentListener {
 
 	public void renderGameOver() {
 		try {
-			SwingUtilities.invokeAndWait(() -> {
-				frame.repaint();
-			});
+			this.dispose();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -218,9 +216,7 @@ public class SwingScene implements Scene, ComponentListener {
 				/* drawing the score */
 				g2.setFont(gameOverFont);
 				g2.setColor(Color.BLACK);
-
-				g2.setFont(scoreFont);
-				g2.setColor(Color.GREEN);
+				g2.drawString("Game Over", 100, 100);
 
 			} else {
 

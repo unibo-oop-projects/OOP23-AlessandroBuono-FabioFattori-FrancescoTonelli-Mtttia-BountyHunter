@@ -130,6 +130,7 @@ public class WizardBossEntity extends FighterEntity {
         }
 
         setPos(nextPos);
+        setBBox(((RectBoundingBox)getBBox()).withPoint(nextPos));
     }
 
     private boolean checkNearPlayer(World world) {

@@ -89,6 +89,12 @@ class AppTest {
         player.getQuests().add(new QuestEntity("test", "test", 0, null, 0));
         Assertions.assertEquals(player.getQuests().size(), 0);
         Assertions.assertDoesNotThrow(() -> player.removeQuest(new QuestEntity("test1", "test1", 0, null, 0)));
+        player.depositDoblons(10);
+        Assertions.assertEquals(player.getDoblons(), 10);
+        player.withdrawDoblons(5);
+        Assertions.assertEquals(player.getDoblons(), 5);
+        Assertions.assertFalse(player.withdrawDoblons(10));
+        Assertions.assertEquals(player.getDoblons(), 5);
     }
 
     @Test

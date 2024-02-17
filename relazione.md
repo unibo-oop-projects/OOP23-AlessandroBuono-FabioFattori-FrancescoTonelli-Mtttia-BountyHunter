@@ -36,12 +36,20 @@
         - [Mattia Senni](#22-mattia-senni)
         - [Francesco Tonelli](#23-francesco-tonelli)
         - [Alessandro Buono](#24-alessandro-buono)
+        - [Codice riadattato per la realizzazzione](#25-codice-riadattato-per-la-realizzazzione)
 - [Sviluppo ](#sviluppo)
     - [1. Testing Automatizzato ](#1-testing-automatizzato)
     - [2. Note di sviluppo ](#2-note-di-sviluppo)
-    - [3. Esempio ](#3-esempio)
+        - [Fabio Fattori](#21-fabio-fattori-sviluppo)
+        - [Mattia Senni](#22-mattia-senni-sviluppo)
+        - [Francesco Tonelli](#23-francesco-tonelli-sviluppo)
+        - [Alessandro Buono](#24-alessandro-buono-sviluppo)
 - [Commenti Finali ](#commenti-finali)
     - [1. Autovalutazione e Lavori Futuri ](#1-autovalutazione-e-lavori-futuri)
+        - [Fabio Fattori](#21-fabio-fattori-autovalutazione)
+        - [Mattia Senni](#22-mattia-senni-autovalutazione)
+        - [Francesco Tonelli](#23-francesco-tonelli-autovalutazione)
+        - [Alessandro Buono](#24-alessandro-buono-autovalutazione)
     - [2. Difficoltà Incontrate e Commenti per i Docenti ](#2-difficoltà-incontrate-e-commenti-per-i-docenti)
 - [Guida Utente ](#guida-utente)
 
@@ -172,6 +180,7 @@ Di queste classi si testano :
     - il metodo addQuest
     - il metodo removeQuest
     - se il metodo getQuests ritorna una copia delle quest
+    - controllo se i metodi desposit e withdraw funzionano correttamente
 - Point2d
     - l'equals 
     - l'hashCode
@@ -179,19 +188,36 @@ Di queste classi si testano :
 
 ### 2. Note di sviluppo
 
-note-di-sviluppo
+#### 2.1 Fabio Fattori Sviluppo
 
-### 3. Esempio 
+- Utilizzo di Stream:
+    Usate pervasivamente in tutto il progetto per filtrare e mappare liste di oggetti. Quello riportato è un singolo esempio presente nella classe GameEngine.
+    Permalink: 
 
-esempio
+#### 2.2 Mattia Senni Sviluppo
+
+#### 2.3 Francesco Tonelli Sviluppo
+
+#### 2.4 Alessandro Buono Sviluppo
+
+#### 2.5 Codice riadattato per la realizzazzione
+
+Prima di metterci a lavorare sul progetto Fabio Fattori e Mattia Senni hanno partecipato al seminario opzionale 'Game as a Lab' , dove il Professore Ricci ha spiegato come realizzare un gioco in Java , in particolare ha spiegato come realizzare un gioco in Java con il pattern MVC mostrandoci un esempio di gioco realizzato da lui stesso, quel codice alla fine del seminario ci è stato consegnato e noi lo abbiamo riadattato per realizzare il nostro gioco.
+Quindi difatto nel suo codice era presente una bozza di GameEngine , di World , di GameObject , di GraphicsComponent , di PhysicsComponent , di InputComponent , di Scene e di gestione degli eventi nel GameEngine , noi abbiamo preso queste bozze e le abbiamo riadattate per realizzare il progetto cercando ovviamente di capire il più possibile il codice che ci è stato consegnato.
 
 # Commenti Finali 
 
-commenti-finali
-
 ### 1. Autovalutazione e Lavori Futuri 
 
-autovalutazione-e-lavori-futuri
+#### 2.1 Fabio Fattori Autovalutazione
+
+
+
+#### 2.2 Mattia Senni Autovalutazione
+
+#### 2.3 Francesco Tonelli Autovalutazione
+
+#### 2.4 Alessandro Buono Autovalutazione
 
 ### 2. Difficoltà Incontrate e Commenti per i Docenti 
 

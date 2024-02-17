@@ -90,5 +90,15 @@ public class PlayerEntity extends FighterEntity {
     public int getAmmo(){
         return this.ammo;
     }
+
+    public void useAmmo(int ammo){
+        this.ammo -= ammo;
+    }
+
+    public void deadBehaviour() {
+        useAmmo(ammo);
+        withdrawDoblons(doblons);
+        quests.clear();
+    }
     
 }

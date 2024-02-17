@@ -4,7 +4,7 @@ import buontyhunter.core.GameFactory;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.WizardBossEntity;
 import buontyhunter.model.World;
-import buontyhunter.model.killedEnemyEvent;
+import buontyhunter.model.KilledEnemyEvent;
 import buontyhunter.model.AI.enemySpawner.EnemyType;
 
 public class WizardBossPhysicsComponent extends PhysicsComponent {
@@ -15,7 +15,7 @@ public class WizardBossPhysicsComponent extends PhysicsComponent {
             wizardBoss.update(w);
 
             if(wizardBoss.getHealth() <= 0){
-                w.notifyWorldEvent(new killedEnemyEvent(EnemyType.WIZARD));
+                w.notifyWorldEvent(new KilledEnemyEvent(EnemyType.WIZARD));
                 w.setWizardBoss(GameFactory.getInstance().createWizardBoss(w));
             }
         }

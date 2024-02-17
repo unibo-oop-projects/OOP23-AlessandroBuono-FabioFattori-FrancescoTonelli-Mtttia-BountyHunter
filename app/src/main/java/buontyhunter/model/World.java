@@ -269,7 +269,7 @@ public class World {
 
     public void removeEnemy(int enemyIdentifier, boolean killed) {
         if (killed) {
-            notifyWorldEvent(new killedEnemyEvent(enemyRegistry.getEnemy(enemyIdentifier).getEnemyType()));
+            notifyWorldEvent(new KilledEnemyEvent(enemyRegistry.getEnemy(enemyIdentifier).getEnemyType()));
         }
         enemyRegistry.removeEnemy(enemyIdentifier);
     }
