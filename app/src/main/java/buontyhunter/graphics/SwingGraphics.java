@@ -612,10 +612,52 @@ public class SwingGraphics implements Graphics {
 	public void drawWizardBoss(WizardBossEntity boss, World w) {
 		var point = camera.getObjectPointInScene(boss.getPos());
 		var bBox = (RectBoundingBox) boss.getBBox();
+		int x = getXinPixel(point.get());
+		int y = getYinPixel(point.get());
+		
 		if (point.isPresent()) {
-			g2.setColor(Color.MAGENTA);
-			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()), getDeltaXinPixel(bBox.getWidth()),
-					getDeltaYinPixel(bBox.getHeight()));
+			switch (boss.getDirection()) {
+				case STAND_DOWN:
+					g2.drawImage(assetManager.getImage(ImageType.wizardFront), x, y, null);
+					break;
+				case STAND_UP:
+					g2.drawImage(assetManager.getImage(ImageType.wizardBack), x, y, null);
+					break;
+				case STAND_LEFT:
+					g2.drawImage(assetManager.getImage(ImageType.wizardLeft), x, y, null);
+					break;
+				case STAND_RIGHT:
+					g2.drawImage(assetManager.getImage(ImageType.wizardRight), x, y, null);
+					break;
+				case MOVE_UP:
+					if (boss.getMovementState() == MovementState.FIRST) {
+						g2.drawImage(assetManager.getImage(ImageType.wizardBack1), x, y, null);
+					} else {
+						g2.drawImage(assetManager.getImage(ImageType.wizardBack2), x, y, null);
+					}
+					break;
+				case MOVE_DOWN:
+					if (boss.getMovementState() == MovementState.FIRST) {
+						g2.drawImage(assetManager.getImage(ImageType.wizardFront1), x, y, null);
+					} else {
+						g2.drawImage(assetManager.getImage(ImageType.wizardFront2), x, y, null);
+					}
+					break;
+				case MOVE_LEFT:
+					if (boss.getMovementState() == MovementState.FIRST) {
+						g2.drawImage(assetManager.getImage(ImageType.wizardLeft1), x, y, null);
+					} else {
+						g2.drawImage(assetManager.getImage(ImageType.wizardLeft2), x, y, null);
+					}
+					break;
+				case MOVE_RIGHT:
+					if (boss.getMovementState() == MovementState.FIRST) {
+						g2.drawImage(assetManager.getImage(ImageType.wizardRight1), x, y, null);
+					} else {
+						g2.drawImage(assetManager.getImage(ImageType.wizardRight2), x, y, null);
+					}
+					break;
+			}
 		}
 	}
 

@@ -21,7 +21,7 @@ public class WizardBossEntity extends FighterEntity {
     private static final Vector2d vel = new Vector2d(0.5, 0.5);
     private final AIEnemyFollowPathHelper followPathHelper;
     private Point2d currentTarget;
-    private boolean gpsActive = false;
+    private boolean gpsActive = true;
 
     /**
      * is how much the boss have to be near the player for attack him
