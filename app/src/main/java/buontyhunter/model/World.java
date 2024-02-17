@@ -113,6 +113,9 @@ public class World {
         if (player != null) {
             entities.add((FighterEntity) player);
         }
+        if(wizardBoss != null){
+            entities.add(wizardBoss);
+        }
         for (var enemy : getEnemies()) {
             entities.add(enemy);
         }

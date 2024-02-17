@@ -30,7 +30,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
         if (health < ((PlayerEntity) obj).getMaxHealth()) {
             if (waitingTime <= 0) {
 
-                health += 3;
+                health += ((PlayerEntity) obj).getMaxHealth()/50;
                 waitingTime = MAX_WAITING_TIME;
                 ((PlayerEntity) obj).setHealth(health);
             } else {
