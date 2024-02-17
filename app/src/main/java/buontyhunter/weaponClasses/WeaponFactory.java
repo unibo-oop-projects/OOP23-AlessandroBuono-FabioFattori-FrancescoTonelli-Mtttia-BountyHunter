@@ -17,7 +17,7 @@ public class WeaponFactory {
     }
 
     public Weapon createSword(FighterEntity owner) {
-        return new MeleeWeapon(3000, 2, 4, 2, null, owner, 10);
+        return new MeleeWeapon(30, 2, 4, 2, null, owner, 10);
     }
 
     public Weapon createBow(FighterEntity owner) {
