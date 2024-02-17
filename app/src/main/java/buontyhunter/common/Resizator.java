@@ -65,7 +65,7 @@ public class Resizator {
         var newWidth = dim.getWidth();
         var newHeight = dim.getHeight();
 
-        //var minDim = newHeight < newWidth ? newHeight : newWidth;
+        // var minDim = newHeight < newWidth ? newHeight : newWidth;
 
         this.RATIO_WIDTH = newWidth / WORLD_WIDTH;
         this.RATIO_HEIGHT = newHeight / WORLD_HEIGHT;

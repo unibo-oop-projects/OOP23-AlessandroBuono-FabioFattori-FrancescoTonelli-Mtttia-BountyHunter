@@ -17,18 +17,18 @@ public class WeaponFactory {
     }
 
     public Weapon createSword(FighterEntity owner) {
-        return new MeleeWeapon(30, 2, 4, 2, null, owner,300);
+        return new MeleeWeapon(30, 2, 2, 2, null, owner, 300);
     }
 
     public Weapon createBow(FighterEntity owner) {
-        return new RangedWeapon(15, 3, 20, 1, null, owner, null);
+        return new RangedWeapon(15, 3, 9, 1, null, owner, null);
     }
 
     public Weapon createBossBow(FighterEntity owner) {
-        return new RangedWeapon(30, 1, 9, 1, null, owner, null);
+        return new RangedWeapon(30, 1, 7, 1, null, owner, null);
     }
 
     public Weapon createBrassKnuckles(FighterEntity owner) {
-        return new MeleeWeapon(5, 1, 2, 2, null, owner, 500);
+        return new MeleeWeapon(5, 1, 1, 2, null, owner, 500);
     }
 }

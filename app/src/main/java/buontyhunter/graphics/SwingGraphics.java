@@ -208,13 +208,14 @@ public class SwingGraphics implements Graphics {
 		var navigatorLine = w.getNavigatorLine();
 		var pathStream = navigatorLine.getPath().stream();
 
-		// TODO: COMMENTA STA RIGA E' UNA RIGA DI DEBUG
 		var b = w.getWizardBoss();
-
-		g2.setColor(Color.MAGENTA);
-		g2.fillRect(getXinPixel(tilePos) + mapShowOffSetX + (int) Math.floor(b.getPos().x) * propsX,
-				getYinPixel(tilePos) + mapShowOffSetY + (int) Math.floor(b.getPos().y) * propsY, propsX * playerSize,
-				propsY * playerSize);
+		if (b.isGpsActive()) {
+			g2.setColor(Color.MAGENTA);
+			g2.fillRect(getXinPixel(tilePos) + mapShowOffSetX + (int) Math.floor(b.getPos().x) * propsX,
+					getYinPixel(tilePos) + mapShowOffSetY + (int) Math.floor(b.getPos().y) * propsY,
+					propsX * playerSize,
+					propsY * playerSize);
+		}
 
 		// g2.setColor(Color.ORANGE);
 		// pathStream.forEach((Point2d np) -> g2.fillOval(getXinPixel(tilePos) +
@@ -265,7 +266,8 @@ public class SwingGraphics implements Graphics {
 		g2.setColor(Color.RED);
 		g2.fillRect((int) healthBar.getPos().x + HealthBar.margin / 2,
 				(int) healthBar.getPos().y + HealthBar.margin / 2,
-				((healthBarLenght - HealthBar.margin) * ((FighterEntity) w.getPlayer()).getHealth()) / ((FighterEntity) w.getPlayer()).getMaxHealth(),
+				((healthBarLenght - HealthBar.margin) * ((FighterEntity) w.getPlayer()).getHealth())
+						/ ((FighterEntity) w.getPlayer()).getMaxHealth(),
 				healthBarWidth / 2);
 	}
 
@@ -399,23 +401,22 @@ public class SwingGraphics implements Graphics {
 
 	private void outWeapon(Point2d pos, int width, int height) {
 		g2.setColor(Color.blue);
-		g2.fillRect(getXinPixel(pos),getYinPixel(pos), width, height);
+		g2.fillRect(getXinPixel(pos), getYinPixel(pos), width, height);
 	}
 
 	@Override
 	public void drawWeapon(FighterEntity fe) {
-		
+
 		if (fe.getWeapon() instanceof RangedWeapon) {
 			drawBullet(((RangedWeapon) fe.getWeapon()));
 		} else {
-			var point = camera.getObjectPointInScene(((RectBoundingBox)fe.getDamagingArea().getBBox()).getPoint2d());
+			var point = camera.getObjectPointInScene(((RectBoundingBox) fe.getDamagingArea().getBBox()).getPoint2d());
 
-			if(point.isPresent()){
+			if (point.isPresent()) {
 				outWeapon(point.get(), getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getWidth()),
-					 getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getHeight()));
+						getValueInPixel(((RectBoundingBox) fe.getWeapon().getHitbox()).getHeight()));
 			}
-			
-			
+
 		}
 	}
 
@@ -640,27 +641,25 @@ public class SwingGraphics implements Graphics {
 			btn.setText("Ranged");
 		}
 	}
-		
-	public void drawWeaponIcon(Weapon weapon, int x, int y, int dimension){
-		if(weapon instanceof MeleeWeapon){
+
+	public void drawWeaponIcon(Weapon weapon, int x, int y, int dimension) {
+		if (weapon instanceof MeleeWeapon) {
 			g2.drawImage(assetManager.getImage(ImageType.sword), x, y, dimension, dimension, null);
-		}
-		else if(weapon instanceof DefaultWeapon){
+		} else if (weapon instanceof DefaultWeapon) {
 			g2.drawImage(assetManager.getImage(ImageType.brassKnucles), x, y, dimension, dimension, null);
-		}
-		else if(weapon instanceof RangedWeapon){
+		} else if (weapon instanceof RangedWeapon) {
 			g2.drawImage(assetManager.getImage(ImageType.bow), x, y, dimension, dimension, null);
 		}
 	}
 
 	@Override
-	public void drawDurabilityBar(Weapon weapon, int x, int y){
+	public void drawDurabilityBar(Weapon weapon, int x, int y) {
 		int barLenght = 150;
 		int barWidth = 20;
 
 		g2.setColor(Color.BLACK);
 		g2.fillRect(x, y, barLenght, barWidth);
 		g2.setColor(Color.GREEN);
-		g2.fillRect(x+5, y+5, barLenght - 10, barWidth - 10);
+		g2.fillRect(x + 5, y + 5, barLenght - 10, barWidth - 10);
 	}
-}	
+}
