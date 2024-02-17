@@ -228,7 +228,7 @@ public class SwingScene implements Scene, ComponentListener {
 				camera.update(scene.getPlayer(), scene.getTileManager());
 				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera, assetManager);
 				gameState.getWorld().getSceneEntities().forEach(e -> {
-					if (!(e instanceof Teleporter)) {
+					if (!(e instanceof Teleporter) && !(e instanceof WizardBossEntity)) {
 						e.updateGraphics(gr, scene);
 					}
 
@@ -237,7 +237,7 @@ public class SwingScene implements Scene, ComponentListener {
 						((FighterEntity) e).getDamagingArea().updateGraphics(gr, scene);
 					}
 
-					if ((camera.inScene(e.getPos()) && e instanceof Teleporter)) {
+					if ((camera.inScene(e.getPos()) && (e instanceof Teleporter || e instanceof WizardBossEntity))) {
 						e.updateGraphics(gr, scene);
 					}
 				});

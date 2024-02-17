@@ -240,6 +240,8 @@ public class GameFactory {
                 return toRet;
         }
 
+        private static final int playerHEALTH = 500;
+
         public World createOpenWorld(World oldWorld) {
                 var toRet = new World(new RectBoundingBox(new Point2d(0, 0), 20, 18));
                 if (oldWorld != null && oldWorld.getPlayer() != null && oldWorld.getPlayer() instanceof PlayerEntity) {
@@ -247,7 +249,7 @@ public class GameFactory {
                         toRet.setPlayer(oldWorld.getPlayer());
                 } else {
                         toRet.setPlayer(this.createPlayer(GameEngine.OPEN_WORLD_PLAYER_START, Vector2d.symmetrical(0),
-                                        10, 100));
+                        playerHEALTH, playerHEALTH));
                 }
                 if (oldWorld != null) {
                         toRet.setEventListener(oldWorld.getEventListener());
@@ -268,8 +270,8 @@ public class GameFactory {
                         oldWorld.getPlayer().setPos(GameEngine.HUB_PLAYER_START);
                         toRet.setPlayer(oldWorld.getPlayer());
                 } else {
-                        toRet.setPlayer(this.createPlayer(GameEngine.HUB_PLAYER_START, Vector2d.symmetrical(0), 10,
-                                        100));
+                        toRet.setPlayer(this.createPlayer(GameEngine.HUB_PLAYER_START, Vector2d.symmetrical(0), playerHEALTH,
+                        playerHEALTH));
                 }
 
                 // TODO delete this
