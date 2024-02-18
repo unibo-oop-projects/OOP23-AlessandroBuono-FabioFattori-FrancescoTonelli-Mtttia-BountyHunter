@@ -148,6 +148,8 @@ Ho deciso di fare InteractableArea il più generale possibile per poterla utiliz
 
 #### 2.3 Francesco Tonelli
 
+**Problema** : 
+
 
 #### 2.4 Alessandro Buono
 
@@ -208,6 +210,11 @@ Di queste classi si testano :
 #### 2.2 Mattia Senni Sviluppo
 
 #### 2.3 Francesco Tonelli Sviluppo
+
+- Utilizzo di Stream:
+    Usate per lo sviluppo del fabbro nella classe SwingScene. Permalink: 
+- Utilizzo di javax.sound (non spiegata a lezione):
+    Usata per la riproduzione delle tracce mumsicali durante il gameplay in MusicPlayer. Permalink:
 
 #### 2.4 Alessandro Buono Sviluppo
 
