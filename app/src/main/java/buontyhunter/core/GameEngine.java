@@ -153,7 +153,7 @@ public class GameEngine implements WorldEventListener {
             } else if (ev instanceof GameOverEvent) {
                 var winner = ((GameOverEvent) ev).getWinner();
 
-                // TODO: Show game over screen based on the winner
+                
 
             } else if (ev instanceof KilledEnemyEvent) {
                 ((PlayerEntity) gameState.getWorld().getPlayer()).getQuests().stream()

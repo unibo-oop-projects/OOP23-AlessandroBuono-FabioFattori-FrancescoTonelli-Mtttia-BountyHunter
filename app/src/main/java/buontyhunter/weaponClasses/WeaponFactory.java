@@ -25,7 +25,7 @@ public class WeaponFactory {
     }
 
     public Weapon createBossBow(FighterEntity owner) {
-        return new RangedWeapon(60, 1, 20, 1, null, owner, null, WeaponType.BOSSBOW);
+        return new RangedWeapon(60, 1, 6, 1, null, owner, null, WeaponType.BOSSBOW);
     }
 
     public Weapon createBrassKnuckles(FighterEntity owner) {

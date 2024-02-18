@@ -255,7 +255,7 @@ public class SwingScene implements Scene, ComponentListener {
 
 					if ((camera.inScene(e.getPos()) && (e instanceof Teleporter || e instanceof WizardBossEntity))) {
 						e.updateGraphics(gr, scene);
-						if (e instanceof WizardBossEntity) {
+						if (e instanceof WizardBossEntity && ((WizardBossEntity) e).isAttackingPlayer()) {
 
 							if (currentTrack != Track.BOSS_TRACK) {
 								musicPlayer.closeTrack();
@@ -264,7 +264,7 @@ public class SwingScene implements Scene, ComponentListener {
 							}
 
 						}
-					} else if (e instanceof WizardBossEntity) {
+					} else if (e instanceof WizardBossEntity && !((WizardBossEntity) e).isAttackingPlayer()) {
 						if (currentTrack != Track.ADVENTURE_TRACK) {
 							musicPlayer.closeTrack();
 							musicPlayer.playTrack(Track.ADVENTURE_TRACK);
