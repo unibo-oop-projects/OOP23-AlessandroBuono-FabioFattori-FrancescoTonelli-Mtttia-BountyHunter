@@ -3,6 +3,7 @@ package buontyhunter.model.AI;
 import buontyhunter.model.AI.pathFinding.AIEnemyFollowPathHelper;
 import buontyhunter.model.AI.pathFinding.AIFollowPathHelper;
 import buontyhunter.model.AI.pathFinding.PathFinder;
+import buontyhunter.model.AI.pathFinding.PathFinderFactory;
 
 public class AIFactoryImpl implements AIFactory {
 
@@ -10,9 +11,9 @@ public class AIFactoryImpl implements AIFactory {
     public PathFinder CreatePathFinder(PathFinderType type, boolean useCache) {
         switch (type) {
             case AStar:
-                return PathFinder.AStar(useCache);
+                return PathFinderFactory.createAStarPathFinder(useCache);
             case BFS:
-                return PathFinder.BFS(useCache);
+                return PathFinderFactory.createBFSPathFinder(useCache);
             default:
                 return null;
         }
