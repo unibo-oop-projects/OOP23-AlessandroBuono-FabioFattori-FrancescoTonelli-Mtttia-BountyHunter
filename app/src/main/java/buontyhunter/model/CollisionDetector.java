@@ -6,23 +6,27 @@ public class CollisionDetector {
 
     public boolean isColliding(RectBoundingBox rect1, RectBoundingBox rect2) {
         // Calculate the corners of the rectangles
-        double rect1Left = rect1.getULCorner().x;
-        double rect1Right = rect1.getULCorner().x + rect1.getWidth();
-        double rect1Top = rect1.getULCorner().y;
-        double rect1Bottom = rect1.getULCorner().y - rect1.getHeight();
-
-        double rect2Left = rect2.getULCorner().x;
-        double rect2Right = rect2.getULCorner().x + rect2.getWidth();
-        double rect2Top = rect2.getULCorner().y;
-        double rect2Bottom = rect2.getULCorner().y - rect2.getHeight();
-
-        // Check for overlap in both x and y axes
-        if (rect1Left < rect2Right && rect1Right > rect2Left &&
-                rect1Top > rect2Bottom && rect1Bottom < rect2Top) {
-            return true; // Colliding
-        } else {
-            return false; // Not colliding
+        if(rect1!=null && rect2!=null){
+            
+            double rect1Left = rect1.getULCorner().x;
+            double rect1Right = rect1.getULCorner().x + rect1.getWidth();
+            double rect1Top = rect1.getULCorner().y;
+            double rect1Bottom = rect1.getULCorner().y - rect1.getHeight();
+    
+            double rect2Left = rect2.getULCorner().x;
+            double rect2Right = rect2.getULCorner().x + rect2.getWidth();
+            double rect2Top = rect2.getULCorner().y;
+            double rect2Bottom = rect2.getULCorner().y - rect2.getHeight();
+    
+            // Check for overlap in both x and y axes
+            if (rect1Left < rect2Right && rect1Right > rect2Left &&
+                    rect1Top > rect2Bottom && rect1Bottom < rect2Top) {
+                return true; // Colliding
+            }
         }
+        
+        return false; // Not colliding
+        
     }
 
     public boolean isColliding(RectBoundingBox rect, Point2d point) {

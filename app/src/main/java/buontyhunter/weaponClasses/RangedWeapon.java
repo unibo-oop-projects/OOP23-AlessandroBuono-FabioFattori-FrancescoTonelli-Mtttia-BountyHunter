@@ -17,8 +17,8 @@ public class RangedWeapon extends Weapon {
     // private List<Bullet> bullets = new ArrayList<Bullet>();
 
     public RangedWeapon(int damage, double attackSpeed, int range, double speed, ImageType sprite, FighterEntity owner,
-            ImageType bulletSprite) {
-        super(damage, attackSpeed, range, speed, sprite, owner);
+            ImageType bulletSprite, WeaponType weapontype) {
+        super(damage, attackSpeed, range, speed, sprite, owner, weapontype);
         ammo=50;
     }
 

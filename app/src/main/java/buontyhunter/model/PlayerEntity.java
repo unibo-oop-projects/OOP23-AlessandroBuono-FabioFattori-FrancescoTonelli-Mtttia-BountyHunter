@@ -7,14 +7,15 @@ import buontyhunter.common.Vector2d;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
+import buontyhunter.weaponClasses.RangedWeapon;
 import buontyhunter.weaponClasses.Weapon;
+import buontyhunter.weaponClasses.WeaponType;
 
 public class PlayerEntity extends FighterEntity {
 
     private List<Quest> quests;
     protected FighterEntityType type = FighterEntityType.PLAYER;
     private int doblons;
-    private int ammo;
     private List<Weapon> inventoryWeapons;
 
     public PlayerEntity(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
@@ -22,7 +23,6 @@ public class PlayerEntity extends FighterEntity {
         super(type, pos, vel, box, input, graph, phys, health, maxHealth, w);
         quests = new ArrayList<Quest>();
         this.doblons = 0;
-        this.ammo = 0;
         inventoryWeapons = new ArrayList<Weapon>();
     }
 
@@ -88,12 +88,23 @@ public class PlayerEntity extends FighterEntity {
         return doblons;
     }
 
-    public void giveAmmo(int ammo) {
-        this.ammo += ammo;
+    public void giveAmmo(int ammo){
+        if(this.weapon instanceof RangedWeapon){
+            ((RangedWeapon) this.weapon).addAmmo(ammo);
+        }
     }
 
-    public int getAmmo() {
-        return this.ammo;
+    public int getAmmo(){
+        if(this.weapon instanceof RangedWeapon){
+            return ((RangedWeapon) this.weapon).howManyAmmo();
+        }
+        return 0;
+    }
+
+    public void useAmmo(int ammo){
+        if(this.weapon instanceof RangedWeapon){
+            ((RangedWeapon) this.weapon).subtractAmmo(ammo);
+        }
     }
 
     public boolean checkDie(World w) {
@@ -104,13 +115,16 @@ public class PlayerEntity extends FighterEntity {
         return false;
     }
 
-    public void useAmmo(int ammo) {
-        this.ammo -= ammo;
-    }
-
+    /**TODO inventory that carries between games yet to be done
+     * When player dies, loses half doblons and ammunitions in each ranged weapon
+     */
     public void deadBehaviour() {
-        useAmmo(ammo);
-        withdrawDoblons(doblons);
+        for (Weapon w : inventoryWeapons) {
+            if(w.getWeaponType()==WeaponType.BOW){
+                useAmmo(getAmmo()/2);
+            }
+        }
+        withdrawDoblons(doblons/2);
         quests.clear();
     }
 

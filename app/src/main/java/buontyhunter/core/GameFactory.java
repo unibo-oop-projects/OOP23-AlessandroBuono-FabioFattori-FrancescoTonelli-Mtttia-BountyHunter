@@ -47,6 +47,7 @@ public class GameFactory {
                 toRet.addWeapon(WeaponFactory.getInstance().createSword(toRet));
                 toRet.addWeapon(WeaponFactory.getInstance().createBow(toRet));
                 toRet.addWeapon(WeaponFactory.getInstance().createBrassKnuckles(toRet));
+                toRet.setWeapon(toRet.getWeapons().get(2));
 
                 return toRet;
         }
@@ -273,10 +274,6 @@ public class GameFactory {
                         toRet.setPlayer(this.createPlayer(GameEngine.HUB_PLAYER_START, Vector2d.symmetrical(0), playerHEALTH,
                         playerHEALTH));
                 }
-
-                // TODO delete this
-                ((PlayerEntity) toRet.getPlayer())
-                                .setWeapon(WeaponFactory.getInstance().createBow((FighterEntity) toRet.getPlayer()));
 
                 if (oldWorld != null) {
                         toRet.setEventListener(oldWorld.getEventListener());
