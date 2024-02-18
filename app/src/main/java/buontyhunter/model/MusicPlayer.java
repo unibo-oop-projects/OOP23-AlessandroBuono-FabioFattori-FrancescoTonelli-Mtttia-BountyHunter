@@ -1,10 +1,10 @@
 package buontyhunter.model;
 
-import java.io.InputStream;
-
 public interface MusicPlayer {
     enum Track{
-        HUB_TRACK("tracks/hub.wav");
+        HUB_TRACK("tracks/hub.wav"),
+        ADVENTURE_TRACK("tracks/adventure.wav"),
+        BOSS_TRACK("tracks/the_sorcerer.wav");
 
         private String path;
         Track(String path){
@@ -16,9 +16,7 @@ public interface MusicPlayer {
         }
     }
 
-    default InputStream getTrackInputStream(Track track) {
-        return getClass().getClassLoader().getResourceAsStream(track.getPath());
-    }
-
     void playTrack(Track toPlay);
+
+    void closeTrack();
 }

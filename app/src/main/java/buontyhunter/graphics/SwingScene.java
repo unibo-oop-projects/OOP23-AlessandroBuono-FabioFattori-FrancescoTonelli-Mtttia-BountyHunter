@@ -45,6 +45,7 @@ public class SwingScene implements Scene, ComponentListener {
 	private final List<JButton> inventoryButtons = new ArrayList<>();
 	protected final SwingAssetProvider assetManager;
 	private final MusicPlayer musicPlayer;
+	private Track currentTrack;
 
 	public SwingScene(GameState gameState, KeyboardInputController controller, boolean IsHub) {
 
@@ -97,6 +98,7 @@ public class SwingScene implements Scene, ComponentListener {
 
 		musicPlayer = new MusicPlayerImpl();
 		musicPlayer.playTrack(Track.HUB_TRACK);
+		this.currentTrack = Track.HUB_TRACK;
 	}
 
 	public void setIsHub(boolean isHub) {
@@ -110,8 +112,21 @@ public class SwingScene implements Scene, ComponentListener {
 				});
 				questButtons.add(button);
 			});
+
+			if(this.currentTrack != Track.HUB_TRACK){
+				musicPlayer.closeTrack();
+				musicPlayer.playTrack(Track.HUB_TRACK);
+				currentTrack = Track.HUB_TRACK;
+			}
+
 		} else {
 			questButtons.clear();
+
+			if(this.currentTrack == Track.ADVENTURE_TRACK){
+				musicPlayer.closeTrack();
+				musicPlayer.playTrack(Track.ADVENTURE_TRACK);
+				currentTrack = Track.ADVENTURE_TRACK;
+			}
 		}
 
 		if(inventoryButtons.size() == 0){
@@ -253,6 +268,7 @@ public class SwingScene implements Scene, ComponentListener {
 					}
 				});
 
+				
 				int height = GameEngine.RESIZATOR.getWINDOW_HEIGHT();
 				int width = GameEngine.RESIZATOR.getWINDOW_WIDTH();
 				int minDim = height < width ? height : width;
