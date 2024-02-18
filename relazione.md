@@ -147,8 +147,17 @@ Ho deciso di fare InteractableArea il più generale possibile per poterla utiliz
 
 **Soluzione** : Ho deciso di creare una classe chiamata InterractableArea che estende GameObject , in particolare questa classe ha un attributo di tipo HidableObject ed un attributo di tipo GameObject, in questo modo posso rendere visualizzabile l'HidableObject quando il player entra in collisione con l'hitbox del GameObject e preme il tasto E.
 L'interractable area è quindi un GameObject che ha un HidableObject come attributo , in particolare l'HidableObject è un pannello che si occupa di disegnare le missioni disponibili e di far si che il player possa accettarle; oppure un pannello che si occupa di far si che il player possa comprare munizioni o riparare l'arma.
+Quindi in base a se il giocatore è sopra un InterractableArea e preme il tasto E , l'HidableObject viene reso visibile o invisibile; se invece il giocatore è sopra un InterractableArea e non fa niente viene disegnata solo la scritta "premi E per interagire".
+La SwingScene si occupa di disegnare l'HidableObject e di farlo apparire e scomparire in base al tasto premuto, ed inoltre di far apparire i bottoni corrispondenti al pannello aperto.
 
+![no UML found](./relazioniImgs/HidableObject.png "2.5 InteractableArea e interazione con esse")
 
+**Problema** : avere dei GameObject che possano eseguire degli attacchi e distinguere i nemici dal player.
+
+**Soluzione** : Ho deciso di creare una classe chiamata FighterEntity che estende GameObject , in particolare questa classe ha un attributo di tipo Weapon , in questo modo posso rendere possibile che un GameObject possa eseguire degli attacchi. Inoltre FigherEntity ha un attributo di tipo FighterEntityType che mi permette di distinguere i nemici dal player , in particolare il player ha un FighterEntityType di tipo PLAYER mentre i nemici hanno un FighterEntityType di tipo ENEMY, grazie a questo campo i nemici non possono fare danno ad altri nemici ma solo al player e viceversa.
+Quindi i FighterEntity hanno anche una vita , una vita massima (questo permette anche al player di recuperare vita), ed una damaging area (vedi parte di Alessandro Buono).
+
+![no UML found](./relazioniImgs/HidableObject.png "2.6 InteractableArea e interazione con esse")
 
 #### 2.2 Mattia Senni
 **Problema**:
@@ -160,7 +169,7 @@ Questi metodi hanno permesso di ottimizzare il processo di rendering, evitando d
 
 Questo approccio ha contribuito significativamente all'ottimizzazione delle prestazioni del gioco e alla gestione efficiente della visualizzazione degli oggetti in base alla posizione del giocatore nel mondo simulato.
 
-```marmaid
+```mermaid
 classDiagram
   class SwingGraphic {
     +drawGameObject(GameObject obj)
@@ -429,6 +438,60 @@ classDiagram
 
 
 WizardBossEntity --|> FighterEntity
+
+```
+
+**Problema**:
+Mettere in pausa il gioco ogni volta che l'inventario o la mini mappa sono aperti
+
+**Soluzione**:
+Dato che inventario e mini mappa sono degli HidableObject, il World tramite il metodo isShow() può sapere in tempo reale e la mini mappa o l'inventario sono aperti.
+Grazie a questa strategia nel metodo updateState del World ho inserito un costrutto if che controlla se mini mappa e inventario sono aperti ed in caso affermativo non esegue tutti gli update dei GameObject all'interno del World
+
+```mermaid
+classDiagram
+  class World {
+    + InventoryObject getInventory()
+    + HidableObject getMiniMap()
+    + void updateState(long dt)
+  }
+  class HidableObject {
+    + boolean isShow
+    + void setShow(boolean show)
+  }
+
+
+World --> HidableObject : inventory
+World --> HidableObject : miniMap
+```
+
+**Problema**:
+I nemici devono avere un aggiornamento dell'input controllato dall'IA del path finder per potersi muovere esattamente come il player, ma se mini mappa o inventario sono aperti, devono essere bloccati
+
+**Soluzione**:
+Ho passato l'oggetto world all'input controller in modo che i nemici possano sempre sapere dove è situato il player, l'input controller dei nemici non verrà eseguito dal game engine come quello del player, ma dal metodo updateState del world in modo che quando inventario o mini mappa sono aperti i nemici rimangano fermi, inoltre i loro movimenti verranno dettati dal path finder utilizzato, in questo caso l'algoritmo scelto è l'AStarPathFinder
+
+```mermaid
+
+classDiagram
+  class World {
+    + void updateState(long dt)
+    + void processAIInput()
+    + List~EnemyEntity~ getEnemies()
+  }
+
+  class EnemyRegistry {
+    + List~EnemyEntity~ getEnemies()
+  }
+
+  class EnemyEntity {
+    ///tutte le proprietà di enemy entity 
+  }
+
+
+
+World --> EnemyRegistry : enemyRegistry
+EnemyRegistry --> EnemyEntity : enemies[]
 
 ```
 
