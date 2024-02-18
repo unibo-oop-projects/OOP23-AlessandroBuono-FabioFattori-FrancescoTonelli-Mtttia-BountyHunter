@@ -473,7 +473,77 @@ Ho fatto in modo che ci sia un timer adattivo in modo da gestire l'attack speed 
 Spesso può sembrare inutile o subottimale, ma può rispariare tanto tempo quando si cercano dei campi specifici o quando si cerca di risalire ad un errore.
 È molto importante però anche considerare il modo in cui i compagni di progetto concepiscono e progettano il codice, perché fare del codice comprensibile per se stessi non vuol dire sempre fare del codice comprensibile per tutti.
 
-![no UML found](./relazioniImgs/WeaponSystemDiagram.png "2.5 Diagramma UML che descrive come è stato implementato il sistema delle armi")
+```
+classDiagram
+    class WeaponFactory {
+        - WeaponFactory instance
+        - WeaponFactory()
+        + getInstance(): WeaponFactory
+        + createSword(FighterEntity owner): Weapon
+        + createBow(FighterEntity owner): Weapon
+        + createBossBow(FighterEntity owner): Weapon
+        + createBrassKnuckles(FighterEntity owner): Weapon
+    }
+
+    class Weapon {
+        
+        - WeaponType type
+        + directAttack()
+        + getDamage(): int
+        + getAttackSpeed(): double
+        + getRange(): int
+        + getSpeed(): double
+        + getHitbox(): RectBoundingBox
+        + getWeaponType(): WeaponType
+    }
+
+    class MeleeWeapon {
+        - int maxDurability
+        - int durability
+        + getMaxDurability(): int
+        + setDurability(int a): void
+        + getDurability(): int
+        + directAttack(): void
+    }
+
+    class RangedWeapon {
+        - Bullet bullet
+        - int ammo
+        + getShot(): void
+        + directAttack(): void
+        + setAmmo(int ammo): void
+        + subtractAmmo(int ammo): void
+        + addAmmo(int ammo): void
+        + howManyAmmo(): int
+        + getBullet(): Bullet
+    }
+
+    class Bullet {
+        - double travelDistance
+        - Direction attackDirection
+        + update(): void
+    }
+
+    class FighterEntity {
+        //Reference previous implementation
+    }
+
+    class WeaponType {
+        <<enumation>>
+        SWORD
+        BOW
+        BOSSBOW
+        BRASSKNUCKLES
+    }
+
+    WeaponFactory --> Weapon : creates
+    Weapon <|-- MeleeWeapon
+    Weapon <|-- RangedWeapon
+    WeaponType --> Weapon
+    MeleeWeapon ..> FighterEntity
+    RangedWeapon ..> FighterEntity
+    RangedWeapon --> Bullet : has
+```
 
 
 **Problema** : Necessità di dare un tipo diverso a stesse istanze di Weapon
