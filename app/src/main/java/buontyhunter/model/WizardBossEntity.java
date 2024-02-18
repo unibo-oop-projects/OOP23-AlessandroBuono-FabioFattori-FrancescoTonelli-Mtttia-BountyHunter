@@ -35,6 +35,15 @@ public class WizardBossEntity extends FighterEntity {
     private final AttackHelper spawnHelper = new AttackHelper(spawnCoolDown);
     protected FighterEntityType type = FighterEntityType.ENEMY;
     private boolean die = false;
+    private boolean isAttackingPlayer = false;
+
+    public boolean isAttackingPlayer() {
+        return isAttackingPlayer;
+    }
+
+    public void setAttackingPlayer(boolean isAttackingPlayer) {
+        this.isAttackingPlayer = isAttackingPlayer;
+    }
 
     /**
      * is true if the boss can attack the player (JUST FOR DEBUG PURPOSES)
@@ -162,8 +171,16 @@ public class WizardBossEntity extends FighterEntity {
     private boolean checkNearPlayer(World world) {
         var playerPos = world.getPlayer().getPos();
         var currentPos = getPos();
-        return Math.abs(playerPos.x - currentPos.x) < deltaPlayerNear
+        var nearPlayer = Math.abs(playerPos.x - currentPos.x) < deltaPlayerNear
                 && Math.abs(playerPos.y - currentPos.y) < deltaPlayerNear;
+
+        if (nearPlayer) {
+            setAttackingPlayer(true);
+        } else {
+            setAttackingPlayer(false);
+        }
+
+        return nearPlayer;
     }
 
     private void generateTargetPoint(World w) {
