@@ -1,5 +1,8 @@
 package buontyhunter.model.AI.enemySpawner;
 
+/**
+ * this interface is used to create the configuration of the enemy
+ */
 public interface EnemyConfigurationFactory {
 
     /**

@@ -9,8 +9,18 @@ import buontyhunter.model.AI.pathFinding.PathFinder;
  */
 public interface AIFactory {
 
+    /**
+     * The type of the path finder
+     */
     public static enum PathFinderType {
-        AStar, BFS
+        /**
+         * A* path finder
+         */
+        AStar,
+        /**
+         * BFS path finder
+         */
+        BFS
     }
 
     /**

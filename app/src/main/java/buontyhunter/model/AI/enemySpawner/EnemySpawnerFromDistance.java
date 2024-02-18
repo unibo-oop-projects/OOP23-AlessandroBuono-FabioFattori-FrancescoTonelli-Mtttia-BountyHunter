@@ -5,6 +5,9 @@ import buontyhunter.model.World;
 
 import java.util.*;
 
+/**
+ * this class is used to spawn enemies based on the distance from the player
+ */
 public class EnemySpawnerFromDistance implements EnemySpawner {
 
     /**
@@ -29,6 +32,9 @@ public class EnemySpawnerFromDistance implements EnemySpawner {
     private double tripleEnemyPercentage = 10;
     private EnemyConfigurationFactory enemyFactory;
 
+    /**
+     * create a new enemy spawner
+     */
     public EnemySpawnerFromDistance() {
         this.enemyFactory = new EnemyConfigurationFactoryImpl();
     }

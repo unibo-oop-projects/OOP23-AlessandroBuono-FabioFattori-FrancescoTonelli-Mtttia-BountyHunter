@@ -18,6 +18,9 @@ import buontyhunter.model.AI.pathFinding.AIEnemyFollowPathHelper;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * This class is used to represent a wizard boss entity
+ */
 public class WizardBossEntity extends FighterEntity {
 
     private static final int health = 100;
@@ -46,6 +49,20 @@ public class WizardBossEntity extends FighterEntity {
      */
     private final int deltaPlayerNear = 10;
 
+    /**
+     * Create a new wizard boss entity
+     * 
+     * @param type  this entity type serve to identify the entity (it can be player,
+     *              enemy, etc)
+     * @param box   BoundingBox that will be used to calculate the entity physics
+     * @param input InputComponent that will be used to control the entity while
+     *              playing
+     * @param graph GraphicsComponent that will be used to draw the entity
+     * @param phys  PhysicsComponent that will be used to calculate the entity
+     *              physics when an event occurs (Example: collision)
+     * @param w     the world object
+     * @param level the level of the boss (each time he die the level increase by 1)
+     */
     public WizardBossEntity(GameObjectType type, BoundingBox box, InputComponent input,
             GraphicsComponent graph, PhysicsComponent phys, World w, int level) {
         super(type, new Point2d(0, 0), vel, box, input, graph, phys, health * level, maxHealth * level, null);
@@ -72,7 +89,7 @@ public class WizardBossEntity extends FighterEntity {
      * 
      * @param w
      * @param maxDistance -1 if none
-     * @return
+     * @return a random available point
      */
     private Point2d generateAvailablePoint(World w, int maxDistance) {
         // get a list of tile, getTiles is list<list<tile>> I want list<tile>
@@ -156,7 +173,7 @@ public class WizardBossEntity extends FighterEntity {
     /**
      * Update the wizard boss entity
      * 
-     * @param w the world object
+     * @param w       the world object
      * @param elapsed the time elapsed since the last update
      */
     public void update(World w, long elapsed) {
@@ -211,9 +228,9 @@ public class WizardBossEntity extends FighterEntity {
     }
 
     /**
-     * get the current target of the boss
+     * set if gps is active
      * 
-     * @return
+     * @param gpsActive if gps is active
      */
     public void setGpsActive(boolean gpsActive) {
         this.gpsActive = gpsActive;
@@ -222,7 +239,7 @@ public class WizardBossEntity extends FighterEntity {
     /**
      * get the current target of the boss
      * 
-     * @return
+     * @param currentTarget the current target of the boss
      */
     public void setCurrentTarget(Point2d currentTarget) {
         this.currentTarget = currentTarget;
@@ -231,7 +248,7 @@ public class WizardBossEntity extends FighterEntity {
     /**
      * get the level of the boss
      * 
-     * @return
+     * @return the level of the boss
      */
     public int getLevel() {
         return level;
@@ -240,7 +257,7 @@ public class WizardBossEntity extends FighterEntity {
     /**
      * get if the boss can attack the player (JUST FOR DEBUG PURPOSES)
      * 
-     * @return
+     * @return if the boss can attack the player (JUST FOR DEBUG PURPOSES)
      */
     public boolean isAttackingPlayer() {
         return isAttackingPlayer;
@@ -249,7 +266,7 @@ public class WizardBossEntity extends FighterEntity {
     /**
      * set if the boss can attack the player (JUST FOR DEBUG PURPOSES)
      * 
-     * @param isAttackingPlayer
+     * @param isAttackingPlayer if the boss can attack the player (JUST FOR DEBUG
      */
 
     public void setAttackingPlayer(boolean isAttackingPlayer) {

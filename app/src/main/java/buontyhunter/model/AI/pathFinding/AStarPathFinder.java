@@ -6,6 +6,9 @@ import buontyhunter.common.Pair;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.Tile;
 
+/**
+ * A* path finder
+ */
 public class AStarPathFinder implements PathFinder {
 
     private final double DIAGONAL_COST = 1; // Cost of diagonal movement
@@ -23,6 +26,11 @@ public class AStarPathFinder implements PathFinder {
         this.useCache = useCache;
     }
 
+    /**
+     * set if the path finder should use cache
+     * 
+     * @param useCache if the path finder should use cache
+     */
     public void setUseCache(boolean useCache) {
         this.useCache = useCache;
         if (!useCache) {
@@ -30,7 +38,7 @@ public class AStarPathFinder implements PathFinder {
         }
     }
 
-    public Point2d ensurePoint(Point2d point, List<List<Tile>> map) {
+    private Point2d ensurePoint(Point2d point, List<List<Tile>> map) {
         Point2d outPoint = new Point2d(Math.ceil(point.x), Math.ceil(point.y));
 
         if (isObstacle(outPoint, map)) {

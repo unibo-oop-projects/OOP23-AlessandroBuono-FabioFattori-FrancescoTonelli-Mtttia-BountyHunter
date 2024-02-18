@@ -1,5 +1,8 @@
 package buontyhunter.model.EnemyManager;
 
+/**
+ * The enemy identifier manager
+ */
 public interface EnemyIdentifierManager {
     /**
      * Get the next identifier

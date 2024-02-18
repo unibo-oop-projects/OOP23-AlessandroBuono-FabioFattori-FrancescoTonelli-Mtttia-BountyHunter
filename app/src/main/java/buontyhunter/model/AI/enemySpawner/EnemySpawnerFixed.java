@@ -5,6 +5,9 @@ import java.util.Arrays;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.World;
 
+/**
+ * this class is used to spawn a fixed number of enemies
+ */
 public class EnemySpawnerFixed implements EnemySpawner {
 
     private final int enemySpawnNumber;

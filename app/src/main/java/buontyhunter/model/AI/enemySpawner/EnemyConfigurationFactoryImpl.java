@@ -4,6 +4,9 @@ import buontyhunter.common.Vector2d;
 
 import java.util.*;
 
+/**
+ * this class is used to generate the configuration of the enemies
+ */
 public class EnemyConfigurationFactoryImpl implements EnemyConfigurationFactory {
     private final double MAX_DISTANCE = 20;
     private final Vector2d DEFAULT_SPEED = new Vector2d(0.2, 0.2);

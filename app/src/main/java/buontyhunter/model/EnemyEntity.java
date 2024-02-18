@@ -15,6 +15,9 @@ import buontyhunter.model.AI.pathFinding.AIEnemyFollowPathHelper;
 import buontyhunter.physics.PhysicsComponent;
 import buontyhunter.weaponClasses.WeaponFactory;
 
+/**
+ * This class is used to represent an enemy entity
+ */
 public class EnemyEntity extends FighterEntity {
 
     private AIEnemyFollowPathHelper followPathHelper;
@@ -34,6 +37,24 @@ public class EnemyEntity extends FighterEntity {
                 || (followPathHelper.getLastPathDistance() == 0 && getPos() != w.getPlayer().getPos());
     }
 
+    /**
+     * Create a new enemy entity
+     * 
+     * @param type            this entity type serve to identify the entity (it can
+     *                        be
+     *                        player, enemy, etc)
+     * @param pos             initial position of the entity
+     * @param box             BoundingBox that will be used to calculate the entity
+     *                        physics
+     * @param input           InputComponent that will be used to control the entity
+     *                        while playing
+     * @param graph           GraphicsComponent that will be used to draw the entity
+     * @param phys            PhysicsComponent that will be used to calculate the
+     *                        entity physics when an event occurs (Example:
+     *                        collision)
+     * @param conf            the configuration of the enemy
+     * @param enemyIdentifier the enemy identifier
+     */
     public EnemyEntity(GameObjectType type, Point2d pos, BoundingBox box, InputComponent input,
             GraphicsComponent graph, PhysicsComponent phys, EnemyConfiguration conf, int enemyIdentifier) {
         super(type, pos, conf.getSpeed(), box, input, graph, phys, conf.getHealth(), conf.getHealth(), null);
@@ -117,7 +138,8 @@ public class EnemyEntity extends FighterEntity {
     /**
      * Get the type of the game object which is used to identify the object
      * 
-     * @return the type of the game object
+     * @param elapsed   the time since the last update
+     * @param playerPos the position of the player
      */
     public void tryAttach(long elapsed, Point2d playerPos) {
         var canAttach = attachHelper.canAttack(elapsed);
