@@ -466,6 +466,7 @@ public class World {
      */
     public void handleBossKilled() {
         notifyWorldEvent(new GameOverEvent(WinnerType.PLAYER));
+        setWizardBoss(GameFactory.getInstance().createWizardBoss(this, this.getWizardBoss().getLevel() + 1));
     }
 
     /**

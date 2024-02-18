@@ -24,8 +24,12 @@ public class WeaponFactory {
         return new RangedWeapon(30, 3, 10, 1, null, owner, WeaponType.BOW);
     }
 
-    public Weapon createBossBow(FighterEntity owner) {
-        return new RangedWeapon(60, 1, 6, 1, null, owner, WeaponType.BOSSBOW);
+    public Weapon createBossBow(FighterEntity owner, int level) {
+        if (level < 1) {
+            throw new IllegalArgumentException("Level must be greater than 0");
+        }
+        return new RangedWeapon(60 * level, 1, 6, 1, null, owner, WeaponType.BOSSBOW);
+
     }
 
     public Weapon createBrassKnuckles(FighterEntity owner) {

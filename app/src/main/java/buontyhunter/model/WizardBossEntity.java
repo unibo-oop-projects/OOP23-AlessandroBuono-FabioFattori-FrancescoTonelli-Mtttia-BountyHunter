@@ -34,6 +34,11 @@ public class WizardBossEntity extends FighterEntity {
     protected FighterEntityType type = FighterEntityType.ENEMY;
     private boolean die = false;
     private boolean isAttackingPlayer = false;
+    private int level = 1;
+
+    public int getLevel() {
+        return level;
+    }
 
     public boolean isAttackingPlayer() {
         return isAttackingPlayer;
@@ -55,11 +60,16 @@ public class WizardBossEntity extends FighterEntity {
     private final int deltaPlayerNear = 10;
 
     public WizardBossEntity(GameObjectType type, BoundingBox box, InputComponent input,
-            GraphicsComponent graph, PhysicsComponent phys, World w) {
-        super(type, new Point2d(0, 0), vel, box, input, graph, phys, health, maxHealth, null);
+            GraphicsComponent graph, PhysicsComponent phys, World w, int level) {
+        super(type, new Point2d(0, 0), vel, box, input, graph, phys, health * level, maxHealth * level, null);
 
         // is important to set in this order beacuse set the target point need the
         // position of the boss to be setted correctly for an accurate calculation
+
+        if (level < 1) {
+            throw new IllegalArgumentException("Level must be greater than 0");
+        }
+        this.level = level;
         setPos(generateAvailablePoint(w, -1));
         generateTargetPoint(w);
         setWeapon(generateWeapon());
@@ -110,7 +120,7 @@ public class WizardBossEntity extends FighterEntity {
     }
 
     private Weapon generateWeapon() {
-        return WeaponFactory.getInstance().createBossBow(this);
+        return WeaponFactory.getInstance().createBossBow(this, getLevel());
     }
 
     private List<Tile> flattenList(List<List<Tile>> listOfLists) {

@@ -216,7 +216,7 @@ classDiagram
 La necessità di implementare un algoritmo di Pathfinding per consentire ai nemici di determinare il percorso più efficiente per raggiungere il giocatore in ogni momento del gioco.
 
 **Soluzione**:
-Ho affrontato questo problema sviluppando due algoritmi di Pathfinding distinti: ASTAR Pathfinding e BFS Pathfinding. Questi algoritmi sono stati implementati attraverso una classe Pathfinder, e per fornire un approccio flessibile, abbiamo introdotto una Pathfinder Factory. Quest'ultima consente di creare dinamicamente gli algoritmi di Pathfinding necessari in base alle esigenze del gioco.
+Ho affrontato questo problema sviluppando due algoritmi di Pathfinding distinti: ASTAR Pathfinding (implementato grazie ad una base dell'algoritmo fornito da ChatGPT(https://chat.openai.com/)) e BFS Pathfinding. Questi algoritmi sono stati implementati attraverso una classe Pathfinder, e per fornire un approccio flessibile, abbiamo introdotto una Pathfinder Factory. Quest'ultima consente di creare dinamicamente gli algoritmi di Pathfinding necessari in base alle esigenze del gioco.
 Per garantire che i nemici si muovano efficacemente verso il giocatore, abbiamo creato una classe AIPathfinderHelper, che, attraverso il metodo MoveItem, consente a un oggetto (come un nemico) di conoscere il prossimo passo ottimizzato per avvicinarsi al giocatore. Inoltre, la classe AIEnemyPathfinder è stata introdotta per gestire il movimento degli avversari in modo da non raggiungere direttamente il giocatore, ma piuttosto affrontarlo in modo strategico.
 
 Questa soluzione ha migliorato notevolmente il comportamento degli avversari nel gioco, rendendoli più intelligenti e capaci di navigare in modo efficiente verso il giocatore in ogni situazione.
