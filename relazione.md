@@ -464,13 +464,29 @@ WizardBossEntity --|> FighterEntity
 
 **Soluzione** : Modificando l'interfaccia precedentemente implementata "InputController" mi sono adattato al pattern già utilizzato inserendo però varie funzioni per migliorare la logica e la leggibilità del codice.
 L'utilizzo di variabili di stato ha permesso al codice di essere flessibile ed adattabile a varie modifiche sulle interazioni fondamentali che il personaggio ha con gli input, per esempio se il personaggio si può muovere in più direzioni contemporaneamente o se il suo movimento è interrotto se si sta eseguendo un attacco, tutte cose facilmente comprensibili e modificabili nel codice.
+Ho fatto in modo che ci sia un timer adattivo in modo da gestire l'attack speed come il numero di attacchi al secondo e così il programma nel lasso di tempo in cui il timer è > 0, ignora completamente i segnali in entrata dalle frecce 
 
-**Pattern usato** : DRY
+**Pattern usato** : ECS (Entity Component System)
 
 
 **Problema** : Gestione delle hitbox degli attacchi
 
-**Soluzione**
+**Soluzione** : Impostata come un "HideableObject" in modo da poterne controllare lo stato ed in caso di necessità disattivarlo e poterne cambiarne direzione e dimensione comodamente, questi Object possono interagire con le BBox dei nemici per generare degli eventi alla sovrapposizione, dando effettivamente vita a questo gioco
+
+
+**Problema** : Implementazione delle Armi
+
+**Soluzione** : Risolto con dell'ereditarietà standard per minimizzare il riciclo di codice  e permettere a tutte le classi figlie durante tutto il processo della creazione delle armi è risultato molto utile avere certi campi salvati in molteplici oggetti, così da rendere tutto il development più fluido e soprattutto comprensibile.
+Spesso può sembrare inutile o subottimale, ma può rispariare tanto tempo quando si cercano dei campi specifici o quando si cerca di risalire ad un errore.
+È molto importante però anche considerare il modo in cui i compagni di progetto concepiscono e progettano il codice, perché fare del codice comprensibile per se stessi non vuol dire sempre fare del codice comprensibile per tutti.
+
+![no UML found](./relazioniImgs/WeaponSystemDiagram.png "2.5 Diagramma UML che descrive come è stato implementato il sistema delle armi")
+
+
+**Problema** : Necessità di dare un tipo diverso a stesse istanze di Weapon
+
+**Soluzione** : Creato un ENUM per permettere a svariati altri metodi di capire direttamente la tipologia delle armi riassumendo così molteplici righe di codice e soprattutto rendere molto più facile la gestione degli sprite, soprattutto perché per armi di stessa istanza di weapon non erano riconoscibili avendo un oggetto weapon.
+
 
 # Sviluppo
 
@@ -531,19 +547,13 @@ Ho utilizzato le il JPMS per mantere ordine all'interno del progetto e per dare 
 
 #### 2.3 Francesco Tonelli Sviluppo
 
-- Utilizzo di Stream:
+**Utilizzo di Stream**:
     Usate per lo sviluppo del fabbro nella classe SwingScene. Permalink: 
-- Utilizzo di javax.sound.sampled (non spiegata a lezione):
+**Utilizzo di javax.sound.sampled** (non spiegata a lezione):
     Usata per la riproduzione delle tracce mumsicali durante il gameplay in MusicPlayer. Permalink:
 
 #### 2.4 Alessandro Buono Sviluppo
 
-- Utilizzo di Ridondanze:
-    Durante tutto il processo della creazione del programma è molto utile avere certi campi salvati in molteplici oggetti, così da rendere tutto il
-    development più fluido e soprattutto comprensibile.
-    Spesso può sembrare inutile o subottimale, ma può rispariare tanto tempo quando si cercano dei campi o quando si cerca di risalire ad un errore.
-    È molto importante però anche considerare il modo in cui i compagni di progetto concepiscono e progettano il codice, perché fare del codice
-    comprensibile per se stessi non vuol dire sempre fare del codice comprensibile per tutti.
 
 #### 2.5 Codice riadattato per la realizzazzione
 

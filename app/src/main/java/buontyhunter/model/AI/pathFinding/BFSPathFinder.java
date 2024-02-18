@@ -5,21 +5,36 @@ import java.util.*;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.Tile;
 
-
+/**
+ * Breadth-first search path finder
+ */
 public class BFSPathFinder implements PathFinder {
 
     private boolean useCache = false;
     Map<Point2d, Point2d> parentMap;
 
+    /**
+     * Create a new BFS path finder
+     * 
+     * @param useCache if the path finder should use cache
+     */
     public BFSPathFinder(boolean useCache) {
         this.useCache = useCache;
         parentMap = new HashMap<>();
     }
 
+    /**
+     * Clear the cache
+     */
     public void clearCache() {
         parentMap.clear();
     }
 
+    /**
+     * Set if the path finder should use cache
+     * 
+     * @param useCache if the path finder should use cache
+     */
     public void setUseCache(boolean useCache) {
         this.useCache = useCache;
     }

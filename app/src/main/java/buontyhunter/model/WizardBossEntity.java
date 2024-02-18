@@ -18,6 +18,9 @@ import buontyhunter.model.AI.pathFinding.AIEnemyFollowPathHelper;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * This class is used to represent a wizard boss entity
+ */
 public class WizardBossEntity extends FighterEntity {
 
     private static final int health = 100;
@@ -35,19 +38,6 @@ public class WizardBossEntity extends FighterEntity {
     private boolean die = false;
     private boolean isAttackingPlayer = false;
     private int level = 1;
-
-    public int getLevel() {
-        return level;
-    }
-
-    public boolean isAttackingPlayer() {
-        return isAttackingPlayer;
-    }
-
-    public void setAttackingPlayer(boolean isAttackingPlayer) {
-        this.isAttackingPlayer = isAttackingPlayer;
-    }
-
     /**
      * is true if the boss can attack the player (JUST FOR DEBUG PURPOSES)
      */
@@ -59,6 +49,20 @@ public class WizardBossEntity extends FighterEntity {
      */
     private final int deltaPlayerNear = 10;
 
+    /**
+     * Create a new wizard boss entity
+     * 
+     * @param type  this entity type serve to identify the entity (it can be player,
+     *              enemy, etc)
+     * @param box   BoundingBox that will be used to calculate the entity physics
+     * @param input InputComponent that will be used to control the entity while
+     *              playing
+     * @param graph GraphicsComponent that will be used to draw the entity
+     * @param phys  PhysicsComponent that will be used to calculate the entity
+     *              physics when an event occurs (Example: collision)
+     * @param w     the world object
+     * @param level the level of the boss (each time he die the level increase by 1)
+     */
     public WizardBossEntity(GameObjectType type, BoundingBox box, InputComponent input,
             GraphicsComponent graph, PhysicsComponent phys, World w, int level) {
         super(type, new Point2d(0, 0), vel, box, input, graph, phys, health * level, maxHealth * level, null);
@@ -80,24 +84,12 @@ public class WizardBossEntity extends FighterEntity {
         followPathHelper = aiFactory.CreateEnemyFollowPathHelper(AIFactoryImpl.PathFinderType.AStar, false);
     }
 
-    public boolean isGpsActive() {
-        return gpsActive;
-    }
-
-    public void setGpsActive(boolean gpsActive) {
-        this.gpsActive = gpsActive;
-    }
-
-    public void setCurrentTarget(Point2d currentTarget) {
-        this.currentTarget = currentTarget;
-    }
-
     /**
      * generate a random available point in the map
      * 
      * @param w
      * @param maxDistance -1 if none
-     * @return
+     * @return a random available point
      */
     private Point2d generateAvailablePoint(World w, int maxDistance) {
         // get a list of tile, getTiles is list<list<tile>> I want list<tile>
@@ -127,54 +119,6 @@ public class WizardBossEntity extends FighterEntity {
         return listOfLists.stream()
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * Update the wizard boss entity
-     * 
-     * @param w the world object
-     * @param elapsed the time elapsed since the last update
-     */
-    public void update(World w, long elapsed) {
-        var currentPos = getPos();
-        var speed = getVel();
-
-        Point2d nextPos;
-
-        if (die || checkDie(w)) {
-            return;
-        }
-
-        /// if boss is near player, then attack him
-        /// else follow a random path, if he arrive to the random target, generate a new
-        /// random target
-        if (checkNearPlayer(w)) {
-            nextPos = followPathHelper.followPlayer(this, speed, w);
-            tryGenerateEnemy(w, elapsed);
-            tryAttackPlayer(w, elapsed);
-            w.setEnemySpawnActive(false);
-        } else {
-            w.setEnemySpawnActive(true);
-            nextPos = followPathHelper.moveItem(getPos(), currentTarget, speed, w.getTileManager().getTiles());
-            if (nextPos.equals(currentPos)) {
-                generateTargetPoint(w);
-            }
-        }
-
-        if (nextPos.y < currentPos.y) {
-            this.setDirection(Direction.MOVE_UP);
-        } else if (nextPos.y > currentPos.y) {
-            this.setDirection(Direction.MOVE_DOWN);
-        } else if (nextPos.x < currentPos.x) {
-            this.setDirection(Direction.MOVE_LEFT);
-        } else if (nextPos.x > currentPos.x) {
-            this.setDirection(Direction.MOVE_RIGHT);
-        } else {
-            this.setDirection(Direction.STAND_DOWN);
-        }
-
-        setPos(nextPos);
-        setBBox(((RectBoundingBox) getBBox()).withPoint(nextPos));
     }
 
     private boolean checkNearPlayer(World world) {
@@ -226,4 +170,106 @@ public class WizardBossEntity extends FighterEntity {
         return die;
     }
 
+    /**
+     * Update the wizard boss entity
+     * 
+     * @param w       the world object
+     * @param elapsed the time elapsed since the last update
+     */
+    public void update(World w, long elapsed) {
+        var currentPos = getPos();
+        var speed = getVel();
+
+        Point2d nextPos;
+
+        if (die || checkDie(w)) {
+            return;
+        }
+
+        /// if boss is near player, then attack him
+        /// else follow a random path, if he arrive to the random target, generate a new
+        /// random target
+        if (checkNearPlayer(w)) {
+            nextPos = followPathHelper.followPlayer(this, speed, w);
+            tryGenerateEnemy(w, elapsed);
+            tryAttackPlayer(w, elapsed);
+            w.setEnemySpawnActive(false);
+        } else {
+            w.setEnemySpawnActive(true);
+            nextPos = followPathHelper.moveItem(getPos(), currentTarget, speed, w.getTileManager().getTiles());
+            if (nextPos.equals(currentPos)) {
+                generateTargetPoint(w);
+            }
+        }
+
+        if (nextPos.y < currentPos.y) {
+            this.setDirection(Direction.MOVE_UP);
+        } else if (nextPos.y > currentPos.y) {
+            this.setDirection(Direction.MOVE_DOWN);
+        } else if (nextPos.x < currentPos.x) {
+            this.setDirection(Direction.MOVE_LEFT);
+        } else if (nextPos.x > currentPos.x) {
+            this.setDirection(Direction.MOVE_RIGHT);
+        } else {
+            this.setDirection(Direction.STAND_DOWN);
+        }
+
+        setPos(nextPos);
+        setBBox(((RectBoundingBox) getBBox()).withPoint(nextPos));
+    }
+
+    /**
+     * get the current target of the boss
+     * 
+     * @return
+     */
+    public boolean isGpsActive() {
+        return gpsActive;
+    }
+
+    /**
+     * set if gps is active
+     * 
+     * @param gpsActive if gps is active
+     */
+    public void setGpsActive(boolean gpsActive) {
+        this.gpsActive = gpsActive;
+    }
+
+    /**
+     * get the current target of the boss
+     * 
+     * @param currentTarget the current target of the boss
+     */
+    public void setCurrentTarget(Point2d currentTarget) {
+        this.currentTarget = currentTarget;
+    }
+
+    /**
+     * get the level of the boss
+     * 
+     * @return the level of the boss
+     */
+    public int getLevel() {
+        return level;
+    }
+
+    /**
+     * get if the boss can attack the player (JUST FOR DEBUG PURPOSES)
+     * 
+     * @return if the boss can attack the player (JUST FOR DEBUG PURPOSES)
+     */
+    public boolean isAttackingPlayer() {
+        return isAttackingPlayer;
+    }
+
+    /**
+     * set if the boss can attack the player (JUST FOR DEBUG PURPOSES)
+     * 
+     * @param isAttackingPlayer if the boss can attack the player (JUST FOR DEBUG
+     */
+
+    public void setAttackingPlayer(boolean isAttackingPlayer) {
+        this.isAttackingPlayer = isAttackingPlayer;
+    }
 }

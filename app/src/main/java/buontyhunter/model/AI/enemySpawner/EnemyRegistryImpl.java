@@ -13,6 +13,9 @@ import buontyhunter.model.World;
 import buontyhunter.model.EnemyManager.EnemyIdentifierManager;
 import buontyhunter.model.EnemyManager.EnemyIdentifierManagerImpl;
 
+/**
+ * this class is used to manage the enemies
+ */
 public class EnemyRegistryImpl implements EnemyRegistry {
     private Map<Integer, EnemyEntity> enemies = new HashMap<>();
     private EnemyIdentifierManager enemyIdManger = new EnemyIdentifierManagerImpl();
