@@ -212,8 +212,8 @@ Quindi difatto nel suo codice era presente una bozza di GameEngine , di World , 
 #### 2.1 Fabio Fattori Autovalutazione
 
 Penso di essere stato molto utile al gruppo , forse perchè ho partecipato al seminario opzionale 'Game as a Lab' , quindi ho avuto modo di capire meglio il codice che ci è stato consegnato e di capire meglio come funziona la struttura interna del gioco.
-Quindi era la figura nel gruppo a cui tutti si rivolgevano per chiedere chiarimenti su come funzionava il codice alla base del gioco, e per la risoluzione di bug.
-
+Quindi ero la figura nel gruppo a cui tutti si rivolgevano per chiedere chiarimenti su come funzionava il codice alla base del gioco, e per la risoluzione di bug; questo è accaduto anche perchè io sono riuscito a finire gli altri esami della sessione e quindi ho avuto più tempo per dedicarmi al progetto, dopo che ho finito le mie parti obbligatorie ho avuto modo anche di fare molte parti opzionali non richieste.
+La vera difficoltà è stata realizzare la Camera , più precisamente far si che la camera seguisse il player , perchè la telecamera doveva seguire il player ma non doveva uscire dai bordi del mondo , quindi ho dovuto fare un sistema di traslazione della camera che mi permettesse di seguire il player ma che non mi facesse uscire dai bordi del mondo, infatti la parte della camera che gestisce questa cosa è abbastanza illeggibile da una persona che non ha scritto quella parte; quindi in futuro vorrei rifare la parte della camera per renderla più leggibile e più efficiente.
 
 #### 2.2 Mattia Senni Autovalutazione
 
@@ -223,8 +223,11 @@ Quindi era la figura nel gruppo a cui tutti si rivolgevano per chiedere chiarime
 
 ### 2. Difficoltà Incontrate e Commenti per i Docenti 
 
-difficoltà-incontrate-e-commenti-per-i-docenti
 
 # Guida Utente 
 
-guida-utente
+# Movimento
+- W per muoversi in alto
+- S per muoversi in basso
+- A per muoversi a sinistra
+- D per muoversi a destra
