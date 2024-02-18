@@ -274,10 +274,6 @@ public class GameFactory {
                         playerHEALTH));
                 }
 
-                // TODO delete this
-                ((PlayerEntity) toRet.getPlayer())
-                                .setWeapon(WeaponFactory.getInstance().createBow((FighterEntity) toRet.getPlayer()));
-
                 if (oldWorld != null) {
                         toRet.setEventListener(oldWorld.getEventListener());
                 }

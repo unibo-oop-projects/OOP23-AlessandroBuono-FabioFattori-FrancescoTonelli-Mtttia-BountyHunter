@@ -7,6 +7,7 @@ import buontyhunter.common.Vector2d;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
+import buontyhunter.weaponClasses.RangedWeapon;
 import buontyhunter.weaponClasses.Weapon;
 
 public class PlayerEntity extends FighterEntity {
@@ -14,7 +15,6 @@ public class PlayerEntity extends FighterEntity {
     private List<Quest> quests;
     protected FighterEntityType type = FighterEntityType.PLAYER;
     private int doblons;
-    private int ammo;
     private List<Weapon> inventoryWeapons;
 
 
@@ -23,7 +23,6 @@ public class PlayerEntity extends FighterEntity {
         super(type, pos, vel, box, input, graph, phys, health, maxHealth, w);
         quests = new ArrayList<Quest>();
         this.doblons = 0;
-        this.ammo = 0;
         inventoryWeapons = new ArrayList<Weapon>();
     }
 
@@ -84,19 +83,26 @@ public class PlayerEntity extends FighterEntity {
     }
 
     public void giveAmmo(int ammo){
-        this.ammo += ammo;
+        if(this.weapon instanceof RangedWeapon){
+            ((RangedWeapon) this.weapon).setAmmo(ammo);
+        }
     }
 
     public int getAmmo(){
-        return this.ammo;
+        if(this.weapon instanceof RangedWeapon){
+            return ((RangedWeapon) this.weapon).howManyAmmo();
+        }
+        return 0;
     }
 
     public void useAmmo(int ammo){
-        this.ammo -= ammo;
+        if(this.weapon instanceof RangedWeapon){
+            ((RangedWeapon) this.weapon).subtractAmmo(ammo);
+        }
     }
 
     public void deadBehaviour() {
-        useAmmo(ammo);
+        useAmmo(getAmmo());
         withdrawDoblons(doblons);
         quests.clear();
     }

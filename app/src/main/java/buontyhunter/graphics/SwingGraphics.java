@@ -359,8 +359,9 @@ public class SwingGraphics implements Graphics {
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect(0, 0, GameEngine.RESIZATOR.getWINDOW_WIDTH(), GameEngine.RESIZATOR.getWINDOW_HEIGHT());
 
-		int minDim = GameEngine.RESIZATOR.getWINDOW_WIDTH() < GameEngine.RESIZATOR.getWINDOW_HEIGHT() ?
-		GameEngine.RESIZATOR.getWINDOW_WIDTH() : GameEngine.RESIZATOR.getWINDOW_HEIGHT();
+		int minDim = GameEngine.RESIZATOR.getWINDOW_WIDTH() < GameEngine.RESIZATOR.getWINDOW_HEIGHT() 
+		? GameEngine.RESIZATOR.getWINDOW_WIDTH() 
+		: GameEngine.RESIZATOR.getWINDOW_HEIGHT();
 
 		int boardDimension = minDim/5*3;
 		int x = GameEngine.RESIZATOR.getWINDOW_WIDTH()/2 - (boardDimension/2);
@@ -428,11 +429,14 @@ public class SwingGraphics implements Graphics {
 
 	@Override
 	public void drawBullet(RangedWeapon w) {
-		var point = camera.getObjectPointInScene(w.getHitbox().getPoint2d());
-		if (point.isPresent()) {
-			g2.setColor(Color.RED);
-			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()), getValueInPixel(w.getHitbox().getWidth()),
-					getValueInPixel(w.getHitbox().getHeight()));
+		if (w.getHitbox() != null) {
+			var point = camera.getObjectPointInScene(w.getHitbox().getPoint2d());
+			if (point.isPresent()) {
+				g2.setColor(Color.RED);
+				g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()),
+						getValueInPixel(w.getHitbox().getWidth()),
+						getValueInPixel(w.getHitbox().getHeight()));
+			}
 		}
 	}
 
@@ -725,7 +729,8 @@ public class SwingGraphics implements Graphics {
 			g2.fillRect(x, y, barLenght, barWidth);
 			g2.setColor(Color.GREEN);
 			g2.fillRect(x+5, y+5,
-				((MeleeWeapon)weapon).getDurability() * (barLenght - 10) / ((MeleeWeapon)weapon).getMaxDurability(),
+				((MeleeWeapon)weapon).getDurability() * (barLenght - 10)
+				/ ((MeleeWeapon)weapon).getMaxDurability(),
 				barWidth - 10);
 		}
 	}
