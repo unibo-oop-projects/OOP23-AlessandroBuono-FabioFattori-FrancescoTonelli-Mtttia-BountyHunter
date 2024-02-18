@@ -220,7 +220,6 @@ public class SwingScene implements Scene, ComponentListener {
 				g2.setColor(Color.BLACK);
 				g2.drawImage(assetManager.getImage(ImageType.GameOver), 0, 0, this.getWidth(), this.getHeight(), null);
 				musicPlayer.closeTrack();
-				
 
 			} else {
 
@@ -275,7 +274,7 @@ public class SwingScene implements Scene, ComponentListener {
 						var offsetX = (unit + (unit * 2) / 6) * inventoryButtons.indexOf(btn);
 						gr.drawInventoryWeapon(((PlayerEntity) gameState.getWorld().getPlayer()).getWeapons()
 								.get(inventoryButtons.indexOf(btn)), x + offsetX, y, btn);
-						frame.pack();
+
 						btn.setVisible(true);
 					});
 				} else {

@@ -26,6 +26,14 @@ public class EnemyEntity extends FighterEntity {
     protected FighterEntityType type = FighterEntityType.ENEMY;
     private AttackHelper attachHelper;
 
+    private boolean isDeath(World w) {
+        var manager = w.getTileManager();
+        var tile = manager.getTileFromPosition(getPos());
+        return !tile.isPresent() || deathTile.contains(tile.get().getType())
+                || followPathHelper.getLastPathDistance() > deathDistance
+                || (followPathHelper.getLastPathDistance() == 0 && getPos() != w.getPlayer().getPos());
+    }
+
     public EnemyEntity(GameObjectType type, Point2d pos, BoundingBox box, InputComponent input,
             GraphicsComponent graph, PhysicsComponent phys, EnemyConfiguration conf, int enemyIdentifier) {
         super(type, pos, conf.getSpeed(), box, input, graph, phys, conf.getHealth(), conf.getHealth(), null);
@@ -51,6 +59,11 @@ public class EnemyEntity extends FighterEntity {
         }
     }
 
+    /**
+     * Move the enemy in the world
+     * 
+     * @param world the world where the enemy is
+     */
     public void moveItem(World world) {
         var currentPos = this.getPos();
         var speed = this.getVel();
@@ -72,27 +85,40 @@ public class EnemyEntity extends FighterEntity {
         this.setPos(nextPos);
     }
 
-    private boolean isDeath(World w) {
-        var manager = w.getTileManager();
-        var tile = manager.getTileFromPosition(getPos());
-        return !tile.isPresent() || deathTile.contains(tile.get().getType())
-                || followPathHelper.getLastPathDistance() > deathDistance
-                || (followPathHelper.getLastPathDistance() == 0 && getPos() != w.getPlayer().getPos());
-    }
-
+    /**
+     * Move the enemy in the world and assert if the enemy is death
+     * 
+     * @param world the world where the enemy is
+     * @return true if the enemy is death, false otherwise
+     */
     public boolean moveItemAssertIsDeath(World world) {
         moveItem(world);
         return isDeath(world);
     }
 
+    /**
+     * Get the enemy identifier
+     * 
+     * @return the enemy identifier
+     */
     public int getEnemyIdentifier() {
         return enemyIdentifier;
     }
 
+    /**
+     * Get the enemy type
+     * 
+     * @return the enemy type
+     */
     public EnemyType getEnemyType() {
         return this.enemyType;
     }
 
+    /**
+     * Get the type of the game object which is used to identify the object
+     * 
+     * @return the type of the game object
+     */
     public void tryAttach(long elapsed, Point2d playerPos) {
         var canAttach = attachHelper.canAttack(elapsed);
         if (canAttach) {
@@ -106,6 +132,12 @@ public class EnemyEntity extends FighterEntity {
         }
     }
 
+    /**
+     * Get the direction of the attack
+     * 
+     * @param playerPos the position of the player
+     * @return the direction of the attack
+     */
     public Direction getAttackDirection(Point2d playerPos) {
         // set the direction based on where the player actually are
         var deltaX = Math.abs(playerPos.x - this.getPos().x);
