@@ -11,6 +11,8 @@ import java.awt.RenderingHints;
 
 import javax.swing.*;
 
+import org.checkerframework.checker.units.qual.min;
+
 import buontyhunter.common.ImagePathProvider;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
@@ -246,9 +248,10 @@ public class SwingScene implements Scene, ComponentListener {
 					}
 				});
 
-				int height = (int) (GameEngine.RESIZATOR.getWINDOW_HEIGHT());
-				int width = (int) (GameEngine.RESIZATOR.getWINDOW_WIDTH());
-				int unit = (height < width ? height : width) / 6;
+				int height = GameEngine.RESIZATOR.getWINDOW_HEIGHT();
+				int width = GameEngine.RESIZATOR.getWINDOW_WIDTH();
+				int minDim = height < width ? height : width;
+				int unit = minDim / 6;
 
 				if(gameState.getWorld().getInventory().isShow()){
 					inventoryButtons.forEach(btn -> {
@@ -273,8 +276,20 @@ public class SwingScene implements Scene, ComponentListener {
 				// render the buttons if it is the hub
 				if (IsHub && getQuestPannel().isShow()) {
 					
-					int x = unit + unit / 6;
-					int y = x + unit / 12;
+					int boardDimension = minDim/5*4;
+					int boardX = width/2 - (boardDimension/2);
+					int boardY = height/2 - (boardDimension/2);
+					int questUnit = boardDimension/4;
+					List<Point2d> questPositions = new ArrayList<>();
+					questPositions.add(new Point2d(boardX + (boardDimension / 16 * 3), 
+						boardY  + (boardDimension / 16 * 3)));
+					questPositions.add(new Point2d(boardX + (boardDimension / 16 * 9), 
+						boardY  + (boardDimension / 16 * 3)));
+					questPositions.add(new Point2d(boardX + (boardDimension / 16 * 3), 
+						boardY  + (boardDimension / 16 * 9)));
+					questPositions.add(new Point2d(boardX + (boardDimension / 16 * 9), 
+						boardY  + (boardDimension / 16 * 9)));
+
 					questButtons.forEach(btn -> {
 						frame.remove(btn);
 						btn.setVisible(false);
@@ -282,13 +297,10 @@ public class SwingScene implements Scene, ComponentListener {
 					getQuestPannel().getQuests().stream()
 							.filter(q -> !((PlayerEntity) gameState.getWorld().getPlayer()).getQuests().contains(q))
 							.forEach(q -> {
-								var offsetX = (unit + (unit * 2) / 6) * getQuestPannel().getQuests().stream()
-										.filter(quest -> !((PlayerEntity) gameState.getWorld().getPlayer()).getQuests()
-												.contains(quest))
-										.collect(Collectors.toList()).indexOf(q);
 								var button = questButtons.get(getQuestPannel().getQuests().indexOf(q));
 								button.setVisible(getQuestPannel().isShow());
-								gr.drawQuest((QuestEntity) q, x + offsetX, y, unit, button);
+								gr.drawQuest((QuestEntity) q, (int)questPositions.get(getQuestPannel().getQuests().indexOf(q)).x, 
+								(int)questPositions.get(getQuestPannel().getQuests().indexOf(q)).y, questUnit, button);
 								this.add(button, BorderLayout.CENTER);
 							});
 				} else if (IsHub && !getQuestPannel().isShow()) {

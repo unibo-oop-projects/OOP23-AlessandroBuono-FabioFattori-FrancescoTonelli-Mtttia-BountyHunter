@@ -282,18 +282,18 @@ public class SwingGraphics implements Graphics {
 	public void drawQuestPannel(QuestPannel questPannel, World w) {
 		if (!questPannel.isShow())
 			return;
-		var panelPosInPixel = questPannel.getPos();
-		var height = (int) ((RectBoundingBox) questPannel.getBBox()).getHeight();
-		var width = (int) ((RectBoundingBox) questPannel.getBBox()).getWidth();
 
 		g2.setColor(new Color(0, 0, 0, 0.6f));
-		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
+		g2.fillRect(0, 0, GameEngine.RESIZATOR.getWINDOW_WIDTH(), GameEngine.RESIZATOR.getWINDOW_HEIGHT());
 
-		// questa unità di misura mi permette di disegnare le varie parti della bacheca
-		int unit = (height < width ? height : width) / 7;
-		int boardDimension = unit * 5;
+		int minDim = GameEngine.RESIZATOR.getWINDOW_WIDTH() < GameEngine.RESIZATOR.getWINDOW_HEIGHT() ?
+		GameEngine.RESIZATOR.getWINDOW_WIDTH() : GameEngine.RESIZATOR.getWINDOW_HEIGHT();
 
-		g2.drawImage(assetManager.getImage(ImageType.noticeBoard), unit, unit, boardDimension, boardDimension, null);
+		int boardDimension = minDim/5*4;
+		int x = GameEngine.RESIZATOR.getWINDOW_WIDTH()/2 - (boardDimension/2);
+		int y = GameEngine.RESIZATOR.getWINDOW_HEIGHT()/2 - (boardDimension/2);
+
+		g2.drawImage(assetManager.getImage(ImageType.noticeBoard), x, y, boardDimension, boardDimension, null);
 
 	}
 
@@ -612,10 +612,12 @@ public class SwingGraphics implements Graphics {
 	public void drawWizardBoss(WizardBossEntity boss, World w) {
 		var point = camera.getObjectPointInScene(boss.getPos());
 		var bBox = (RectBoundingBox) boss.getBBox();
-		int x = getXinPixel(point.get());
-		int y = getYinPixel(point.get());
 		
 		if (point.isPresent()) {
+			
+			int x = getXinPixel(point.get());
+			int y = getYinPixel(point.get());
+
 			switch (boss.getDirection()) {
 				case STAND_DOWN:
 					g2.drawImage(assetManager.getImage(ImageType.wizardFront), x, y, null);
