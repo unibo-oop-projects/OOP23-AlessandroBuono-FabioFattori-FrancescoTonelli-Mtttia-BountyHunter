@@ -669,6 +669,9 @@ Ho utilizzato le lambda ogni volta che necessitavo di scrivere metodi corti all'
 **Utilizzo di Java Platform Model System**:
 Ho utilizzato le il JPMS per mantere ordine all'interno del progetto e per dare una struttura ad albero bel definita all'interno del progetto ad esempio con il package AI contenuto dentro il package model che al suo interno contiene tutte le classi utilizzate per gestire attacchi, spawn path finding degli oggetti automatizzati come i nemici
 
+**A star path finder**:
+per l'implementazione del l'A* path finder è stato utilizzato un utilizzato un algoritmo di partenza sviluppato tramite il LLM ChatGPT v.3.5, l'algoritmo fornito non era inizialmente corretto ed è stato necessario adattare le strutture dati utilizzate da ChatGPT con le strutture dati utilizzate all'interno dell'applicazione
+
 #### 2.3 Francesco Tonelli Sviluppo
 
 **Utilizzo di Stream**:
