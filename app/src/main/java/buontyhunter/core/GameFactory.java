@@ -20,6 +20,7 @@ public class GameFactory {
 
         /**
          * Get the instance of the GameFactory
+         * 
          * @return the instance of the GameFactory
          */
         static public GameFactory getInstance() {
@@ -132,8 +133,8 @@ public class GameFactory {
         /**
          * Create a new enemy; this object will be used to show the enemy in the game
          * 
-         * @param point            start position for the enemy
-         * @param conf             configuration for the enemy
+         * @param point           start position for the enemy
+         * @param conf            configuration for the enemy
          * @param enemyIdentifier identifier for the enemy
          * @return the enemy created
          */
@@ -168,7 +169,8 @@ public class GameFactory {
         }
 
         /**
-         * Create a new teleporter to the Hub; this object will be used to show the teleporter in
+         * Create a new teleporter to the Hub; this object will be used to show the
+         * teleporter in
          * the game
          * 
          * @param pos position for the teleporter
@@ -186,7 +188,8 @@ public class GameFactory {
         }
 
         /**
-         * Create a new teleporter to the OpenWorld; this object will be used to show the teleporter in
+         * Create a new teleporter to the OpenWorld; this object will be used to show
+         * the teleporter in
          * the game
          * 
          * @return the teleporter created to the open world
@@ -205,10 +208,12 @@ public class GameFactory {
         }
 
         /**
-         * Create a new quest pannel; this object will be used to show the quest pannel in
+         * Create a new quest pannel; this object will be used to show the quest pannel
+         * in
          * the game
          * 
-         * @param pos position for the interractable area in which the quest pannel can be shown
+         * @param pos position for the interractable area in which the quest pannel can
+         *            be shown
          * @return the quest pannel created
          */
         public InterractableArea createQuestPannelForHub(Point2d pos) {
@@ -229,7 +234,8 @@ public class GameFactory {
          * Create a new blacksmith; this object will be used to show the blacksmith in
          * the game
          * 
-         * @param pos position for the interractable area in which the blacksmith can be shown
+         * @param pos position for the interractable area in which the blacksmith can be
+         *            shown
          * @return the blacksmith created
          */
         public InterractableArea createBlacksmithForHub(Point2d pos) {
@@ -254,10 +260,10 @@ public class GameFactory {
          */
         public List<Quest> createQuests() {
                 List<Quest> quests = new ArrayList<Quest>();
-                quests.add(new QuestEntity("Stregone", "Uccidi lo stregone!", 100 , EnemyType.WIZARD, 1));
-                quests.add(new QuestEntity("flagello zombie", "Uccidi 5 Zombie", 20 , EnemyType.THROW_PUNCHES, 5));
-                quests.add(new QuestEntity("flagello Scheletri", "Uccidi 5 Scheletri", 20 , EnemyType.BOW, 5));
-                quests.add(new QuestEntity("flagello Cavalieri", "Uccidi 5 Cavalieri", 20 , EnemyType.SWORD, 5));
+                quests.add(new QuestEntity("Stregone", "Uccidi lo stregone!", 100, EnemyType.WIZARD, 1));
+                quests.add(new QuestEntity("flagello zombie", "Uccidi 5 Zombie", 20, EnemyType.THROW_PUNCHES, 5));
+                quests.add(new QuestEntity("flagello Scheletri", "Uccidi 5 Scheletri", 20, EnemyType.BOW, 5));
+                quests.add(new QuestEntity("flagello Cavalieri", "Uccidi 5 Cavalieri", 20, EnemyType.SWORD, 5));
                 return quests;
         }
 
@@ -294,14 +300,15 @@ public class GameFactory {
 
         /**
          * Create a new wizard boss; this object will be used to show the wizard boss in
+         * 
          * @param w the world where the wizard boss will be used
          * @return the wizard boss created
          */
-        public WizardBossEntity createWizardBoss(World w) {
+        public WizardBossEntity createWizardBoss(World w, int level) {
                 return new WizardBossEntity(GameObjectType.WizardBoss,
                                 new RectBoundingBox(new Point2d(0, 0), 1, 1),
                                 new NullInputComponent(), new WizardBossGraphicsComponent(),
-                                new WizardBossPhysicsComponent(), w);
+                                new WizardBossPhysicsComponent(), w, level);
         }
 
         /**
@@ -322,7 +329,9 @@ public class GameFactory {
         private static final int playerHEALTH = 500;
 
         /**
-         * Create a new open world; this object will be set as the current world in the gameState
+         * Create a new open world; this object will be set as the current world in the
+         * gameState
+         * 
          * @param oldWorld the old world
          * @return the open world created
          */
@@ -333,7 +342,7 @@ public class GameFactory {
                         toRet.setPlayer(oldWorld.getPlayer());
                 } else {
                         toRet.setPlayer(this.createPlayer(GameEngine.OPEN_WORLD_PLAYER_START, Vector2d.symmetrical(0),
-                        playerHEALTH, playerHEALTH));
+                                        playerHEALTH, playerHEALTH));
                 }
                 if (oldWorld != null) {
                         toRet.setEventListener(oldWorld.getEventListener());
@@ -343,13 +352,15 @@ public class GameFactory {
                 toRet.setNavigatorLine(this.createNavigatorLine(toRet));
                 toRet.setTeleporter(this.createTeleporterToHub());
                 toRet.setInventory(this.createInventoryPanel());
-                toRet.setWizardBoss(this.createWizardBoss(toRet));
+                toRet.setWizardBoss(this.createWizardBoss(toRet, 1));
                 toRet.setQuestJournal(this.createQuestJournal());
                 return toRet;
         }
 
         /**
-         * Create a new hub world; this object will be set as the current world in the gameState
+         * Create a new hub world; this object will be set as the current world in the
+         * gameState
+         * 
          * @param oldWorld the old world
          * @return the hub world created
          */
@@ -359,8 +370,9 @@ public class GameFactory {
                         oldWorld.getPlayer().setPos(GameEngine.HUB_PLAYER_START);
                         toRet.setPlayer(oldWorld.getPlayer());
                 } else {
-                        toRet.setPlayer(this.createPlayer(GameEngine.HUB_PLAYER_START, Vector2d.symmetrical(0), playerHEALTH,
-                        playerHEALTH));
+                        toRet.setPlayer(this.createPlayer(GameEngine.HUB_PLAYER_START, Vector2d.symmetrical(0),
+                                        playerHEALTH,
+                                        playerHEALTH));
                 }
 
                 if (oldWorld != null) {
