@@ -143,6 +143,13 @@ Ho deciso di fare InteractableArea il più generale possibile per poterla utiliz
 
 ![no UML found](./relazioniImgs/QuestSystemDiagram.png "2.4 Diagramma UML che descrive come è stato implementato il sistema delle missioni")
 
+**Problema** : Come differenziare i gameObject che possono essere interagiti da quelli che non possono esserlo, in particolare come fare a far si che il player possa interagire con un "NPC" sono quando è vicino ad esso.
+
+**Soluzione** : Ho deciso di creare una classe chiamata InterractableArea che estende GameObject , in particolare questa classe ha un attributo di tipo HidableObject ed un attributo di tipo GameObject, in questo modo posso rendere visualizzabile l'HidableObject quando il player entra in collisione con l'hitbox del GameObject e preme il tasto E.
+L'interractable area è quindi un GameObject che ha un HidableObject come attributo , in particolare l'HidableObject è un pannello che si occupa di disegnare le missioni disponibili e di far si che il player possa accettarle; oppure un pannello che si occupa di far si che il player possa comprare munizioni o riparare l'arma.
+
+
+
 #### 2.2 Mattia Senni
 **Problema**:
 La necessità di determinare quali oggetti disegnare, la loro posizione e decidere se renderli visibili o meno, in base alla posizione del giocatore all'interno del mondo simulato, ha presentato una sfida.
