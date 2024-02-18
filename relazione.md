@@ -147,8 +147,17 @@ Ho deciso di fare InteractableArea il più generale possibile per poterla utiliz
 
 **Soluzione** : Ho deciso di creare una classe chiamata InterractableArea che estende GameObject , in particolare questa classe ha un attributo di tipo HidableObject ed un attributo di tipo GameObject, in questo modo posso rendere visualizzabile l'HidableObject quando il player entra in collisione con l'hitbox del GameObject e preme il tasto E.
 L'interractable area è quindi un GameObject che ha un HidableObject come attributo , in particolare l'HidableObject è un pannello che si occupa di disegnare le missioni disponibili e di far si che il player possa accettarle; oppure un pannello che si occupa di far si che il player possa comprare munizioni o riparare l'arma.
+Quindi in base a se il giocatore è sopra un InterractableArea e preme il tasto E , l'HidableObject viene reso visibile o invisibile; se invece il giocatore è sopra un InterractableArea e non fa niente viene disegnata solo la scritta "premi E per interagire".
+La SwingScene si occupa di disegnare l'HidableObject e di farlo apparire e scomparire in base al tasto premuto, ed inoltre di far apparire i bottoni corrispondenti al pannello aperto.
 
+![no UML found](./relazioniImgs/HidableObject.png "2.5 InteractableArea e interazione con esse")
 
+**Problema** : avere dei GameObject che possano eseguire degli attacchi e distinguere i nemici dal player.
+
+**Soluzione** : Ho deciso di creare una classe chiamata FighterEntity che estende GameObject , in particolare questa classe ha un attributo di tipo Weapon , in questo modo posso rendere possibile che un GameObject possa eseguire degli attacchi. Inoltre FigherEntity ha un attributo di tipo FighterEntityType che mi permette di distinguere i nemici dal player , in particolare il player ha un FighterEntityType di tipo PLAYER mentre i nemici hanno un FighterEntityType di tipo ENEMY, grazie a questo campo i nemici non possono fare danno ad altri nemici ma solo al player e viceversa.
+Quindi i FighterEntity hanno anche una vita , una vita massima (questo permette anche al player di recuperare vita), ed una damaging area (vedi parte di Alessandro Buono).
+
+![no UML found](./relazioniImgs/HidableObject.png "2.6 InteractableArea e interazione con esse")
 
 #### 2.2 Mattia Senni
 **Problema**:
