@@ -14,18 +14,33 @@ public class MeleeWeapon  extends Weapon{
         this.durability = this.maxDurability;
     }
 
+    /**
+     * get the max durability of the weapon
+     * @return the max durability of the weapon
+     */
     public int getMaxDurability(){
         return maxDurability;
     }
 
+    /**
+     * set the durability of the weapon
+     * @param a the durability to set
+     */
     public void setDurability(int a){
         durability=a;
     }
 
+    /**
+     * get the durability of the weapon
+     * @return the durability of the weapon
+     */
     public int getDurability(){
         return this.durability;
     }
 
+    /**
+     * attack in the direction of the owner
+     */
     @Override
     public void directAttack(){
 

@@ -57,34 +57,57 @@ public abstract class Weapon {
         }
     }
 
-    /* Getters */
+    /**
+     * get the damage of the weapon
+     * @return the damage of the weapon
+     */
     public int getDamage() {
         return damage;
     }
 
+    /**
+     * get the attack speed of the weapon
+     * @return the attack speed of the weapon
+     */
     public double getAttackSpeed() {
         return attackSpeed;
     }
 
+    /**
+     * get the range of the weapon
+     * @return the range of the weapon
+     */
     public int getRange() {
         return range;
     }
 
+    /**
+     * get the speed of the weapon
+     * @return the speed of the weapon
+     */
     public double getSpeed() {
         return speed;
     }
 
+    /**
+     * get the hitbox of the weapon
+     * @return the hitbox of the weapon
+     */
     public RectBoundingBox getHitbox() {
         return hitbox;
     }
 
 
+    /**
+     * get the type of the weapon
+     * @return the type of the weapon
+     */
     public WeaponType getWeaponType(){
         return type;
     }
 
-    /* Setters */
-
+    
+    
     public void setDamage(int damage) {
         if (damage <= 0) {
             throw new IllegalArgumentException("Damage cannot be negative");

@@ -406,10 +406,20 @@ public class World {
         return enemyRegistry;
     }
 
+    /**
+     * add an enemy to the world
+     * @param pos the position of the new enemy
+     * @param conf the configuration of the new enemy
+     */
     public void addEnemy(Point2d pos, EnemyConfiguration conf) {
         enemyRegistry.addEnemy(pos, conf);
     }
 
+    /**
+     * remove an enemy from the world
+     * @param enemyIdentifier the identifier of the enemy to remove
+     * @param killed true if the enemy was killed, false otherwise
+     */
     public void removeEnemy(int enemyIdentifier, boolean killed) {
         if (killed) {
             notifyWorldEvent(new KilledEnemyEvent(enemyRegistry.getEnemy(enemyIdentifier).getEnemyType()));
@@ -417,18 +427,31 @@ public class World {
         enemyRegistry.removeEnemy(enemyIdentifier);
     }
 
+    /**
+     * generate a new enemy in the world
+     */
     public void generateEnemy() {
         enemyRegistry.generateEnemy(this);
     }
 
+    /**
+     * disable all the enemies of the world
+     */
     public void disableEnemies() {
         enemyRegistry.disableEnemies();
     }
 
+    /**
+     * enable all the enemies of the world
+     */
     public void enableEnemies() {
         enemyRegistry.enableEnemies();
     }
 
+    /**
+     * set the spawn of the enemies of the world to active or not
+     * @param active true if the spawn is active, false otherwise
+     */
     public void setEnemySpawnActive(boolean active) {
         if (active) {
             enemyRegistry.resumeSpawn();
@@ -437,10 +460,18 @@ public class World {
         }
     }
 
+    /**
+     * get the health bar of the world
+     * @return the health bar of the world
+     */
     public void handleBossKilled() {
         notifyWorldEvent(new GameOverEvent(WinnerType.PLAYER));
     }
 
+    /**
+     * get the health bar of the world
+     * @return the health bar of the world
+     */
     public void handlePlayerKilled() {
         notifyWorldEvent(new GameOverEvent(WinnerType.ENEMY));
     }
