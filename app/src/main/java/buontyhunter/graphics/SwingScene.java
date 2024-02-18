@@ -111,7 +111,7 @@ public class SwingScene implements Scene, ComponentListener {
 				questButtons.add(button);
 			});
 
-			if(this.currentTrack != Track.HUB_TRACK){
+			if (this.currentTrack != Track.HUB_TRACK) {
 				musicPlayer.closeTrack();
 				musicPlayer.playTrack(Track.HUB_TRACK);
 				currentTrack = Track.HUB_TRACK;
@@ -119,12 +119,6 @@ public class SwingScene implements Scene, ComponentListener {
 
 		} else {
 			questButtons.clear();
-
-			if(this.currentTrack != Track.ADVENTURE_TRACK){
-				musicPlayer.closeTrack();
-				musicPlayer.playTrack(Track.ADVENTURE_TRACK);
-				currentTrack = Track.ADVENTURE_TRACK;
-			}
 		}
 
 		if (inventoryButtons.size() == 0) {
@@ -237,7 +231,9 @@ public class SwingScene implements Scene, ComponentListener {
 				/* drawing the score */
 				g2.setFont(gameOverFont);
 				g2.setColor(Color.BLACK);
-				g2.drawString("Game Over", 100, 100);
+				g2.drawString("Game Over", GameEngine.RESIZATOR.getWINDOW_WIDTH()/2, GameEngine.RESIZATOR.getWINDOW_HEIGHT()/2);
+				musicPlayer.closeTrack();
+				
 
 			} else {
 
@@ -260,10 +256,24 @@ public class SwingScene implements Scene, ComponentListener {
 
 					if ((camera.inScene(e.getPos()) && (e instanceof Teleporter || e instanceof WizardBossEntity))) {
 						e.updateGraphics(gr, scene);
+						if (e instanceof WizardBossEntity) {
+
+							if (currentTrack != Track.BOSS_TRACK) {
+								musicPlayer.closeTrack();
+								musicPlayer.playTrack(Track.BOSS_TRACK);
+								currentTrack = Track.BOSS_TRACK;
+							}
+
+						}
+					} else if (e instanceof WizardBossEntity) {
+						if (currentTrack != Track.ADVENTURE_TRACK) {
+							musicPlayer.closeTrack();
+							musicPlayer.playTrack(Track.ADVENTURE_TRACK);
+							currentTrack = Track.ADVENTURE_TRACK;
+						}
 					}
 				});
 
-				
 				int height = GameEngine.RESIZATOR.getWINDOW_HEIGHT();
 				int width = GameEngine.RESIZATOR.getWINDOW_WIDTH();
 				int minDim = height < width ? height : width;
@@ -290,20 +300,20 @@ public class SwingScene implements Scene, ComponentListener {
 
 				// render the buttons if it is the hub
 				if (IsHub && getQuestPannel().isShow()) {
-					
-					int boardDimension = minDim/5*4;
-					int boardX = width/2 - (boardDimension/2);
-					int boardY = height/2 - (boardDimension/2);
-					int questUnit = boardDimension/4;
+
+					int boardDimension = minDim / 5 * 4;
+					int boardX = width / 2 - (boardDimension / 2);
+					int boardY = height / 2 - (boardDimension / 2);
+					int questUnit = boardDimension / 4;
 					List<Point2d> questPositions = new ArrayList<>();
-					questPositions.add(new Point2d(boardX + (boardDimension / 16 * 3), 
-						boardY  + (boardDimension / 16 * 3)));
-					questPositions.add(new Point2d(boardX + (boardDimension / 16 * 9), 
-						boardY  + (boardDimension / 16 * 3)));
-					questPositions.add(new Point2d(boardX + (boardDimension / 16 * 3), 
-						boardY  + (boardDimension / 16 * 9)));
-					questPositions.add(new Point2d(boardX + (boardDimension / 16 * 9), 
-						boardY  + (boardDimension / 16 * 9)));
+					questPositions.add(new Point2d(boardX + (boardDimension / 16 * 3),
+							boardY + (boardDimension / 16 * 3)));
+					questPositions.add(new Point2d(boardX + (boardDimension / 16 * 9),
+							boardY + (boardDimension / 16 * 3)));
+					questPositions.add(new Point2d(boardX + (boardDimension / 16 * 3),
+							boardY + (boardDimension / 16 * 9)));
+					questPositions.add(new Point2d(boardX + (boardDimension / 16 * 9),
+							boardY + (boardDimension / 16 * 9)));
 
 					questButtons.forEach(btn -> {
 						frame.remove(btn);
@@ -314,8 +324,10 @@ public class SwingScene implements Scene, ComponentListener {
 							.forEach(q -> {
 								var button = questButtons.get(getQuestPannel().getQuests().indexOf(q));
 								button.setVisible(getQuestPannel().isShow());
-								gr.drawQuest((QuestEntity) q, (int)questPositions.get(getQuestPannel().getQuests().indexOf(q)).x, 
-								(int)questPositions.get(getQuestPannel().getQuests().indexOf(q)).y, questUnit, button);
+								gr.drawQuest((QuestEntity) q,
+										(int) questPositions.get(getQuestPannel().getQuests().indexOf(q)).x,
+										(int) questPositions.get(getQuestPannel().getQuests().indexOf(q)).y, questUnit,
+										button);
 								this.add(button, BorderLayout.CENTER);
 							});
 				} else if (IsHub && !getQuestPannel().isShow()) {
@@ -531,25 +543,24 @@ public class SwingScene implements Scene, ComponentListener {
 
 		var dim = frame.getSize();
 
-		if(dim.getWidth() < GameEngine.RESIZATOR.getWINDOW_WIDTH()){
+		if (dim.getWidth() < GameEngine.RESIZATOR.getWINDOW_WIDTH()) {
 			oldRatioX--;
-		}else if(dim.getWidth() > GameEngine.RESIZATOR.getWINDOW_WIDTH()){
+		} else if (dim.getWidth() > GameEngine.RESIZATOR.getWINDOW_WIDTH()) {
 			oldRatioX++;
 		}
 
-		if(dim.getHeight() < GameEngine.RESIZATOR.getWINDOW_HEIGHT()){
+		if (dim.getHeight() < GameEngine.RESIZATOR.getWINDOW_HEIGHT()) {
 			oldRatioY--;
-		}else if(dim.getHeight() > GameEngine.RESIZATOR.getWINDOW_HEIGHT()){
+		} else if (dim.getHeight() > GameEngine.RESIZATOR.getWINDOW_HEIGHT()) {
 			oldRatioY++;
 		}
 
 		GameEngine.RESIZATOR.needToResize(dim);
 
-		if(oldRatioX < GameEngine.RESIZATOR.getRATIO_WIDTH() || oldRatioY < GameEngine.RESIZATOR.getRATIO_HEIGHT()) {
+		if (oldRatioX < GameEngine.RESIZATOR.getRATIO_WIDTH() || oldRatioY < GameEngine.RESIZATOR.getRATIO_HEIGHT()) {
 			ImagePathProvider.resizeAssets();
 			this.assetManager.loadAllAssets();
 		}
-	
 
 		this.panel.setSize(dim);
 		this.panel.setRatioX((int) GameEngine.RESIZATOR.getRATIO_WIDTH());
