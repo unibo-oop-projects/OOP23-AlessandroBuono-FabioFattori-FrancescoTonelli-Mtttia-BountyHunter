@@ -14,6 +14,9 @@ public class WeaponPhysicsComponent extends PhysicsComponent {
         this.owner = owner;
     }
 
+    /**
+     * on attack check if the BoundingBox of the weapon is colliding with the BoundingBox of a fighter entity and if so deal damage to the fighter entity depending on the Type of the FigherEntity
+     */
     @Override
     public void update(long td, GameObject obj, World world) {
         if (((HidableObject) obj).isShow()) {

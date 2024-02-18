@@ -1,8 +1,6 @@
 package buontyhunter.model.AI.enemySpawner;
 
 import buontyhunter.common.Vector2d;
-import buontyhunter.weaponClasses.Weapon;
-import buontyhunter.weaponClasses.WeaponFactory;
 
 import java.util.*;
 

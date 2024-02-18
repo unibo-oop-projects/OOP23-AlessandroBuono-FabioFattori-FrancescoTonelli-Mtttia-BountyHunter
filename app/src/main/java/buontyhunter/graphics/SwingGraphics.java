@@ -1,6 +1,5 @@
 package buontyhunter.graphics;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import javax.swing.JButton;
@@ -48,14 +47,6 @@ public class SwingGraphics implements Graphics {
 
 	private int getYinPixel(Point2d p) {
 		return (int) Math.round(p.y * ratioY);
-	}
-
-	private int getDeltaXinPixel(double dx) {
-		return (int) Math.round(dx * ratioX);
-	}
-
-	private int getDeltaYinPixel(double dy) {
-		return (int) Math.round(dy * ratioY);
 	}
 
 	private Point2d getTilePosInPixel(Point2d p) {
@@ -203,8 +194,6 @@ public class SwingGraphics implements Graphics {
 					propsY * playerSize);
 		}
 
-		var navigatorLine = w.getNavigatorLine();
-		var pathStream = navigatorLine.getPath().stream();
 
 		var b = w.getWizardBoss();
 		if (b.isGpsActive()) {
@@ -458,6 +447,9 @@ public class SwingGraphics implements Graphics {
 					case SWORD:
 						this.drawKnight((EnemyEntity) obj, w, getXinPixel(point.get()), getYinPixel(point.get()));
 						break;
+					default:
+						
+						break;
 				}
 			}
 		}
@@ -623,7 +615,6 @@ public class SwingGraphics implements Graphics {
 		if (boss.getHealth() <= 0)
 			return;
 		var point = camera.getObjectPointInScene(boss.getPos());
-		var bBox = (RectBoundingBox) boss.getBBox();
 		
 		if (point.isPresent()) {
 			

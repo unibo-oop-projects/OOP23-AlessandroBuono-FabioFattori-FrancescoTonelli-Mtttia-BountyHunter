@@ -16,6 +16,10 @@ public class BlacksmithPanel extends HidableObject{
         this.blacksmith = new BlacksmithEntity(GameObjectType.InterractableArea, pos, vel, box, this);
     }
 
+    /**
+     * this method is used to get the blacksmith
+     * @return the blacksmith
+     */
     public BlacksmithEntity getBlacksmith(){
         return this.blacksmith;
     }

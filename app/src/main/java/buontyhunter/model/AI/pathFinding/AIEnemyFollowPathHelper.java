@@ -2,8 +2,6 @@ package buontyhunter.model.AI.pathFinding;
 
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
-import buontyhunter.common.Logger.AppLogger;
-import buontyhunter.common.Logger.LogType;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.World;
 
@@ -13,14 +11,20 @@ public class AIEnemyFollowPathHelper extends AIFollowPathHelper {
         super(pathFinder);
     }
 
+    /**
+     * get next point for follow the player from the best position (based on his arm
+     * type and range)
+     * 
+     * @param enemy
+     * @param speed
+     * @param world
+     * @return
+     */
     public Point2d followPlayer(FighterEntity enemy, Vector2d speed, World world) {
         var currentPos = enemy.getPos();
         var tiles = world.getTileManager().getTiles();
 
         Point2d targetPoint = getTargetPosition(enemy, world);
-        /// AppLogger.getLogger().l
-        /////// (/(//////////DI ANE))   og("Player position: " + world.getPlayer().getPo
-        /// () + ", Target position: " + targetPoint, LogType.MODEL);
 
         return moveItem(currentPos, targetPoint, speed, tiles);
     }

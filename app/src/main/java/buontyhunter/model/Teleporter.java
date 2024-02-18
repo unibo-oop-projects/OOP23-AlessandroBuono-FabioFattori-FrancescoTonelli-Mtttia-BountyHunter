@@ -19,6 +19,10 @@ public class Teleporter extends GameObject {
         this.destination = destination;
     }
 
+    /**
+     * get the map id of the destination of the teleporter
+     * @return the map id of the destination of the teleporter
+     */
     public int getMapIdOfDestination() {
         if (destination == DestinationOfTeleporterType.HUB) {
             return TileManager.HUB_MAP_ID;

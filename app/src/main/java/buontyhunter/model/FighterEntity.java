@@ -3,7 +3,6 @@ package buontyhunter.model;
 import buontyhunter.common.Direction;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
-import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
@@ -33,7 +32,7 @@ public class FighterEntity extends GameObject {
      *                  player, enemy, etc)
      * @param pos       initial position of the entity
      * @param vel       initial velocity of the entity
-     * @param box       TODO: what is this?
+     * @param box       bounding box of the entity
      * @param input     InputComponent that will be used to control the entity while
      *                  playing
      * @param graph     GraphicsComponent that will be used to draw the entity
@@ -77,18 +76,34 @@ public class FighterEntity extends GameObject {
         return maxHealth;
     }
 
+    /**
+     * Set the weapon of the entity
+     * @param w the new weapon of the entity
+     */
     public void setWeapon(Weapon w) {
         weapon = w;
     }
 
+    /**
+     * Get the weapon of the entity
+     * @return the weapon of the entity
+     */
     public Weapon getWeapon() {
         return weapon;
     }
 
+    /**
+     * Get the damaging area of the entity
+     * @return the damaging area of the entity
+     */
     public HidableObject getDamagingArea() {
         return damagingArea;
     }
 
+    /**
+     * This method is used to make the entity take damage
+     * @param damage the amount of damage that the entity will take
+     */
     public void takeDamage(int damage) {
         setHealth(health - damage);
     }
@@ -96,24 +111,40 @@ public class FighterEntity extends GameObject {
     /**
      * Set the health of the entity
      * 
-     * @param healt the new health of the entity (must be positive & > 0)
+     * @param healt the new health of the entity (must be positive and less than the maximum health of the entity)
      */
     public void setHealth(int healt) {
         this.health = healt;
     }
 
+    /**
+     * set the damaging area of the entity
+     * @param da the new damaging area of the entity
+     */
     public void setDamagingArea(HidableObject da) {
         this.damagingArea = da;
     }
 
+    /**
+     * Set the direction of the entity
+     * @param direction the new direction of the entity
+     */
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
+    /**
+     * get the direction of the entity
+     * @return the direction of the entity
+     */
     public Direction getDirection() {
         return this.direction;
     }
 
+    /**
+     * Get the movement state of the entity
+     * @return the movement state of the entity
+     */
     public MovementState getMovementState() {
         switchMovementState();
         return this.movementState;
@@ -127,6 +158,10 @@ public class FighterEntity extends GameObject {
         }
     }
 
+    /**
+     * Get the type of the entity
+     * @return the type of the entity
+     */
     public FighterEntityType getFighterType() {
         return this.type;
     }

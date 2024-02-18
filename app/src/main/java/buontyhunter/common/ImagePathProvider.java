@@ -6,6 +6,9 @@ import java.util.Map;
 import buontyhunter.core.GameEngine;
 
 public class ImagePathProvider {
+    /**
+     * all the image paths
+     */
     public static Map<ImageType, AssetImage> imagePaths = new HashMap<>() {
         {
             put(ImageType.title, new AssetImage() {
@@ -1006,7 +1009,7 @@ public class ImagePathProvider {
                     setWidth(GameEngine.RESIZATOR.getRATIO_WIDTH());
                 }
             });
-            put(ImageType.blacksmith,new AssetImage(){
+            put(ImageType.blacksmith, new AssetImage() {
                 {
                     setPath("utility/blacksmith.png");
                     setType(ImageType.blacksmith);
@@ -1030,15 +1033,23 @@ public class ImagePathProvider {
                     setWidth(GameEngine.RESIZATOR.getRATIO_WIDTH());
                 }
             });
+            put(ImageType.GameOver, new AssetImage() {
+                {
+                    setPath("utility/GAMEOVER.jpeg");
+                    setType(ImageType.GameOver);
+                    setHeight(GameEngine.RESIZATOR.getWINDOW_HEIGHT());
+                    setWidth(GameEngine.RESIZATOR.getWINDOW_WIDTH());
+                }
+            });
         }
     };
 
     public static void resizeAssets() {
         imagePaths.forEach((k, v) -> {
-            if (v.getType() == ImageType.title || 
+            if (v.getType() == ImageType.title ||
                     v.getType() == ImageType.MAPBG ||
                     v.getType() == ImageType.noticeBoard ||
-                    v.getType() == ImageType.blacksmith) {
+                    v.getType() == ImageType.blacksmith || v.getType() == ImageType.GameOver) {
                 v.setHeight(GameEngine.RESIZATOR.getWINDOW_HEIGHT());
                 v.setWidth(GameEngine.RESIZATOR.getWINDOW_WIDTH());
             } else {

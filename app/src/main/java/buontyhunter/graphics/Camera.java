@@ -5,7 +5,6 @@ import java.util.Optional;
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.DestinationOfTeleporterType;
 import buontyhunter.common.Point2d;
-import buontyhunter.common.Resizator;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.TileManager;
@@ -26,24 +25,41 @@ public class Camera implements SceneCamera {
         this.world = world;
     }
 
+    /**
+     * @return half of the width of the world
+     */
     private double getHalfWidth() {
         return GameEngine.RESIZATOR.getWORLD_WIDTH() / 2;
     }
 
+    /**
+     * @return half of the height of the world
+     */
     private double getHalfHeight() {
         return GameEngine.RESIZATOR.getWORLD_HEIGHT() / 2;
     }
 
+    /**
+     * @return the world
+     */
     @Override
     public World getWorld() {
         return world;
     }
 
+    /**
+     * @param p the point to check if it is in the scene
+     * @return true if the point is in the scene
+     */
     @Override
     public boolean inScene(Point2d p) {
         return p.x >= firstTileX && p.x <= lastTileX && p.y >= firstTileY && p.y <= lastTileY;
     }
 
+    /**
+     * @param obj the point of the object to check if it is in the scene
+     * @return an optional containing the point in the scene of the object if it is in the scene,
+     */
     @Override
     public Optional<Point2d> getObjectPointInScene(Point2d obj) {
         if (inScene(obj)) {
@@ -52,6 +68,11 @@ public class Camera implements SceneCamera {
         return Optional.empty();
     }
 
+    /**
+     * this method updates the camera ,  if the player is in the center of the world, the camera will follow the player, otherwise the camera will block in position
+     * @param player the player to follow
+     * @param tm the tile manager 
+     */
     @Override
     public void update(GameObject player, TileManager tm) {
         double halfWidth = getHalfWidth();
@@ -63,7 +84,7 @@ public class Camera implements SceneCamera {
         boolean playerXInCenter = pos.x >= halfWidth && pos.x < (bbox.getWidth() + bbox.getULCorner().x) - halfWidth;
         boolean playerYInCenter = pos.y >= halfHeight && pos.y < (bbox.getHeight() + bbox.getULCorner().y) - halfHeight;
 
-        // TODO: rename variable
+        
         // delta larghezza del mondo senza l'ultima meta
         var tmpX = (bbox.getWidth() + bbox.getULCorner().x) - halfWidth;
         // delta altezza del mondo senza l'ultima meta
@@ -92,36 +113,57 @@ public class Camera implements SceneCamera {
         }
     }
 
+    /**
+     * @return the first tile x showned in the scene
+     */
     @Override
     public int getTileFirstX() {
         return firstTileX;
     }
 
+    /**
+     * @return the first tile y showned in the scene
+     */
     @Override
     public int getTileFirstY() {
         return firstTileY;
     }
 
+    /**
+     * @return the last tile x showned in the scene
+     */
     @Override
     public int getTileLastX() {
         return lastTileX;
     }
 
+    /**
+     * @return the last tile y showned in the scene
+     */
     @Override
     public int getTileLastY() {
         return lastTileY;
     }
 
+    /**
+     * @return the player point
+     */
     @Override
     public Point2d getPlayerPoint() {
         return playerPoint;
     }
 
+    /**
+     * @return the tile offset x
+     */
     @Override
     public double getTileOffsetX() {
         return tileOffsetX;
     }
 
+    /**
+     * @return the tile offset y
+     */
     @Override
     public double getTileOffsetY() {
         return tileOffsetY;

@@ -17,14 +17,25 @@ public class HidableObject extends GameObject {
         this.show = show;
     }
 
+    /**
+     * get the show status of the HidableObject
+     * @return true if the object is shown and false otherwise
+     */
     public boolean isShow() {
         return show;
     }
 
+    /**
+     * set the show status of the HidableObject
+     * @param show the new show status
+     */
     public void setShow(boolean show) {
         this.show = show;
     }
 
+    /**
+     * toggle the show status of the HidableObject
+     */
     public void toggleShow() {
         show = !show;
     }

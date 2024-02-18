@@ -32,7 +32,7 @@ public class GameEngine implements WorldEventListener {
     /**
      * Initialize the game by starting the game loop
      * 
-     * @throws InterruptedException
+     * @throws InterruptedException if the game over screen can't be shown
      */
     public void initGame() throws InterruptedException {
         gameState = new GameState(this);
@@ -41,6 +41,11 @@ public class GameEngine implements WorldEventListener {
         this.mainLoop();
     }
 
+    /**
+     * get the game state of the GameEngine
+     * 
+     * @return the game state of the GameEngine
+     */
     public GameState getGameState() {
         return gameState;
     }
@@ -103,13 +108,13 @@ public class GameEngine implements WorldEventListener {
                 // if the map is not showing, the player can move
                 if (!gameState.getWorld().getMiniMap().isShow()) {
                     gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
-                    gameState.getWorld().processAiInput(controller);
+
                 }
 
                 gameState.getWorld().getMiniMap().updateInput(controller, gameState.getWorld());
             } else {
                 gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
-                gameState.getWorld().processAiInput(controller);
+
             }
 
             gameState.getWorld().getFighterEntities().stream()
@@ -136,7 +141,6 @@ public class GameEngine implements WorldEventListener {
      * Check the event queue and handle the events
      */
     protected void checkEvents() {
-        World scene = gameState.getWorld();
         eventQueue.stream().forEach(ev -> {
             if (ev instanceof ChangeWorldEvent) {
                 if (!gameState.isGameStarted()) {
@@ -152,8 +156,6 @@ public class GameEngine implements WorldEventListener {
                 }
             } else if (ev instanceof GameOverEvent) {
                 var winner = ((GameOverEvent) ev).getWinner();
-
-                
 
             } else if (ev instanceof KilledEnemyEvent) {
                 ((PlayerEntity) gameState.getWorld().getPlayer()).getQuests().stream()
@@ -183,7 +185,7 @@ public class GameEngine implements WorldEventListener {
      * call the renderGameOver method of the view which will draw the game over
      * screen
      * 
-     * @throws InterruptedException
+     * @throws InterruptedException if the game over screen can't be shown
      */
     protected void renderGameOver() throws InterruptedException {
         Thread.sleep(4000);

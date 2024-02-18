@@ -2,14 +2,8 @@ package buontyhunter.graphics;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import javax.imageio.ImageIO;
 
 import buontyhunter.common.AssetImage;
@@ -39,7 +33,8 @@ public class SwingAssetProvider {
     /**
      * get the path to the passed resource
      * 
-     * @param assetPath the path to the assets folder
+     * @param resourceName the path to the assets folder
+     * @return the full path to the resource
      */
     public String fullPath(String resourceName) {
         return assetPath + resourceName;
@@ -80,10 +75,9 @@ public class SwingAssetProvider {
     /**
      * Get an image from the assets folder
      * 
-     * @param path the path to the image
+     * @param type the type of the image to get
      * @return the image if it was loaded successfully, null otherwise
      * @see #fullPath(String)
-     * @see #loadImage(String)
      */
     public Image getImage(ImageType type) {
         if (imageLoaded(type)) {

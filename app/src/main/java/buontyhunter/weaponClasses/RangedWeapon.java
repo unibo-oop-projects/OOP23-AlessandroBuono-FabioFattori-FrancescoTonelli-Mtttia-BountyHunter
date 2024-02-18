@@ -1,7 +1,5 @@
 package buontyhunter.weaponClasses;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import buontyhunter.common.Direction;
 import buontyhunter.common.ImageType;
@@ -11,17 +9,18 @@ import buontyhunter.common.Point2d;
 
 public class RangedWeapon extends Weapon {
 
-    private ImageType bulletSprite;
     private Bullet bullet;
     private int ammo;
     // private List<Bullet> bullets = new ArrayList<Bullet>();
 
-    public RangedWeapon(int damage, double attackSpeed, int range, double speed, ImageType sprite, FighterEntity owner,
-            ImageType bulletSprite, WeaponType weapontype) {
-        super(damage, attackSpeed, range, speed, sprite, owner, weapontype);
+    public RangedWeapon(int damage, double attackSpeed, int range, double speed, ImageType sprite, FighterEntity owner, WeaponType weapontype) {
+        super(damage, attackSpeed, range, speed, owner, weapontype);
         ammo=50;
     }
 
+    /**
+     * update the state of the bulle if it exists
+     */
     public void getShot() {
         if (!owner.getDamagingArea().isShow()) {
             return;
@@ -39,36 +38,54 @@ public class RangedWeapon extends Weapon {
      * }
      */
 
-
+    
+     /**
+      * set the ammo of the weapon
+      * @param ammo the ammo to set
+      */
     public void setAmmo(int ammo){
         this.ammo=ammo;
     }
 
+    /**
+     * subtract ammo from the weapon
+     * @param ammo the ammo to subtract
+     */
     public void subtractAmmo(int ammo){
         this.ammo-=ammo;
     }
 
+    /**
+     * add ammo to the weapon
+     * @param ammo the ammo to add
+     */
     public void addAmmo(int ammo){
         this.ammo+=ammo;
     }
 
+    /**
+     * get the ammo of the weapon
+     * @return the ammo of the weapon
+     */
     public int howManyAmmo(){
         return ammo;
     }
 
+    /**
+     * get the bullet of the weapon
+     * @return the bullet of the weapon
+     */
     public Bullet getBullet() {
         return bullet;
     }
 
+    /**
+     * create a bullet and send it in the direction of the owner
+     */
     @Override
     public void directAttack() {
         if(ammo>0){
-            bullet = new Bullet(bulletSprite, owner.getDirection());
-            // bullets.add(new Bullet(bulletSprite));
-        }
-        else{
-            //TODO metodo che per esempio chiamando una funzione e mettendola a true ti faccia vedere in basso a sinistra "HAI FINITO LE MUNIZIONI, VAI A COMPRARLE DAL FABBRO"
-            //tipo qualcosa.needsBlacksmith(true)
+            bullet = new Bullet(owner.getDirection());
         }
         
 
@@ -78,17 +95,18 @@ public class RangedWeapon extends Weapon {
 
         private double travelDistance;
         private Point2d pos;
-        private ImageType sprite;
         private Direction attackDirection;
 
-        public Bullet(ImageType sprite, Direction direction) {
+        public Bullet( Direction direction) {
             travelDistance = 0;
             this.attackDirection = direction;
-            this.sprite = sprite;
             pos = owner.getPos();
             hitbox = new RectBoundingBox(pos, 1, 1);
         }
 
+        /**
+         * update the state of the bullet
+         */
         public void update() {
 
             // for (Bullet bullet : bullets) {

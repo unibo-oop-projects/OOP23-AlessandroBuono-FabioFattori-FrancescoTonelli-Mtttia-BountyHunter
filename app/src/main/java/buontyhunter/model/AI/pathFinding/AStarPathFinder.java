@@ -14,6 +14,11 @@ public class AStarPathFinder implements PathFinder {
     private boolean passNearObstacle = false;
     private Set<Point2d> invalidPoints = new HashSet<>();
 
+    /**
+     * Create a new A* path finder
+     * 
+     * @param useCache if the path finder should use cache
+     */
     public AStarPathFinder(boolean useCache) {
         this.useCache = useCache;
     }

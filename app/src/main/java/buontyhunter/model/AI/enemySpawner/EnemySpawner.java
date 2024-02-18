@@ -3,16 +3,27 @@ package buontyhunter.model.AI.enemySpawner;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
 import buontyhunter.common.Point2d;
-import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.World;
 
 public interface EnemySpawner {
+
+    /**
+     * this method is used to spawn some or a enemy in the world based on his
+     * implementation
+     * 
+     * @param w the world where the enemy will be spawned
+     */
     void spawn(World w);
 
+    /**
+     * this method is used to generate a point where the enemy will be spawned
+     * 
+     * @param conf the configuration of the enemy
+     * @param w    the world where the enemy will be spawned
+     * @return the point where the enemy will be spawned
+     */
     static Optional<Point2d> generatePoint(EnemyConfiguration conf, World w) {
         var maxDistanceFromPlayer = conf.getMaxSpawnDistanceFromPlayer();
         var minDistanceFromPlayer = conf.getMinSpawnDistanceFromPlayer();
