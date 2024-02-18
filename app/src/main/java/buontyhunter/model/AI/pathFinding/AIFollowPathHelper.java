@@ -21,6 +21,16 @@ public class AIFollowPathHelper {
         pathIterator = emptyIterator();
     }
 
+    /**
+     * get next point for follow the destination from the current position based on
+     * the speed of the entity
+     * 
+     * @param current     current position
+     * @param destination destination position
+     * @param speed       speed of the item
+     * @param map         map of the game
+     * @return new position of the item
+     */
     public Point2d moveItem(Point2d current, Point2d destination, Vector2d speed, List<List<Tile>> map) {
         var movement = current.duplicate();
         if (!canUsePreviousIterator(current, destination)) {

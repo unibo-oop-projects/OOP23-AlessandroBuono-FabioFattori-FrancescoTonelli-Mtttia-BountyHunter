@@ -43,6 +43,7 @@ public class GameEngine implements WorldEventListener {
 
     /**
      * get the game state of the GameEngine
+     * 
      * @return the game state of the GameEngine
      */
     public GameState getGameState() {
@@ -107,13 +108,13 @@ public class GameEngine implements WorldEventListener {
                 // if the map is not showing, the player can move
                 if (!gameState.getWorld().getMiniMap().isShow()) {
                     gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
-                    gameState.getWorld().processAiInput(controller);
+
                 }
 
                 gameState.getWorld().getMiniMap().updateInput(controller, gameState.getWorld());
             } else {
                 gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
-                gameState.getWorld().processAiInput(controller);
+
             }
 
             gameState.getWorld().getFighterEntities().stream()
@@ -155,8 +156,6 @@ public class GameEngine implements WorldEventListener {
                 }
             } else if (ev instanceof GameOverEvent) {
                 var winner = ((GameOverEvent) ev).getWinner();
-
-                
 
             } else if (ev instanceof KilledEnemyEvent) {
                 ((PlayerEntity) gameState.getWorld().getPlayer()).getQuests().stream()

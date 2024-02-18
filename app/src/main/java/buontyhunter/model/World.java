@@ -42,6 +42,7 @@ public class World {
 
     /**
      * get the wizard boss of the world
+     * 
      * @return the wizard boss of the world
      */
     public WizardBossEntity getWizardBoss() {
@@ -50,6 +51,7 @@ public class World {
 
     /**
      * set the wizard boss of the world
+     * 
      * @param wizardBoss the new wizard boss
      */
     public void setWizardBoss(WizardBossEntity wizardBoss) {
@@ -58,6 +60,7 @@ public class World {
 
     /**
      * set the loading bar of the world
+     * 
      * @param loadingBar the new loading bar
      */
     public void setLoadingBar(LoadingBar loadingBar) {
@@ -66,6 +69,7 @@ public class World {
 
     /**
      * set the inventory of the world
+     * 
      * @param inventory the new inventory
      */
     public void setInventory(InventoryObject inventory) {
@@ -74,6 +78,7 @@ public class World {
 
     /**
      * get the inventory of the world
+     * 
      * @return the inventory of the world
      */
     public InventoryObject getInventory() {
@@ -82,6 +87,7 @@ public class World {
 
     /**
      * get the loading bar of the world
+     * 
      * @return the loading bar of the world
      */
     public LoadingBar getLoadingBar() {
@@ -90,6 +96,7 @@ public class World {
 
     /**
      * set the event listener of the world
+     * 
      * @param l the new event listener
      */
     public void setEventListener(WorldEventListener l) {
@@ -98,6 +105,7 @@ public class World {
 
     /**
      * set the health bar of the world
+     * 
      * @param healthbar the new health bar of the world
      */
     public void setHealthBar(HealthBar healthBar) {
@@ -106,6 +114,7 @@ public class World {
 
     /**
      * get the health bar of the world
+     * 
      * @return the health bar of the world
      */
     public void setTileManager(TileManager tileManager, int settedMap) {
@@ -115,6 +124,7 @@ public class World {
 
     /**
      * set the teleporter of the world
+     * 
      * @param tp the new teleporter
      */
     public void setTeleporter(Teleporter tp) {
@@ -123,6 +133,7 @@ public class World {
 
     /**
      * set the player of the world
+     * 
      * @param player the new player
      */
     public void setPlayer(GameObject player) {
@@ -131,6 +142,7 @@ public class World {
 
     /**
      * set the mini map of the world
+     * 
      * @param miniMap the new mini map
      */
     public void setMiniMap(HidableObject miniMap) {
@@ -139,6 +151,7 @@ public class World {
 
     /**
      * set the navigator line of the world
+     * 
      * @param navigatorLine the new navigator line
      */
     public void setNavigatorLine(NavigatorLine navigatorLine) {
@@ -147,6 +160,7 @@ public class World {
 
     /**
      * add an interractable area to the world (ex: quest pannel, blacksmith, etc...)
+     * 
      * @param area the new interractable area
      */
     public void addInterractableArea(InterractableArea area) {
@@ -155,6 +169,7 @@ public class World {
 
     /**
      * get the interractable areas of the world
+     * 
      * @return the interractable areas of the world
      */
     public List<InterractableArea> getInterractableAreas() {
@@ -163,6 +178,7 @@ public class World {
 
     /**
      * get all the enemies of the world
+     * 
      * @return a list of all the enemies of the world
      */
     public List<EnemyEntity> getEnemies() {
@@ -171,6 +187,7 @@ public class World {
 
     /**
      * get the event listener of the world
+     * 
      * @return the event listener of the world
      */
     public WorldEventListener getEventListener() {
@@ -179,6 +196,7 @@ public class World {
 
     /**
      * get a list of all the FigherEntity of the world (player, enemies, boss)
+     * 
      * @return list of all the FigherEntity of the world (player, enemies, boss)
      */
     public List<FighterEntity> getFighterEntities() {
@@ -195,8 +213,13 @@ public class World {
         return entities;
     }
 
+    private boolean isGameInPause() {
+        return (getMiniMap() != null && getMiniMap().isShow()) || (getInventory() != null && getInventory().isShow());
+    }
+
     /**
-     * update all the physics components of all the entities of the world 
+     * update all the physics components of all the entities of the world
+     * 
      * @param dt the time passed since the last update
      */
     public void updateState(long dt) {
@@ -209,9 +232,10 @@ public class World {
             }
         } else {
 
-            if (getMiniMap() != null && getMiniMap().isShow()) {
+            if (isGameInPause()) {
                 return;
             }
+            processAiInput();
             if (player != null) {
                 player.updatePhysics(dt, this);
                 if (((FighterEntity) player).getWeapon() != null) {
@@ -246,18 +270,21 @@ public class World {
     }
 
     /**
-     * process the input of all the enemies of the world 
-     * @param controller the input controller 
+     * process the input of all the enemies of the world
+     * 
+     * @param controller the input controller
      */
-    public void processAiInput(KeyboardInputController controller) {
+    public void processAiInput() {
         for (var enemy : getEnemies()) {
-            enemy.updateInput(controller, this);
+            enemy.updateInput(null, this);
         }
         generateEnemy();
     }
 
     /**
-     * notify the event listener of the world of a new event, add it to the event queue in the gameEngine
+     * notify the event listener of the world of a new event, add it to the event
+     * queue in the gameEngine
+     * 
      * @param ev the new event
      */
     public void notifyWorldEvent(WorldEvent ev) {
@@ -266,6 +293,7 @@ public class World {
 
     /**
      * get the main bounding box of the world
+     * 
      * @return the main bounding box of the world
      */
     public RectBoundingBox getBBox() {
@@ -274,6 +302,7 @@ public class World {
 
     /**
      * get the player of the world
+     * 
      * @return the player of the world
      */
     public GameObject getPlayer() {
@@ -282,6 +311,7 @@ public class World {
 
     /**
      * get the tile manager of the world
+     * 
      * @return the tile manager of the world
      */
     public TileManager getTileManager() {
@@ -290,6 +320,7 @@ public class World {
 
     /**
      * get the health bar of the world
+     * 
      * @return the minimap of the world
      */
     public HidableObject getMiniMap() {
@@ -298,6 +329,7 @@ public class World {
 
     /**
      * get the quest journal of the world
+     * 
      * @return the quest journal of the world
      */
     public HidableObject getQuestJournal() {
@@ -306,6 +338,7 @@ public class World {
 
     /**
      * set the quest journal of the world
+     * 
      * @param questJournal the new quest journal
      */
     public void setQuestJournal(HidableObject questJournal) {
@@ -314,6 +347,7 @@ public class World {
 
     /**
      * get the navigator line of the world
+     * 
      * @return the navigator line of the world
      */
     public NavigatorLine getNavigatorLine() {
@@ -322,6 +356,7 @@ public class World {
 
     /**
      * get the teleporter of the world
+     * 
      * @return the teleporter of the world
      */
     public Teleporter getTeleporter() {
@@ -329,7 +364,9 @@ public class World {
     }
 
     /**
-     * get all the scene entities of the world (FigherEntity, TileManager, Teleporter, HealthBar, MiniMap, QuestJournal, Inventory, InterractableArea)
+     * get all the scene entities of the world (FigherEntity, TileManager,
+     * Teleporter, HealthBar, MiniMap, QuestJournal, Inventory, InterractableArea)
+     * 
      * @return list of all the entities of the world
      */
     public List<GameObject> getSceneEntities() {
@@ -363,6 +400,7 @@ public class World {
 
     /**
      * load a new map in the world
+     * 
      * @param map the id of the new map to load
      */
     public void laodMap(int map) {
@@ -374,6 +412,7 @@ public class World {
 
     /**
      * check if the player is colliding with the boundaries of the world
+     * 
      * @param pos the position of the player
      * @param box the bounding box of the player
      * @return an optional containing the collision if there is one, empty otherwise
@@ -397,9 +436,9 @@ public class World {
         }
     }
 
-
     /**
      * get the EnemyRegistry of the world
+     * 
      * @return the EnemyRegistry of the world
      */
     public EnemyRegistry getEnemyRegistry() {

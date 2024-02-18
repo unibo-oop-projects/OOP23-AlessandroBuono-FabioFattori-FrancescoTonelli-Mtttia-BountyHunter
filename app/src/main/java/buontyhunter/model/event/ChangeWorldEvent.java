@@ -8,6 +8,12 @@ import buontyhunter.model.WorldEvent;
 public class ChangeWorldEvent implements WorldEvent {
     private final World newWorldToSet;
 
+    /**
+     * Create a new ChangeWorldEvent
+     * 
+     * @param newMapId the id of the new map
+     * @param oldWorld the current world
+     */
     public ChangeWorldEvent(int newMapId, World oldWorld) {
         GameFactory f = GameFactory.getInstance();
 
@@ -20,6 +26,11 @@ public class ChangeWorldEvent implements WorldEvent {
         }
     }
 
+    /**
+     * Get the new world
+     * 
+     * @return the new world
+     */
     public World getNewWorld() {
         return this.newWorldToSet;
     }
