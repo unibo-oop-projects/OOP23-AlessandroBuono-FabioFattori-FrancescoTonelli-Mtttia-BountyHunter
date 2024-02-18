@@ -4,6 +4,7 @@ import buontyhunter.common.Point2d;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.PlayerEntity;
+import buontyhunter.model.PlayerIsDeadEvent;
 import buontyhunter.model.RectBoundingBox;
 import buontyhunter.model.World;
 
@@ -29,7 +30,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
         if (health < ((PlayerEntity) obj).getMaxHealth()) {
             if (waitingTime <= 0) {
 
-                health += 3;
+                health += ((PlayerEntity) obj).getMaxHealth()/50;
                 waitingTime = MAX_WAITING_TIME;
                 ((PlayerEntity) obj).setHealth(health);
             } else {
@@ -55,6 +56,11 @@ public class PlayerPhysicsComponent extends PhysicsComponent {
                 obj.setPos(collision.getWhere());
             }
         } while (collisionPresent);
+
+        //check if player is dead
+        if (((PlayerEntity) obj).getHealth() <= 0) {
+            w.notifyWorldEvent(new PlayerIsDeadEvent(w));
+        }
     }
 
 }

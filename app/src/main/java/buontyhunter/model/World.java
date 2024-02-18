@@ -116,6 +116,9 @@ public class World {
         if (player != null) {
             entities.add((FighterEntity) player);
         }
+        if(wizardBoss != null){
+            entities.add(wizardBoss);
+        }
         for (var enemy : getEnemies()) {
             entities.add(enemy);
         }
@@ -278,10 +281,10 @@ public class World {
     }
 
     public void removeEnemy(int enemyIdentifier, boolean killed) {
-        enemyRegistry.removeEnemy(enemyIdentifier);
         if (killed) {
-            // TODO: Add enemy drop
+            notifyWorldEvent(new KilledEnemyEvent(enemyRegistry.getEnemy(enemyIdentifier).getEnemyType()));
         }
+        enemyRegistry.removeEnemy(enemyIdentifier);
     }
 
     public void generateEnemy() {

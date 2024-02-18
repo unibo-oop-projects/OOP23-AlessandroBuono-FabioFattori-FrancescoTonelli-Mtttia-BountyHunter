@@ -7,8 +7,10 @@ import buontyhunter.core.GameEngine;
 
 public class App {
 
-    public static void main(String[] args) {
-        GameEngine engine = new GameEngine();
-        engine.initGame();
+    public static void main(String[] args) throws InterruptedException {
+        while (true) {
+            GameEngine engine = new GameEngine();
+            engine.initGame();
+        }
     }
 }

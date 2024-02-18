@@ -6,30 +6,37 @@ import buontyhunter.model.RectBoundingBox;
 
 public class MeleeWeapon  extends Weapon{
 
+    private final int maxDurability;
     private int durability;
 
     public MeleeWeapon(int damage, int attackSpeed, int range, double speed, ImageType sprite,FighterEntity owner, int durability) {
         super(damage, attackSpeed, range, speed, sprite,owner);
-        this.durability=durability;
+        this.maxDurability=durability;
+        this.durability = this.maxDurability;
     }
 
-    public int getDurability(){
-        return durability;
+    public int getMaxDurability(){
+        return maxDurability;
     }
 
     public void setDurability(int a){
         durability=a;
     }
 
+    public int getDurability(){
+        return this.durability;
+    }
+
     @Override
-    public void directAttack() {
+    public void directAttack(){
 
-        attackDirection=owner.getDirection();
+        if(durability>0){
+            attackDirection=owner.getDirection();
 
-        RectBoundingBox a = ((RectBoundingBox)owner.getBBox());
+            RectBoundingBox a = ((RectBoundingBox)owner.getBBox());
 
-        int offset=1;
-
+            
+            int offset=1;
             switch (attackDirection) {
                 case STAND_LEFT: {
                     Point2d pos = new Point2d(owner.getPos().x-range, owner.getPos().y);
@@ -56,7 +63,14 @@ public class MeleeWeapon  extends Weapon{
                 }
             }
             owner.getDamagingArea().setBBox(hitbox);
-
+            this.setDurability(this.getDurability()-1);
+        } 
+        else{
+           owner.getDamagingArea().setShow(false);
+            //TODO metodo che per esempio chiamando una funzione e mettendola a true ti faccia vedere in basso a sinistra "ARMA ROTTA, PER RIPARARLA VAI DAL FABBRO"
         }
-
+            
+    }
+        
 }
+    

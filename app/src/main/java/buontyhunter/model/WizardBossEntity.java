@@ -12,10 +12,9 @@ import buontyhunter.weaponClasses.Weapon;
 import buontyhunter.weaponClasses.WeaponFactory;
 import buontyhunter.model.AI.AIFactoryImpl;
 import buontyhunter.model.AI.AttackHelper;
-import buontyhunter.model.AI.enemySpawner.EnemyConfiguration;
-import buontyhunter.model.AI.enemySpawner.EnemyConfigurationFactoryImpl;
 import buontyhunter.model.AI.enemySpawner.EnemySpawner;
 import buontyhunter.model.AI.enemySpawner.EnemySpawnerFixed;
+import buontyhunter.model.AI.enemySpawner.EnemyType;
 import buontyhunter.model.AI.pathFinding.AIEnemyFollowPathHelper;
 
 import java.util.*;
@@ -35,11 +34,13 @@ public class WizardBossEntity extends FighterEntity {
     private final AttackHelper attachHelper = new AttackHelper(attachCoolDown);
     private final AttackHelper spawnHelper = new AttackHelper(spawnCoolDown);
     protected FighterEntityType type = FighterEntityType.ENEMY;
+    private boolean die = false;
 
     /**
      * is true if the boss can attack the player (JUST FOR DEBUG PURPOSES)
      */
     private final boolean attackPlayer = true;
+    public static final EnemyType enemyType = EnemyType.WIZARD;
 
     /**
      * is how much the boss have to be near the player for attack him
@@ -122,7 +123,7 @@ public class WizardBossEntity extends FighterEntity {
 
         Point2d nextPos;
 
-        if (checkDie(w)) {
+        if (die || checkDie(w)) {
             return;
         }
 
@@ -155,6 +156,7 @@ public class WizardBossEntity extends FighterEntity {
         }
 
         setPos(nextPos);
+        setBBox(((RectBoundingBox) getBBox()).withPoint(nextPos));
     }
 
     private boolean checkNearPlayer(World world) {
@@ -173,30 +175,27 @@ public class WizardBossEntity extends FighterEntity {
     }
 
     private void tryGenerateEnemy(World w, long elapsed) {
-        var lastSpawn = spawnHelper.getMillisecondSinceLastAttach();
         if (spawnHelper.canAttack(elapsed)) {
             enemySpawner.spawn(w);
-            AppLogger.getLogger().log("BOSSspawn enemy, from last = " + lastSpawn, LogType.MODEL);
         }
     }
 
     private void tryAttackPlayer(World w, long elapsed) {
-        var lastAccatck = attachHelper.getMillisecondSinceLastAttach();
         if (attachHelper.canAttack(elapsed)) {
             var playerPos = w.getPlayer().getPos();
             setDirection(attachHelper.getAttackDirection(getPos(), playerPos));
             getWeapon().directAttack();
             getDamagingArea().setShow(true);
-            AppLogger.getLogger().log("BOSS attack, from last = " + lastAccatck, LogType.MODEL);
         } else if (attachHelper.getMillisecondSinceLastAttach() > 250) {
             getDamagingArea().setShow(false);
         }
     }
 
     private boolean checkDie(World w) {
-        var die = getHealth() <= 0;
+        die = getHealth() <= 0;
         if (die) {
             w.handleBossKilled();
+            w.notifyWorldEvent(new KilledEnemyEvent(EnemyType.WIZARD));
         }
         return die;
     }

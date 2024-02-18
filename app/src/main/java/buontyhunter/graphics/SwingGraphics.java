@@ -284,12 +284,13 @@ public class SwingGraphics implements Graphics {
 			return;
 		var panelPosInPixel = questPannel.getPos();
 		var height = (int) ((RectBoundingBox) questPannel.getBBox()).getHeight();
+		var width = (int) ((RectBoundingBox) questPannel.getBBox()).getWidth();
 
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
 
 		// questa unità di misura mi permette di disegnare le varie parti della bacheca
-		int unit = height / 7;
+		int unit = (height < width ? height : width) / 7;
 		int boardDimension = unit * 5;
 
 		g2.drawImage(assetManager.getImage(ImageType.noticeBoard), unit, unit, boardDimension, boardDimension, null);
@@ -354,17 +355,18 @@ public class SwingGraphics implements Graphics {
 	public void drawBlacksmithPanel(BlacksmithPanel blacksmithPanel, World w) {
 		if (!blacksmithPanel.isShow())
 			return;
-		var panelPosInPixel = blacksmithPanel.getPos();
-		var height = (int) ((RectBoundingBox) blacksmithPanel.getBBox()).getHeight();
 
 		g2.setColor(new Color(0, 0, 0, 0.6f));
-		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
+		g2.fillRect(0, 0, GameEngine.RESIZATOR.getWINDOW_WIDTH(), GameEngine.RESIZATOR.getWINDOW_HEIGHT());
 
-		// questa unità di misura mi permette di disegnare le varie parti della bacheca
-		int unit = height / 7;
-		int boardDimension = unit * 5;
+		int minDim = GameEngine.RESIZATOR.getWINDOW_WIDTH() < GameEngine.RESIZATOR.getWINDOW_HEIGHT() ?
+		GameEngine.RESIZATOR.getWINDOW_WIDTH() : GameEngine.RESIZATOR.getWINDOW_HEIGHT();
 
-		g2.drawImage(assetManager.getImage(ImageType.blacksmith), unit, unit, boardDimension, boardDimension, null);
+		int boardDimension = minDim/5*3;
+		int x = GameEngine.RESIZATOR.getWINDOW_WIDTH()/2 - (boardDimension/2);
+		int y = GameEngine.RESIZATOR.getWINDOW_HEIGHT()/2 - (boardDimension/2);
+
+		g2.drawImage(assetManager.getImage(ImageType.blacksmith), x, y, boardDimension, boardDimension, null);
 
 	}
 
@@ -396,6 +398,10 @@ public class SwingGraphics implements Graphics {
 			g2.setFont(titleFont);
 			g2.drawString(q.getDoblonsReward() + " dobloni", width / 12 + 10,
 					height / 12 + 80 + singleQuestHeight * indexOfQuest);
+			g2.setFont(paragraphFont);
+			g2.setFont(titleFont);
+			g2.drawString("Nemici uccisi: " + q.getnTargetActuallyKilled(), width / 12 + 10,
+					height / 12 + 110 + singleQuestHeight * indexOfQuest);
 		});
 	}
 
@@ -612,10 +618,52 @@ public class SwingGraphics implements Graphics {
 			return;
 		var point = camera.getObjectPointInScene(boss.getPos());
 		var bBox = (RectBoundingBox) boss.getBBox();
+		int x = getXinPixel(point.get());
+		int y = getYinPixel(point.get());
+		
 		if (point.isPresent()) {
-			g2.setColor(Color.MAGENTA);
-			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()), getDeltaXinPixel(bBox.getWidth()),
-					getDeltaYinPixel(bBox.getHeight()));
+			switch (boss.getDirection()) {
+				case STAND_DOWN:
+					g2.drawImage(assetManager.getImage(ImageType.wizardFront), x, y, null);
+					break;
+				case STAND_UP:
+					g2.drawImage(assetManager.getImage(ImageType.wizardBack), x, y, null);
+					break;
+				case STAND_LEFT:
+					g2.drawImage(assetManager.getImage(ImageType.wizardLeft), x, y, null);
+					break;
+				case STAND_RIGHT:
+					g2.drawImage(assetManager.getImage(ImageType.wizardRight), x, y, null);
+					break;
+				case MOVE_UP:
+					if (boss.getMovementState() == MovementState.FIRST) {
+						g2.drawImage(assetManager.getImage(ImageType.wizardBack1), x, y, null);
+					} else {
+						g2.drawImage(assetManager.getImage(ImageType.wizardBack2), x, y, null);
+					}
+					break;
+				case MOVE_DOWN:
+					if (boss.getMovementState() == MovementState.FIRST) {
+						g2.drawImage(assetManager.getImage(ImageType.wizardFront1), x, y, null);
+					} else {
+						g2.drawImage(assetManager.getImage(ImageType.wizardFront2), x, y, null);
+					}
+					break;
+				case MOVE_LEFT:
+					if (boss.getMovementState() == MovementState.FIRST) {
+						g2.drawImage(assetManager.getImage(ImageType.wizardLeft1), x, y, null);
+					} else {
+						g2.drawImage(assetManager.getImage(ImageType.wizardLeft2), x, y, null);
+					}
+					break;
+				case MOVE_RIGHT:
+					if (boss.getMovementState() == MovementState.FIRST) {
+						g2.drawImage(assetManager.getImage(ImageType.wizardRight1), x, y, null);
+					} else {
+						g2.drawImage(assetManager.getImage(ImageType.wizardRight2), x, y, null);
+					}
+					break;
+			}
 		}
 	}
 
@@ -636,12 +684,27 @@ public class SwingGraphics implements Graphics {
 	}
 
 	public void drawInventoryWeapon(Weapon w, int x, int y, JButton btn) {
-		btn.setBounds(x, y, 100, 100);
+
+		int btnDimension = 100;
+
+		btn.setOpaque(true);
+		btn.setBackground(new Color(197, 145, 84));
+		btn.setBorderPainted(true);
+		btn.setBorder(new LineBorder(new Color(130, 91, 49), btnDimension / 10));
+		btn.setBounds(x, y, btnDimension, btnDimension);
+		btn.setLayout(new BorderLayout());
+
+		Image scaled;
+
 		if (w instanceof MeleeWeapon) {
-			btn.setText("Melee");
+			scaled = assetManager.getImage(ImageType.sword).getScaledInstance((int) (btn.getWidth() / (1.5)),
+					(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
 		} else {
-			btn.setText("Ranged");
+			scaled = assetManager.getImage(ImageType.bow).getScaledInstance((int) (btn.getWidth() / (1.5)),
+					(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
 		}
+
+		btn.setIcon(new ImageIcon(scaled));
 	}
 
 	public void drawWeaponIcon(Weapon weapon, int x, int y, int dimension) {
@@ -655,13 +718,17 @@ public class SwingGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawDurabilityBar(Weapon weapon, int x, int y) {
-		int barLenght = 150;
-		int barWidth = 20;
+	public void drawDurabilityBar(Weapon weapon, int x, int y){
+		if(weapon instanceof MeleeWeapon){
+			int barLenght = 150;
+			int barWidth = 20;
 
-		g2.setColor(Color.BLACK);
-		g2.fillRect(x, y, barLenght, barWidth);
-		g2.setColor(Color.GREEN);
-		g2.fillRect(x + 5, y + 5, barLenght - 10, barWidth - 10);
+			g2.setColor(Color.BLACK);
+			g2.fillRect(x, y, barLenght, barWidth);
+			g2.setColor(Color.GREEN);
+			g2.fillRect(x+5, y+5,
+				((MeleeWeapon)weapon).getDurability() * (barLenght - 10) / ((MeleeWeapon)weapon).getMaxDurability(),
+				barWidth - 10);
+		}
 	}
 }

@@ -31,8 +31,10 @@ public class GameEngine implements WorldEventListener {
 
     /**
      * Initialize the game by starting the game loop
+     * 
+     * @throws InterruptedException
      */
-    public void initGame() {
+    public void initGame() throws InterruptedException {
         gameState = new GameState(this);
         controller = new KeyboardInputController();
         view = new SwingScene(gameState, controller, false);
@@ -45,8 +47,10 @@ public class GameEngine implements WorldEventListener {
 
     /**
      * start the game loop and keep it running until the game is over
+     * 
+     * @throws InterruptedException
      */
-    private void mainLoop() {
+    private void mainLoop() throws InterruptedException {
         long previousCycleStartTime = System.currentTimeMillis();
         var drawCount = 0;
         long lastFPSPrint = 0;
@@ -146,13 +150,23 @@ public class GameEngine implements WorldEventListener {
                 } else {
                     this.view.setIsHub(false);
                 }
-            }
-
-            if (ev instanceof GameOverEvent) {
+            } else if (ev instanceof GameOverEvent) {
                 var winner = ((GameOverEvent) ev).getWinner();
 
                 // TODO: Show game over screen based on the winner
 
+            } else if (ev instanceof KilledEnemyEvent) {
+                ((PlayerEntity) gameState.getWorld().getPlayer()).getQuests().stream()
+                        .filter(quest -> quest.getTarget().equals(((KilledEnemyEvent) ev).getKilledType()))
+                        .forEach(quest -> quest.incrementTargetActuallyKilled());
+                ((PlayerEntity) gameState.getWorld().getPlayer())
+                        .depositDoblons(((KilledEnemyEvent) ev).getMoneyReward());
+                ((PlayerEntity) gameState.getWorld().getPlayer()).getQuests().stream()
+                        .filter(quest -> quest.getnTargetActuallyKilled() >= quest.getnTargetToKill())
+                        .forEach(quest -> quest.end((PlayerEntity) gameState.getWorld().getPlayer()));
+
+            } else if (ev instanceof PlayerIsDeadEvent) {
+                gameState.gameOver();
             }
         });
         eventQueue.clear();
@@ -168,8 +182,11 @@ public class GameEngine implements WorldEventListener {
     /**
      * call the renderGameOver method of the view which will draw the game over
      * screen
+     * 
+     * @throws InterruptedException
      */
-    protected void renderGameOver() {
+    protected void renderGameOver() throws InterruptedException {
+        Thread.sleep(4000);
         view.renderGameOver();
     }
 

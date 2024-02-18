@@ -104,4 +104,14 @@ public class PlayerEntity extends FighterEntity {
         return false;
     }
 
+    public void useAmmo(int ammo) {
+        this.ammo -= ammo;
+    }
+
+    public void deadBehaviour() {
+        useAmmo(ammo);
+        withdrawDoblons(doblons);
+        quests.clear();
+    }
+
 }
