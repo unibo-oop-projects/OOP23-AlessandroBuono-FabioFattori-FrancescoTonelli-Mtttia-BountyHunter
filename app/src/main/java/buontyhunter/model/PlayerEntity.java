@@ -84,7 +84,7 @@ public class PlayerEntity extends FighterEntity {
 
     public void giveAmmo(int ammo){
         if(this.weapon instanceof RangedWeapon){
-            ((RangedWeapon) this.weapon).setAmmo(ammo);
+            ((RangedWeapon) this.weapon).addAmmo(ammo);
         }
     }
 
