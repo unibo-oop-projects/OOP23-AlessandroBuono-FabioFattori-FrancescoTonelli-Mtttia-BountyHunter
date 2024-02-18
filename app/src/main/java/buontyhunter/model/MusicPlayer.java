@@ -1,10 +1,10 @@
-package buontyhunter.graphics;
+package buontyhunter.model;
+
+import java.io.InputStream;
 
 public interface MusicPlayer {
     enum Track{
-        hubTrack("C:\\Users\\wfaff\\Documents\\GitHub\\BountyHunter\\app\\src\\main\\resources\\tracks\\hub.wav"),
-        worldTrack("tracks/adventure.wav"),
-        bossTrack("tracks/boss.wav");
+        HUB_TRACK("tracks/hub.wav");
 
         private String path;
         Track(String path){
@@ -14,6 +14,10 @@ public interface MusicPlayer {
         public String getPath(){
             return this.path;
         }
+    }
+
+    default InputStream getTrackInputStream(Track track) {
+        return getClass().getClassLoader().getResourceAsStream(track.getPath());
     }
 
     void playTrack(Track toPlay);

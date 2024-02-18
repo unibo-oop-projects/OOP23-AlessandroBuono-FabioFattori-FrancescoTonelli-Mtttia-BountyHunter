@@ -18,9 +18,9 @@ import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
-import buontyhunter.graphics.MusicPlayer.Track;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
+import buontyhunter.model.MusicPlayer.Track;
 import buontyhunter.weaponClasses.DefaultWeapon;
 import buontyhunter.weaponClasses.MeleeWeapon;
 import buontyhunter.weaponClasses.RangedWeapon;
@@ -96,7 +96,7 @@ public class SwingScene implements Scene, ComponentListener {
 		frame.setVisible(true);
 
 		musicPlayer = new MusicPlayerImpl();
-		musicPlayer.playTrack(Track.hubTrack);
+		musicPlayer.playTrack(Track.HUB_TRACK);
 	}
 
 	public void setIsHub(boolean isHub) {
