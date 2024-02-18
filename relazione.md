@@ -219,6 +219,9 @@ La vera difficoltà è stata realizzare la Camera , più precisamente far si che
 
 #### 2.3 Francesco Tonelli Autovalutazione
 
+Ho lavorato principalmente alla parte grafica del progetto, dando supporto anche agli altri componenti del gruppo quando si è trattato di fare il resize di alcune interfacce in game. Purtroppo, sono stato un po' stretto coi tempi, a causa di impegni lavorativi e universitari, e quindi avrei preferito concentrarmi maggiormente su questo progetto, in quanto me ne sono sempre interessato, e l'idea mi era piaciuta molto già quando la stavamo valutando. Ho avuto modo di implementare cose che non avevo mai fatto, come grafiche più complesse di semplici bottoni, e le musiche di gioco, che per quanto il meccanismo sia piuttosto semplice mi ha incuriosito molto.
+Le difficoltà più grandi che ho dovuto affrontare sono state sicuramente la scalabilità delle grafiche (nello specifico quella dell'hud, del fabbro e delle quest) e le animazioni dei personaggi. Anche 
+
 #### 2.4 Alessandro Buono Autovalutazione
 
 ### 2. Difficoltà Incontrate e Commenti per i Docenti 
