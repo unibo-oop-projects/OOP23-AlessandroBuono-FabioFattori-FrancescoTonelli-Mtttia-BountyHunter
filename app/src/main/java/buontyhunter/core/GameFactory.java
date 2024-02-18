@@ -47,6 +47,7 @@ public class GameFactory {
                 toRet.addWeapon(WeaponFactory.getInstance().createSword(toRet));
                 toRet.addWeapon(WeaponFactory.getInstance().createBow(toRet));
                 toRet.addWeapon(WeaponFactory.getInstance().createBrassKnuckles(toRet));
+                toRet.setWeapon(toRet.getWeapons().get(2));
 
                 return toRet;
         }
