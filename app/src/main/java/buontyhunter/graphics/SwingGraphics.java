@@ -1,16 +1,14 @@
 package buontyhunter.graphics;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 import javax.swing.JButton;
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.*;
-import java.awt.Image;
-import java.awt.BorderLayout;
+
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 import javax.swing.ImageIcon;
@@ -282,41 +280,45 @@ public class SwingGraphics implements Graphics {
 	public void drawQuestPannel(QuestPannel questPannel, World w) {
 		if (!questPannel.isShow())
 			return;
-		var panelPosInPixel = questPannel.getPos();
-		var height = (int) ((RectBoundingBox) questPannel.getBBox()).getHeight();
-		var width = (int) ((RectBoundingBox) questPannel.getBBox()).getWidth();
 
 		g2.setColor(new Color(0, 0, 0, 0.6f));
-		g2.fillRect((int) panelPosInPixel.x, (int) panelPosInPixel.y, height, height);
+		g2.fillRect(0, 0, GameEngine.RESIZATOR.getWINDOW_WIDTH(), GameEngine.RESIZATOR.getWINDOW_HEIGHT());
 
-		// questa unità di misura mi permette di disegnare le varie parti della bacheca
-		int unit = (height < width ? height : width) / 7;
-		int boardDimension = unit * 5;
+		int minDim = GameEngine.RESIZATOR.getWINDOW_WIDTH() < GameEngine.RESIZATOR.getWINDOW_HEIGHT() ?
+		GameEngine.RESIZATOR.getWINDOW_WIDTH() : GameEngine.RESIZATOR.getWINDOW_HEIGHT();
 
-		g2.drawImage(assetManager.getImage(ImageType.noticeBoard), unit, unit, boardDimension, boardDimension, null);
+		int boardDimension = minDim/5*4;
+		int x = GameEngine.RESIZATOR.getWINDOW_WIDTH()/2 - (boardDimension/2);
+		int y = GameEngine.RESIZATOR.getWINDOW_HEIGHT()/2 - (boardDimension/2);
+
+		g2.drawImage(assetManager.getImage(ImageType.noticeBoard), x, y, boardDimension, boardDimension, null);
 
 	}
 
 	public void drawQuest(QuestEntity quest, int x, int y, int unit, JButton btn) {
-		btn.setOpaque(true);
-		btn.setBorderPainted(false);
-		btn.setBounds(x, y, unit, unit);
-		btn.setLayout(new BorderLayout());
+		if(btn.getBounds().isEmpty() || !btn.getBounds().equals(new Rectangle(x, y, unit, unit))){
+			btn.removeAll();
 
-		Image scaled = assetManager.getImage(ImageType.paper).getScaledInstance(btn.getWidth(), btn.getHeight(),
-				Image.SCALE_SMOOTH);
-		btn.setIcon(new ImageIcon(scaled));
+			btn.setOpaque(true);
+			btn.setBorderPainted(false);
+			btn.setBounds(x, y, unit, unit);
+			btn.setLayout(new BorderLayout());
 
-		JLabel nameLabel = new JLabel("<html><br>" + quest.getName() + "</html>");
-		JLabel descriptionLabel = new JLabel(quest.getDescription());
-		JLabel rewardLabel = new JLabel(quest.getDoblonsReward() + " dobloni");
+			Image scaled = assetManager.getImage(ImageType.paper).getScaledInstance(btn.getWidth(), btn.getHeight(),
+					Image.SCALE_SMOOTH);
+			btn.setIcon(new ImageIcon(scaled));
 
-		nameLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
-		descriptionLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 10));
-		rewardLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
-		btn.add(nameLabel, BorderLayout.NORTH);
-		btn.add(descriptionLabel, BorderLayout.CENTER);
-		btn.add(rewardLabel, BorderLayout.SOUTH);
+			String content = "<html><b>" + quest.getName() + 
+				"</b><br><br>" + quest.getDescription() +
+				"<br><br>" + quest.getDoblonsReward() + " dobloni</html>";
+
+
+			JLabel label = new JLabel(content);
+
+			label.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
+				
+			btn.add(label, BorderLayout.CENTER);
+		}
 	}
 
 	public void drawBlacksmithButtons(int index, int x, int y, int unit, JButton btn) {
@@ -618,10 +620,12 @@ public class SwingGraphics implements Graphics {
 			return;
 		var point = camera.getObjectPointInScene(boss.getPos());
 		var bBox = (RectBoundingBox) boss.getBBox();
-		int x = getXinPixel(point.get());
-		int y = getYinPixel(point.get());
 		
 		if (point.isPresent()) {
+			
+			int x = getXinPixel(point.get());
+			int y = getYinPixel(point.get());
+
 			switch (boss.getDirection()) {
 				case STAND_DOWN:
 					g2.drawImage(assetManager.getImage(ImageType.wizardFront), x, y, null);
