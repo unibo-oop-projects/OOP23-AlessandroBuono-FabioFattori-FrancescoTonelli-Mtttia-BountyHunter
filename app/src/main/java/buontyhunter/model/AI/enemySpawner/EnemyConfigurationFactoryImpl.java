@@ -55,15 +55,15 @@ public class EnemyConfigurationFactoryImpl implements EnemyConfigurationFactory 
     }
 
     private EnemyConfiguration swordEnemy() {
-        return general(getSpeed(), 50, 5, EnemyType.SWORD, 1000);
+        return general(getSpeed(), 50, 5, EnemyType.SWORD, 7500);
     }
 
     private EnemyConfiguration throwPunchesEnemy() {
-        return general(getSpeed(), 70, 2, EnemyType.THROW_PUNCHES, 500);
+        return general(getSpeed(), 70, 2, EnemyType.THROW_PUNCHES, 5000);
     }
 
     private EnemyConfiguration archEnemy() {
-        return general(getSpeed(), 40, 14, EnemyType.BOW, 2000);
+        return general(getSpeed(), 40, 14, EnemyType.BOW, 10000);
     }
 
     @Override
@@ -83,7 +83,8 @@ public class EnemyConfigurationFactoryImpl implements EnemyConfigurationFactory 
     @Override
     public EnemyConfiguration random() {
         var rand = new Random();
-        var enemyType = EnemyType.values()[rand.nextInt(EnemyType.values().length)];
+        var availableEnemy = List.of(EnemyType.BOW, EnemyType.SWORD, EnemyType.THROW_PUNCHES);
+        var enemyType = availableEnemy.get(rand.nextInt(availableEnemy.size()));
         return fromType(enemyType);
     }
 }

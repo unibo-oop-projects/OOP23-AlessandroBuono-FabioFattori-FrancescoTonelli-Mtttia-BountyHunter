@@ -28,14 +28,15 @@ public class MeleeWeapon  extends Weapon{
     }
 
     @Override
-    public void directAttack() {
+    public void directAttack(){
 
-        attackDirection=owner.getDirection();
+        if(durability>0){
+            attackDirection=owner.getDirection();
 
-        RectBoundingBox a = ((RectBoundingBox)owner.getBBox());
+            RectBoundingBox a = ((RectBoundingBox)owner.getBBox());
 
-        int offset=1;
-
+            
+            int offset=1;
             switch (attackDirection) {
                 case STAND_LEFT: {
                     Point2d pos = new Point2d(owner.getPos().x-range, owner.getPos().y);
@@ -62,8 +63,14 @@ public class MeleeWeapon  extends Weapon{
                 }
             }
             owner.getDamagingArea().setBBox(hitbox);
-        this.setDurability(this.getDurability()-1);
-
+            this.setDurability(this.getDurability()-1);
+        } 
+        else{
+           owner.getDamagingArea().setShow(false);
+            //TODO metodo che per esempio chiamando una funzione e mettendola a true ti faccia vedere in basso a sinistra "ARMA ROTTA, PER RIPARARLA VAI DAL FABBRO"
+        }
+            
     }
-
+        
 }
+    

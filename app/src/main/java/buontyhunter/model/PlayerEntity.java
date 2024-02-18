@@ -17,7 +17,6 @@ public class PlayerEntity extends FighterEntity {
     private int ammo;
     private List<Weapon> inventoryWeapons;
 
-
     public PlayerEntity(GameObjectType type, Point2d pos, Vector2d vel, BoundingBox box, InputComponent input,
             GraphicsComponent graph, PhysicsComponent phys, int health, int maxHealth, Weapon w) {
         super(type, pos, vel, box, input, graph, phys, health, maxHealth, w);
@@ -57,14 +56,18 @@ public class PlayerEntity extends FighterEntity {
         return new ArrayList<Quest>(quests);
     }
 
-    /** add doblons(in game money) to the player account
+    /**
+     * add doblons(in game money) to the player account
+     * 
      * @param doblons the doblons to deposit
      */
     public void depositDoblons(int doblons) {
         this.doblons += doblons;
     }
 
-    /** withdraw doblons(in game money) from the player account
+    /**
+     * withdraw doblons(in game money) from the player account
+     * 
      * @param doblons the doblons to withdraw
      * @return true if the player has enough doblons to withdraw
      */
@@ -76,19 +79,39 @@ public class PlayerEntity extends FighterEntity {
         return false;
     }
 
-    /** get the amount of doblons(in game money) the player has
+    /**
+     * get the amount of doblons(in game money) the player has
+     * 
      * @return the amount of doblons the player has
      */
     public int getDoblons() {
         return doblons;
     }
 
-    public void giveAmmo(int ammo){
+    public void giveAmmo(int ammo) {
         this.ammo += ammo;
     }
 
-    public int getAmmo(){
+    public int getAmmo() {
         return this.ammo;
     }
-    
+
+    public boolean checkDie(World w) {
+        if (this.getHealth() <= 0) {
+            w.handlePlayerKilled();
+            return true;
+        }
+        return false;
+    }
+
+    public void useAmmo(int ammo) {
+        this.ammo -= ammo;
+    }
+
+    public void deadBehaviour() {
+        useAmmo(ammo);
+        withdrawDoblons(doblons);
+        quests.clear();
+    }
+
 }

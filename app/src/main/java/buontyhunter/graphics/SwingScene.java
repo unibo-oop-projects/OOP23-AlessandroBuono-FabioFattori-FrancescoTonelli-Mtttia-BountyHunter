@@ -78,8 +78,6 @@ public class SwingScene implements Scene, ComponentListener {
 			});
 		}
 
-		
-
 		frame.setResizable(true);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -129,15 +127,15 @@ public class SwingScene implements Scene, ComponentListener {
 			}
 		}
 
-		if(inventoryButtons.size() == 0){
-			((PlayerEntity)gameState.getWorld().getPlayer()).getWeapons().forEach(w->{
+		if (inventoryButtons.size() == 0) {
+			((PlayerEntity) gameState.getWorld().getPlayer()).getWeapons().forEach(w -> {
 				JButton button = new JButton();
 				button.addActionListener(e1 -> {
-					((PlayerEntity)gameState.getWorld().getPlayer()).equipWeapon(w);
+					((PlayerEntity) gameState.getWorld().getPlayer()).equipWeapon(w);
 					frame.repaint();
 				});
 				inventoryButtons.add(button);
-			
+
 			});
 		}
 	}
@@ -152,9 +150,7 @@ public class SwingScene implements Scene, ComponentListener {
 
 	public void renderGameOver() {
 		try {
-			SwingUtilities.invokeAndWait(() -> {
-				frame.repaint();
-			});
+			this.dispose();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -175,8 +171,9 @@ public class SwingScene implements Scene, ComponentListener {
 			return (BlacksmithPanel) gameState.getWorld().getInterractableAreas().stream()
 					.filter(e -> e.getPanel() instanceof BlacksmithPanel).findFirst().get().getPanel();
 		} catch (Exception e) {
-			throw new RuntimeException("BlacksmithPanel not found" + gameState.getWorld().getInterractableAreas().stream()
-					.filter(pan -> pan.getPanel() instanceof BlacksmithPanel).toString());
+			throw new RuntimeException(
+					"BlacksmithPanel not found" + gameState.getWorld().getInterractableAreas().stream()
+							.filter(pan -> pan.getPanel() instanceof BlacksmithPanel).toString());
 		}
 	}
 
@@ -240,9 +237,7 @@ public class SwingScene implements Scene, ComponentListener {
 				/* drawing the score */
 				g2.setFont(gameOverFont);
 				g2.setColor(Color.BLACK);
-
-				g2.setFont(scoreFont);
-				g2.setColor(Color.GREEN);
+				g2.drawString("Game Over", 100, 100);
 
 			} else {
 
@@ -254,7 +249,7 @@ public class SwingScene implements Scene, ComponentListener {
 				camera.update(scene.getPlayer(), scene.getTileManager());
 				SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY, camera, assetManager);
 				gameState.getWorld().getSceneEntities().forEach(e -> {
-					if (!(e instanceof Teleporter)) {
+					if (!(e instanceof Teleporter) && !(e instanceof WizardBossEntity)) {
 						e.updateGraphics(gr, scene);
 					}
 
@@ -263,7 +258,7 @@ public class SwingScene implements Scene, ComponentListener {
 						((FighterEntity) e).getDamagingArea().updateGraphics(gr, scene);
 					}
 
-					if ((camera.inScene(e.getPos()) && e instanceof Teleporter)) {
+					if ((camera.inScene(e.getPos()) && (e instanceof Teleporter || e instanceof WizardBossEntity))) {
 						e.updateGraphics(gr, scene);
 					}
 				});
@@ -274,25 +269,24 @@ public class SwingScene implements Scene, ComponentListener {
 				int minDim = height < width ? height : width;
 				int unit = minDim / 6;
 
-				if(gameState.getWorld().getInventory().isShow()){
+				if (gameState.getWorld().getInventory().isShow()) {
 					inventoryButtons.forEach(btn -> {
 
-					int x = unit + unit / 6;
-					int y = x + unit / 12;
+						int x = unit + unit / 6;
+						int y = x + unit / 12;
 						this.add(btn, BorderLayout.CENTER);
 						var offsetX = (unit + (unit * 2) / 6) * inventoryButtons.indexOf(btn);
-						gr.drawInventoryWeapon(((PlayerEntity)gameState.getWorld().getPlayer()).getWeapons().get(inventoryButtons.indexOf(btn)), x+offsetX, y, btn);
+						gr.drawInventoryWeapon(((PlayerEntity) gameState.getWorld().getPlayer()).getWeapons()
+								.get(inventoryButtons.indexOf(btn)), x + offsetX, y, btn);
 						frame.pack();
 						btn.setVisible(true);
 					});
-				}else{
+				} else {
 					inventoryButtons.forEach(btn -> {
 						this.remove(btn);
 						btn.setVisible(false);
 					});
 				}
-
-				
 
 				// render the buttons if it is the hub
 				if (IsHub && getQuestPannel().isShow()) {
@@ -331,7 +325,7 @@ public class SwingScene implements Scene, ComponentListener {
 					});
 				}
 
-				//render blacksmith
+				// render blacksmith
 				if (IsHub && getBlacksmithPannel().isShow()) {
 					blacksmithButtons.forEach(btn -> {
 						frame.remove(btn);
@@ -358,19 +352,18 @@ public class SwingScene implements Scene, ComponentListener {
 					blacksmithButtons.add(repair);
 					blacksmithButtons.add(sell);
 
-					
-					int x = width/2;
-					int y = height/2 - unit/2;
+					int x = width / 2;
+					int y = height / 2 - unit / 2;
 
 					blacksmithButtons.get(0).setVisible(getBlacksmithPannel().isShow());
-					gr.drawBlacksmithButtons(0, 
-						x - unit*2, y,
-						unit, blacksmithButtons.get(0));
+					gr.drawBlacksmithButtons(0,
+							x - unit * 2, y,
+							unit, blacksmithButtons.get(0));
 					this.add(blacksmithButtons.get(0), BorderLayout.CENTER);
 					blacksmithButtons.get(1).setVisible(getBlacksmithPannel().isShow());
-					gr.drawBlacksmithButtons(1, 
-						x + unit, y, 
-						unit, blacksmithButtons.get(1));
+					gr.drawBlacksmithButtons(1,
+							x + unit, y,
+							unit, blacksmithButtons.get(1));
 					this.add(blacksmithButtons.get(1), BorderLayout.CENTER);
 
 				} else if (IsHub && !getBlacksmithPannel().isShow()) {
@@ -380,38 +373,38 @@ public class SwingScene implements Scene, ComponentListener {
 					});
 				}
 
-				//HUD render
+				// HUD render
 				int weaponContainerDimension = frame.getHeight() / 8;
 				int weaponContainerX = 10;
 				int weaponContainerY = frame.getHeight() - weaponContainerDimension - 50;
 
 				g2.drawImage(assetManager.getImage(ImageType.weaponContainer), weaponContainerX,
-					weaponContainerY, weaponContainerDimension, weaponContainerDimension, null);
-				gr.drawWeaponIcon(((PlayerEntity) gameState.getWorld().getPlayer()).getWeapon(), 
-					weaponContainerX, weaponContainerY, weaponContainerDimension);
+						weaponContainerY, weaponContainerDimension, weaponContainerDimension, null);
+				gr.drawWeaponIcon(((PlayerEntity) gameState.getWorld().getPlayer()).getWeapon(),
+						weaponContainerX, weaponContainerY, weaponContainerDimension);
 
-				gr.drawDurabilityBar(((PlayerEntity) gameState.getWorld().getPlayer()).getWeapon(), 
-					weaponContainerX + weaponContainerDimension + 10,
-					weaponContainerY + (weaponContainerDimension / 3));
+				gr.drawDurabilityBar(((PlayerEntity) gameState.getWorld().getPlayer()).getWeapon(),
+						weaponContainerX + weaponContainerDimension + 10,
+						weaponContainerY + (weaponContainerDimension / 3));
 
 				int iconDimension = weaponContainerDimension / 4;
 				int doblonsIconX = weaponContainerX + weaponContainerDimension + 10;
 				int iconY = weaponContainerY + (3 * (weaponContainerDimension / 4));
-				g2.drawImage(assetManager.getImage(ImageType.doblon), 
-					doblonsIconX, iconY, iconDimension, iconDimension, null);
-				String doblonsAmount = ((PlayerEntity) gameState.getWorld().getPlayer()).getDoblons()+"";
+				g2.drawImage(assetManager.getImage(ImageType.doblon),
+						doblonsIconX, iconY, iconDimension, iconDimension, null);
+				String doblonsAmount = ((PlayerEntity) gameState.getWorld().getPlayer()).getDoblons() + "";
 				g2.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
 				g2.setColor(Color.BLACK);
 				g2.drawString(doblonsAmount, doblonsIconX + iconDimension, iconY + iconDimension);
 
 				int arrowIconX = doblonsIconX + iconDimension + 20;
-				g2.drawImage(assetManager.getImage(ImageType.arrow), 
-					arrowIconX, iconY, iconDimension, iconDimension, null);
-				String ammoAmount = ((PlayerEntity) gameState.getWorld().getPlayer()).getAmmo()+"";
+				g2.drawImage(assetManager.getImage(ImageType.arrow),
+						arrowIconX, iconY, iconDimension, iconDimension, null);
+				String ammoAmount = ((PlayerEntity) gameState.getWorld().getPlayer()).getAmmo() + "";
 				g2.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
 				g2.setColor(Color.BLACK);
 				g2.drawString(ammoAmount, arrowIconX + iconDimension, iconY + iconDimension);
-				
+
 			}
 		}
 
@@ -533,10 +526,30 @@ public class SwingScene implements Scene, ComponentListener {
 	@Override
 	public void componentResized(ComponentEvent e) {
 
+		double oldRatioX = GameEngine.RESIZATOR.getRATIO_WIDTH();
+		double oldRatioY = GameEngine.RESIZATOR.getRATIO_HEIGHT();
+
 		var dim = frame.getSize();
+
+		if(dim.getWidth() < GameEngine.RESIZATOR.getWINDOW_WIDTH()){
+			oldRatioX--;
+		}else if(dim.getWidth() > GameEngine.RESIZATOR.getWINDOW_WIDTH()){
+			oldRatioX++;
+		}
+
+		if(dim.getHeight() < GameEngine.RESIZATOR.getWINDOW_HEIGHT()){
+			oldRatioY--;
+		}else if(dim.getHeight() > GameEngine.RESIZATOR.getWINDOW_HEIGHT()){
+			oldRatioY++;
+		}
+
 		GameEngine.RESIZATOR.needToResize(dim);
-		ImagePathProvider.resizeAssets();
-		this.assetManager.loadAllAssets();
+
+		if(oldRatioX < GameEngine.RESIZATOR.getRATIO_WIDTH() || oldRatioY < GameEngine.RESIZATOR.getRATIO_HEIGHT()) {
+			ImagePathProvider.resizeAssets();
+			this.assetManager.loadAllAssets();
+		}
+	
 
 		this.panel.setSize(dim);
 		this.panel.setRatioX((int) GameEngine.RESIZATOR.getRATIO_WIDTH());

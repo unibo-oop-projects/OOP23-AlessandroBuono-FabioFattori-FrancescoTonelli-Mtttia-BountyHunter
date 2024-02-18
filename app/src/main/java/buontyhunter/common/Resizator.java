@@ -13,7 +13,7 @@ public class Resizator {
     private int WINDOW_HEIGHT;
     private double RATIO_WIDTH;
     private double RATIO_HEIGHT;
-
+    
     public Resizator() {
         this.WINDOW_WIDTH = calculateTheWindowWidthAndHeight();
         this.WINDOW_HEIGHT = WINDOW_WIDTH;
@@ -64,8 +64,6 @@ public class Resizator {
     public void needToResize(Dimension dim) {
         var newWidth = dim.getWidth();
         var newHeight = dim.getHeight();
-
-        // var minDim = newHeight < newWidth ? newHeight : newWidth;
 
         this.RATIO_WIDTH = newWidth / WORLD_WIDTH;
         this.RATIO_HEIGHT = newHeight / WORLD_HEIGHT;

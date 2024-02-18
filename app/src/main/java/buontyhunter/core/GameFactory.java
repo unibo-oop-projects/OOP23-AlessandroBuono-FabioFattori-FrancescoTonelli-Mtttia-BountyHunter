@@ -199,9 +199,10 @@ public class GameFactory {
 
         public List<Quest> createQuests() {
                 List<Quest> quests = new ArrayList<Quest>();
-                quests.add(new QuestEntity("prova1", "descrizione", 10));
-                quests.add(new QuestEntity("prova2", "descrizione", 10));
-                quests.add(new QuestEntity("prova3", "descrizione", 10));
+                quests.add(new QuestEntity("Stregone", "Uccidi lo stregone!", 100 , EnemyType.WIZARD, 1));
+                quests.add(new QuestEntity("flagello zombie", "Uccidi 5 Zombie", 20 , EnemyType.THROW_PUNCHES, 5));
+                quests.add(new QuestEntity("flagello Scheletri", "Uccidi 5 Scheletri", 20 , EnemyType.BOW, 5));
+                quests.add(new QuestEntity("flagello Cavalieri", "Uccidi 5 Cavalieri", 20 , EnemyType.SWORD, 5));
                 return quests;
         }
 
@@ -239,6 +240,8 @@ public class GameFactory {
                 return toRet;
         }
 
+        private static final int playerHEALTH = 500;
+
         public World createOpenWorld(World oldWorld) {
                 var toRet = new World(new RectBoundingBox(new Point2d(0, 0), 20, 18));
                 if (oldWorld != null && oldWorld.getPlayer() != null && oldWorld.getPlayer() instanceof PlayerEntity) {
@@ -246,7 +249,7 @@ public class GameFactory {
                         toRet.setPlayer(oldWorld.getPlayer());
                 } else {
                         toRet.setPlayer(this.createPlayer(GameEngine.OPEN_WORLD_PLAYER_START, Vector2d.symmetrical(0),
-                                        10, 100));
+                        playerHEALTH, playerHEALTH));
                 }
                 if (oldWorld != null) {
                         toRet.setEventListener(oldWorld.getEventListener());
@@ -255,9 +258,9 @@ public class GameFactory {
                 toRet.setMiniMap(this.createMinimap());
                 toRet.setNavigatorLine(this.createNavigatorLine(toRet));
                 toRet.setTeleporter(this.createTeleporterToHub());
-                toRet.setQuestJournal(this.createQuestJournal());
                 toRet.setInventory(this.createInventoryPanel());
                 toRet.setWizardBoss(this.createWizardBoss(toRet));
+                toRet.setQuestJournal(this.createQuestJournal());
                 return toRet;
         }
 
@@ -267,8 +270,8 @@ public class GameFactory {
                         oldWorld.getPlayer().setPos(GameEngine.HUB_PLAYER_START);
                         toRet.setPlayer(oldWorld.getPlayer());
                 } else {
-                        toRet.setPlayer(this.createPlayer(GameEngine.HUB_PLAYER_START, Vector2d.symmetrical(0), 10,
-                                        100));
+                        toRet.setPlayer(this.createPlayer(GameEngine.HUB_PLAYER_START, Vector2d.symmetrical(0), playerHEALTH,
+                        playerHEALTH));
                 }
 
                 // TODO delete this

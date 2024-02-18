@@ -20,5 +20,9 @@ public interface EnemyRegistry {
 
     void disableEnemies();
 
+    void pauseSpawn();
+
+    void resumeSpawn();
+
     void enableEnemies();
 }

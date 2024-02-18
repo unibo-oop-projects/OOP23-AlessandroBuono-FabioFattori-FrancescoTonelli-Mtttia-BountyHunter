@@ -36,12 +36,20 @@
         - [Mattia Senni](#22-mattia-senni)
         - [Francesco Tonelli](#23-francesco-tonelli)
         - [Alessandro Buono](#24-alessandro-buono)
+        - [Codice riadattato per la realizzazzione](#25-codice-riadattato-per-la-realizzazzione)
 - [Sviluppo ](#sviluppo)
     - [1. Testing Automatizzato ](#1-testing-automatizzato)
     - [2. Note di sviluppo ](#2-note-di-sviluppo)
-    - [3. Esempio ](#3-esempio)
+        - [Fabio Fattori](#21-fabio-fattori-sviluppo)
+        - [Mattia Senni](#22-mattia-senni-sviluppo)
+        - [Francesco Tonelli](#23-francesco-tonelli-sviluppo)
+        - [Alessandro Buono](#24-alessandro-buono-sviluppo)
 - [Commenti Finali ](#commenti-finali)
     - [1. Autovalutazione e Lavori Futuri ](#1-autovalutazione-e-lavori-futuri)
+        - [Fabio Fattori](#21-fabio-fattori-autovalutazione)
+        - [Mattia Senni](#22-mattia-senni-autovalutazione)
+        - [Francesco Tonelli](#23-francesco-tonelli-autovalutazione)
+        - [Alessandro Buono](#24-alessandro-buono-autovalutazione)
     - [2. Difficoltà Incontrate e Commenti per i Docenti ](#2-difficoltà-incontrate-e-commenti-per-i-docenti)
 - [Guida Utente ](#guida-utente)
 
@@ -63,7 +71,7 @@ Il software prevede di realizzare una simulazione delle avventure di un cacciato
 
 ### 2. Analisi e Modello del Dominio
 
-Il gioco sarà gestito secondo il modello MVC (Model-View-Controller) , il nostro controller dovrà permettere (uno alla volta) all'input di essere processato,alla fisica delle singole entità di essere aggiornata e alla grafica di essere disegnata. Tale Controller prenderà il nome di GameEngine e sarà il gestore/mediatore tra tutte le entità del gioco.
+Il gioco sarà gestito secondo il modello ECB (Entity-Component-System) , il nostro controller dovrà permettere (uno alla volta) all'input di essere processato,alla fisica delle singole entità di essere aggiornata e alla grafica di essere disegnata. Tale Controller prenderà il nome di GameEngine e sarà il gestore/mediatore tra tutte le entità del gioco.
 Ogni entità presente nel gioco prenderà il nome di GameObject e sarà composta da un componente che gestirà la fisica , un componente che gestirà la grafica,ed un componente che gestirà l'input.
 Pensiamo di trovare particolarmente difficoltosa la gestione della fisica tra i singoli GameObjects e la gestione della grafica , in quanto dovrà essere possibile disegnare ogni singolo GameObject e dovrà essere possibile gestire le collisioni tra loro.
 
@@ -74,12 +82,12 @@ Figura 1: Diagramma UML formato durante l'analisi del dominio, il diagramma most
 # Design 
 ### 1. Architettura 
 
-L'architettura di Buontyhunter segue il pattern MVC (Model-View-Controller) come può essere visto anche nella figura 2.1:
-- Il Controller è il GameEngine che , secondo anche definizione di controller, processa l'input facendo delle operazioni che cambiano lo stato del modello e aggiorna la vista, in particolare dentro al GameEngine è presente il metodo StartGame che fa partire il gameLoop , questo ciclo richiama il metodo redraw(),updatePhysics() e processInput(); di questi metodi solo processInput() è effettivamente implementato in GameEngine mentre , updatePhysics() è effetivamente implementato in World e redraw() è effettivamente implementato in Scene , questo per evitare di non rispettare pattern MVC. 
-- Il Model è composto da tutte le entità del gioco (GameObjects) , da un GameState che appunto serve per avere sempre una panoramica sullo stato del gioco , quindi se il player è morto oppure è vivo e in quale mondo/World il player si trova , e da un World appunto che contiene tutte le entità del gioco che appartengono al mondo corrente,compreso il player, questo mondo può essere cambiato per dal GameState per simulare un teletrasporto oppure un cambio di zona.
-- La View è composta da una Scene che permette a tutte le entità del gioco di essere disegnate , da Un Graphics che contiene tutti i metodi specifici per disegnare i singoli GameObject e da dei GraphicsComponent che appartengono ad ogni GameObject e specificano quale metodo di Graphics chiamare.
-Riteniamo che il pattern MVC sia stato rispettato a dovere e che sia stato implementato correttamente , dato che possiamo sostituire facilmente la view senza dover modificare il model ed il controller , l'importante è che ogni GameObject abbia un GraphicsComponent che gestisca la sua grafica (può direttamente diegnare lui stesso),questo ci consente di riutilizzare il model e il controller in altri progetti.  
+L'architettura di Buontyhunter segue il pattern EBC (Entity-Component-System) come può essere visto anche nella figura 2.1:
+- Il System è il GameEngine che è il gestore di tutta l'applicazione ,egli infatti permette a tutti i Componenti dei GameObject di aggiornarsi, in particolare dentro al GameEngine è presente il metodo StartGame che fa partire il gameLoop , questo ciclo richiama il metodo redraw(),updatePhysics() e processInput(); ognuno di questi metodi si occupa di chiamare i metodi corrispondenti di ogni GameObject presente .
+- Le Entity sono appunti tutte le entità del gioco (GameObjects) , da un GameState che appunto serve per avere sempre una panoramica sullo stato del gioco , quindi se il player è morto oppure è vivo e in quale mondo/World il player si trova , e da un World appunto che contiene tutte le entità del gioco che appartengono al mondo corrente,compreso il player, questo mondo può essere cambiato per dal GameState per simulare un teletrasporto oppure un cambio di zona.
+- I Component sono le parti che compongono le Entity , in particolare ogni GameObject ha un GraphicsComponent che si occupa di disegnare il GameObject , un PhysicsComponent che si occupa di gestire la fisica del GameObject , e un InputComponent che si occupa di gestire l'input del GameObject.
 
+### toDo MODIFICARE 
 ![no UML found](./relazioniImgs/Architettura%201.png "2.1 Diagramma UML che descrive l'architettura del gioco concentrandosi sugli elementi principali che gestiscono i GameObjects")
 
 &#8203;
@@ -172,6 +180,7 @@ Di queste classi si testano :
     - il metodo addQuest
     - il metodo removeQuest
     - se il metodo getQuests ritorna una copia delle quest
+    - controllo se i metodi desposit e withdraw funzionano correttamente
 - Point2d
     - l'equals 
     - l'hashCode
@@ -179,24 +188,46 @@ Di queste classi si testano :
 
 ### 2. Note di sviluppo
 
-note-di-sviluppo
+#### 2.1 Fabio Fattori Sviluppo
 
-### 3. Esempio 
+- Utilizzo di Stream:
+    Usate in tutto il progetto per filtrare e mappare liste di GameObject o di Quest. Quello riportato è un singolo esempio presente nella classe GameEngine.
+    Permalink: 
 
-esempio
+#### 2.2 Mattia Senni Sviluppo
+
+#### 2.3 Francesco Tonelli Sviluppo
+
+#### 2.4 Alessandro Buono Sviluppo
+
+#### 2.5 Codice riadattato per la realizzazzione
+
+Prima di metterci a lavorare sul progetto Fabio Fattori e Mattia Senni hanno partecipato al seminario opzionale 'Game as a Lab' , dove il Professore Ricci ha spiegato come realizzare un gioco in Java , in particolare ha spiegato come realizzare un gioco in Java con il pattern ECS mostrandoci un esempio di gioco realizzato da lui stesso, quel codice alla fine del seminario ci è stato consegnato e noi lo abbiamo riadattato per realizzare il nostro gioco.
+Quindi difatto nel suo codice era presente una bozza di GameEngine , di World , di GameObject , di GraphicsComponent , di PhysicsComponent , di InputComponent , di Scene e di gestione degli eventi nel GameEngine , noi abbiamo preso queste bozze e le abbiamo riadattate per realizzare il progetto cercando ovviamente di capire il più possibile il codice che ci è stato consegnato.
 
 # Commenti Finali 
 
-commenti-finali
-
 ### 1. Autovalutazione e Lavori Futuri 
 
-autovalutazione-e-lavori-futuri
+#### 2.1 Fabio Fattori Autovalutazione
+
+Penso di essere stato molto utile al gruppo , forse perchè ho partecipato al seminario opzionale 'Game as a Lab' , quindi ho avuto modo di capire meglio il codice che ci è stato consegnato e di capire meglio come funziona la struttura interna del gioco.
+Quindi ero la figura nel gruppo a cui tutti si rivolgevano per chiedere chiarimenti su come funzionava il codice alla base del gioco, e per la risoluzione di bug; questo è accaduto anche perchè io sono riuscito a finire gli altri esami della sessione e quindi ho avuto più tempo per dedicarmi al progetto, dopo che ho finito le mie parti obbligatorie ho avuto modo anche di fare molte parti opzionali non richieste.
+La vera difficoltà è stata realizzare la Camera , più precisamente far si che la camera seguisse il player , perchè la telecamera doveva seguire il player ma non doveva uscire dai bordi del mondo , quindi ho dovuto fare un sistema di traslazione della camera che mi permettesse di seguire il player ma che non mi facesse uscire dai bordi del mondo, infatti la parte della camera che gestisce questa cosa è abbastanza illeggibile da una persona che non ha scritto quella parte; quindi in futuro vorrei rifare la parte della camera per renderla più leggibile e più efficiente.
+
+#### 2.2 Mattia Senni Autovalutazione
+
+#### 2.3 Francesco Tonelli Autovalutazione
+
+#### 2.4 Alessandro Buono Autovalutazione
 
 ### 2. Difficoltà Incontrate e Commenti per i Docenti 
 
-difficoltà-incontrate-e-commenti-per-i-docenti
 
 # Guida Utente 
 
-guida-utente
+# Movimento
+- W per muoversi in alto
+- S per muoversi in basso
+- A per muoversi a sinistra
+- D per muoversi a destra
