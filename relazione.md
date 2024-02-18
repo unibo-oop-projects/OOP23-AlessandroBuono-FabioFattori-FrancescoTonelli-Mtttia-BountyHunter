@@ -153,7 +153,7 @@ Questi metodi hanno permesso di ottimizzare il processo di rendering, evitando d
 
 Questo approccio ha contribuito significativamente all'ottimizzazione delle prestazioni del gioco e alla gestione efficiente della visualizzazione degli oggetti in base alla posizione del giocatore nel mondo simulato.
 
-```marmaid
+```mermaid
 classDiagram
   class SwingGraphic {
     +drawGameObject(GameObject obj)
@@ -422,6 +422,60 @@ classDiagram
 
 
 WizardBossEntity --|> FighterEntity
+
+```
+
+**Problema**:
+Mettere in pausa il gioco ogni volta che l'inventario o la mini mappa sono aperti
+
+**Soluzione**:
+Dato che inventario e mini mappa sono degli HidableObject, il World tramite il metodo isShow() può sapere in tempo reale e la mini mappa o l'inventario sono aperti.
+Grazie a questa strategia nel metodo updateState del World ho inserito un costrutto if che controlla se mini mappa e inventario sono aperti ed in caso affermativo non esegue tutti gli update dei GameObject all'interno del World
+
+```mermaid
+classDiagram
+  class World {
+    + InventoryObject getInventory()
+    + HidableObject getMiniMap()
+    + void updateState(long dt)
+  }
+  class HidableObject {
+    + boolean isShow
+    + void setShow(boolean show)
+  }
+
+
+World --> HidableObject : inventory
+World --> HidableObject : miniMap
+```
+
+**Problema**:
+I nemici devono avere un aggiornamento dell'input controllato dall'IA del path finder per potersi muovere esattamente come il player, ma se mini mappa o inventario sono aperti, devono essere bloccati
+
+**Soluzione**:
+Ho passato l'oggetto world all'input controller in modo che i nemici possano sempre sapere dove è situato il player, l'input controller dei nemici non verrà eseguito dal game engine come quello del player, ma dal metodo updateState del world in modo che quando inventario o mini mappa sono aperti i nemici rimangano fermi, inoltre i loro movimenti verranno dettati dal path finder utilizzato, in questo caso l'algoritmo scelto è l'AStarPathFinder
+
+```mermaid
+
+classDiagram
+  class World {
+    + void updateState(long dt)
+    + void processAIInput()
+    + List~EnemyEntity~ getEnemies()
+  }
+
+  class EnemyRegistry {
+    + List~EnemyEntity~ getEnemies()
+  }
+
+  class EnemyEntity {
+    ///tutte le proprietà di enemy entity 
+  }
+
+
+
+World --> EnemyRegistry : enemyRegistry
+EnemyRegistry --> EnemyEntity : enemies[]
 
 ```
 
