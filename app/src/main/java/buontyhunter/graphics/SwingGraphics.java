@@ -13,10 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 import javax.swing.ImageIcon;
 import buontyhunter.model.FighterEntity.MovementState;
-import buontyhunter.weaponClasses.DefaultWeapon;
 import buontyhunter.weaponClasses.MeleeWeapon;
 import buontyhunter.weaponClasses.RangedWeapon;
 import buontyhunter.weaponClasses.Weapon;
+import buontyhunter.weaponClasses.WeaponType;
 
 public class SwingGraphics implements Graphics {
 
@@ -361,12 +361,13 @@ public class SwingGraphics implements Graphics {
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect(0, 0, GameEngine.RESIZATOR.getWINDOW_WIDTH(), GameEngine.RESIZATOR.getWINDOW_HEIGHT());
 
-		int minDim = GameEngine.RESIZATOR.getWINDOW_WIDTH() < GameEngine.RESIZATOR.getWINDOW_HEIGHT() ?
-		GameEngine.RESIZATOR.getWINDOW_WIDTH() : GameEngine.RESIZATOR.getWINDOW_HEIGHT();
+		int minDim = GameEngine.RESIZATOR.getWINDOW_WIDTH() < GameEngine.RESIZATOR.getWINDOW_HEIGHT()
+				? GameEngine.RESIZATOR.getWINDOW_WIDTH()
+				: GameEngine.RESIZATOR.getWINDOW_HEIGHT();
 
-		int boardDimension = minDim/5*3;
-		int x = GameEngine.RESIZATOR.getWINDOW_WIDTH()/2 - (boardDimension/2);
-		int y = GameEngine.RESIZATOR.getWINDOW_HEIGHT()/2 - (boardDimension/2);
+		int boardDimension = minDim / 5 * 3;
+		int x = GameEngine.RESIZATOR.getWINDOW_WIDTH() / 2 - (boardDimension / 2);
+		int y = GameEngine.RESIZATOR.getWINDOW_HEIGHT() / 2 - (boardDimension / 2);
 
 		g2.drawImage(assetManager.getImage(ImageType.blacksmith), x, y, boardDimension, boardDimension, null);
 
@@ -430,11 +431,14 @@ public class SwingGraphics implements Graphics {
 
 	@Override
 	public void drawBullet(RangedWeapon w) {
-		var point = camera.getObjectPointInScene(w.getHitbox().getPoint2d());
-		if (point.isPresent()) {
-			g2.setColor(Color.RED);
-			g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()), getValueInPixel(w.getHitbox().getWidth()),
-					getValueInPixel(w.getHitbox().getHeight()));
+		if (w.getHitbox() != null) {
+			var point = camera.getObjectPointInScene(w.getHitbox().getPoint2d());
+			if (point.isPresent()) {
+				g2.setColor(Color.RED);
+				g2.fillRect(getXinPixel(point.get()), getYinPixel(point.get()),
+						getValueInPixel(w.getHitbox().getWidth()),
+						getValueInPixel(w.getHitbox().getHeight()));
+			}
 		}
 	}
 
@@ -679,11 +683,7 @@ public class SwingGraphics implements Graphics {
 		var player = (PlayerEntity) w.getPlayer();
 
 		player.getWeapons().forEach((weapon) -> {
-			if (weapon instanceof DefaultWeapon) {
-				drawBlacksmithButtons(0, 100, 100, 100, new JButton());
-			} else {
-				drawBlacksmithButtons(1, 100, 100, 100, new JButton());
-			}
+			drawBlacksmithButtons(1, 100, 100, 100, new JButton());
 		});
 	}
 
@@ -700,39 +700,51 @@ public class SwingGraphics implements Graphics {
 
 		Image scaled;
 
-		if (w instanceof MeleeWeapon) {
-			scaled = assetManager.getImage(ImageType.sword).getScaledInstance((int) (btn.getWidth() / (1.5)),
-					(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
-		} else {
-			scaled = assetManager.getImage(ImageType.bow).getScaledInstance((int) (btn.getWidth() / (1.5)),
-					(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
+		switch (w.getWeaponType()) {
+			case SWORD:
+				scaled = assetManager.getImage(ImageType.sword).getScaledInstance((int) (btn.getWidth() / (1.5)),
+						(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
+				break;
+			case BRASSKNUCKLES:
+				scaled = assetManager.getImage(ImageType.brassKnucles).getScaledInstance((int) (btn.getWidth() / (1.5)),
+						(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
+				break;
+			case BOW:
+				scaled = assetManager.getImage(ImageType.bow).getScaledInstance((int) (btn.getWidth() / (1.5)),
+						(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
+				break;
+			default:
+				scaled = assetManager.getImage(ImageType.sword).getScaledInstance((int) (btn.getWidth() / (1.5)),
+						(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
+				break;
 		}
 
 		btn.setIcon(new ImageIcon(scaled));
 	}
 
 	public void drawWeaponIcon(Weapon weapon, int x, int y, int dimension) {
-		if (weapon instanceof MeleeWeapon) {
+		if (weapon.getWeaponType() == WeaponType.SWORD) {
 			g2.drawImage(assetManager.getImage(ImageType.sword), x, y, dimension, dimension, null);
-		} else if (weapon instanceof DefaultWeapon) {
+		} else if (weapon.getWeaponType() == WeaponType.BRASSKNUCKLES) {
 			g2.drawImage(assetManager.getImage(ImageType.brassKnucles), x, y, dimension, dimension, null);
-		} else if (weapon instanceof RangedWeapon) {
+		} else if (weapon.getWeaponType() == WeaponType.BOW) {
 			g2.drawImage(assetManager.getImage(ImageType.bow), x, y, dimension, dimension, null);
 		}
 	}
 
 	@Override
-	public void drawDurabilityBar(Weapon weapon, int x, int y){
-		if(weapon instanceof MeleeWeapon){
+	public void drawDurabilityBar(Weapon weapon, int x, int y) {
+		if (weapon instanceof MeleeWeapon) {
 			int barLenght = 150;
 			int barWidth = 20;
 
 			g2.setColor(Color.BLACK);
 			g2.fillRect(x, y, barLenght, barWidth);
 			g2.setColor(Color.GREEN);
-			g2.fillRect(x+5, y+5,
-				((MeleeWeapon)weapon).getDurability() * (barLenght - 10) / ((MeleeWeapon)weapon).getMaxDurability(),
-				barWidth - 10);
+			g2.fillRect(x + 5, y + 5,
+					((MeleeWeapon) weapon).getDurability() * (barLenght - 10)
+							/ ((MeleeWeapon) weapon).getMaxDurability(),
+					barWidth - 10);
 		}
 	}
 }

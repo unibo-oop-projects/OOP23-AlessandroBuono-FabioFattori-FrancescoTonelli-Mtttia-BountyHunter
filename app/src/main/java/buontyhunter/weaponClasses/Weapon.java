@@ -14,11 +14,12 @@ public abstract class Weapon {
     protected Direction attackDirection;
     protected RectBoundingBox hitbox;
     protected FighterEntity owner;
+    private WeaponType type;
 
     //further implementation
     protected ImageType sprite;
 
-    public Weapon(int damage, double attackSpeed, int range, double speed, ImageType sprite, FighterEntity owner) {
+    public Weapon(int damage, double attackSpeed, int range, double speed, ImageType sprite, FighterEntity owner, WeaponType weaponType) {
         this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.range = range;
@@ -26,8 +27,9 @@ public abstract class Weapon {
         this.sprite = sprite;
         this.owner = owner;
         this.attackDirection = owner.getDirection();
+        type = weaponType;
 
-        directAttack();
+        //directAttack();
     }
 
     public void directAttack() {
@@ -84,6 +86,10 @@ public abstract class Weapon {
         return sprite;
     }
 
+    public WeaponType getWeaponType(){
+        return type;
+    }
+
     /* Setters */
 
     public void setDamage(int damage) {
@@ -119,6 +125,10 @@ public abstract class Weapon {
             throw new IllegalArgumentException("Hitbox cannot be null");
         }
         this.hitbox = hitbox;
+    }
+
+    public void setWeaponType(WeaponType wt){
+        type = wt;
     }
 
 }

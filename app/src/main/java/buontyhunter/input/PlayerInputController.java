@@ -22,27 +22,47 @@ public class PlayerInputController implements InputComponent {
 	public void update(GameObject player, InputController c, World w) {
 		Vector2d vel = new Vector2d(0, 0);
 
-		if (c.isMoveUp()) {
-			isAttacking = false;
-			vel.y -= speed;
-			setDirection(player, Direction.MOVE_UP);
-		} else if (c.isMoveDown()) {
-			isAttacking = false;
-			vel.y += speed;
-			setDirection(player, Direction.MOVE_DOWN);
-		} else if (c.isMoveLeft()) {
-			isAttacking = false;
-			vel.x -= speed;
-			setDirection(player, Direction.MOVE_LEFT);
-		} else if (c.isMoveRight()) {
-			isAttacking = false;
-			vel.x += speed;
-			setDirection(player, Direction.MOVE_RIGHT);
+		switch (((PlayerEntity)player).getDirection()) {
+			case MOVE_UP:{
+				setDirection(player, Direction.STAND_UP);
+				break;
+			}
+			case MOVE_DOWN:{
+				setDirection(player, Direction.STAND_DOWN);
+				break;
+			}
+			case MOVE_LEFT:{
+				setDirection(player, Direction.STAND_LEFT);
+				break;
+			}
+			case MOVE_RIGHT:{
+				setDirection(player, Direction.STAND_RIGHT);
+				break;
+			}
+			default:
+				break;
 		}
-		else if (!isAttacking){
-			setDirection(player, Direction.STAND_DOWN);
+
+		if(!isAttacking){
+			if (c.isMoveUp()) {
+				isAttacking = false;
+				vel.y -= speed;
+				setDirection(player, Direction.MOVE_UP);
+			} else if (c.isMoveDown()) {
+				isAttacking = false;
+				vel.y += speed;
+				setDirection(player, Direction.MOVE_DOWN);
+			}
+			if (c.isMoveRight()) {
+				isAttacking = false;
+				vel.x += speed;
+				setDirection(player, Direction.MOVE_RIGHT);
+			} else if (c.isMoveLeft()) {
+				isAttacking = false;
+				vel.x -= speed;
+				setDirection(player, Direction.MOVE_LEFT);
+			} 
 		}
-	
 
 		if (timer <= 0) {
 			
@@ -71,6 +91,8 @@ public class PlayerInputController implements InputComponent {
 				
 				setDirection(player, Direction.STAND_RIGHT);
 				instanceAttack((PlayerEntity) player, 1, 0);
+			}else{
+				isAttacking=false;
 			}
 
 		} else {
@@ -85,6 +107,8 @@ public class PlayerInputController implements InputComponent {
 			if (timer > 0) {
 				timer--;
 			}
+
+			isAttacking=false;
 		}
 
 		player.setVel(vel);

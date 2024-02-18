@@ -21,7 +21,6 @@ import buontyhunter.core.GameFactory;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 import buontyhunter.model.MusicPlayer.Track;
-import buontyhunter.weaponClasses.DefaultWeapon;
 import buontyhunter.weaponClasses.MeleeWeapon;
 import buontyhunter.weaponClasses.RangedWeapon;
 import buontyhunter.weaponClasses.Weapon;
