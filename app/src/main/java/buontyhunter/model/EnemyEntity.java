@@ -3,8 +3,6 @@ package buontyhunter.model;
 import java.util.*;
 
 import buontyhunter.common.Direction;
-import buontyhunter.common.ExponentialProbability;
-import buontyhunter.common.PercentageHelper;
 import buontyhunter.common.Point2d;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;

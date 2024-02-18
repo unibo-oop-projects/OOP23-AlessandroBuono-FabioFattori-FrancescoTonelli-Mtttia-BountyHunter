@@ -1,7 +1,6 @@
 package buontyhunter.model.AI.enemySpawner;
 
 import buontyhunter.common.Point2d;
-import buontyhunter.common.Vector2d;
 import buontyhunter.model.EnemyEntity;
 import buontyhunter.model.World;
 

@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import buontyhunter.common.Point2d;
-import buontyhunter.common.Vector2d;
-import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.core.WinnerType;
 import buontyhunter.input.KeyboardInputController;

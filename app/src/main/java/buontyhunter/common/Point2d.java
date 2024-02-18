@@ -89,12 +89,24 @@ public class Point2d implements java.io.Serializable, Comparable<Point2d> {
         return Math.abs(y - p.y);
     }
 
+    /**
+     * generate the distance between this point and the passed point
+     * 
+     * @param p the point for calculate the distance
+     * @return
+     */
     public Point2d floorCoordinates() {
         x = Math.floor(x);
         y = Math.floor(y);
         return this;
     }
 
+    /**
+     * generate the distance between this point and the passed point
+     * 
+     * @param p the point for calculate the distance
+     * @return
+     */
     public Point2d ceilCoordinates() {
         x = Math.ceil(x);
         y = Math.ceil(y);

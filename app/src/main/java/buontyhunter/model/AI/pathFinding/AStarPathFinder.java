@@ -11,7 +11,6 @@ public class AStarPathFinder implements PathFinder {
     private final double DIAGONAL_COST = 1; // Cost of diagonal movement
     private final Map<Pair<Point2d, Point2d>, List<Point2d>> pathCache = new HashMap<>();
     private boolean useCache = true;
-    private boolean passNearObstacle = false;
     private Set<Point2d> invalidPoints = new HashSet<>();
 
     public AStarPathFinder(boolean useCache) {
@@ -115,26 +114,6 @@ public class AStarPathFinder implements PathFinder {
         return map.get((int) point.y).get((int) point.x).isSolid() || invalidPoints.contains(point);
     }
 
-    private boolean isNearObstacle(Point2d point, List<List<Tile>> map) {
-        int rows = map.size();
-        int cols = map.get(0).size();
-
-        int[] dx = { -1, 1, 0 }; // Changes in x for left, right, up, down
-        int[] dy = { -1, 1, 0 }; // Changes in y for left, right, up, down
-
-        for (int i = 0; i < 3; i++) {
-            int newX = (int) point.x + dx[i];
-            int newY = (int) point.y + dy[i];
-
-            if (newX >= 0 && newX < rows && newY >= 0 && newY < cols) {
-                if (map.get(newY).get(newX).isSolid()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
 
     private List<Point2d> getNeighbors(Point2d point, List<List<Tile>> map) {
         List<Point2d> neighbors = new ArrayList<>();

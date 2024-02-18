@@ -18,10 +18,16 @@ public class Vector2d implements java.io.Serializable {
         return new Vector2d(val, val);
     }
 
+    /**
+     * sum to this vector the passed vector
+     * @param v the vector to sum to this vector
+     * @return the new vector after the sum
+     */
     public Vector2d sum(Vector2d v) {
         return new Vector2d(x + v.x, y + v.y);
     }
 
+    
     public double module() {
         return (double) Math.sqrt(x * x + y * y);
     }

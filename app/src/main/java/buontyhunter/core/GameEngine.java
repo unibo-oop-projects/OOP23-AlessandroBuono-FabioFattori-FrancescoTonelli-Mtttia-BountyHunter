@@ -41,6 +41,10 @@ public class GameEngine implements WorldEventListener {
         this.mainLoop();
     }
 
+    /**
+     * get the game state of the GameEngine
+     * @return the game state of the GameEngine
+     */
     public GameState getGameState() {
         return gameState;
     }
@@ -136,7 +140,6 @@ public class GameEngine implements WorldEventListener {
      * Check the event queue and handle the events
      */
     protected void checkEvents() {
-        World scene = gameState.getWorld();
         eventQueue.stream().forEach(ev -> {
             if (ev instanceof ChangeWorldEvent) {
                 if (!gameState.isGameStarted()) {

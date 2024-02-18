@@ -6,29 +6,18 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.RenderingHints;
-
 import javax.swing.*;
-
-import org.checkerframework.checker.units.qual.min;
-
 import buontyhunter.common.ImagePathProvider;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.core.GameEngine;
-import buontyhunter.core.GameFactory;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 import buontyhunter.model.MusicPlayer.Track;
-import buontyhunter.weaponClasses.MeleeWeapon;
-import buontyhunter.weaponClasses.RangedWeapon;
-import buontyhunter.weaponClasses.Weapon;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.*;
-import java.util.stream.Collectors;
 import java.awt.BorderLayout;
 
 public class SwingScene implements Scene, ComponentListener {
@@ -172,7 +161,6 @@ public class SwingScene implements Scene, ComponentListener {
 
 	public class ScenePanel extends JPanel implements KeyListener {
 
-		private int centerX;
 		protected int centerY;
 		protected double ratioX;
 		protected double ratioY;
