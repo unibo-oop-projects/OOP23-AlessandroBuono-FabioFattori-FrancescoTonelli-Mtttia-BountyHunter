@@ -2,6 +2,9 @@ package buontyhunter.model.AI.enemySpawner;
 
 import buontyhunter.common.Vector2d;
 
+/**
+ * this interface is used to represent the configuration of an enemy
+ */
 public interface EnemyConfiguration {
     /**
      * @return the speed of the enemy

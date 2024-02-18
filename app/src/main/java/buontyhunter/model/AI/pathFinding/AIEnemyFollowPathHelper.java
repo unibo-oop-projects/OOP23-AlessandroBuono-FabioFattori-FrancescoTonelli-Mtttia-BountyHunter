@@ -5,8 +5,16 @@ import buontyhunter.common.Vector2d;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.World;
 
+/**
+ * this class is used to help the enemy to follow the path
+ */
 public class AIEnemyFollowPathHelper extends AIFollowPathHelper {
 
+    /**
+     * constructor
+     * 
+     * @param pathFinder the path finder
+     */
     public AIEnemyFollowPathHelper(PathFinder pathFinder) {
         super(pathFinder);
     }
@@ -15,10 +23,10 @@ public class AIEnemyFollowPathHelper extends AIFollowPathHelper {
      * get next point for follow the player from the best position (based on his arm
      * type and range)
      * 
-     * @param enemy
-     * @param speed
-     * @param world
-     * @return
+     * @param enemy the enemy
+     * @param speed the speed of the enemy
+     * @param world the world
+     * @return the next point
      */
     public Point2d followPlayer(FighterEntity enemy, Vector2d speed, World world) {
         var currentPos = enemy.getPos();

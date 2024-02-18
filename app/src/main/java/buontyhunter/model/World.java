@@ -273,7 +273,6 @@ public class World {
     /**
      * process the input of all the enemies of the world
      * 
-     * @param controller the input controller
      */
     public void processAiInput() {
         for (var enemy : getEnemies()) {

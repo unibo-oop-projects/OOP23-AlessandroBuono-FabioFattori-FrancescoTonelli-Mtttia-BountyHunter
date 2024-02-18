@@ -5,6 +5,9 @@ import buontyhunter.model.TileManager;
 import buontyhunter.model.World;
 import buontyhunter.model.WorldEvent;
 
+/**
+ * The change world event
+ */
 public class ChangeWorldEvent implements WorldEvent {
     private final World newWorldToSet;
 

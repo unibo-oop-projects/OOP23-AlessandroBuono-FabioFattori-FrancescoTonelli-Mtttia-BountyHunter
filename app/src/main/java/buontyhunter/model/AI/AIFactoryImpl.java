@@ -5,6 +5,9 @@ import buontyhunter.model.AI.pathFinding.AIFollowPathHelper;
 import buontyhunter.model.AI.pathFinding.PathFinder;
 import buontyhunter.model.AI.pathFinding.PathFinderFactory;
 
+/**
+ * The AI factory
+ */
 public class AIFactoryImpl implements AIFactory {
 
     @Override

@@ -7,6 +7,9 @@ import java.util.Set;
 
 import buontyhunter.model.Tile;
 
+/**
+ * Path finder
+ */
 public interface PathFinder {
 
     /**

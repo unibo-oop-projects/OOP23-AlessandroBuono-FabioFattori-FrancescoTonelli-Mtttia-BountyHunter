@@ -6,6 +6,9 @@ import buontyhunter.model.World;
 
 import java.util.List;
 
+/**
+ * this interface is used to manage the enemies
+ */
 public interface EnemyRegistry {
     /**
      * this method is used to add an enemy to the registry

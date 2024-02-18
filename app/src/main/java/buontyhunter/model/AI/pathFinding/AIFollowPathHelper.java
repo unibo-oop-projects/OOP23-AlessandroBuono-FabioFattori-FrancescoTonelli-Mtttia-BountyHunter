@@ -7,6 +7,9 @@ import buontyhunter.common.Vector2d;
 import buontyhunter.model.Tile;
 import buontyhunter.model.TileType;
 
+/**
+ * this class is used to help the AI to follow a path
+ */
 public class AIFollowPathHelper {
     PathFinder pathFinder;
     Point2d current;
@@ -16,6 +19,11 @@ public class AIFollowPathHelper {
     Point2d nextPoint = null;
     List<Point2d> actualPath = new ArrayList<>();
 
+    /**
+     * Create a new AI follow path helper
+     * 
+     * @param pathFinder the path finder
+     */
     public AIFollowPathHelper(PathFinder pathFinder) {
         this.pathFinder = pathFinder;
         pathIterator = emptyIterator();
@@ -83,6 +91,11 @@ public class AIFollowPathHelper {
         return movement;
     }
 
+    /**
+     * get the last distance of the path
+     * 
+     * @return the last distance of the path
+     */
     public int getLastPathDistance() {
         return actualPath.size();
     }

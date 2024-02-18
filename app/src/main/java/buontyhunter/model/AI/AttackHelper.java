@@ -6,6 +6,9 @@ import buontyhunter.common.PercentageHelper;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Probability;
 
+/**
+ * this class is used to help the attack
+ */
 public class AttackHelper {
     private long millisecondCheck = 1000;
     private Probability probability;

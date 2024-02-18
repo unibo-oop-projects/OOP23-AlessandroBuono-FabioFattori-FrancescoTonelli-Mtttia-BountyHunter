@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.World;
 
+/**
+ * this interface is used to spawn an enemy in the world
+ */
 public interface EnemySpawner {
 
     /**
