@@ -1,16 +1,14 @@
 package buontyhunter.graphics;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 import javax.swing.JButton;
 import buontyhunter.core.GameEngine;
 import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.*;
-import java.awt.Image;
-import java.awt.BorderLayout;
+
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 import javax.swing.ImageIcon;
@@ -298,25 +296,29 @@ public class SwingGraphics implements Graphics {
 	}
 
 	public void drawQuest(QuestEntity quest, int x, int y, int unit, JButton btn) {
-		btn.setOpaque(true);
-		btn.setBorderPainted(false);
-		btn.setBounds(x, y, unit, unit);
-		btn.setLayout(new BorderLayout());
+		if(btn.getBounds().isEmpty() || !btn.getBounds().equals(new Rectangle(x, y, unit, unit))){
+			btn.removeAll();
 
-		Image scaled = assetManager.getImage(ImageType.paper).getScaledInstance(btn.getWidth(), btn.getHeight(),
-				Image.SCALE_SMOOTH);
-		btn.setIcon(new ImageIcon(scaled));
+			btn.setOpaque(true);
+			btn.setBorderPainted(false);
+			btn.setBounds(x, y, unit, unit);
+			btn.setLayout(new BorderLayout());
 
-		JLabel nameLabel = new JLabel("<html><br>" + quest.getName() + "</html>");
-		JLabel descriptionLabel = new JLabel(quest.getDescription());
-		JLabel rewardLabel = new JLabel(quest.getDoblonsReward() + " dobloni");
+			Image scaled = assetManager.getImage(ImageType.paper).getScaledInstance(btn.getWidth(), btn.getHeight(),
+					Image.SCALE_SMOOTH);
+			btn.setIcon(new ImageIcon(scaled));
 
-		nameLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 12));
-		descriptionLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 10));
-		rewardLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
-		btn.add(nameLabel, BorderLayout.NORTH);
-		btn.add(descriptionLabel, BorderLayout.CENTER);
-		btn.add(rewardLabel, BorderLayout.SOUTH);
+			String content = "<html><b>" + quest.getName() + 
+				"</b><br><br>" + quest.getDescription() +
+				"<br><br>" + quest.getDoblonsReward() + " dobloni</html>";
+
+
+			JLabel label = new JLabel(content);
+
+			label.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 11));
+				
+			btn.add(label, BorderLayout.CENTER);
+		}
 	}
 
 	public void drawBlacksmithButtons(int index, int x, int y, int unit, JButton btn) {

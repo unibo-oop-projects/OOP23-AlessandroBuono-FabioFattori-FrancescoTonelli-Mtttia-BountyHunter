@@ -18,6 +18,7 @@ import buontyhunter.common.ImageType;
 import buontyhunter.common.Point2d;
 import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
+import buontyhunter.graphics.MusicPlayer.Track;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 import buontyhunter.weaponClasses.DefaultWeapon;
@@ -43,6 +44,7 @@ public class SwingScene implements Scene, ComponentListener {
 	private final List<JButton> blacksmithButtons = new ArrayList<>();
 	private final List<JButton> inventoryButtons = new ArrayList<>();
 	protected final SwingAssetProvider assetManager;
+	private final MusicPlayer musicPlayer;
 
 	public SwingScene(GameState gameState, KeyboardInputController controller, boolean IsHub) {
 
@@ -92,6 +94,9 @@ public class SwingScene implements Scene, ComponentListener {
 		frame.add(panel, BorderLayout.CENTER);
 		frame.pack();
 		frame.setVisible(true);
+
+		musicPlayer = new MusicPlayerImpl();
+		musicPlayer.playTrack(Track.hubTrack);
 	}
 
 	public void setIsHub(boolean isHub) {
