@@ -15,10 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 import javax.swing.ImageIcon;
 import buontyhunter.model.FighterEntity.MovementState;
-import buontyhunter.weaponClasses.DefaultWeapon;
 import buontyhunter.weaponClasses.MeleeWeapon;
 import buontyhunter.weaponClasses.RangedWeapon;
 import buontyhunter.weaponClasses.Weapon;
+import buontyhunter.weaponClasses.WeaponType;
 
 public class SwingGraphics implements Graphics {
 
@@ -677,11 +677,7 @@ public class SwingGraphics implements Graphics {
 		var player = (PlayerEntity) w.getPlayer();
 
 		player.getWeapons().forEach((weapon) -> {
-			if (weapon instanceof DefaultWeapon) {
-				drawBlacksmithButtons(0, 100, 100, 100, new JButton());
-			} else {
-				drawBlacksmithButtons(1, 100, 100, 100, new JButton());
-			}
+			drawBlacksmithButtons(1, 100, 100, 100, new JButton());
 		});
 	}
 
@@ -710,11 +706,11 @@ public class SwingGraphics implements Graphics {
 	}
 
 	public void drawWeaponIcon(Weapon weapon, int x, int y, int dimension) {
-		if (weapon instanceof MeleeWeapon) {
+		if (weapon.getWeaponType()==WeaponType.SWORD) {
 			g2.drawImage(assetManager.getImage(ImageType.sword), x, y, dimension, dimension, null);
-		} else if (weapon instanceof DefaultWeapon) {
+		} else if (weapon.getWeaponType()==WeaponType.BRASSKNUCKLES) {
 			g2.drawImage(assetManager.getImage(ImageType.brassKnucles), x, y, dimension, dimension, null);
-		} else if (weapon instanceof RangedWeapon) {
+		} else if (weapon.getWeaponType()==WeaponType.BOW) {
 			g2.drawImage(assetManager.getImage(ImageType.bow), x, y, dimension, dimension, null);
 		}
 	}

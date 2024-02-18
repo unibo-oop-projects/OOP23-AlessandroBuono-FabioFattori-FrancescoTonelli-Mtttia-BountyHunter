@@ -18,7 +18,6 @@ import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
-import buontyhunter.weaponClasses.DefaultWeapon;
 import buontyhunter.weaponClasses.MeleeWeapon;
 import buontyhunter.weaponClasses.RangedWeapon;
 import buontyhunter.weaponClasses.Weapon;

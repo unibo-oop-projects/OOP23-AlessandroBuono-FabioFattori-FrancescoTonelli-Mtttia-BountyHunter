@@ -8,8 +8,8 @@ import buontyhunter.core.GameFactory;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
-import buontyhunter.weaponClasses.DefaultWeapon;
 import buontyhunter.weaponClasses.Weapon;
+import buontyhunter.weaponClasses.WeaponFactory;
 
 public class FighterEntity extends GameObject {
 
@@ -54,7 +54,7 @@ public class FighterEntity extends GameObject {
         }
         weapon = w;
         if (weapon == null) {
-            weapon = new DefaultWeapon(this);
+            weapon = WeaponFactory.getInstance().createBrassKnuckles(this);
         }
         damagingArea = GameFactory.getInstance().WeaponDamagingArea((FighterEntity) this, new Vector2d(0, 0));
     }
