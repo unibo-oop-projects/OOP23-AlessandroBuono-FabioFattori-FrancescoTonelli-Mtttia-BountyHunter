@@ -120,7 +120,7 @@ public class SwingScene implements Scene, ComponentListener {
 		} else {
 			questButtons.clear();
 
-			if(this.currentTrack == Track.ADVENTURE_TRACK){
+			if(this.currentTrack != Track.ADVENTURE_TRACK){
 				musicPlayer.closeTrack();
 				musicPlayer.playTrack(Track.ADVENTURE_TRACK);
 				currentTrack = Track.ADVENTURE_TRACK;
