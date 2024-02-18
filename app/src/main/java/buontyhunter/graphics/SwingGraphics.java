@@ -359,13 +359,13 @@ public class SwingGraphics implements Graphics {
 		g2.setColor(new Color(0, 0, 0, 0.6f));
 		g2.fillRect(0, 0, GameEngine.RESIZATOR.getWINDOW_WIDTH(), GameEngine.RESIZATOR.getWINDOW_HEIGHT());
 
-		int minDim = GameEngine.RESIZATOR.getWINDOW_WIDTH() < GameEngine.RESIZATOR.getWINDOW_HEIGHT() 
-		? GameEngine.RESIZATOR.getWINDOW_WIDTH() 
-		: GameEngine.RESIZATOR.getWINDOW_HEIGHT();
+		int minDim = GameEngine.RESIZATOR.getWINDOW_WIDTH() < GameEngine.RESIZATOR.getWINDOW_HEIGHT()
+				? GameEngine.RESIZATOR.getWINDOW_WIDTH()
+				: GameEngine.RESIZATOR.getWINDOW_HEIGHT();
 
-		int boardDimension = minDim/5*3;
-		int x = GameEngine.RESIZATOR.getWINDOW_WIDTH()/2 - (boardDimension/2);
-		int y = GameEngine.RESIZATOR.getWINDOW_HEIGHT()/2 - (boardDimension/2);
+		int boardDimension = minDim / 5 * 3;
+		int x = GameEngine.RESIZATOR.getWINDOW_WIDTH() / 2 - (boardDimension / 2);
+		int y = GameEngine.RESIZATOR.getWINDOW_HEIGHT() / 2 - (boardDimension / 2);
 
 		g2.drawImage(assetManager.getImage(ImageType.blacksmith), x, y, boardDimension, boardDimension, null);
 
@@ -622,7 +622,7 @@ public class SwingGraphics implements Graphics {
 		var bBox = (RectBoundingBox) boss.getBBox();
 		int x = getXinPixel(point.get());
 		int y = getYinPixel(point.get());
-		
+
 		if (point.isPresent()) {
 			switch (boss.getDirection()) {
 				case STAND_DOWN:
@@ -694,40 +694,51 @@ public class SwingGraphics implements Graphics {
 
 		Image scaled;
 
-		if (w instanceof MeleeWeapon) {
-			scaled = assetManager.getImage(ImageType.sword).getScaledInstance((int) (btn.getWidth() / (1.5)),
-					(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
-		} else {
-			scaled = assetManager.getImage(ImageType.bow).getScaledInstance((int) (btn.getWidth() / (1.5)),
-					(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
+		switch (w.getWeaponType()) {
+			case SWORD:
+				scaled = assetManager.getImage(ImageType.sword).getScaledInstance((int) (btn.getWidth() / (1.5)),
+						(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
+				break;
+			case BRASSKNUCKLES:
+				scaled = assetManager.getImage(ImageType.brassKnucles).getScaledInstance((int) (btn.getWidth() / (1.5)),
+						(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
+				break;
+			case BOW:
+				scaled = assetManager.getImage(ImageType.bow).getScaledInstance((int) (btn.getWidth() / (1.5)),
+						(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
+				break;
+			default:
+				scaled = assetManager.getImage(ImageType.sword).getScaledInstance((int) (btn.getWidth() / (1.5)),
+						(int) (btn.getHeight() / (1.5)), Image.SCALE_SMOOTH);
+				break;
 		}
 
 		btn.setIcon(new ImageIcon(scaled));
 	}
 
 	public void drawWeaponIcon(Weapon weapon, int x, int y, int dimension) {
-		if (weapon.getWeaponType()==WeaponType.SWORD) {
+		if (weapon.getWeaponType() == WeaponType.SWORD) {
 			g2.drawImage(assetManager.getImage(ImageType.sword), x, y, dimension, dimension, null);
-		} else if (weapon.getWeaponType()==WeaponType.BRASSKNUCKLES) {
+		} else if (weapon.getWeaponType() == WeaponType.BRASSKNUCKLES) {
 			g2.drawImage(assetManager.getImage(ImageType.brassKnucles), x, y, dimension, dimension, null);
-		} else if (weapon.getWeaponType()==WeaponType.BOW) {
+		} else if (weapon.getWeaponType() == WeaponType.BOW) {
 			g2.drawImage(assetManager.getImage(ImageType.bow), x, y, dimension, dimension, null);
 		}
 	}
 
 	@Override
-	public void drawDurabilityBar(Weapon weapon, int x, int y){
-		if(weapon instanceof MeleeWeapon){
+	public void drawDurabilityBar(Weapon weapon, int x, int y) {
+		if (weapon instanceof MeleeWeapon) {
 			int barLenght = 150;
 			int barWidth = 20;
 
 			g2.setColor(Color.BLACK);
 			g2.fillRect(x, y, barLenght, barWidth);
 			g2.setColor(Color.GREEN);
-			g2.fillRect(x+5, y+5,
-				((MeleeWeapon)weapon).getDurability() * (barLenght - 10)
-				/ ((MeleeWeapon)weapon).getMaxDurability(),
-				barWidth - 10);
+			g2.fillRect(x + 5, y + 5,
+					((MeleeWeapon) weapon).getDurability() * (barLenght - 10)
+							/ ((MeleeWeapon) weapon).getMaxDurability(),
+					barWidth - 10);
 		}
 	}
 }
