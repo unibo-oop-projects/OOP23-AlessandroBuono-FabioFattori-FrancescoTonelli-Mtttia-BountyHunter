@@ -42,7 +42,7 @@ public interface Graphics {
 
 	/**
 	 * this method is used to draw the teleporter on the screen
-	 * @param healthBar the health bar
+	 * @param tp the teleporter to draw
 	 * @param w the world
 	 */
 	void drawTeleporter(Teleporter tp, World w);
@@ -81,6 +81,7 @@ public interface Graphics {
 
 	/**
 	 * this method is used to draw progress bar on the screen
+	 * @param loadingBar the loading bar
 	 * @param w the ranged weapon
 	 */
 	void drawProgressBar(LoadingBar loadingBar, World w);
@@ -100,7 +101,7 @@ public interface Graphics {
 
 	/**
 	 * this method is used to draw Wizard boss on the screen
-	 * @param blacksmithPanel the blacksmith panel
+	 * @param boss the WizardBossEntity panel
 	 * @param w the world
 	 */
 	void drawWizardBoss(WizardBossEntity boss, World w);

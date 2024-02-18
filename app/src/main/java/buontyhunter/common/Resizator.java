@@ -81,6 +81,7 @@ public class Resizator {
 
     /**
      * get the ratio between the width of the window and the width of the world, this is used to scale the image
+     * @return the ratio between the width of the window and the width of the world
      */
     public double getRATIO_WIDTH() {
         return RATIO_WIDTH;
@@ -88,6 +89,7 @@ public class Resizator {
 
     /**
      * get the ratio between the height of the window and the height of the world, this is used to scale the image
+     * @return the ratio between the height of the window and the height of the world
      */
     public double getRATIO_HEIGHT() {
         return RATIO_HEIGHT;
@@ -95,6 +97,7 @@ public class Resizator {
 
     /**
      * this method is called when the window is resized, it updates the ratio between the window and the world
+     * @param dim the new dimension of the window
      */
     public void needToResize(Dimension dim) {
         var newWidth = dim.getWidth();

@@ -427,8 +427,29 @@ WizardBossEntity --|> FighterEntity
 
 #### 2.3 Francesco Tonelli
 
-**Problema** : 
+**Problema** : Comprare le munizioni e riparare le armi
 
+**Soluzione** : Ho creato l'interfaccia Blacksmith, il BlacksmithEntity che la implementa, e il suo BlacksmithPanel con i due bottoni, grafica compresa. Prendendo in considerazione il giocatore, questo fabbro scambia i suoi dobloni con munizioni, o riparando l'arma che tiene in mano (se questa ha una durabiltà). Il Blacksmith entity è un'InterractableArea, a cui il giocatore interagisce, e facendo apparire il suo Panel, da cui accedere alle sue funzionalità. Il panel viene stampato, come gran parte della grafica, da SwingGraphics, richiamata in SwingScene, in questo caso. Viene reso scalabile calcolando le dimensioni attuali dello schermo, e utilizzando delle proporzioni, anche considerando che ogni immagine creata da me è stata disegnata in una griglia 16x16 pixel. Lo stesso metodo l'ho poi utilizzato per rendere ridimensionabili gli sprite della bacheca delle quest di Fattori Fabio.
+
+![no UML found](./relazioniImgs/blacksmith_diagram.png "4.1 Diagramma UML che descrive come è stato implementato il fabbro")
+
+**Problema** : Modificare lo sprite delle entità in base alle azioni che compiono
+
+**Soluzione**: Ho creato l'enumerativo Direction, che indica in quale delle quattro direzioni è rivolto il personaggio specifico (quindi la FighterEntity), e se è fermo (o sta attaccando) oppure si sta muovendo. Questa direzione viene cambiata al player, quando viene mosso dall'utente, e alle altre entità, quando le muove la IA. Ho creato quindi 12 sprite per ogni personaggio, tre per direzione, uno stazionario e due di movimento. Per alternare questi ultimi, dando l'impressione del movimento, ho inserito, sempre nella FighterEntity, un enumerativo MovementState che indica in quale dei due stati, e quindi dei due fotogrammi, si trova l'entità. Passando poi per SwingPanel, dentro SwingScene, e per SwingGraphics, stampo gli sprite, ottenuti dal sistema AssetImage-ImagePathProvider-ImageType.
+
+![no UML found](./relazioniImgs/animation_diagram.png "4.2 Diagramma UML che descrive come sono state implementate le animazioni")
+
+**Problema** : Far riprodurre le musiche
+
+**Soluzione** : Una volta prodotte le musiche, ho utilizzato la libreria javax.sound.sampled, e ho creato l'interfaccia MusicPLayer, che contiene un enumerativo Track rappresentante ogni traccia musicale del gioco (in questo caso tre, una per l'hub, una per il world, e l'ultima per il boss), e un metodo per riprodurre una Track (in loop, o finchè non viene fermata dall'apposito metodo. Ogni traccia è stata creata apposta per poter essere messa in loop). Nel mio caso, questa interfaccia viene utilizzata da SwingScene. La difficoltà principale è stata, in questo caso, mettere la musica del boss quando questo entra nell'inquadratura (passando per la Camera).
+
+![no UML found](./relazioniImgs/music_diagram.png "4.3 Diagramma UML che descrive come sono state implementate le musiche")
+
+**Problema** : Creare l'HUD
+
+**Soluzione** : L'HUD viene stampata tutta in SwingScene, facendo uso di SwingGraphics e Graphics2d. Ho riutilizzato una vecchia healthBar che avevamo creato per il testing, l'ho riadattata, e poi ho aggiunto, rendendo scalabile, il display dell'arma equipaggiata, l'eventuale durabilità, i dobloni del giocatore e le sue munizioni. Il tutto è disegnato utilizzando varie proporzioni delle dimensioni del frame.
+
+![no UML found](./relazioniImgs/hud_diagram.png "4.3 Diagramma UML che descrive come è stato implementato l'HUD")
 
 #### 2.4 Alessandro Buono
 
@@ -482,9 +503,10 @@ Di queste classi si testano :
 
 #### 2.1 Fabio Fattori Sviluppo
 
-- Utilizzo di Stream:
+**Utilizzo di Stream e Lambda expressions**: 
     Usate in tutto il progetto per filtrare e mappare liste di GameObject o di Quest. Quello riportato è un singolo esempio presente nella classe GameEngine.
     Permalink: 
+
 
 #### 2.2 Mattia Senni Sviluppo
 
@@ -504,7 +526,7 @@ Ho utilizzato le il JPMS per mantere ordine all'interno del progetto e per dare 
 
 - Utilizzo di Stream:
     Usate per lo sviluppo del fabbro nella classe SwingScene. Permalink: 
-- Utilizzo di javax.sound (non spiegata a lezione):
+- Utilizzo di javax.sound.sampled (non spiegata a lezione):
     Usata per la riproduzione delle tracce mumsicali durante il gameplay in MusicPlayer. Permalink:
 
 #### 2.4 Alessandro Buono Sviluppo

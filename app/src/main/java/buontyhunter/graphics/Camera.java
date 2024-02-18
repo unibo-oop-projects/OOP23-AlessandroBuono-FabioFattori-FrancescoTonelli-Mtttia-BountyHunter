@@ -57,7 +57,7 @@ public class Camera implements SceneCamera {
     }
 
     /**
-     * @param p the point to check if it is in the scene
+     * @param obj the point of the object to check if it is in the scene
      * @return an optional containing the point in the scene of the object if it is in the scene,
      */
     @Override

@@ -106,16 +106,17 @@ public class World {
     /**
      * set the health bar of the world
      * 
-     * @param healthbar the new health bar of the world
+     * @param healthBar the new health bar of the world
      */
     public void setHealthBar(HealthBar healthBar) {
         this.healthBar = healthBar;
     }
 
     /**
-     * get the health bar of the world
+     * set the tile manager of the world
      * 
-     * @return the health bar of the world
+     * @param tileManager the new tile manager
+     * @param settedMap   the id of the map to load in the tile manager
      */
     public void setTileManager(TileManager tileManager, int settedMap) {
         this.tileManager = tileManager;
@@ -445,10 +446,22 @@ public class World {
         return enemyRegistry;
     }
 
+    /**
+     * add an enemy to the world
+     * 
+     * @param pos  the position of the new enemy
+     * @param conf the configuration of the new enemy
+     */
     public void addEnemy(Point2d pos, EnemyConfiguration conf) {
         enemyRegistry.addEnemy(pos, conf);
     }
 
+    /**
+     * remove an enemy from the world
+     * 
+     * @param enemyIdentifier the identifier of the enemy to remove
+     * @param killed          true if the enemy was killed, false otherwise
+     */
     public void removeEnemy(int enemyIdentifier, boolean killed) {
         if (killed) {
             notifyWorldEvent(new KilledEnemyEvent(enemyRegistry.getEnemy(enemyIdentifier).getEnemyType()));
@@ -456,18 +469,32 @@ public class World {
         enemyRegistry.removeEnemy(enemyIdentifier);
     }
 
+    /**
+     * generate a new enemy in the world
+     */
     public void generateEnemy() {
         enemyRegistry.generateEnemy(this);
     }
 
+    /**
+     * disable all the enemies of the world
+     */
     public void disableEnemies() {
         enemyRegistry.disableEnemies();
     }
 
+    /**
+     * enable all the enemies of the world
+     */
     public void enableEnemies() {
         enemyRegistry.enableEnemies();
     }
 
+    /**
+     * set the spawn of the enemies of the world to active or not
+     * 
+     * @param active true if the spawn is active, false otherwise
+     */
     public void setEnemySpawnActive(boolean active) {
         if (active) {
             enemyRegistry.resumeSpawn();
@@ -476,11 +503,17 @@ public class World {
         }
     }
 
+    /**
+     * notify the GameEngine that the boss was killed
+     */
     public void handleBossKilled() {
         notifyWorldEvent(new GameOverEvent(WinnerType.PLAYER));
         setWizardBoss(GameFactory.getInstance().createWizardBoss(this, this.getWizardBoss().getLevel() + 1));
     }
 
+    /**
+     * notify the GameEngine that the player was killed
+     */
     public void handlePlayerKilled() {
         notifyWorldEvent(new GameOverEvent(WinnerType.ENEMY));
     }

@@ -14,7 +14,6 @@ public class FileProvider {
      * @param path the path to the text file
      * @return the text file content if it was loaded successfully, Optional.empty()
      *         otherwise
-     * @see #fullPath(String)
      */
     public Optional<String> getText(String path) {
         try (InputStream is = getClass().getResourceAsStream(path);

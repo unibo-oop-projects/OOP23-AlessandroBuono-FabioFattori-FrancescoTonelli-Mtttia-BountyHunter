@@ -73,7 +73,7 @@ public class Point2d implements java.io.Serializable, Comparable<Point2d> {
      * generate the delta distance in x axis between this point and the passed point
      * 
      * @param p the point for calculate the delta
-     * @return
+     * @return the delta distance in x axis
      */
     public double deltaX(Point2d p) {
         return Math.abs(x - p.x);
@@ -83,7 +83,7 @@ public class Point2d implements java.io.Serializable, Comparable<Point2d> {
      * generate the delta distance in y axis between this point and the passed point
      * 
      * @param p the point for calculate the delta
-     * @return
+     * @return the delta distance in y axis
      */
     public double deltaY(Point2d p) {
         return Math.abs(y - p.y);
@@ -92,8 +92,7 @@ public class Point2d implements java.io.Serializable, Comparable<Point2d> {
     /**
      * generate the distance between this point and the passed point
      * 
-     * @param p the point for calculate the distance
-     * @return
+     * @return the distance between this point and the passed point
      */
     public Point2d floorCoordinates() {
         x = Math.floor(x);
@@ -104,8 +103,7 @@ public class Point2d implements java.io.Serializable, Comparable<Point2d> {
     /**
      * generate the distance between this point and the passed point
      * 
-     * @param p the point for calculate the distance
-     * @return
+     * @return the distance between this point and the passed point
      */
     public Point2d ceilCoordinates() {
         x = Math.ceil(x);

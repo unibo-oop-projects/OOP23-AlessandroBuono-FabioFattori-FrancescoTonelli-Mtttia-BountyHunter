@@ -22,9 +22,9 @@ public class InterractableArea extends GameObject {
     }
 
     /**
-     * Get the input component of the game object
+     * update the input component of the game object
      * 
-     * @return the input component of the game object
+     * @param c the input controller
      */
     public void updateInput(InputController c) {
         if (playerInArea) {
@@ -42,9 +42,11 @@ public class InterractableArea extends GameObject {
     }
 
     /**
-     * Get the physics component of the game object
+     * update the physics component of the game object
      * 
-     * @return the physics component of the game object
+     * @param dt the time elapsed since the last update
+     * @param w  the world object
+     * 
      */
     public void updatePhysics(long dt, World w) {
         CollisionDetector detector = new CollisionDetector();
@@ -56,9 +58,11 @@ public class InterractableArea extends GameObject {
     }
 
     /**
-     * Get the graphics component of the game object
+     * update the graphics component of the game object
      * 
-     * @return the graphics component of the game object
+     * @param g the graphics object
+     * @param w the world object
+     * 
      */
     public void updateGraphics(Graphics g, World w) {
         if (playerInArea) {

@@ -32,7 +32,7 @@ public class GameEngine implements WorldEventListener {
     /**
      * Initialize the game by starting the game loop
      * 
-     * @throws InterruptedException
+     * @throws InterruptedException if the game over screen can't be shown
      */
     public void initGame() throws InterruptedException {
         gameState = new GameState(this);
@@ -185,7 +185,7 @@ public class GameEngine implements WorldEventListener {
      * call the renderGameOver method of the view which will draw the game over
      * screen
      * 
-     * @throws InterruptedException
+     * @throws InterruptedException if the game over screen can't be shown
      */
     protected void renderGameOver() throws InterruptedException {
         Thread.sleep(4000);

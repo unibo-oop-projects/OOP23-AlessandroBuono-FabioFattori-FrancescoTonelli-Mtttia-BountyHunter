@@ -57,7 +57,6 @@ public class GameFactory {
         /**
          * Create a new enemy spawner
          * 
-         * @param world the world where the enemy spawner will be used
          * @return the enemy spawner created
          */
         public InventoryObject createInventoryPanel() {
@@ -173,7 +172,6 @@ public class GameFactory {
          * teleporter in
          * the game
          * 
-         * @param pos position for the teleporter
          * @return the teleporter created to the hub
          */
         public Teleporter createTeleporterToHub() {
@@ -302,6 +300,7 @@ public class GameFactory {
          * Create a new wizard boss; this object will be used to show the wizard boss in
          * 
          * @param w the world where the wizard boss will be used
+         * @param level the level of the wizard boss
          * @return the wizard boss created
          */
         public WizardBossEntity createWizardBoss(World w, int level) {

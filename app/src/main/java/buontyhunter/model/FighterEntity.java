@@ -111,7 +111,7 @@ public class FighterEntity extends GameObject {
     /**
      * Set the health of the entity
      * 
-     * @param healt the new health of the entity (must be positive & > 0)
+     * @param healt the new health of the entity (must be positive and less than the maximum health of the entity)
      */
     public void setHealth(int healt) {
         this.health = healt;

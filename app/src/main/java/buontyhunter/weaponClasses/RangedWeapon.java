@@ -18,6 +18,9 @@ public class RangedWeapon extends Weapon {
         ammo=50;
     }
 
+    /**
+     * update the state of the bulle if it exists
+     */
     public void getShot() {
         if (!owner.getDamagingArea().isShow()) {
             return;
@@ -35,27 +38,50 @@ public class RangedWeapon extends Weapon {
      * }
      */
 
-
+    
+     /**
+      * set the ammo of the weapon
+      * @param ammo the ammo to set
+      */
     public void setAmmo(int ammo){
         this.ammo=ammo;
     }
 
+    /**
+     * subtract ammo from the weapon
+     * @param ammo the ammo to subtract
+     */
     public void subtractAmmo(int ammo){
         this.ammo-=ammo;
     }
 
+    /**
+     * add ammo to the weapon
+     * @param ammo the ammo to add
+     */
     public void addAmmo(int ammo){
         this.ammo+=ammo;
     }
 
+    /**
+     * get the ammo of the weapon
+     * @return the ammo of the weapon
+     */
     public int howManyAmmo(){
         return ammo;
     }
 
+    /**
+     * get the bullet of the weapon
+     * @return the bullet of the weapon
+     */
     public Bullet getBullet() {
         return bullet;
     }
 
+    /**
+     * create a bullet and send it in the direction of the owner
+     */
     @Override
     public void directAttack() {
         if(ammo>0){
@@ -78,6 +104,9 @@ public class RangedWeapon extends Weapon {
             hitbox = new RectBoundingBox(pos, 1, 1);
         }
 
+        /**
+         * update the state of the bullet
+         */
         public void update() {
 
             // for (Bullet bullet : bullets) {
