@@ -1,11 +1,8 @@
 package buontyhunter.physics;
 
-import buontyhunter.core.GameFactory;
 import buontyhunter.model.GameObject;
 import buontyhunter.model.WizardBossEntity;
 import buontyhunter.model.World;
-import buontyhunter.model.KilledEnemyEvent;
-import buontyhunter.model.AI.enemySpawner.EnemyType;
 
 public class WizardBossPhysicsComponent extends PhysicsComponent {
 

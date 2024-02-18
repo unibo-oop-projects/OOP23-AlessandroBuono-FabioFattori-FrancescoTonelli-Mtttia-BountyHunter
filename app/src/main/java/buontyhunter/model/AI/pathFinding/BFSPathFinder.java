@@ -5,7 +5,6 @@ import java.util.*;
 import buontyhunter.common.Point2d;
 import buontyhunter.model.Tile;
 
-import java.util.*;
 
 public class BFSPathFinder implements PathFinder {
 

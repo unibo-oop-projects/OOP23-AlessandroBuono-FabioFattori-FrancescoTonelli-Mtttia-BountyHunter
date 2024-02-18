@@ -9,12 +9,4 @@ import buontyhunter.model.Tile;
 
 public interface PathFinder {
     List<Point2d> findPath(Point2d initialPoint, Point2d finalPoint, List<List<Tile>> map, Set<Point2d> invalidPoints);
-
-    static PathFinder AStar(boolean useCache) {
-        return new AStarPathFinder(useCache);
-    }
-
-    static PathFinder BFS(boolean useCache) {
-        return new BFSPathFinder(useCache);
-    }
 }

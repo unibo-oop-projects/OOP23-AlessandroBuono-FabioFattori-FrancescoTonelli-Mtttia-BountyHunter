@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 import java.util.*;
 
 import buontyhunter.common.Point2d;
-import buontyhunter.common.Vector2d;
 import buontyhunter.common.Logger.AppLogger;
 import buontyhunter.common.Logger.LogType;
 import buontyhunter.core.GameFactory;

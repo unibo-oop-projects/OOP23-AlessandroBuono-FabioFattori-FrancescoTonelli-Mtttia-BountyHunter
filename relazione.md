@@ -144,7 +144,286 @@ Ho deciso di fare InteractableArea il più generale possibile per poterla utiliz
 ![no UML found](./relazioniImgs/QuestSystemDiagram.png "2.4 Diagramma UML che descrive come è stato implementato il sistema delle missioni")
 
 #### 2.2 Mattia Senni
+**Problema**:
+La necessità di determinare quali oggetti disegnare, la loro posizione e decidere se renderli visibili o meno, in base alla posizione del giocatore all'interno del mondo simulato, ha presentato una sfida.
 
+**Soluzione** (Insieme a Fabio Fattori):
+Abbiamo affrontato questa sfida implementando un algoritmo nella classe SwingScene insieme a una nuova classe dedicata chiamata Camera. Quest'ultima contiene metodi che permettono di valutare se un oggetto è attualmente in scena, basandosi sulle coordinate interne del nostro gioco, e fornisce le coordinate di rendering convertendo le coordinate in pixel nella vista della camera.
+Questi metodi hanno permesso di ottimizzare il processo di rendering, evitando di disegnare oggetti che non sono attualmente visibili nella vista del giocatore e determinando con precisione dove posizionare gli oggetti visibili.
+
+Questo approccio ha contribuito significativamente all'ottimizzazione delle prestazioni del gioco e alla gestione efficiente della visualizzazione degli oggetti in base alla posizione del giocatore nel mondo simulato.
+
+```marmaid
+classDiagram
+  class SwingGraphic {
+    +drawGameObject(GameObject obj)
+  }
+  class Camera {
+    +update(GameObject obj, TileManger tm): void
+    +convertToScreenCoordinates(Point2D gameCoordinates): Point2D
+    +inScene(Point2d p): boolean
+  }
+
+SwingGraphic -- Camera: camera
+```
+
+**Problema**:
+Era necessario implementare un sistema per gestire e caricare le mappe del gioco, risolvendo i numeri presenti nei file delle mappe con i relativi tipi di tile e caricando le immagini corrispondenti.
+
+**Soluzione**:
+Ho creato la classe TileManager, che contiene una lista di Tile con al suo interno una variabile contenente un enumerativo dell'immagine da utilizzare, per memorizzare l'immagine ho utilizzato un'istanza di ImageAssetProvider per risolvere il tipo di tile e ottenere la path dell'immagine corrispondente. La classe SwingGraphics utilizza la Camera per determinare dove disegnare i tile nella finestra e utilizza l'ImagePathProvider per risolvere il percorso dell'immagine da caricare.
+Il sistema permette di caricare mappe, risolvere i tipi di tile e disegnarli correttamente sulla finestra di gioco utilizzando la camera per la posizione corretta. L'ImagePathProvider è fondamentale per ottenere le path delle immagini da utilizzare in SwingGraphics e per poter separare la logica dalla grafica.
+Il tileManager conosce sempre la mappa corrente e le sue dimensioni tramite la ReactBoundingBox, ovvero rappresenta un rettangolo
+
+```mermaid
+classDiagram
+  class GameObject{
+  }
+  GameObject <|-- TileManager
+  class TileManager {
+    -tiles: List<List<Tile>>
+    +loadMap(mapId: int): RectBoundingBox
+  }
+  TileManager -- RectBoundingBox: boundingBox
+  class RectBoundingBox {
+    + getHeight() : double
+    + getWeigth() : double
+    + getPoint2d() : Point2d
+  }
+  class ImageAssetProvider {
+    +ResolveAsset(type: int): String
+  }
+  class SwingGraphics {
+    +drawMap(TileManager tileManager, World w): void
+  }
+  SwingGraphics -- Camera:camera
+  class Camera {
+    -position: Point2d
+    +WorldToScreenCoordinates(worldPosition: Point2d): Point2d
+  }
+  TileManager -- Tile:tile
+  class Tile {
+    -getImage(): ImageType
+  }
+  Tile -- Point2d: getPoint()
+  class Point2d {
+    -x: int
+    -y: int
+  }
+```
+
+**Problema**:
+La necessità di implementare un algoritmo di Pathfinding per consentire ai nemici di determinare il percorso più efficiente per raggiungere il giocatore in ogni momento del gioco.
+
+**Soluzione**:
+Ho affrontato questo problema sviluppando due algoritmi di Pathfinding distinti: ASTAR Pathfinding (implementato grazie ad una base dell'algoritmo fornito da ChatGPT(https://chat.openai.com/)) e BFS Pathfinding. Questi algoritmi sono stati implementati attraverso una classe Pathfinder, e per fornire un approccio flessibile, abbiamo introdotto una Pathfinder Factory. Quest'ultima consente di creare dinamicamente gli algoritmi di Pathfinding necessari in base alle esigenze del gioco.
+Per garantire che i nemici si muovano efficacemente verso il giocatore, abbiamo creato una classe AIPathfinderHelper, che, attraverso il metodo MoveItem, consente a un oggetto (come un nemico) di conoscere il prossimo passo ottimizzato per avvicinarsi al giocatore. Inoltre, la classe AIEnemyPathfinder è stata introdotta per gestire il movimento degli avversari in modo da non raggiungere direttamente il giocatore, ma piuttosto affrontarlo in modo strategico.
+
+Questa soluzione ha migliorato notevolmente il comportamento degli avversari nel gioco, rendendoli più intelligenti e capaci di navigare in modo efficiente verso il giocatore in ogni situazione.
+
+```mermaid
+
+classDiagram
+  class Pathfinder {
+    +findPath(Point2D start, Point2D goal): List<Point2D>
+  }
+  class AStarPathFinder {
+    +findPath(Point2D start, Point2D goal): List<Point2D>
+  }
+  AStarPathFinder --|> Pathfinder
+  BFSPathFinder --|> Pathfinder
+  class BFSPathFinder {
+    +findPath(Point2D start, Point2D goal): List<Point2D>
+  }
+  class PathfinderFactory {
+    +createAStarPathfinder(boolean useCache): Pathfinder
+    +createBFSPathfinder(boolean useCache): Pathfinder
+  }
+  class AIPathfinderHelper {
+    +Point2d moveItem(Point2d current, Point2d destination, Vector2d speed, List<List<Tile>> map)
+  }
+  class AIEnemyFollowPathHelper {
+    +Point2d followPlayer(FighterEntity enemy, Vector2d speed, World world)
+  }
+
+  AIEnemyFollowPathHelper --|> AIPathfinderHelper
+
+```
+
+**Pattern utilizzati**:
+- Factory Patter: per il factory dei path finder
+- Strategy Patter: per dare il path finder da usare al AIPathFinder Helper
+
+
+**Problema**:
+La necessità di implementare un sistema di collisioni nel gioco per determinare se due elementi, come oggetti o nemici, si scontrano all'interno della mappa.
+
+**Soluzione**:
+Per gestire le collisioni, ho introdotto due tipi di bounding box: RectBoundingBox e CircleBoundingBox, che rappresentano rispettivamente un quadrato e un cerchio. Inoltre, ho creato una classe denominata CollisionDetector.
+La classe CollisionDetector fornisce quattro metodi: isColliding, ciascuno dedicato a gestire la collisione tra tipi specifici di bounding box. Questi metodi restituiscono un valore booleano, indicando se i due elementi stanno collidendo nella mappa.
+L'utilizzo di bounding box di forma diversa fornisce una flessibilità maggiore nel gestire collisioni tra oggetti con geometrie differenti. Questa soluzione ha garantito un rilevamento accurato delle collisioni nel gioco, contribuendo a una simulazione più realistica e interattiva.
+
+```mermaid
+classDiagram
+  class RectBoundingBox {
+    +isCollidingWith(RectBoundingBox other): boolean
+    +isCollidingWith(CircleBoundingBox other): boolean
+  }
+  class CircleBoundingBox {
+    +isCollidingWith(RectBoundingBox other): boolean
+    +isCollidingWith(CircleBoundingBox other): boolean
+  }
+  class CollisionDetector {
+    +isColliding(RectBoundingBox box1, RectBoundingBox box2): boolean
+    +isColliding(RectBoundingBox box1, CircleBoundingBox box2): boolean
+    +isColliding(CircleBoundingBox box1, RectBoundingBox box2): boolean
+    +isColliding(CircleBoundingBox box1, CircleBoundingBox box2): boolean
+  }
+
+```
+
+**Problema**:
+Era necessario implementare un sistema di spawn dei nemici nel mondo del gioco e gestire il processo di creazione di nemici in modo dinamico.
+
+**Soluzione**:
+Per affrontare questa esigenza, all'interno della classe World ho inserito un EnemyRegistry. Quest'ultimo è responsabile di gestire il processo di spawn dei nemici, consentendo o impedendo la creazione in base alle condizioni di gioco.
+Ho creato una classe EnemySpawner come interfaccia di base, dalla quale ho derivato una classe specifica chiamata EnemySpawnerFromDistance. Quest'ultima, eseguita ad ogni frame, calcola tramite una probabilità se i nemici devono essere creati. Il metodo spawn aggiunge al world , il cui numero e tipo sono determinati in base a questa probabilità.
+L'utilizzo dell'EnemyRegistry permette di mantenere una gestione centralizzata dei nemici, che possono essere aggiunti alla lista interna dell'EnemyRegistry una volta creati dalla classe di spawn.
+Questa soluzione ha fornito un sistema flessibile e dinamico per la creazione dei nemici nel gioco, permettendo di regolare dinamicamente la presenza di nemici in base a determinate condizioni o probabilità.
+L'enemyRegistry dispone anche di interfacce per eliminare i nemici o mettere in pausa lo spawn
+
+```mermaid
+
+classDiagram
+  class EnemyEntity {
+    // Dettagli della classe Enemy
+  }
+  class FighterEntity {
+    // classe fighter entity
+  }
+  FighterEntity --|> EnemyEntity
+
+  class EnemyRegistry {
+    +spawnEnemy(): List~EnemyEntity~
+  }
+
+  class World {
+    -enemyRegistry: EnemyRegistry
+    //tutti gli altri metodi del World
+  }
+
+  World -- EnemyRegistry:enemyRegistry
+
+  class EnemySpawner {
+    +spawn(): void
+  }
+  class EnemySpawnerFromDistance {
+    +spawn(): void
+  }
+  EnemySpawnerFromDistance --|> EnemySpawner
+
+
+```
+
+**Problema**:
+Era necessario implementare un sistema per gestire gli attacchi degli enemy e del boss, definendo quando dovrebbero attaccare in base a determinati fattori, tra cui il tempo trascorso dall'ultimo attacco e una probabilità.
+
+**Soluzione**:
+Ho introdotto la classe AttackHelper, che è utilizzata sia da Enemy che da Boss. Questa classe mantiene informazioni come il tempo dell'ultimo attacco, l'intervallo di attacco desiderato, la probabilità di attacco di base e un moltiplicatore di probabilità.
+Il metodo canAttack calcola se un attacco dovrebbe essere effettuato in base al tempo trascorso dall'ultimo attacco e ad una probabilità esponenziale data dal tempo medio di attacco di ogni entità. Questo sistema permette di modellare dinamicamente la frequenza degli attacchi in modo realistico, adattabile ed imprevedibile.
+L'utilizzo di AttackHelper consente una gestione centralizzata degli attacchi, garantendo un approccio coerente sia per gli enemy che per il boss ed inoltre rispetta a pieno il principio di DRY.
+
+```mermaid
+
+classDiagram
+  class AttackHelper {
+    - millisecondCheck: long
+    - probability: Probability
+    - millisecondSinceLastAttach: long
+    - millisecondSinceLastCheck: long
+    + AttackHelper(attachCoolDown: long)
+    + canAttack(elapsed: long): boolean
+    + getMillisecondSinceLastAttach(): long
+    + getAttackDirection(itemPos: Point2d, targetPos: Point2d): Direction
+  }
+  class Probability {
+    + p(milliseconds: long): double
+  }
+  class ExponentialProbability {
+    - lambda: double
+    + ExponentialProbability(lambda: double)
+    + p(milliseconds: long): double
+  }
+  class PercentageHelper {
+    + match(percent: double): boolean
+  }
+  class Point2d {
+    - x: double
+    - y: double
+  }
+
+  class EnemyEntity {
+    //metodi di enemyEntity
+  }
+
+  class WizardBossEntity {
+    //metodi di WizardBossEntity
+  }
+
+  EnemyEntity -- AttackHelper: attackHelper
+  WizardBossEntity -- AttackHelper: attackHelper
+  WizardBossEntity -- AttackHelper: spawnHelper
+
+```
+
+**Problema**:
+Era necessario implementare un boss, il WizardBossEntity, con due tipi di attacco: uno con una spada e l'altro tramite lo spawn di nemici. Inoltre, il boss deve agire in modo intelligente, attaccando solo quando vicino al giocatore, e deve seguire una logica ben definita per cui all'inizio del gioco si crea in un punto casuale e si muove casualmente sullo schermo, una volta vicino al giocatore tenderà ad attaccarlo.
+
+**Soluzione**:
+Ho creato la classe WizardBossEntity, che eredita da FighterEntity e utilizza un'istanza di AttackHelper per determinare quando attaccare o quando spawnare. Il boss ha anche un'istanza di EnemySpawnerFixed, che implementa EnemySpawner e che permette di spawnare tre nemici casuali quando chiamato tramite il metodo spawn.
+La classe World gestisce il processo di spawn dei nemici tramite EnemyRegistry. Quando il boss attacca il giocatore, chiama il metodo disableEnemy di World, il quale, a sua volta, chiama il metodo corrispondente in EnemyRegistry per fermare lo spawn dei nemici regolari e inizia a spawnare i nemici del boss attraverso EnemySpawnerFixed, richiamato dal metodo di attacco del boss.
+
+```mermaid
+
+classDiagram
+  class WizardBossEntity {
+    - health: int
+    - maxHealth: int
+    - vel: Vector2d
+    - followPathHelper: AIEnemyFollowPathHelper
+    - currentTarget: Point2d
+    - gpsActive: boolean
+    - enemySpawner: EnemySpawner
+    - spawnCoolDown: long
+    - attachCoolDown: long
+    - attachHelper: AttackHelper
+    - spawnHelper: AttackHelper
+    - type: FighterEntityType
+    - die: boolean
+    - isAttackingPlayer: boolean
+    - attackPlayer: boolean
+    - deltaPlayerNear: int
+    + isAttackingPlayer(): boolean
+    + setAttackingPlayer(isAttackingPlayer: boolean): void
+    + WizardBossEntity(type: GameObjectType, box: BoundingBox, input: InputComponent, graph: GraphicsComponent, phys: PhysicsComponent, w: World)
+    + isGpsActive(): boolean
+    + setGpsActive(gpsActive: boolean): void
+    + setCurrentTarget(currentTarget: Point2d): void
+    + update(w: World, elapsed: long): void
+    - checkNearPlayer(world: World): boolean
+    - generateTargetPoint(w: World): void
+    - tryGenerateEnemy(w: World, elapsed: long): void
+    - tryAttackPlayer(w: World, elapsed: long): void
+    - checkDie(w: World): boolean
+  }
+  class FighterEntity {
+    // ... (omitted for brevity)
+  }
+
+
+WizardBossEntity --|> FighterEntity
+
+```
 
 #### 2.3 Francesco Tonelli
 
@@ -224,11 +503,24 @@ Di queste classi si testano :
 
 #### 2.1 Fabio Fattori Sviluppo
 
-- Utilizzo di Stream:
+**Utilizzo di Stream e Lambda expressions**: 
     Usate in tutto il progetto per filtrare e mappare liste di GameObject o di Quest. Quello riportato è un singolo esempio presente nella classe GameEngine.
     Permalink: 
 
+
 #### 2.2 Mattia Senni Sviluppo
+
+**Utilizzo di Optional**:
+Ho utilizzato gli optional in molti metodi che ritornavo oggetti solo se alcune condizioni sono verificate, o in metodi che ritornavo oggetti solo se presente ad esempio a seguente link
+
+**Utilizzo di Stream**:
+Ho utilizzato gli stream tutte le volte che avevo bisogno di fare operazioni su una lista, quali scorrimento, filtri o mappatura.
+
+**Utilizzo di Lambda**:
+Ho utilizzato le lambda ogni volta che necessitavo di scrivere metodi corti all'intero di filtri o mappature degli stream
+
+**Utilizzo di Java Platform Model System**:
+Ho utilizzato le il JPMS per mantere ordine all'interno del progetto e per dare una struttura ad albero bel definita all'interno del progetto ad esempio con il package AI contenuto dentro il package model che al suo interno contiene tutte le classi utilizzate per gestire attacchi, spawn path finding degli oggetti automatizzati come i nemici
 
 #### 2.3 Francesco Tonelli Sviluppo
 
@@ -292,3 +584,13 @@ ERROR 404 - CONTENT NOT FOUND - err.220774
 
 # Combattimento
 - freccette per attaccare nella direzione corrispondente alla freccetta premuta
+
+# Interazione con il fabbro , con il pannel delle quest e con il pannello dell'inventario
+- per interagire con il fabbro , con il pannel delle quest e con il pannello dell'inventario bisogna avvicinarsi e premere E
+- per chiudere il pannel delle quest e il pannello dell'inventario bisogna premere E oppure allontanarsi dalla zona interagibile
+- per eseguire qualsiasi azione nel pannello che si apre a schermo bisogna utilizzare il mouse e cliccare sui bottoni
+    # ESEMPI
+    - per accettare una missione bisogna cliccare su essa con il mouse
+    - per equipaggiare un'arma bisogna cliccare su di essa con il mouse
+    - per riparare l'arma equipaggiata bisogna cliccare sull'icona del martello , le armi riparabili sono quelle che hanno la barra della durabilità non piena , quindi le spade
+    - per comprare le munizioni dell'arco bisogna cliccare sull'icona della freccia con l'arco equipaggiato

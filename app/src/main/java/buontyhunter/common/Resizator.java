@@ -21,46 +21,84 @@ public class Resizator {
         this.RATIO_HEIGHT = (double) WINDOW_HEIGHT / WORLD_HEIGHT;
     }
 
+    /**
+     * @return the width of the window
+     */
     public int getWINDOW_WIDTH() {
         return WINDOW_WIDTH;
     }
 
+    /**
+     * @return the height of the window
+     */
     public int getWINDOW_HEIGHT() {
         return WINDOW_HEIGHT;
     }
 
+    /**
+     * @return the width of the world drawn in the window , so the Tiles that compose a row of the world
+     */
     public int getWORLD_WIDTH() {
         return WORLD_WIDTH;
     }
 
+    /**
+     * @return the height of the world drawn in the window , so the Tiles that compose a column of the world
+     */
     public int getWORLD_HEIGHT() {
         return WORLD_HEIGHT;
     }
 
+    /**
+     * @return the ratio between the width of the window and the width of the worlds
+     */
     public double getX_WINDOW_RATIO() {
         return x_WINDOW_RATIO;
     }
 
+    /**
+     * @return the ratio between the height of the window and the height of the world
+     */
     public double getY_WINDOW_RATIO() {
         return y_WINDOW_RATIO;
     }
 
+    /**
+     * set the width of the world drawn
+     * @param WORLD_WIDTH the new World width
+     */
     public void setWORLD_WIDTH(int WORLD_WIDTH) {
         this.WORLD_WIDTH = WORLD_WIDTH;
     }
 
+    /**
+     * set the height of the world drawn
+     * @param WORLD_HEIGHT the new World height
+     */
     public void setWORLD_HEIGHT(int WORLD_HEIGHT) {
         this.WORLD_HEIGHT = WORLD_HEIGHT;
     }
 
+    /**
+     * get the ratio between the width of the window and the width of the world, this is used to scale the image
+     * @return the ratio between the width of the window and the width of the world
+     */
     public double getRATIO_WIDTH() {
         return RATIO_WIDTH;
     }
 
+    /**
+     * get the ratio between the height of the window and the height of the world, this is used to scale the image
+     * @return the ratio between the height of the window and the height of the world
+     */
     public double getRATIO_HEIGHT() {
         return RATIO_HEIGHT;
     }
 
+    /**
+     * this method is called when the window is resized, it updates the ratio between the window and the world
+     * @param dim the new dimension of the window
+     */
     public void needToResize(Dimension dim) {
         var newWidth = dim.getWidth();
         var newHeight = dim.getHeight();
@@ -72,6 +110,10 @@ public class Resizator {
 
     }
 
+    /**
+     * this method is used to calculate the width and the height of the window based on the World width and height
+     * @return the width and the height of the window
+     */
     private int calculateTheWindowWidthAndHeight() {
         var dim = Toolkit.getDefaultToolkit().getScreenSize();
         int halfScreenWidth = (int) Math.round(dim.getWidth() * x_WINDOW_RATIO);

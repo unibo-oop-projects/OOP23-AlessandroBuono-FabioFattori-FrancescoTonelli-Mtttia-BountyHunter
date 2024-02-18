@@ -1,8 +1,6 @@
 package buontyhunter.model.AI.enemySpawner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import buontyhunter.common.Point2d;
 import buontyhunter.model.World;

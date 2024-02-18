@@ -94,6 +94,8 @@ public class TileManager extends GameObject {
 
     private ImageType resolveTyleToImageType(TileType tileType) {
         switch (tileType) {
+            case GameOver:
+                return ImageType.GameOver;
             case earth:
                 return ImageType.EARTH;
             case grass:

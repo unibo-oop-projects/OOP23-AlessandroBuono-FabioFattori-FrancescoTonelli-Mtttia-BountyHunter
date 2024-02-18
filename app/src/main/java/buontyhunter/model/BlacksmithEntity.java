@@ -18,14 +18,14 @@ public class BlacksmithEntity extends InterractableArea implements Blacksmith{
     public void repairWeapon(PlayerEntity player) {
         if(player.getWeapon() instanceof MeleeWeapon && 
             ((MeleeWeapon)player.getWeapon()).getDurability() < ((MeleeWeapon)player.getWeapon()).getMaxDurability() && 
-            player.withdrawDoblons(10)){
+            player.withdrawDoblons(repairCost)){
                 ((MeleeWeapon)player.getWeapon()).setDurability(((MeleeWeapon)player.getWeapon()).getMaxDurability());
             }
     }
 
     @Override
     public void buyAmmo(PlayerEntity player) {
-        if(player.withdrawDoblons(1)){
+        if(player.withdrawDoblons(ammoCost)){
             player.giveAmmo(1);
         }
     }

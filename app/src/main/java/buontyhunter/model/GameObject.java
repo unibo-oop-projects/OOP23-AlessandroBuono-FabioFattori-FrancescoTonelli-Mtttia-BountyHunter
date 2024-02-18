@@ -27,7 +27,7 @@ public class GameObject {
      *              enemy, etc)
      * @param pos   initial position of the entity
      * @param vel   initial velocity of the entity
-     * @param box   TODO: what is this?
+     * @param box   BoundingBox that will be used to calculate the entity physics
      * @param input InputComponent that will be used to control the entity while
      *              playing
      * @param graph GraphicsComponent that will be used to draw the entity
@@ -88,7 +88,8 @@ public class GameObject {
     }
 
     /**
-     * TODO: what is this?
+     * Get the bounding box of the game object
+     * @return the bounding box of the game object
      */
     public BoundingBox getBBox() {
         return bbox;
@@ -113,27 +114,29 @@ public class GameObject {
     }
 
     /**
-     * Get the input component of the game object
+     * update the input component of the game object
      * 
-     * @return the input component of the game object
+     * @param c the input controller
+     * @param w the world object
      */
     public void updateInput(InputController c, World w) {
         input.update(this, c, w);
     }
 
     /**
-     * Get the physics component of the game object
-     * 
-     * @return the physics component of the game object
+     * update the physics component of the game object
+     * @param dt the time elapsed since the last update
+     * @param w the world object
      */
     public void updatePhysics(long dt, World w) {
         phys.update(dt, this, w);
     }
 
     /**
-     * Get the graphics component of the game object
+     * update the graphics component of the game object
      * 
-     * @return the graphics component of the game object
+     * @param g the graphics object
+     * @param w the world object
      */
     public void updateGraphics(Graphics g, World w) {
         graph.update(this, g, w);
