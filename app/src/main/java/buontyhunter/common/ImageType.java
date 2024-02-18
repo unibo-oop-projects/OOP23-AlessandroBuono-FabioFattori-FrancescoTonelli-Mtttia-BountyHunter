@@ -1,6 +1,7 @@
 package buontyhunter.common;
 
 public enum ImageType {
+    GameOver,
     title,
     EARTH, 
     WATER, 

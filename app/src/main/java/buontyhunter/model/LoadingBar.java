@@ -22,26 +22,48 @@ public class LoadingBar extends GameObject {
         this.startLoading = false;
     }
 
+    /**
+     * get the loading time of the LoadingBar
+     * @return the loading time of the LoadingBar
+     */
     public int getLoadingTime() {
         return loadingTime;
     }
 
+    /**
+     * get the current loaded amount of the LoadingBar
+     * @return the current loaded amount of the LoadingBar
+     */
     public int getCurrentLoaded() {
         return currentLoaded;
     }
 
+    /**
+     * get the loaded status of the LoadingBar
+     * @return true if the LoadingBar is loaded and false otherwise
+     */
     public boolean isLoaded() {
         return isLoaded;
     }
 
+    /**
+     * get the loading start status of the LoadingBar
+     * @return true if the LoadingBar is started loading and false otherwise
+     */
     public boolean loadingIsStarted() {
         return startLoading;
     }
 
+    /**
+     * start the loading of the LoadingBar
+     */
     public void startLoading() {
         this.startLoading = true;
     }
 
+    /**
+     * advance the loading time of the LoadingBar
+     */
     public void advanceLoadingTime() {
         this.currentLoaded += (int) (Math.random() * loadingTime / 40);
         if(this.currentLoaded >= loadingTime) {

@@ -26,32 +26,60 @@ public class PlayerEntity extends FighterEntity {
         inventoryWeapons = new ArrayList<Weapon>();
     }
 
+    /**
+     * equip a weapon from the player's inventory
+     * @param w the weapon to equip
+     */
     public void equipWeapon(Weapon w) {
         if (inventoryWeapons.contains(w)) {
             this.weapon = w;
         }
     }
 
+    /**
+     * add a weapon to the player's inventory
+     * @param w the weapon to add
+     */
     public void addWeapon(Weapon w) {
         inventoryWeapons.add(w);
     }
 
+    /**
+     * remove a weapon from the player's inventory
+     * @param w the weapon to remove
+     */
     public void removeWeapon(Weapon w) {
         inventoryWeapons.remove(w);
     }
 
+    /**
+     * get the player's inventory of weapons
+     * @return the player's inventory of weapons
+     */
     public List<Weapon> getWeapons() {
         return new ArrayList<Weapon>(inventoryWeapons);
     }
 
+    /**
+     * add a quest to the player's quest list
+     * @param q the quest to add
+     */
     public void addQuest(Quest q) {
         quests.add(q);
     }
 
+    /**
+     * remove a quest from the player's quest list
+     * @param q the quest to remove
+     */
     public void removeQuest(Quest q) {
         quests.remove(q);
     }
 
+    /**
+     * get the player's quest list
+     * @return the player's quest list
+     */
     public List<Quest> getQuests() {
         return new ArrayList<Quest>(quests);
     }
@@ -88,12 +116,20 @@ public class PlayerEntity extends FighterEntity {
         return doblons;
     }
 
+    /**
+     * give ammo to the RangedWeapon the player is currently using
+     * @param ammo the ammo to give
+     */
     public void giveAmmo(int ammo){
         if(this.weapon instanceof RangedWeapon){
             ((RangedWeapon) this.weapon).addAmmo(ammo);
         }
     }
 
+    /**
+     * get the amount of ammo the RangedWeapon the player is currently using has
+     * @return the amount of ammo the RangedWeapon the player is currently using has
+     */
     public int getAmmo(){
         if(this.weapon instanceof RangedWeapon){
             return ((RangedWeapon) this.weapon).howManyAmmo();
@@ -101,12 +137,21 @@ public class PlayerEntity extends FighterEntity {
         return 0;
     }
 
+    /**
+     * use ammo from the RangedWeapon the player is currently using
+     * @param ammo the ammo to use
+     */
     public void useAmmo(int ammo){
         if(this.weapon instanceof RangedWeapon){
             ((RangedWeapon) this.weapon).subtractAmmo(ammo);
         }
     }
 
+    /**
+     * check if the player is dead
+     * @param w the world the player is in
+     * @return true if the player is dead and false otherwise
+     */
     public boolean checkDie(World w) {
         if (this.getHealth() <= 0) {
             w.handlePlayerKilled();

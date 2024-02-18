@@ -218,7 +218,7 @@ public class SwingScene implements Scene, ComponentListener {
 				/* drawing the score */
 				g2.setFont(gameOverFont);
 				g2.setColor(Color.BLACK);
-				g2.drawString("Game Over", GameEngine.RESIZATOR.getWINDOW_WIDTH()/2, GameEngine.RESIZATOR.getWINDOW_HEIGHT()/2);
+				g2.drawImage(assetManager.getImage(ImageType.GameOver), 0, 0, this.getWidth(), this.getHeight(), null);
 				musicPlayer.closeTrack();
 				
 

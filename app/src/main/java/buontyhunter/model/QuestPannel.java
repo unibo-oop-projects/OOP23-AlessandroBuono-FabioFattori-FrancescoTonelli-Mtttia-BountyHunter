@@ -18,6 +18,10 @@ public class QuestPannel extends HidableObject{
         quests = GameFactory.getInstance().createQuests();
     }
     
+    /**
+     * get the quests in the quest pannel , so the player can see them
+     * @return the quests in the quest pannel
+     */
     public List<Quest> getQuests() {
         return new ArrayList<Quest>(quests);
     }

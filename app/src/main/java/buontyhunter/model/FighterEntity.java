@@ -76,18 +76,34 @@ public class FighterEntity extends GameObject {
         return maxHealth;
     }
 
+    /**
+     * Set the weapon of the entity
+     * @param w the new weapon of the entity
+     */
     public void setWeapon(Weapon w) {
         weapon = w;
     }
 
+    /**
+     * Get the weapon of the entity
+     * @return the weapon of the entity
+     */
     public Weapon getWeapon() {
         return weapon;
     }
 
+    /**
+     * Get the damaging area of the entity
+     * @return the damaging area of the entity
+     */
     public HidableObject getDamagingArea() {
         return damagingArea;
     }
 
+    /**
+     * This method is used to make the entity take damage
+     * @param damage the amount of damage that the entity will take
+     */
     public void takeDamage(int damage) {
         setHealth(health - damage);
     }
@@ -101,18 +117,34 @@ public class FighterEntity extends GameObject {
         this.health = healt;
     }
 
+    /**
+     * set the damaging area of the entity
+     * @param da the new damaging area of the entity
+     */
     public void setDamagingArea(HidableObject da) {
         this.damagingArea = da;
     }
 
+    /**
+     * Set the direction of the entity
+     * @param direction the new direction of the entity
+     */
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
+    /**
+     * get the direction of the entity
+     * @return the direction of the entity
+     */
     public Direction getDirection() {
         return this.direction;
     }
 
+    /**
+     * Get the movement state of the entity
+     * @return the movement state of the entity
+     */
     public MovementState getMovementState() {
         switchMovementState();
         return this.movementState;
@@ -126,6 +158,10 @@ public class FighterEntity extends GameObject {
         }
     }
 
+    /**
+     * Get the type of the entity
+     * @return the type of the entity
+     */
     public FighterEntityType getFighterType() {
         return this.type;
     }

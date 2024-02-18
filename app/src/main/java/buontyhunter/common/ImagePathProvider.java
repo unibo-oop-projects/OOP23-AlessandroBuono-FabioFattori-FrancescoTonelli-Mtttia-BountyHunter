@@ -1033,6 +1033,14 @@ public class ImagePathProvider {
                     setWidth(GameEngine.RESIZATOR.getRATIO_WIDTH());
                 }
             });
+            put(ImageType.GameOver, new AssetImage(){
+                {
+                    setPath("utility/GAMEOVER.jpeg");
+                    setType(ImageType.GameOver);
+                    setHeight(GameEngine.RESIZATOR.getWINDOW_HEIGHT());
+                    setWidth(GameEngine.RESIZATOR.getWINDOW_WIDTH());
+                }
+            });
         }
     };
 

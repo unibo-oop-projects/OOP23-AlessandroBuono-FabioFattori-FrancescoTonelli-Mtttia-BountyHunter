@@ -4,6 +4,12 @@ import buontyhunter.common.Point2d;
 
 public class CollisionDetector {
 
+    /**
+     * this method is used to check if two bounding boxes are colliding
+     * @param rect1 the first bounding box
+     * @param rect2 the second bounding box
+     * @return true if the two bounding boxes are colliding
+     */
     public boolean isColliding(RectBoundingBox rect1, RectBoundingBox rect2) {
         // Calculate the corners of the rectangles
         if(rect1!=null && rect2!=null){
@@ -29,6 +35,12 @@ public class CollisionDetector {
         
     }
 
+    /**
+     * this method is used to check if a point is colliding with a bounding box
+     * @param rect the bounding box
+     * @param point the point
+     * @return true if the point is colliding with the bounding box
+     */
     public boolean isColliding(RectBoundingBox rect, Point2d point) {
         double rectLeft = rect.getULCorner().x;
         double rectRight = rect.getULCorner().x + rect.getWidth();
@@ -45,6 +57,12 @@ public class CollisionDetector {
 
     final double CIRCLE_APPROXIMATION_FACTOR = 1;
 
+    /**
+     * this method is used to check if a bounding box is colliding with a circle
+     * @param rect the bounding box
+     * @param circle the circle
+     * @return true if the bounding box is colliding with the circle
+     */
     public boolean isColliding(RectBoundingBox rect, CircleBoundingBox circle) {
         // // Find the closest point on the rectangle to the circle's center
         // double closestX = clamp(circle.getCenter().x, rect.getULCorner().x,
@@ -67,6 +85,12 @@ public class CollisionDetector {
         return isColliding(rect, approximatedCircle);
     }
 
+    /**
+     * this method is used to check if a circle is colliding with a bounding box
+     * @param circle the circle
+     * @param rect the bounding box
+     * @return true if the circle is colliding with the bounding box
+     */
     public boolean isCollidingOnAxis(RectBoundingBox rect, CircleBoundingBox circle) {
         boolean collisionOnLeft = isColliding(rect,
                 new Point2d(circle.getCenter().x - circle.getRadius(), circle.getCenter().y));
@@ -85,10 +109,22 @@ public class CollisionDetector {
     // return Math.max(min, Math.min(max, val));
     // }
 
+    /**
+     * this method is used to check if a circle is colliding with a bounding box
+     * @param circle the circle
+     * @param rect the bounding box
+     * @return true if the circle is colliding with the bounding box
+     */
     public boolean isColliding(CircleBoundingBox circle, RectBoundingBox rect) {
         return isColliding(rect, circle);
     }
 
+    /**
+     * this method is used to check if two circles are colliding
+     * @param circle1 the first circle
+     * @param circle2 the second circle
+     * @return true if the two circles are colliding
+     */
     public boolean isColliding(CircleBoundingBox circle1, CircleBoundingBox circle2) {
         Point2d center1 = circle1.getCenter();
         Point2d center2 = circle2.getCenter();

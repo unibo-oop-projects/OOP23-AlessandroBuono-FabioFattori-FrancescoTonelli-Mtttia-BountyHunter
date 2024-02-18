@@ -13,14 +13,23 @@ public class CircleBoundingBox implements BoundingBox {
 		this.radius = radius;
 	}
 
+	/**
+	 * this method is used to get the radius of the bounding box
+	 * @return the radius of the bounding box
+	 */
 	public double getRadius() {
 		return radius;
 	}
 
+	/**
+	 * this method is used to get the center of the bounding box
+	 * @return the center of the bounding box
+	 */
 	public Point2d getCenter() {
 		return center;
 	}
 
+	@Override
 	public boolean isCollidingWith(Point2d p, double radius) {
 		return new Vector2d(p, center).module() <= radius + this.radius;
 	}

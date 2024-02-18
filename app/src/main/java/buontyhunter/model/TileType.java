@@ -1,6 +1,7 @@
 package buontyhunter.model;
 
 public enum TileType {
+    GameOver,
     earth,
     grass,
     sand,

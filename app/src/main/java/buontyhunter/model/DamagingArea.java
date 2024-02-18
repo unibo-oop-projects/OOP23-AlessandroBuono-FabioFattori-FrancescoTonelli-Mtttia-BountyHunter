@@ -17,6 +17,10 @@ public class DamagingArea extends HidableObject {
         this.owner = owner;
     }
 
+    /**
+     * get the owner of the damaging area
+     * @return the owner of the damaging area
+     */
     public FighterEntity getOwner() {
         return owner;
     }

@@ -271,3 +271,13 @@ ERROR 404 - CONTENT NOT FOUND - err.220774
 
 # Combattimento
 - freccette per attaccare nella direzione corrispondente alla freccetta premuta
+
+# Interazione con il fabbro , con il pannel delle quest e con il pannello dell'inventario
+- per interagire con il fabbro , con il pannel delle quest e con il pannello dell'inventario bisogna avvicinarsi e premere E
+- per chiudere il pannel delle quest e il pannello dell'inventario bisogna premere E oppure allontanarsi dalla zona interagibile
+- per eseguire qualsiasi azione nel pannello che si apre a schermo bisogna utilizzare il mouse e cliccare sui bottoni
+    # ESEMPI
+    - per accettare una missione bisogna cliccare su essa con il mouse
+    - per equipaggiare un'arma bisogna cliccare su di essa con il mouse
+    - per riparare l'arma equipaggiata bisogna cliccare sull'icona del martello , le armi riparabili sono quelle che hanno la barra della durabilità non piena , quindi le spade
+    - per comprare le munizioni dell'arco bisogna cliccare sull'icona della freccia con l'arco equipaggiato

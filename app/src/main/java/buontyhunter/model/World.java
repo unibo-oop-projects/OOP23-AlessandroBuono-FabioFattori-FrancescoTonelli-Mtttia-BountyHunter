@@ -40,75 +40,147 @@ public class World {
         enemyRegistry = new EnemyRegistryImpl();
     }
 
+    /**
+     * get the wizard boss of the world
+     * @return the wizard boss of the world
+     */
     public WizardBossEntity getWizardBoss() {
         return wizardBoss;
     }
 
+    /**
+     * set the wizard boss of the world
+     * @param wizardBoss the new wizard boss
+     */
     public void setWizardBoss(WizardBossEntity wizardBoss) {
         this.wizardBoss = wizardBoss;
     }
 
+    /**
+     * set the loading bar of the world
+     * @param loadingBar the new loading bar
+     */
     public void setLoadingBar(LoadingBar loadingBar) {
         this.loadingBar = loadingBar;
     }
 
+    /**
+     * set the inventory of the world
+     * @param inventory the new inventory
+     */
     public void setInventory(InventoryObject inventory) {
         this.inventory = inventory;
     }
 
+    /**
+     * get the inventory of the world
+     * @return the inventory of the world
+     */
     public InventoryObject getInventory() {
         return inventory;
     }
 
+    /**
+     * get the loading bar of the world
+     * @return the loading bar of the world
+     */
     public LoadingBar getLoadingBar() {
         return loadingBar;
     }
 
+    /**
+     * set the event listener of the world
+     * @param l the new event listener
+     */
     public void setEventListener(WorldEventListener l) {
         evListener = l;
     }
 
+    /**
+     * set the health bar of the world
+     * @param healthbar the new health bar of the world
+     */
     public void setHealthBar(HealthBar healthBar) {
         this.healthBar = healthBar;
     }
 
+    /**
+     * get the health bar of the world
+     * @return the health bar of the world
+     */
     public void setTileManager(TileManager tileManager, int settedMap) {
         this.tileManager = tileManager;
         laodMap(settedMap);
     }
 
+    /**
+     * set the teleporter of the world
+     * @param tp the new teleporter
+     */
     public void setTeleporter(Teleporter tp) {
         this.tp = tp;
     }
 
+    /**
+     * set the player of the world
+     * @param player the new player
+     */
     public void setPlayer(GameObject player) {
         this.player = player;
     }
 
+    /**
+     * set the mini map of the world
+     * @param miniMap the new mini map
+     */
     public void setMiniMap(HidableObject miniMap) {
         this.miniMap = miniMap;
     }
 
+    /**
+     * set the navigator line of the world
+     * @param navigatorLine the new navigator line
+     */
     public void setNavigatorLine(NavigatorLine navigatorLine) {
         this.navigatorLine = navigatorLine;
     }
 
+    /**
+     * add an interractable area to the world (ex: quest pannel, blacksmith, etc...)
+     * @param area the new interractable area
+     */
     public void addInterractableArea(InterractableArea area) {
         interractableAreas.add(area);
     }
 
+    /**
+     * get the interractable areas of the world
+     * @return the interractable areas of the world
+     */
     public List<InterractableArea> getInterractableAreas() {
         return interractableAreas;
     }
 
+    /**
+     * get all the enemies of the world
+     * @return a list of all the enemies of the world
+     */
     public List<EnemyEntity> getEnemies() {
         return enemyRegistry.getEnemies();
     }
 
+    /**
+     * get the event listener of the world
+     * @return the event listener of the world
+     */
     public WorldEventListener getEventListener() {
         return evListener;
     }
 
+    /**
+     * get a list of all the FigherEntity of the world (player, enemies, boss)
+     * @return list of all the FigherEntity of the world (player, enemies, boss)
+     */
     public List<FighterEntity> getFighterEntities() {
         List<FighterEntity> entities = new ArrayList<FighterEntity>();
         if (player != null) {
@@ -123,6 +195,10 @@ public class World {
         return entities;
     }
 
+    /**
+     * update all the physics components of all the entities of the world 
+     * @param dt the time passed since the last update
+     */
     public void updateState(long dt) {
         if (loadingBar != null) {
             if (loadingBar.loadingIsStarted()) {
@@ -169,6 +245,10 @@ public class World {
         }
     }
 
+    /**
+     * process the input of all the enemies of the world 
+     * @param controller the input controller 
+     */
     public void processAiInput(KeyboardInputController controller) {
         for (var enemy : getEnemies()) {
             enemy.updateInput(controller, this);
@@ -176,42 +256,82 @@ public class World {
         generateEnemy();
     }
 
+    /**
+     * notify the event listener of the world of a new event, add it to the event queue in the gameEngine
+     * @param ev the new event
+     */
     public void notifyWorldEvent(WorldEvent ev) {
         evListener.notifyEvent(ev);
     }
 
+    /**
+     * get the main bounding box of the world
+     * @return the main bounding box of the world
+     */
     public RectBoundingBox getBBox() {
         return mainBBox;
     }
 
+    /**
+     * get the player of the world
+     * @return the player of the world
+     */
     public GameObject getPlayer() {
         return player;
     }
 
+    /**
+     * get the tile manager of the world
+     * @return the tile manager of the world
+     */
     public TileManager getTileManager() {
         return tileManager;
     }
 
+    /**
+     * get the health bar of the world
+     * @return the minimap of the world
+     */
     public HidableObject getMiniMap() {
         return miniMap;
     }
 
+    /**
+     * get the quest journal of the world
+     * @return the quest journal of the world
+     */
     public HidableObject getQuestJournal() {
         return questJournal;
     }
 
+    /**
+     * set the quest journal of the world
+     * @param questJournal the new quest journal
+     */
     public void setQuestJournal(HidableObject questJournal) {
         this.questJournal = questJournal;
     }
 
+    /**
+     * get the navigator line of the world
+     * @return the navigator line of the world
+     */
     public NavigatorLine getNavigatorLine() {
         return navigatorLine;
     }
 
+    /**
+     * get the teleporter of the world
+     * @return the teleporter of the world
+     */
     public Teleporter getTeleporter() {
         return tp;
     }
 
+    /**
+     * get all the scene entities of the world (FigherEntity, TileManager, Teleporter, HealthBar, MiniMap, QuestJournal, Inventory, InterractableArea)
+     * @return list of all the entities of the world
+     */
     public List<GameObject> getSceneEntities() {
         List<GameObject> entities = new ArrayList<GameObject>();
         if (tileManager != null)
@@ -241,6 +361,10 @@ public class World {
         return entities;
     }
 
+    /**
+     * load a new map in the world
+     * @param map the id of the new map to load
+     */
     public void laodMap(int map) {
         if (tileManager == null)
             return;
@@ -248,6 +372,12 @@ public class World {
         mainBBox = box;
     }
 
+    /**
+     * check if the player is colliding with the boundaries of the world
+     * @param pos the position of the player
+     * @param box the bounding box of the player
+     * @return an optional containing the collision if there is one, empty otherwise
+     */
     public Optional<BoundaryCollision> checkCollisionWithBoundaries(Point2d pos, RectBoundingBox box) {
         Point2d ul = mainBBox.getULCorner();
         Point2d br = mainBBox.getBRCorner();
@@ -267,6 +397,11 @@ public class World {
         }
     }
 
+
+    /**
+     * get the EnemyRegistry of the world
+     * @return the EnemyRegistry of the world
+     */
     public EnemyRegistry getEnemyRegistry() {
         return enemyRegistry;
     }
