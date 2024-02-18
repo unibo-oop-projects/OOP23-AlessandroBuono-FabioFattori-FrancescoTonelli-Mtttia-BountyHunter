@@ -33,7 +33,8 @@ public class SwingAssetProvider {
     /**
      * get the path to the passed resource
      * 
-     * @param assetPath the path to the assets folder
+     * @param resourceName the path to the assets folder
+     * @return the full path to the resource
      */
     public String fullPath(String resourceName) {
         return assetPath + resourceName;
@@ -74,10 +75,9 @@ public class SwingAssetProvider {
     /**
      * Get an image from the assets folder
      * 
-     * @param path the path to the image
+     * @param type the type of the image to get
      * @return the image if it was loaded successfully, null otherwise
      * @see #fullPath(String)
-     * @see #loadImage(String)
      */
     public Image getImage(ImageType type) {
         if (imageLoaded(type)) {

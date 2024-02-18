@@ -26,8 +26,8 @@ public class GameState {
     }
 
     /**
-     * 
-     * @return
+     * get the title screen status
+     * @return true if the game is in the title screen and false otherwise
      */
     public boolean isInTitleScreen() {
         return inTitleScreen;

@@ -54,7 +54,6 @@ public interface Quest{
 
     /**
      * increment the n target actually killed of the quest
-     * @return the n target actually killed of the quest
      */
     public void incrementTargetActuallyKilled();
 

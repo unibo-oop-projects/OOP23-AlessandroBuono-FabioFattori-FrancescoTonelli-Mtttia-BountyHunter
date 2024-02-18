@@ -98,15 +98,16 @@ public class World {
 
     /**
      * set the health bar of the world
-     * @param healthbar the new health bar of the world
+     * @param healthBar the new health bar of the world
      */
     public void setHealthBar(HealthBar healthBar) {
         this.healthBar = healthBar;
     }
 
     /**
-     * get the health bar of the world
-     * @return the health bar of the world
+     * set the tile manager of the world
+     * @param tileManager the new tile manager
+     * @param settedMap the id of the map to load in the tile manager
      */
     public void setTileManager(TileManager tileManager, int settedMap) {
         this.tileManager = tileManager;
@@ -461,8 +462,7 @@ public class World {
     }
 
     /**
-     * get the health bar of the world
-     * @return the health bar of the world
+     * notify the GameEngine that the boss was killed
      */
     public void handleBossKilled() {
         notifyWorldEvent(new GameOverEvent(WinnerType.PLAYER));
@@ -470,8 +470,7 @@ public class World {
     }
 
     /**
-     * get the health bar of the world
-     * @return the health bar of the world
+     * notify the GameEngine that the player was killed
      */
     public void handlePlayerKilled() {
         notifyWorldEvent(new GameOverEvent(WinnerType.ENEMY));

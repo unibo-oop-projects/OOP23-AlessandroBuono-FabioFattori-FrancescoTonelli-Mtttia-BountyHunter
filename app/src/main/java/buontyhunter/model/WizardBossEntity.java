@@ -133,6 +133,7 @@ public class WizardBossEntity extends FighterEntity {
      * Update the wizard boss entity
      * 
      * @param w the world object
+     * @param elapsed the time elapsed since the last update
      */
     public void update(World w, long elapsed) {
         var currentPos = getPos();

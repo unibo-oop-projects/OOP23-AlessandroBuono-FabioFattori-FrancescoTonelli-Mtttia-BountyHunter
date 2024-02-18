@@ -107,7 +107,10 @@ public abstract class Weapon {
     }
 
     
-    
+    /**
+     * set the damage of the weapon
+     * @param damage the damage to set
+     */
     public void setDamage(int damage) {
         if (damage <= 0) {
             throw new IllegalArgumentException("Damage cannot be negative");
@@ -115,6 +118,10 @@ public abstract class Weapon {
         this.damage = damage;
     }
 
+    /**
+     * set the attack speed of the weapon
+     * @param attackSpeed the attack speed to set
+     */
     public void setAttackSpeed(int attackSpeed) {
         if (attackSpeed <= 0) {
             throw new IllegalArgumentException("Attack Speed cannot be negative");
@@ -122,6 +129,10 @@ public abstract class Weapon {
         this.attackSpeed = attackSpeed;
     }
 
+    /**
+     * set the range of the weapon
+     * @param range the range to set
+     */
     public void setRange(int range) {
         if (range <= 0) {
             throw new IllegalArgumentException("Range cannot be negative");
@@ -129,6 +140,10 @@ public abstract class Weapon {
         this.range = range;
     }
 
+    /**
+     * set the speed of the weapon
+     * @param speed the speed to set
+     */
     public void setSpeed(int speed) {
         if (speed <= 0) {
             throw new IllegalArgumentException("Speed cannot be negative");
@@ -136,6 +151,10 @@ public abstract class Weapon {
         this.speed = speed;
     }
 
+    /**
+     * set the hitbox of the weapon
+     * @param hitbox the hitbox to set
+     */
     public void setHitbox(RectBoundingBox hitbox) {
         if (hitbox == null) {
             throw new IllegalArgumentException("Hitbox cannot be null");
@@ -143,6 +162,10 @@ public abstract class Weapon {
         this.hitbox = hitbox;
     }
 
+    /**
+     * set the type of the weapon
+     * @param wt the type to set
+     */
     public void setWeaponType(WeaponType wt){
         type = wt;
     }
