@@ -524,9 +524,9 @@ Ho utilizzato le il JPMS per mantere ordine all'interno del progetto e per dare 
 
 #### 2.3 Francesco Tonelli Sviluppo
 
-- Utilizzo di Stream:
+**Utilizzo di Stream**:
     Usate per lo sviluppo del fabbro nella classe SwingScene. Permalink: 
-- Utilizzo di javax.sound.sampled (non spiegata a lezione):
+**Utilizzo di javax.sound.sampled** (non spiegata a lezione):
     Usata per la riproduzione delle tracce mumsicali durante il gameplay in MusicPlayer. Permalink:
 
 #### 2.4 Alessandro Buono Sviluppo
