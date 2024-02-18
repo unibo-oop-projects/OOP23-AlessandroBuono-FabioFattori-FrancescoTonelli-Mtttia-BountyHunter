@@ -3,7 +3,6 @@ package buontyhunter.model;
 import buontyhunter.common.Direction;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
-import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
@@ -33,7 +32,7 @@ public class FighterEntity extends GameObject {
      *                  player, enemy, etc)
      * @param pos       initial position of the entity
      * @param vel       initial velocity of the entity
-     * @param box       TODO: what is this?
+     * @param box       bounding box of the entity
      * @param input     InputComponent that will be used to control the entity while
      *                  playing
      * @param graph     GraphicsComponent that will be used to draw the entity

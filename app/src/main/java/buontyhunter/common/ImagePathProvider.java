@@ -6,6 +6,9 @@ import java.util.Map;
 import buontyhunter.core.GameEngine;
 
 public class ImagePathProvider {
+    /**
+     * all the image paths
+     */
     public static Map<ImageType, AssetImage> imagePaths = new HashMap<>() {
         {
             put(ImageType.title, new AssetImage() {

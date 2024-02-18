@@ -2,8 +2,6 @@ package buontyhunter.model.AI.pathFinding;
 
 import java.util.*;
 
-import com.google.common.collect.Iterables;
-
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
 import buontyhunter.model.Tile;

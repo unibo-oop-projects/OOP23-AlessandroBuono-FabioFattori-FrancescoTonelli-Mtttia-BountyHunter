@@ -427,9 +427,22 @@ WizardBossEntity --|> FighterEntity
 
 #### 2.3 Francesco Tonelli
 
+**Problema** : 
+
 
 #### 2.4 Alessandro Buono
 
+**Problema** : Come prendere in input gli attacchi del giocatore
+
+**Soluzione** : Modificando l'interfaccia precedentemente implementata "InputController" mi sono adattato al pattern già utilizzato inserendo però varie funzioni per migliorare la logica e la leggibilità del codice.
+L'utilizzo di variabili di stato ha permesso al codice di essere flessibile ed adattabile a varie modifiche sulle interazioni fondamentali che il personaggio ha con gli input, per esempio se il personaggio si può muovere in più direzioni contemporaneamente o se il suo movimento è interrotto se si sta eseguendo un attacco, tutte cose facilmente comprensibili e modificabili nel codice.
+
+**Pattern usato** : DRY
+
+
+**Problema** : Gestione delle hitbox degli attacchi
+
+**Soluzione**
 
 # Sviluppo
 
@@ -489,7 +502,19 @@ Ho utilizzato le il JPMS per mantere ordine all'interno del progetto e per dare 
 
 #### 2.3 Francesco Tonelli Sviluppo
 
+- Utilizzo di Stream:
+    Usate per lo sviluppo del fabbro nella classe SwingScene. Permalink: 
+- Utilizzo di javax.sound (non spiegata a lezione):
+    Usata per la riproduzione delle tracce mumsicali durante il gameplay in MusicPlayer. Permalink:
+
 #### 2.4 Alessandro Buono Sviluppo
+
+- Utilizzo di Ridondanze:
+    Durante tutto il processo della creazione del programma è molto utile avere certi campi salvati in molteplici oggetti, così da rendere tutto il
+    development più fluido e soprattutto comprensibile.
+    Spesso può sembrare inutile o subottimale, ma può rispariare tanto tempo quando si cercano dei campi o quando si cerca di risalire ad un errore.
+    È molto importante però anche considerare il modo in cui i compagni di progetto concepiscono e progettano il codice, perché fare del codice
+    comprensibile per se stessi non vuol dire sempre fare del codice comprensibile per tutti.
 
 #### 2.5 Codice riadattato per la realizzazzione
 
@@ -510,7 +535,13 @@ La vera difficoltà è stata realizzare la Camera , più precisamente far si che
 
 #### 2.3 Francesco Tonelli Autovalutazione
 
+Ho lavorato principalmente alla parte grafica del progetto, dando supporto anche agli altri componenti del gruppo quando si è trattato di fare il resize di alcune interfacce in game. Purtroppo, sono stato un po' stretto coi tempi, a causa di impegni lavorativi e universitari, e quindi avrei preferito concentrarmi maggiormente su questo progetto, in quanto me ne sono sempre interessato, e l'idea mi era piaciuta molto già quando la stavamo valutando. Ho avuto modo di implementare cose che non avevo mai fatto, come grafiche più complesse di semplici bottoni, e le musiche di gioco, che per quanto il meccanismo sia piuttosto semplice mi ha incuriosito molto. In futuro, avrei voluto rifare da capo alcune grafiche, renderle più dettagliate e ottimizzate.
+Le difficoltà più grandi che ho dovuto affrontare sono state sicuramente la scalabilità delle grafiche (nello specifico quella dell'hud, del fabbro e delle quest) e le animazioni dei personaggi, che sono costituite da più di uno sprite. A volte, durante lo sviluppo, dovevo attendere il completamento del codice di qualche altro componente per poter continuare con la mia parte, ma in fondo credo che quest'ultima difficoltà ci abbia solo portato ad avere più rispetto l'uno nei confronti dell'altro, e a lavorare come un team. 
+
 #### 2.4 Alessandro Buono Autovalutazione
+
+È stata una grande sfida lavorare ad un progetto con altre persone, le corse critiche sono sempre molto difficili da risolvere.
+ERROR 404 - CONTENT NOT FOUND - err.220774
 
 ### 2. Difficoltà Incontrate e Commenti per i Docenti 
 

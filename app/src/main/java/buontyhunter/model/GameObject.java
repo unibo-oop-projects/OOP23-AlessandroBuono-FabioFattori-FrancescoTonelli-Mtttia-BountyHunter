@@ -27,7 +27,7 @@ public class GameObject {
      *              enemy, etc)
      * @param pos   initial position of the entity
      * @param vel   initial velocity of the entity
-     * @param box   TODO: what is this?
+     * @param box   BoundingBox that will be used to calculate the entity physics
      * @param input InputComponent that will be used to control the entity while
      *              playing
      * @param graph GraphicsComponent that will be used to draw the entity
@@ -88,7 +88,8 @@ public class GameObject {
     }
 
     /**
-     * TODO: what is this?
+     * Get the bounding box of the game object
+     * @return the bounding box of the game object
      */
     public BoundingBox getBBox() {
         return bbox;

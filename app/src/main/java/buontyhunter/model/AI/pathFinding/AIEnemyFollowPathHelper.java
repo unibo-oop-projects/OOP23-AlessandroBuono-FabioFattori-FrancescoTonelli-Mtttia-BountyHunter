@@ -2,8 +2,6 @@ package buontyhunter.model.AI.pathFinding;
 
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
-import buontyhunter.common.Logger.AppLogger;
-import buontyhunter.common.Logger.LogType;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.World;
 

@@ -49,7 +49,7 @@ public class RectBoundingBox implements BoundingBox {
 
 	@Override
 	public boolean isCollidingWith(Point2d p, double radius) {
-		// TODO Auto-generated method stub
+		
 		throw new UnsupportedOperationException("Unimplemented method 'isCollidingWith'");
 	}
 

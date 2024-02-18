@@ -3,8 +3,6 @@ package buontyhunter.model;
 import buontyhunter.common.Direction;
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
-import buontyhunter.common.Logger.AppLogger;
-import buontyhunter.common.Logger.LogType;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;

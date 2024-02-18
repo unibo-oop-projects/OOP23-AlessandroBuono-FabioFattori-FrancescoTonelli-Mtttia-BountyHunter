@@ -2,7 +2,6 @@ package buontyhunter.weaponClasses;
 
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Direction;
-import buontyhunter.common.ImageType;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.RectBoundingBox;
 
@@ -16,15 +15,12 @@ public abstract class Weapon {
     protected FighterEntity owner;
     private WeaponType type;
 
-    //further implementation
-    protected ImageType sprite;
 
-    public Weapon(int damage, double attackSpeed, int range, double speed, ImageType sprite, FighterEntity owner, WeaponType weaponType) {
+    public Weapon(int damage, double attackSpeed, int range, double speed,  FighterEntity owner, WeaponType weaponType) {
         this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.range = range;
         this.speed = speed;
-        this.sprite = sprite;
         this.owner = owner;
         this.attackDirection = owner.getDirection();
         type = weaponType;
@@ -82,9 +78,6 @@ public abstract class Weapon {
         return hitbox;
     }
 
-    public ImageType getSprite() {
-        return sprite;
-    }
 
     public WeaponType getWeaponType(){
         return type;

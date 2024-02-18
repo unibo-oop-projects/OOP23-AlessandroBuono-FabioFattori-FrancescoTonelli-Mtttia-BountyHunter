@@ -115,7 +115,7 @@ public class PlayerEntity extends FighterEntity {
         return false;
     }
 
-    /**TODO inventory that carries between games yet to be done
+    /**
      * When player dies, loses half doblons and ammunitions in each ranged weapon
      */
     public void deadBehaviour() {
