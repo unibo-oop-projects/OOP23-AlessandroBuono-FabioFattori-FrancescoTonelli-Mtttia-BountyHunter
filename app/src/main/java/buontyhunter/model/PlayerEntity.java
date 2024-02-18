@@ -9,6 +9,7 @@ import buontyhunter.input.InputComponent;
 import buontyhunter.physics.PhysicsComponent;
 import buontyhunter.weaponClasses.RangedWeapon;
 import buontyhunter.weaponClasses.Weapon;
+import buontyhunter.weaponClasses.WeaponType;
 
 public class PlayerEntity extends FighterEntity {
 
@@ -101,9 +102,16 @@ public class PlayerEntity extends FighterEntity {
         }
     }
 
+    /**TODO inventory that carries between games yet to be done
+     * When player dies, loses half doblons and ammunitions in each ranged weapon
+     */
     public void deadBehaviour() {
-        useAmmo(getAmmo());
-        withdrawDoblons(doblons);
+        for (Weapon w : inventoryWeapons) {
+            if(w.getWeaponType()==WeaponType.BOW){
+                useAmmo(getAmmo()/2);
+            }
+        }
+        withdrawDoblons(doblons/2);
         quests.clear();
     }
     
