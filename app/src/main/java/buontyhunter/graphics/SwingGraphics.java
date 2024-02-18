@@ -608,6 +608,8 @@ public class SwingGraphics implements Graphics {
 	}
 
 	public void drawWizardBoss(WizardBossEntity boss, World w) {
+		if (boss.getHealth() <= 0)
+			return;
 		var point = camera.getObjectPointInScene(boss.getPos());
 		var bBox = (RectBoundingBox) boss.getBBox();
 		if (point.isPresent()) {

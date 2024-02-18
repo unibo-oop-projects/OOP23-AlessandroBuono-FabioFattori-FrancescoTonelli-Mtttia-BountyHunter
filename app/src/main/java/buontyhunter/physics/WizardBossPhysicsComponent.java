@@ -9,7 +9,7 @@ public class WizardBossPhysicsComponent extends PhysicsComponent {
     public void update(long dt, GameObject obj, World w) {
         if (obj instanceof WizardBossEntity) {
             WizardBossEntity wizardBoss = (WizardBossEntity) obj;
-            wizardBoss.update(w);
+            wizardBoss.update(w, dt);
         }
     }
 }

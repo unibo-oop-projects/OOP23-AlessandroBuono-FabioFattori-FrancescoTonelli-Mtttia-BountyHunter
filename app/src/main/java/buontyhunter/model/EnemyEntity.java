@@ -9,6 +9,7 @@ import buontyhunter.common.Point2d;
 import buontyhunter.graphics.GraphicsComponent;
 import buontyhunter.input.InputComponent;
 import buontyhunter.model.AI.AIFactoryImpl;
+import buontyhunter.model.AI.AttackHelper;
 import buontyhunter.model.AI.AIFactory.PathFinderType;
 import buontyhunter.model.AI.enemySpawner.EnemyConfiguration;
 import buontyhunter.model.AI.enemySpawner.EnemyType;
@@ -25,7 +26,7 @@ public class EnemyEntity extends FighterEntity {
     private int enemyIdentifier;
     private EnemyType enemyType;
     protected FighterEntityType type = FighterEntityType.ENEMY;
-    private ExponentialProbability probability;
+    private AttackHelper attachHelper;
 
     public EnemyEntity(GameObjectType type, Point2d pos, BoundingBox box, InputComponent input,
             GraphicsComponent graph, PhysicsComponent phys, EnemyConfiguration conf, int enemyIdentifier) {
@@ -35,7 +36,7 @@ public class EnemyEntity extends FighterEntity {
         followPathHelper = aiFactory.CreateEnemyFollowPathHelper(PathFinderType.AStar, false);
         this.enemyIdentifier = enemyIdentifier;
         this.enemyType = conf.getType();
-        this.probability = new ExponentialProbability(Math.pow(conf.getAttackCoolDown(), -1));
+        this.attachHelper = new AttackHelper(conf.getAttackCoolDown());
 
         switch (conf.getType()) {
             case BOW:
@@ -94,19 +95,17 @@ public class EnemyEntity extends FighterEntity {
         return this.enemyType;
     }
 
-    public boolean tryAttach(long millisecondSinceLastAttack, Point2d playerPos) {
-        var match = PercentageHelper.match(probability.p(millisecondSinceLastAttack));
-        if (match) {
+    public void tryAttach(long elapsed, Point2d playerPos) {
+        var canAttach = attachHelper.canAttack(elapsed);
+        if (canAttach) {
             // attach
-            setDirection(getAttackDirection(playerPos));
+            setDirection(attachHelper.getAttackDirection(getPos(), playerPos));
 
             this.getWeapon().directAttack();
             this.getDamagingArea().setShow(true);
-        } else if (millisecondSinceLastAttack > 250) {
+        } else if (attachHelper.getMillisecondSinceLastAttach() > 250) {
             this.getDamagingArea().setShow(false);
         }
-
-        return match;
     }
 
     public Direction getAttackDirection(Point2d playerPos) {

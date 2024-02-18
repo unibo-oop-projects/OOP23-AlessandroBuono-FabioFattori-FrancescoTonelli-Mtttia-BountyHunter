@@ -8,10 +8,13 @@ import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
 import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
+import buontyhunter.core.WinnerType;
 import buontyhunter.input.KeyboardInputController;
 import buontyhunter.model.AI.enemySpawner.EnemyConfiguration;
 import buontyhunter.model.AI.enemySpawner.EnemyRegistry;
 import buontyhunter.model.AI.enemySpawner.EnemyRegistryImpl;
+import buontyhunter.model.event.ChangeWorldEvent;
+import buontyhunter.model.event.GameOverEvent;
 import buontyhunter.physics.BoundaryCollision;
 
 import java.util.ArrayList;
@@ -115,6 +118,9 @@ public class World {
         }
         for (var enemy : getEnemies()) {
             entities.add(enemy);
+        }
+        if (wizardBoss != null) {
+            entities.add(wizardBoss);
         }
         return entities;
     }
@@ -263,6 +269,10 @@ public class World {
         }
     }
 
+    public EnemyRegistry getEnemyRegistry() {
+        return enemyRegistry;
+    }
+
     public void addEnemy(Point2d pos, EnemyConfiguration conf) {
         enemyRegistry.addEnemy(pos, conf);
     }
@@ -284,5 +294,21 @@ public class World {
 
     public void enableEnemies() {
         enemyRegistry.enableEnemies();
+    }
+
+    public void setEnemySpawnActive(boolean active) {
+        if (active) {
+            enemyRegistry.resumeSpawn();
+        } else {
+            enemyRegistry.pauseSpawn();
+        }
+    }
+
+    public void handleBossKilled() {
+        notifyWorldEvent(new GameOverEvent(WinnerType.PLAYER));
+    }
+
+    public void handlePlayerKilled() {
+        notifyWorldEvent(new GameOverEvent(WinnerType.ENEMY));
     }
 }

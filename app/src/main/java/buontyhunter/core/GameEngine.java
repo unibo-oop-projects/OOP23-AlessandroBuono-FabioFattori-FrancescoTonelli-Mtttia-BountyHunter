@@ -9,6 +9,8 @@ import buontyhunter.common.Logger.LogType;
 import buontyhunter.graphics.*;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
+import buontyhunter.model.event.ChangeWorldEvent;
+import buontyhunter.model.event.GameOverEvent;
 import buontyhunter.weaponClasses.RangedWeapon;
 
 public class GameEngine implements WorldEventListener {
@@ -109,7 +111,7 @@ public class GameEngine implements WorldEventListener {
             gameState.getWorld().getFighterEntities().stream()
                     .filter(fighter -> fighter.getWeapon() instanceof RangedWeapon)
                     .forEach(fighter -> ((RangedWeapon) fighter.getWeapon()).getShot());
-                    gameState.getWorld().getInventory().updateInput(controller, gameState.getWorld());
+            gameState.getWorld().getInventory().updateInput(controller, gameState.getWorld());
             gameState.getWorld().getQuestJournal().updateInput(controller, gameState.getWorld());
             gameState.getWorld().getInterractableAreas().forEach(area -> area.updateInput(controller));
         }
@@ -144,6 +146,12 @@ public class GameEngine implements WorldEventListener {
                 } else {
                     this.view.setIsHub(false);
                 }
+            }
+
+            if (ev instanceof GameOverEvent) {
+                var winner = ((GameOverEvent) ev).getWinner();
+
+                // TODO: Show game over screen based on the winner
 
             }
         });

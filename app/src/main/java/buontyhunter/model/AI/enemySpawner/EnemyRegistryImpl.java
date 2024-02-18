@@ -47,7 +47,6 @@ public class EnemyRegistryImpl implements EnemyRegistry {
     @Override
     public void generateEnemy(World w) {
         if (spawnActive) {
-
             enemySpawner.spawn(w);
         }
     }
@@ -63,6 +62,22 @@ public class EnemyRegistryImpl implements EnemyRegistry {
 
     public void clearEnemy() {
         enemies.clear();
+    }
+
+    @Override
+    public void pauseSpawn() {
+        if (!spawnActive)
+            return;
+        AppLogger.getLogger().log("pausing spawn", LogType.MODEL);
+        this.spawnActive = false;
+    }
+
+    @Override
+    public void resumeSpawn() {
+        if (spawnActive)
+            return;
+        AppLogger.getLogger().log("resume spawn", LogType.MODEL);
+        this.spawnActive = true;
     }
 
 }

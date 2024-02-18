@@ -1,9 +1,9 @@
-package buontyhunter.model;
+package buontyhunter.model.event;
 
-import buontyhunter.common.DestinationOfTeleporterType;
-import buontyhunter.common.Point2d;
-import buontyhunter.core.GameEngine;
 import buontyhunter.core.GameFactory;
+import buontyhunter.model.TileManager;
+import buontyhunter.model.World;
+import buontyhunter.model.WorldEvent;
 
 public class ChangeWorldEvent implements WorldEvent {
     private final World newWorldToSet;
