@@ -231,3 +231,12 @@ La vera difficoltà è stata realizzare la Camera , più precisamente far si che
 - S per muoversi in basso
 - A per muoversi a sinistra
 - D per muoversi a destra
+
+# Interazione con gli oggetti
+- E per interagire con un oggetto dopo essercisi avvicinato
+- M per aprire e chiudere la minimappa
+- J per aprire e chiudere il registro delle missioni
+- I per aprire e chiudere l'inventario
+
+# Combattimento
+- freccette per attaccare nella direzione corrispondente alla freccetta premuta
