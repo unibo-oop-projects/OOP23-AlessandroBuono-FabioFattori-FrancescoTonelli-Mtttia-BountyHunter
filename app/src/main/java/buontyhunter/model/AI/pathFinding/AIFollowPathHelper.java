@@ -67,7 +67,7 @@ public class AIFollowPathHelper {
 
             if (pathIterator.hasNext() && movement.equals(nextPoint)) {
                 nextPoint = pathIterator.next();
-            } else {
+            } else if (!pathIterator.hasNext()) {
                 nextPoint = null;
             }
         }
@@ -102,7 +102,7 @@ public class AIFollowPathHelper {
         actualPath = pathFinder.findPath(current, destination, map, invalidPoints);
         if (actualPath.size() > 1) {
             pathIterator = actualPath.iterator();
-            pathIterator.next();
+            nextPoint = pathIterator.next();
             nextPoint = pathIterator.next();
         } else {
             pathIterator = emptyIterator();

@@ -2,6 +2,8 @@ package buontyhunter.model.AI.pathFinding;
 
 import buontyhunter.common.Point2d;
 import buontyhunter.common.Vector2d;
+import buontyhunter.common.Logger.AppLogger;
+import buontyhunter.common.Logger.LogType;
 import buontyhunter.model.FighterEntity;
 import buontyhunter.model.World;
 
@@ -16,6 +18,9 @@ public class AIEnemyFollowPathHelper extends AIFollowPathHelper {
         var tiles = world.getTileManager().getTiles();
 
         Point2d targetPoint = getTargetPosition(enemy, world);
+        /// AppLogger.getLogger().l
+        /////// (/(//////////DI ANE))   og("Player position: " + world.getPlayer().getPo
+        /// () + ", Target position: " + targetPoint, LogType.MODEL);
 
         return moveItem(currentPos, targetPoint, speed, tiles);
     }
