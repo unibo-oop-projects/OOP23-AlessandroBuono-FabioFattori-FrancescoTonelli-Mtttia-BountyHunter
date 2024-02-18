@@ -143,6 +143,13 @@ Ho deciso di fare InteractableArea il più generale possibile per poterla utiliz
 
 ![no UML found](./relazioniImgs/QuestSystemDiagram.png "2.4 Diagramma UML che descrive come è stato implementato il sistema delle missioni")
 
+**Problema** : Come differenziare i gameObject che possono essere interagiti da quelli che non possono esserlo, in particolare come fare a far si che il player possa interagire con un "NPC" sono quando è vicino ad esso.
+
+**Soluzione** : Ho deciso di creare una classe chiamata InterractableArea che estende GameObject , in particolare questa classe ha un attributo di tipo HidableObject ed un attributo di tipo GameObject, in questo modo posso rendere visualizzabile l'HidableObject quando il player entra in collisione con l'hitbox del GameObject e preme il tasto E.
+L'interractable area è quindi un GameObject che ha un HidableObject come attributo , in particolare l'HidableObject è un pannello che si occupa di disegnare le missioni disponibili e di far si che il player possa accettarle; oppure un pannello che si occupa di far si che il player possa comprare munizioni o riparare l'arma.
+
+
+
 #### 2.2 Mattia Senni
 **Problema**:
 La necessità di determinare quali oggetti disegnare, la loro posizione e decidere se renderli visibili o meno, in base alla posizione del giocatore all'interno del mondo simulato, ha presentato una sfida.
@@ -473,7 +480,77 @@ Ho fatto in modo che ci sia un timer adattivo in modo da gestire l'attack speed 
 Spesso può sembrare inutile o subottimale, ma può rispariare tanto tempo quando si cercano dei campi specifici o quando si cerca di risalire ad un errore.
 È molto importante però anche considerare il modo in cui i compagni di progetto concepiscono e progettano il codice, perché fare del codice comprensibile per se stessi non vuol dire sempre fare del codice comprensibile per tutti.
 
-![no UML found](./relazioniImgs/WeaponSystemDiagram.png "2.5 Diagramma UML che descrive come è stato implementato il sistema delle armi")
+```
+classDiagram
+    class WeaponFactory {
+        - WeaponFactory instance
+        - WeaponFactory()
+        + getInstance(): WeaponFactory
+        + createSword(FighterEntity owner): Weapon
+        + createBow(FighterEntity owner): Weapon
+        + createBossBow(FighterEntity owner): Weapon
+        + createBrassKnuckles(FighterEntity owner): Weapon
+    }
+
+    class Weapon {
+        
+        - WeaponType type
+        + directAttack()
+        + getDamage(): int
+        + getAttackSpeed(): double
+        + getRange(): int
+        + getSpeed(): double
+        + getHitbox(): RectBoundingBox
+        + getWeaponType(): WeaponType
+    }
+
+    class MeleeWeapon {
+        - int maxDurability
+        - int durability
+        + getMaxDurability(): int
+        + setDurability(int a): void
+        + getDurability(): int
+        + directAttack(): void
+    }
+
+    class RangedWeapon {
+        - Bullet bullet
+        - int ammo
+        + getShot(): void
+        + directAttack(): void
+        + setAmmo(int ammo): void
+        + subtractAmmo(int ammo): void
+        + addAmmo(int ammo): void
+        + howManyAmmo(): int
+        + getBullet(): Bullet
+    }
+
+    class Bullet {
+        - double travelDistance
+        - Direction attackDirection
+        + update(): void
+    }
+
+    class FighterEntity {
+        //Reference previous implementation
+    }
+
+    class WeaponType {
+        <<enumation>>
+        SWORD
+        BOW
+        BOSSBOW
+        BRASSKNUCKLES
+    }
+
+    WeaponFactory --> Weapon : creates
+    Weapon <|-- MeleeWeapon
+    Weapon <|-- RangedWeapon
+    WeaponType --> Weapon
+    MeleeWeapon ..> FighterEntity
+    RangedWeapon ..> FighterEntity
+    RangedWeapon --> Bullet : has
+```
 
 
 **Problema** : Necessità di dare un tipo diverso a stesse istanze di Weapon
