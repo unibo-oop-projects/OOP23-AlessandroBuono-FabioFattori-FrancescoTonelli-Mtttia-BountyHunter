@@ -482,9 +482,10 @@ Di queste classi si testano :
 
 #### 2.1 Fabio Fattori Sviluppo
 
-- Utilizzo di Stream:
+**Utilizzo di Stream e Lambda expressions**: 
     Usate in tutto il progetto per filtrare e mappare liste di GameObject o di Quest. Quello riportato è un singolo esempio presente nella classe GameEngine.
     Permalink: 
+
 
 #### 2.2 Mattia Senni Sviluppo
 
