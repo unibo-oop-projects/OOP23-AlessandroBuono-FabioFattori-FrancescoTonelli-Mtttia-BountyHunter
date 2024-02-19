@@ -811,3 +811,10 @@ ERROR 404 - CONTENT NOT FOUND - err.220774
 # missioni nel Hub
 
 - per accettare una missione bisogna cliccare su di essa con il mouse dopo averla aperta nell'hub
+
+# Dinamiche di gioco
+
+- lo scopo del gioco è uccidere più nemici possibili ed il boss
+- il boss è segnalato da un pallino viola sulla mappa, inseguilo per ucciderlo
+- una volta ucciso il boss, si rigenererà con il doppio della potenza
+- il giocoo andrà avanti all'infito con il boss che di volta in volta si rigenererà
