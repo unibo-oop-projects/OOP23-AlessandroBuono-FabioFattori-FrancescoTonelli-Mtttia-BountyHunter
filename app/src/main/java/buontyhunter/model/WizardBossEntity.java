@@ -41,7 +41,7 @@ public class WizardBossEntity extends FighterEntity {
     /**
      * is true if the boss can attack the player (JUST FOR DEBUG PURPOSES)
      */
-    private final boolean attackPlayer = true;
+    private final boolean attackPlayer = false;
     public static final EnemyType enemyType = EnemyType.WIZARD;
 
     /**
