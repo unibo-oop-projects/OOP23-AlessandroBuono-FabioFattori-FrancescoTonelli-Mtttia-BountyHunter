@@ -7,12 +7,8 @@
  */
 
 plugins {
-    java
     // Apply the application plugin to add support for building a CLI application in Java.
     application
-
-    id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("org.danilopianini.gradle-java-qa") version "0.40.0"
 }
 
 repositories {
@@ -23,21 +19,24 @@ repositories {
 
 dependencies {
     // Use JUnit Jupiter for testing.
-    val jUnitVersion = "5.10.1"
-    testImplementation("org.junit.jupiter:junit-jupiter:$jUnitVersion")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.1-jre")
 }
 
+application {
+    // Define the main class for the application.
+    mainClass.set("buontyhunter.App")
+}
 
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
 
-application {
-    // Define the main class for the application.
-    mainClass.set("buontyhunter.App")
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "buontyhunter.App"
+    }
 }
