@@ -1,5 +1,6 @@
 .gradle
 **/build/
+**/bin/
 !src/**/build/
 
 # Ignore Gradle GUI config
@@ -22,3 +23,7 @@ gradle-app.setting
 
 # Ignore Gradle build output directory
 build
+bin
+
+# Ignore .DS_Store file
+.DS_Store

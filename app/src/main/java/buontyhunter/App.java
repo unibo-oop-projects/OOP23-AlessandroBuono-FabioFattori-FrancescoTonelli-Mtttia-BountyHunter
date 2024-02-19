@@ -3,12 +3,14 @@
  */
 package buontyhunter;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import buontyhunter.core.GameEngine;
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+public class App {
+
+    public static void main(String[] args) throws InterruptedException {
+        while (true) {
+            GameEngine engine = new GameEngine();
+            engine.initGame();
+        }
     }
 }
