@@ -707,6 +707,12 @@ Quindi ero la figura nel gruppo a cui tutti si rivolgevano per chiedere chiarime
 La vera difficoltà è stata realizzare la Camera , più precisamente far si che la camera seguisse il player , perchè la telecamera doveva seguire il player ma non doveva uscire dai bordi del mondo , quindi ho dovuto fare un sistema di traslazione della camera che mi permettesse di seguire il player ma che non mi facesse uscire dai bordi del mondo, infatti la parte della camera che gestisce questa cosa è abbastanza illeggibile da una persona che non ha scritto quella parte; quindi in futuro vorrei rifare la parte della camera per renderla più leggibile e più efficiente.
 
 #### 2.2 Mattia Senni Autovalutazione
+  
+La mia contribuzione a questo progetto si è manifestata soprattutto nella fase iniziale, dove ho partecipato attivamente la progettazione dell'intera applicazione. La definizione accurata dei design pattern e l'organizzazione gerarchica attraverso l'utilizzo di package hanno svolto un ruolo molto importante. La separazione logica dei metodi è stata studiata per rispettare il pattern scelto, garantendo un'impostazione solida per l'architettura complessiva, compreso il modello e il pattern utilizzati.
+La mia influenza è stata evidente nel design dell'Intelligenza Artificiale, in particolare nel ricorso alle star pathfinder e nella gestione complessa dei nemici. La decisione di utilizzare le probabilità per la generazione di nemici e attacchi ha conferito al gioco un elemento di imprevedibilità, arricchendo l'esperienza di gioco complessiva.
+In particolare, l'implementazione della logica di spawn dei nemici e il comportamento sfidante del boss, che si rigenera più forte ad ogni incontro, hanno reso il gioco più competitivo e divertente. La buona impostazione del progetto iniziale ha facilitato la creazione delle strutture complesse e non utilizzate all'interno del progetto, dimostrando una secondo me buona gestione progettuale.
+
+Per un futuro spingerei per l'implementazione di più boss diversi, creerei diversi tipi di armi anche acquisibili durante il gioco, aggiungerei dei mini giochi per guadagnare i dobloni, ed implementerei un meccanismo di combattimenti in multi player
 
 #### 2.3 Francesco Tonelli Autovalutazione
 
