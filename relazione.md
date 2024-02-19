@@ -530,10 +530,47 @@ Ho fatto in modo che ci sia un timer adattivo in modo da gestire l'attack speed 
 
 **Pattern usato** : ECS (Entity Component System)
 
+```
+classDiagram
+    class PlayerInputController {
+        - double timer
+        - double isAttacking
+        -
+        + update(GameObject player, InputController c, World w): void
+        + instanceAttack(PlayerEntity player, int x, int y): void
+        + setTimer(GameObject player): void
+        + setDirection(GameObject player, Direction direction ): void
+    }
+
+    class InputController {
+        //There is a method for each KeyPressed
+        + isKeyPressed(): boolean
+        
+        + anyKeyIsPressedSinceStart(): boolean
+    }
+
+    class WeaponDamagingArea {
+        // Reference previous implementation
+    }
+
+    class GameObject {
+        // Reference previous implementation
+    }
+
+    class PlayerEntity {
+        //Reference previous implementation
+    }
+
+    PlayerInputController -->GameObject 
+    PlayerInputController -->InputController 
+    PlayerInputController -->PlayerEntity 
+    PlayerEntity -->WeaponDamagingArea
+```
+
 
 **Problema** : Gestione delle hitbox degli attacchi
 
-**Soluzione** : Impostata come un "HideableObject" in modo da poterne controllare lo stato ed in caso di necessità disattivarlo e poterne cambiarne direzione e dimensione comodamente, questi Object possono interagire con le BBox dei nemici per generare degli eventi alla sovrapposizione, dando effettivamente vita a questo gioco
+**Soluzione** : Risolto impostatando le hitbox come un "HideableObject" in modo da poterne controllare lo stato ed in caso di necessità disattivarlo e poterne cambiarne direzione e dimensione comodamente, questi Object possono interagire con le BBox dei nemici per generare degli eventi alla sovrapposizione, dando effettivamente vita a questo gioco.
 
 
 **Problema** : Implementazione delle Armi
@@ -597,6 +634,7 @@ classDiagram
         //Reference previous implementation
     }
 
+
     class WeaponType {
         <<enumation>>
         SWORD
@@ -605,6 +643,18 @@ classDiagram
         BRASSKNUCKLES
     }
 
+
+    class WeaponDamagingArea {
+        - DamagingArea hitbox
+        - Vector2D direction
+    }
+
+    class HidableObject{
+        boolean show
+    }
+
+    WeaponDamagingArea --> HidableObject
+    WeaponDamagingArea <--> Weapon
     WeaponFactory --> Weapon : creates
     Weapon <|-- MeleeWeapon
     Weapon <|-- RangedWeapon
@@ -613,7 +663,6 @@ classDiagram
     RangedWeapon ..> FighterEntity
     RangedWeapon --> Bullet : has
 ```
-
 
 **Problema** : Necessità di dare un tipo diverso a stesse istanze di Weapon
 
@@ -680,6 +729,9 @@ Ho utilizzato le lambda ogni volta che necessitavo di scrivere metodi corti all'
 
 **Utilizzo di Java Platform Model System**:
 Ho utilizzato le il JPMS per mantere ordine all'interno del progetto e per dare una struttura ad albero bel definita all'interno del progetto ad esempio con il package AI contenuto dentro il package model che al suo interno contiene tutte le classi utilizzate per gestire attacchi, spawn path finding degli oggetti automatizzati come i nemici
+
+**A star path finder**:
+per l'implementazione del l'A* path finder è stato utilizzato un utilizzato un algoritmo di partenza sviluppato tramite il LLM ChatGPT v.3.5, l'algoritmo fornito non era inizialmente corretto ed è stato necessario adattare le strutture dati utilizzate da ChatGPT con le strutture dati utilizzate all'interno dell'applicazione
 
 #### 2.3 Francesco Tonelli Sviluppo
 
