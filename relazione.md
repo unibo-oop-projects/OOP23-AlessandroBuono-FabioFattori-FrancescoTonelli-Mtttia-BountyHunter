@@ -50,7 +50,6 @@
         - [Mattia Senni](#22-mattia-senni-autovalutazione)
         - [Francesco Tonelli](#23-francesco-tonelli-autovalutazione)
         - [Alessandro Buono](#24-alessandro-buono-autovalutazione)
-    - [2. Difficoltà Incontrate e Commenti per i Docenti ](#2-difficoltà-incontrate-e-commenti-per-i-docenti)
 - [Guida Utente ](#guida-utente)
 
 # Analisi
@@ -157,7 +156,7 @@ La SwingScene si occupa di disegnare l'HidableObject e di farlo apparire e scomp
 **Soluzione** : Ho deciso di creare una classe chiamata FighterEntity che estende GameObject , in particolare questa classe ha un attributo di tipo Weapon , in questo modo posso rendere possibile che un GameObject possa eseguire degli attacchi. Inoltre FigherEntity ha un attributo di tipo FighterEntityType che mi permette di distinguere i nemici dal player , in particolare il player ha un FighterEntityType di tipo PLAYER mentre i nemici hanno un FighterEntityType di tipo ENEMY, grazie a questo campo i nemici non possono fare danno ad altri nemici ma solo al player e viceversa.
 Quindi i FighterEntity hanno anche una vita , una vita massima (questo permette anche al player di recuperare vita), ed una damaging area (vedi parte di Alessandro Buono).
 
-![no UML found](./relazioniImgs/HidableObject.png "2.6 InteractableArea e interazione con esse")
+![no UML found](./relazioniImgs/fighter.png "2.6 FighterEntity ")
 
 #### 2.2 Mattia Senni
 **Problema**:
@@ -659,7 +658,11 @@ Di queste classi si testano :
 
 #### 2.1 Fabio Fattori Sviluppo
 
-**Utilizzo di Stream e Lambda expressions**: 
+**Utilizzo di Stream**: 
+    Usate in tutto il progetto gestire liste di GameObject. Quello riportato è un singolo esempio presente nella classe GameEngine.
+    Permalink: 
+
+**Utilizzo di Lambda Expressions**: 
     Usate in tutto il progetto per filtrare e mappare liste di GameObject o di Quest. Quello riportato è un singolo esempio presente nella classe GameEngine.
     Permalink: 
 
@@ -715,8 +718,6 @@ Le difficoltà più grandi che ho dovuto affrontare sono state sicuramente la sc
 È stata una grande sfida lavorare ad un progetto con altre persone, le corse critiche sono sempre molto difficili da risolvere.
 ERROR 404 - CONTENT NOT FOUND - err.220774
 
-### 2. Difficoltà Incontrate e Commenti per i Docenti 
-
 
 # Guida Utente 
 
@@ -744,3 +745,7 @@ ERROR 404 - CONTENT NOT FOUND - err.220774
     - per equipaggiare un'arma bisogna cliccare su di essa con il mouse
     - per riparare l'arma equipaggiata bisogna cliccare sull'icona del martello , le armi riparabili sono quelle che hanno la barra della durabilità non piena , quindi le spade
     - per comprare le munizioni dell'arco bisogna cliccare sull'icona della freccia con l'arco equipaggiato
+
+# missioni nel Hub
+
+- per accettare una missione bisogna cliccare su di essa con il mouse dopo averla aperta nell'hub
