@@ -105,13 +105,14 @@ public class GameEngine implements WorldEventListener {
             // check if the world has a minimap (the hub doesn't have a minimap)
             if (gameState.getWorld().getMiniMap() != null) {
                 // if the map is not showing, the player can move
-                if (!gameState.getWorld().getMiniMap().isShow()) {
+                if (!gameState.getWorld().getMiniMap().isShow() && !gameState.getWorld().getInventory().isShow()
+                        && !gameState.getWorld().getQuestJournal().isShow()){
                     gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
 
                 }
 
                 gameState.getWorld().getMiniMap().updateInput(controller, gameState.getWorld());
-            } else {
+            } else  if(!gameState.getWorld().getInventory().isShow() && !gameState.getWorld().getQuestJournal().isShow()){
                 gameState.getWorld().getPlayer().updateInput(controller, gameState.getWorld());
 
             }
