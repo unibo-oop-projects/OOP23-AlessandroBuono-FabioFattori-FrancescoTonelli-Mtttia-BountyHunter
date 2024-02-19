@@ -720,15 +720,15 @@ Di queste classi si testano :
 
 **Utilizzo di Optional**:
 Ho utilizzato gli optional in molti metodi che ritornavo oggetti solo se alcune condizioni sono verificate, o in metodi che ritornavo oggetti solo se presente ad esempio a seguente link
-Permalink: https://github.com/progetto-oop/OOP23-BountyHunter/blob/831f2192e7ad73f8dbac568b330b5c64c9e67cad/app/src/main/java/buontyhunter/model/AI/enemySpawner/EnemySpawner.java riga 30
+Permalink: https://github.com/progetto-oop/OOP23-BountyHunter/blob/a7a970a2e5fcd5f858df5729799850551ad06a45/app/src/main/java/buontyhunter/model/AI/enemySpawner/EnemySpawner.java riga 30
 
 **Utilizzo di Stream**:
 Ho utilizzato gli stream tutte le volte che avevo bisogno di fare operazioni su una lista, quali scorrimento, filtri o mappatura.
-Permalink: https://github.com/progetto-oop/OOP23-BountyHunter/blob/831f2192e7ad73f8dbac568b330b5c64c9e67cad/app/src/main/java/buontyhunter/model/AI/enemySpawner/EnemySpawnerFixed.java riga 23
+Permalink: https://github.com/progetto-oop/OOP23-BountyHunter/blob/a31c0e28bb68a755a9a6f8cf3fb258106d845c3b/app/src/main/java/buontyhunter/model/AI/enemySpawner/EnemySpawnerFixed.java riga 26
 
 **Utilizzo di Lambda**:
 Ho utilizzato le lambda ogni volta che necessitavo di scrivere metodi corti all'intero di filtri o mappature degli stream
-Permalink: https://github.com/progetto-oop/OOP23-BountyHunter/blob/831f2192e7ad73f8dbac568b330b5c64c9e67cad/app/src/main/java/buontyhunter/model/AI/enemySpawner/EnemySpawnerFixed.java riga 30
+Permalink: https://github.com/progetto-oop/OOP23-BountyHunter/blob/a31c0e28bb68a755a9a6f8cf3fb258106d845c3b/app/src/main/java/buontyhunter/model/AI/enemySpawner/EnemySpawnerFixed.java riga 30
 
 **Utilizzo di Java Platform Model System**:
 Ho utilizzato le il JPMS per mantere ordine all'interno del progetto e per dare una struttura ad albero bel definita all'interno del progetto ad esempio con il package AI contenuto dentro il package model che al suo interno contiene tutte le classi utilizzate per gestire attacchi, spawn path finding degli oggetti automatizzati come i nemici
