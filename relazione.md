@@ -709,11 +709,11 @@ Di queste classi si testano :
 
 **Utilizzo di Stream**: 
     Usate in tutto il progetto gestire liste di GameObject. Quello riportato è un singolo esempio presente nella classe GameEngine.
-    Permalink: https://github.com/progetto-oop/OOP23-BountyHunter/blob/75c21c3c431681794c9b95293f02a4e8c649c342/app/src/main/java/buontyhunter/graphics/SwingScene.java  riga 140
+    Permalink: (https://github.com/progetto-oop/OOP23-BountyHunter/blob/75c21c3c431681794c9b95293f02a4e8c649c342/app/src/main/java/buontyhunter/graphics/SwingScene.java#L143)
 
 **Utilizzo di Lambda Expressions**: 
     Usate in tutto il progetto per filtrare e mappare liste di GameObject o di Quest. Quello riportato è un singolo esempio presente nella classe GameEngine.
-    Permalink: https://github.com/progetto-oop/OOP23-BountyHunter/blob/75c21c3c431681794c9b95293f02a4e8c649c342/app/src/main/java/buontyhunter/graphics/SwingScene.java riga 308
+    Permalink: (https://github.com/progetto-oop/OOP23-BountyHunter/blob/75c21c3c431681794c9b95293f02a4e8c649c342/app/src/main/java/buontyhunter/graphics/SwingScene.java#L308)
 
 
 #### 2.2 Mattia Senni Sviluppo
@@ -735,10 +735,11 @@ per l'implementazione del l'A* path finder è stato utilizzato un utilizzato un 
 
 #### 2.3 Francesco Tonelli Sviluppo
 
-**Utilizzo di Stream**:
+*Utilizzo di Stream*:
     Usate per lo sviluppo del fabbro nella classe SwingScene. Permalink: 
-**Utilizzo di javax.sound.sampled** (non spiegata a lezione):
-    Usata per la riproduzione delle tracce mumsicali durante il gameplay in MusicPlayer. Permalink:
+
+*Utilizzo di javax.sound.sampled* (non spiegata a lezione):
+    Usata per la riproduzione delle tracce mumsicali durante il gameplay in MusicPlayer. Permalink: 
 
 #### 2.4 Alessandro Buono Sviluppo
 
