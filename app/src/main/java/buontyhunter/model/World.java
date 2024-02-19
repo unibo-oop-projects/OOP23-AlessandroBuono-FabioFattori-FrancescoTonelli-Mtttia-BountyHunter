@@ -7,7 +7,6 @@ import java.util.Optional;
 import buontyhunter.common.Point2d;
 import buontyhunter.core.GameFactory;
 import buontyhunter.core.WinnerType;
-import buontyhunter.input.KeyboardInputController;
 import buontyhunter.model.AI.enemySpawner.EnemyConfiguration;
 import buontyhunter.model.AI.enemySpawner.EnemyRegistry;
 import buontyhunter.model.AI.enemySpawner.EnemyRegistryImpl;

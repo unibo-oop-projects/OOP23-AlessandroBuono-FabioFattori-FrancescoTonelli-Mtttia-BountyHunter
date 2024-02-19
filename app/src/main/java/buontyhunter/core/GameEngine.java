@@ -10,7 +10,6 @@ import buontyhunter.graphics.*;
 import buontyhunter.input.*;
 import buontyhunter.model.*;
 import buontyhunter.model.event.ChangeWorldEvent;
-import buontyhunter.model.event.GameOverEvent;
 import buontyhunter.weaponClasses.RangedWeapon;
 
 public class GameEngine implements WorldEventListener {
@@ -154,10 +153,7 @@ public class GameEngine implements WorldEventListener {
                 } else {
                     this.view.setIsHub(false);
                 }
-            } else if (ev instanceof GameOverEvent) {
-                var winner = ((GameOverEvent) ev).getWinner();
-
-            } else if (ev instanceof KilledEnemyEvent) {
+            }  else if (ev instanceof KilledEnemyEvent) {
                 ((PlayerEntity) gameState.getWorld().getPlayer()).getQuests().stream()
                         .filter(quest -> quest.getTarget().equals(((KilledEnemyEvent) ev).getKilledType()))
                         .forEach(quest -> quest.incrementTargetActuallyKilled());
