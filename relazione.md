@@ -736,9 +736,10 @@ per l'implementazione del l'A* path finder è stato utilizzato un utilizzato un 
 #### 2.3 Francesco Tonelli Sviluppo
 
 **Utilizzo di Stream**:
-    Usate per lo sviluppo del fabbro nella classe SwingScene. Permalink: 
+    Usate per lo sviluppo del fabbro nella classe SwingScene. Permalink: https://github.com/progetto-oop/OOP23-BountyHunter/blob/75c21c3c431681794c9b95293f02a4e8c649c342/app/src/main/java/buontyhunter/graphics/SwingScene.java#L153C4-L153C11
+
 **Utilizzo di javax.sound.sampled** (non spiegata a lezione):
-    Usata per la riproduzione delle tracce mumsicali durante il gameplay in MusicPlayer. Permalink:
+    Usata per la riproduzione delle tracce mumsicali durante il gameplay in MusicPlayer. Permalink: https://github.com/progetto-oop/OOP23-BountyHunter/blob/75c21c3c431681794c9b95293f02a4e8c649c342/app/src/main/java/buontyhunter/model/MusicPlayerImpl.java#L16
 
 #### 2.4 Alessandro Buono Sviluppo
 
