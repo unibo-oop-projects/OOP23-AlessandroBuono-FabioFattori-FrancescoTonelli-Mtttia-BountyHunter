@@ -709,11 +709,11 @@ Di queste classi si testano :
 
 **Utilizzo di Stream**: 
     Usate in tutto il progetto gestire liste di GameObject. Quello riportato è un singolo esempio presente nella classe GameEngine.
-    Permalink: 
+    Permalink: https://github.com/progetto-oop/OOP23-BountyHunter/blob/75c21c3c431681794c9b95293f02a4e8c649c342/app/src/main/java/buontyhunter/graphics/SwingScene.java  riga 140
 
 **Utilizzo di Lambda Expressions**: 
     Usate in tutto il progetto per filtrare e mappare liste di GameObject o di Quest. Quello riportato è un singolo esempio presente nella classe GameEngine.
-    Permalink: 
+    Permalink: https://github.com/progetto-oop/OOP23-BountyHunter/blob/75c21c3c431681794c9b95293f02a4e8c649c342/app/src/main/java/buontyhunter/graphics/SwingScene.java riga 308
 
 
 #### 2.2 Mattia Senni Sviluppo
